@@ -30,12 +30,12 @@ export const CommentsSettings: React.FC = () => {
     tap();
     setPreference(path, value);
 
-    // If it's the Ti-Guy toggle, sync to database
+    // If it's the Güey toggle, sync to database
     if (path === "comments.tiGuyCommentsEnabled") {
       try {
         await updateProfile({ tiGuyCommentsEnabled: value });
       } catch (error) {
-        console.error("Failed to sync Ti-Guy preference:", error);
+        console.error("Failed to sync Güey preference:", error);
       }
     }
 
@@ -188,16 +188,16 @@ export const CommentsSettings: React.FC = () => {
                 </button>
               </div>
             </div>
-            {/* Ti-Guy Toggle */}
+            {/* Güey Toggle */}
             <div className="leather-card rounded-xl p-4 stitched border-gold-500/20">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <h3 className="text-gold-400 font-semibold mb-1 flex items-center gap-2">
                     <span>🦫</span>
-                    <span>Commentaires de Ti-Guy</span>
+                    <span>Commentaires de Güey</span>
                   </h3>
                   <p className="text-leather-300 text-sm">
-                    Activer les interventions amicales de Ti-Guy sur tes posts
+                    Activer les interventions amicales de Güey sur tes posts
                   </p>
                 </div>
                 <button

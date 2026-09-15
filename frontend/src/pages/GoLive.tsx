@@ -27,7 +27,7 @@ import { logger } from "@/lib/logger";
 const liveLogger = logger.withContext("GoLive");
 
 const API_BASE =
-  import.meta.env.VITE_API_URL || "https://zyeutev5-1.onrender.com";
+  import.meta.env.VITE_API_URL || "https://ojea-api.onrender.com";
 
 interface LiveStreamInfo {
   streamId: string;
@@ -55,7 +55,7 @@ const FILTERS: LiveFilter[] = [
   "vintage",
   "bw",
   "blur",
-  "quebec",
+  "mexico",
 ];
 
 type GoLiveStep = "setup" | "live" | "ended";

@@ -6,7 +6,7 @@
  * - Semantic text search (understands meaning, not just keywords)
  * - Visual search (search by uploading an image)
  * - Similar content finder ("more like this")
- * - Quebec-aware relevance scoring
+ * - Mexico-aware relevance scoring
  */
 
 import { logger } from "../utils/logger.js";
@@ -46,13 +46,13 @@ export interface SearchOptions {
     location?: string;
     vibe?: string;
     dateRange?: "day" | "week" | "month" | "all";
-    language?: "fr" | "en" | "joual";
+    language?: "fr" | "en" | "mexicano";
   };
 }
 
 /**
  * Smart text search using GenAI App Builder
- * Understands Quebec context, Joual, semantic meaning
+ * Understands Mexico context, Mexicano, semantic meaning
  */
 export async function searchByText(
   query: string,
@@ -185,17 +185,17 @@ export async function getForYouFeed(
 
 async function enhanceSearchQuery(query: string): Promise<any> {
   // Use GenAI to understand search intent
-  // This expands "poutine" to "poutine, food, Montreal, Quebec, cuisine"
+  // This expands "poutine" to "poutine, food, CDMX, Mexico, cuisine"
 
-  const quebecExpansions: Record<string, string[]> = {
-    poutine: ["poutine", "food", "Quebec cuisine", "frites", "sauce"],
+  const mexicoExpansions: Record<string, string[]> = {
+    poutine: ["poutine", "food", "Mexico cuisine", "frites", "sauce"],
     hockey: ["hockey", "NHL", "Canadiens", "sports", "glace"],
     festival: ["festival", "Just for Laughs", "Jazz", "OSHEAGA", "event"],
     hiver: ["winter", "neige", "ski", "snow", "cold", "froid"],
     été: ["summer", "été", "beach", "plage", "chaleur"],
-    montreal: ["Montreal", "MTL", "Plateau", " Mile End", "downtown"],
-    quebec: ["Quebec", "Québec", "province", "français"],
-    joual: ["joual", "slang", "Quebec French", "expression"],
+    cdmx: ["CDMX", "MTL", "Plateau", " Mile End", "downtown"],
+    mexico: ["Mexico", "México", "province", "français"],
+    mexicano: ["mexicano", "slang", "Mexico French", "expression"],
     chill: ["chill", "relax", "calme", "nature", "peaceful"],
     party: ["party", "fête", "nightlife", "soirée", "club"],
   };
@@ -203,8 +203,8 @@ async function enhanceSearchQuery(query: string): Promise<any> {
   const lowerQuery = query.toLowerCase();
   const expansions: string[] = [query];
 
-  // Add Quebec-specific expansions
-  for (const [key, values] of Object.entries(quebecExpansions)) {
+  // Add Mexico-specific expansions
+  for (const [key, values] of Object.entries(mexicoExpansions)) {
     if (lowerQuery.includes(key)) {
       expansions.push(...values);
     }
@@ -229,8 +229,8 @@ async function enhanceSearchQuery(query: string): Promise<any> {
   };
 }
 
-function detectLanguage(text: string): "fr" | "en" | "joual" {
-  const joualWords = [
+function detectLanguage(text: string): "fr" | "en" | "mexicano" {
+  const mexicanoWords = [
     "tabarnouche",
     "câlisse",
     "osti",
@@ -242,7 +242,7 @@ function detectLanguage(text: string): "fr" | "en" | "joual" {
   ];
   const lower = text.toLowerCase();
 
-  if (joualWords.some((w) => lower.includes(w))) return "joual";
+  if (mexicanoWords.some((w) => lower.includes(w))) return "mexicano";
   if (/[àâäæçéèêëîïôœùûüÿ]/i.test(text)) return "fr";
   return "en";
 }
@@ -348,7 +348,7 @@ async function rankByRelevance(
 
       // Boost for language match
       if (
-        enhancedQuery.language === "joual" &&
+        enhancedQuery.language === "mexicano" &&
         text.match(/tabarn|calisse|osti|ben/g)
       ) {
         score += 0.2;

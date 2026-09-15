@@ -178,18 +178,18 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.fleur-de-lys {
+.aguila {
   font-size: 20px;
   filter: none;
   transition: all 0.3s ease;
 }
 
-.fleur-de-lys.low {
+.aguila.low {
   filter: none;
   animation: pulse-amber 2s ease-in-out infinite;
 }
 
-.fleur-de-lys.critical {
+.aguila.critical {
   filter: none;
   animation: shake-red 0.5s ease-in-out;
 }

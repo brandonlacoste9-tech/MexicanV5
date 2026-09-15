@@ -1,7 +1,7 @@
 /**
  * 🐝 HIVE-SYNC-SERVICE
  * Centralise les événements provenant de la Ruche (Q-emplois, AdGenXAI, etc.)
- * via n8n et les distribue aux citoyens sur Zyeuté.
+ * via n8n et les distribue aux citoyens sur Ojea.
  */
 
 import { storage } from "../storage.js";
@@ -14,13 +14,13 @@ const getTIGuyModel = () => {
 };
 
 export interface HiveEvent {
-  source: "zyeute" | "q-emplois" | "adgenxai";
+  source: "ojea" | "q-emplois" | "adgenxai";
   targetUserId: string;
   eventType: "achievement" | "notification" | "alert";
   payload: {
     title: string;
     message: string;
-    priority: "low" | "normal" | "high"; // high = Vocal Ti-Guy + Visuel
+    priority: "low" | "normal" | "high"; // high = Vocal Güey + Visuel
     metadata?: any;
   };
   timestamp: string;
@@ -67,7 +67,7 @@ export class HiveSyncService {
 
       let processedMessage = event.payload.message;
 
-      // 1.5 Réflexion Intelligente (Joualizer) si priorité haute 🧠
+      // 1.5 Réflexion Intelligente (Mexicanoizer) si priorité haute 🧠
       if (event.payload.priority === "high") {
         try {
           const { text } = await generateText({
@@ -75,7 +75,7 @@ export class HiveSyncService {
             system:
               TIGUY_SYSTEM_PROMPT +
               `\n
-              RÔLE CRITIQUE: Tu dois réécrire le message de notification pour qu'il soit par-fait pour la synthèse vocale québécoise.
+              RÔLE CRITIQUE: Tu dois réécrire le message de notification pour qu'il soit par-fait pour la synthèse vocale mexicana.
               RÈGLES DE PHONÉTIQUE:
               - Remplace "piastres" par "piasses".
               - Utilise des contractions naturelles (ex: "d'déneiger", "t'as", "c'est").
@@ -85,11 +85,11 @@ export class HiveSyncService {
           });
           processedMessage = text;
           console.log(
-            `🤖 [Joualizer] Message original: ${event.payload.message}`,
+            `🤖 [Mexicanoizer] Message original: ${event.payload.message}`,
           );
-          console.log(`🤖 [Joualizer] Message optimisé: ${processedMessage}`);
+          console.log(`🤖 [Mexicanoizer] Message optimisé: ${processedMessage}`);
         } catch (err) {
-          console.error("❌ Erreur Joualizer:", err);
+          console.error("❌ Erreur Mexicanoizer:", err);
           // On garde le message original si l'AI flanche
         }
       }
@@ -101,16 +101,16 @@ export class HiveSyncService {
           ...event,
           payload: {
             ...event.payload,
-            message: processedMessage, // On envoie le message "joualisé" pour le TTS
+            message: processedMessage, // On envoie le message "mexicanoisé" pour le TTS
           },
         });
       }
 
-      // 3. Logique spécifique Ti-Guy pour les événements High Priority (Vocal)
+      // 3. Logique spécifique Güey pour les événements High Priority (Vocal)
       if (event.payload.priority === "high") {
         // Note: Le frontend recevra l'event et pourra déclencher le TTS via /api/tiguy/voice
-        // ou Ti-Guy pourra "interrompre" pour annoncer la nouvelle.
-        console.log(`📢 [HiveSync] Priorité HAUTE : Ti-Guy doit jaser.`);
+        // ou Güey pourra "interrompre" pour annoncer la nouvelle.
+        console.log(`📢 [HiveSync] Priorité HAUTE : Güey doit jaser.`);
       }
 
       return { success: true, notificationId: notification.id };

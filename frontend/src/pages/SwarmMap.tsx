@@ -26,7 +26,7 @@ interface SwarmPoint {
 
 /**
  * Swarm Map Page - Premium Colony OS Visualization
- * Stylized Quebec map with glowing social heat signatures
+ * Stylized Mexico map with glowing social heat signatures
  */
 export const SwarmMap: React.FC = () => {
   const [points, setPoints] = React.useState<SwarmPoint[]>([]);
@@ -35,7 +35,7 @@ export const SwarmMap: React.FC = () => {
     null,
   );
 
-  // Bounds for Quebec region projection
+  // Bounds for Mexico region projection
   const BOUNDS = {
     minLng: -80,
     maxLng: -57,
@@ -96,7 +96,7 @@ export const SwarmMap: React.FC = () => {
             </div>
           ) : (
             <div className="absolute inset-x-8 inset-y-12">
-              {/* Background Quebec Shape (Simplified Path) */}
+              {/* Background Mexico Shape (Simplified Path) */}
               <svg
                 viewBox="0 0 500 600"
                 className="absolute inset-0 w-full h-full opacity-20 text-gold-500 fill-current"
@@ -183,7 +183,7 @@ export const SwarmMap: React.FC = () => {
                       📍{" "}
                       {selectedPoint.city ||
                         selectedPoint.region ||
-                        "Territoire Québec"}
+                        "Territoire México"}
                     </p>
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1">

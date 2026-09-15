@@ -1,6 +1,6 @@
 /**
- * Logo Component — Zyeuté gold flame-eye with wordmark
- * Matches the App Store icon: dark background, gold flame eye, ZYEUTE wordmark
+ * Logo Component — Ojea gold flame-eye with wordmark
+ * Matches the App Store icon: dark background, gold flame eye, OJEA wordmark
  */
 
 import React from "react";
@@ -137,7 +137,7 @@ export const Logo: React.FC<LogoProps> = ({
             filter: "drop-shadow(0 0 4px rgba(212,175,55,0.4))",
           }}
         >
-          Zyeuté
+          Ojea
         </span>
       )}
     </div>
@@ -177,10 +177,10 @@ export const LogoFull: React.FC<{ className?: string }> = ({ className }) => {
             backgroundClip: "text",
           }}
         >
-          Zyeuté
+          Ojea
         </h1>
         <p className="text-gold-500/70 text-xs tracking-widest uppercase mt-1">
-          L'App du Québec ⚜
+          L'App du México ⚜
         </p>
       </div>
     </div>

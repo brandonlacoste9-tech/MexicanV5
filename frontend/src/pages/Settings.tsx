@@ -1,5 +1,5 @@
 /**
- * Settings Page - Premium Quebec Heritage Design
+ * Settings Page - Premium Mexico Heritage Design
  * Instagram-style layout with beaver leather & gold aesthetic
  */
 
@@ -11,7 +11,7 @@ import { Button } from "@/components/Button";
 import { getCurrentUser, logout, apiCall } from "@/services/api";
 import { toast } from "@/components/Toast";
 import { generateId } from "@/lib/utils";
-import { QUEBEC_REGIONS } from "@/lib/quebecFeatures";
+import { MEXICO_REGIONS } from "@/lib/mexicoFeatures";
 import { useBorderColor } from "@/contexts/BorderColorContext";
 import { useTheme, PRESET_THEMES } from "@/contexts/ThemeContext";
 import { useHaptics } from "@/hooks/useHaptics";
@@ -403,13 +403,13 @@ export const Settings: React.FC = () => {
     },
   ];
 
-  const quebecSettings: SettingItem[] = [
+  const mexicoSettings: SettingItem[] = [
     {
       icon: <span className="text-2xl">⚜️</span>,
-      label: "Région du Québec",
+      label: "Région du México",
       path: "/settings/region",
       badge: user?.region
-        ? QUEBEC_REGIONS.find((r) => r.id === user.region)?.emoji
+        ? MEXICO_REGIONS.find((r) => r.id === user.region)?.emoji
         : undefined,
     },
     {
@@ -420,7 +420,7 @@ export const Settings: React.FC = () => {
     },
     {
       icon: <span className="text-2xl">🦫</span>,
-      label: "Ti-Guy Assistant",
+      label: "Güey Assistant",
       path: "/settings/voice",
     },
   ];
@@ -983,14 +983,14 @@ export const Settings: React.FC = () => {
           </div>
         </div>
 
-        {/* Quebec Heritage Section */}
+        {/* Mexico Heritage Section */}
         <div className="mb-6">
           <h2 className="text-gold-500 text-xs font-bold uppercase tracking-wider mb-3 px-4 flex items-center gap-2">
             <span>🇨🇦</span>
-            <span>Québec</span>
+            <span>México</span>
           </h2>
           <div className="leather-card rounded-2xl overflow-hidden stitched">
-            {filterSettings(quebecSettings).map((item, index) => (
+            {filterSettings(mexicoSettings).map((item, index) => (
               <button
                 key={index}
                 onClick={() => handleSettingClick(item)}
@@ -1088,11 +1088,11 @@ export const Settings: React.FC = () => {
         <div className="text-center text-leather-400 text-sm space-y-1">
           <p className="flex items-center justify-center gap-2">
             <span className="text-gold-500">⚜️</span>
-            <span>Zyeuté v5.0</span>
+            <span>Ojea v5.0</span>
           </p>
-          <p>Fait avec fierté québécoise 🇨🇦</p>
+          <p>Fait avec fierté mexicana 🇨🇦</p>
           <p className="text-xs text-leather-500">
-            Fait au Québec avec fierté 🦫⚜️
+            Fait au México avec fierté 🦫⚜️
           </p>
         </div>
 
@@ -1122,17 +1122,17 @@ export const Settings: React.FC = () => {
           </div>
           <p className="text-xs text-leather-500">
             <a
-              href="mailto:zyeutequebec@gmail.com"
+              href="mailto:ojeamexico@gmail.com"
               className="hover:text-gold-400 transition-colors"
             >
-              zyeutequebec@gmail.com
+              ojeamexico@gmail.com
             </a>
           </p>
           <p className="text-xs text-leather-600">
-            © {new Date().getFullYear()} Zyeuté™. Tous droits réservés.
+            © {new Date().getFullYear()} Ojea™. Tous droits réservés.
           </p>
           <p className="text-xs text-leather-700 leading-relaxed px-4">
-            Zyeuté™ est une marque de commerce. Zyeuté n&apos;est pas
+            Ojea™ est une marque de commerce. Ojea n&apos;est pas
             responsable du contenu publié par les utilisateurs. En utilisant
             cette application, vous acceptez nos conditions d&apos;utilisation
             et notre politique de confidentialité.

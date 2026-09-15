@@ -1,6 +1,6 @@
 /**
- * Login Page - Luxury Quebec Heritage Design
- * Beaver leather texture with gold fleur-de-lys
+ * Login Page - Luxury Mexico Heritage Design
+ * Beaver leather texture with gold aguila
  * Includes Guest Access "Backdoor"
  * FIXED: Added proper error handling, debugging, and event binding
  */
@@ -28,7 +28,7 @@ export const Login: React.FC = () => {
   useSEO({
     title: "Connexion",
     description:
-      "Connecte-toi à Zyeute — l'app vidéo du Québec. Courriel, Google ou mode invité.",
+      "Connecte-toi à Ojea — l'app vidéo du México. Courriel, Google ou mode invité.",
     url: "/login",
   });
 
@@ -249,7 +249,7 @@ export const Login: React.FC = () => {
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        {/* Glowing Fleur-de-lys Logo */}
+        {/* Glowing Águila Logo */}
         <div className="text-center mb-10 overflow-visible">
           <div className="relative inline-block overflow-visible">
             <div
@@ -587,7 +587,7 @@ export const Login: React.FC = () => {
         {identity.name} &copy; {new Date().getFullYear()} - {identity.region}
       </p>
 
-      {/* OVH Cloud Montréal Badge */}
+      {/* OVH Cloud Ciudad de México Badge */}
       <OVHCloudFooter />
     </div>
   );

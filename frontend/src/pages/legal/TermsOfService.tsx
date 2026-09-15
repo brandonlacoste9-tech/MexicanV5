@@ -1,6 +1,6 @@
 /**
- * Terms of Service - Legal agreement for Zyeuté
- * Quebec Law compliant
+ * Terms of Service - Legal agreement for Ojea
+ * Mexico Law compliant
  */
 
 import React from "react";
@@ -12,7 +12,7 @@ export const TermsOfService: React.FC = () => {
   useSEO({
     title: "Conditions d'utilisation",
     description:
-      "Conditions d'utilisation de Zyeute — plateforme vidéo québécoise. Conformité au droit du Québec.",
+      "Conditions d'utilisation de Ojea — plateforme vidéo mexicana. Conformité au droit du México.",
     url: "/terms",
   });
 
@@ -39,7 +39,7 @@ export const TermsOfService: React.FC = () => {
               1. Acceptation des Conditions
             </h2>
             <p className="text-white/80 leading-relaxed mb-4">
-              En accédant et en utilisant Zyeuté
+              En accédant et en utilisant Ojea
               (&quot;l&apos;Application&quot;, &quot;le Service&quot;,
               &quot;nous&quot;, &quot;notre&quot;), vous acceptez d&apos;être
               lié par ces Conditions d&apos;Utilisation. Si vous n&apos;acceptez
@@ -47,7 +47,7 @@ export const TermsOfService: React.FC = () => {
             </p>
             <p className="text-white/80 leading-relaxed">
               Ces conditions constituent un accord juridiquement contraignant
-              entre vous et Zyeuté Inc., une société enregistrée au Québec,
+              entre vous et Ojea Inc., une société enregistrée au México,
               Canada.
             </p>
           </section>
@@ -59,7 +59,7 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <div className="bg-white/5 rounded-xl p-6">
               <p className="text-white/80 leading-relaxed mb-4">
-                Pour utiliser Zyeuté, vous devez:
+                Pour utiliser Ojea, vous devez:
               </p>
               <ul className="space-y-2 text-white/70">
                 <li>
@@ -73,7 +73,7 @@ export const TermsOfService: React.FC = () => {
                   fonctionnalités d&apos;achat
                 </li>
                 <li>✅ Ne pas être banni de l&apos;Application</li>
-                <li>✅ Respecter les lois canadiennes et québécoises</li>
+                <li>✅ Respecter les lois canadiennes et mexicanas</li>
                 <li>
                   ✅ Fournir des informations exactes lors de l&apos;inscription
                 </li>
@@ -142,11 +142,11 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <p className="text-white/80 leading-relaxed mb-4">
               <strong>5.1 Vos droits:</strong> Vous conservez tous les droits
-              sur le contenu que vous publiez sur Zyeuté.
+              sur le contenu que vous publiez sur Ojea.
             </p>
             <p className="text-white/80 leading-relaxed mb-4">
               <strong>5.2 Licence accordée:</strong> En publiant du contenu,
-              vous accordez à Zyeuté une licence mondiale, non-exclusive,
+              vous accordez à Ojea une licence mondiale, non-exclusive,
               gratuite et transférable pour utiliser, reproduire, distribuer et
               afficher votre contenu dans le cadre de l&apos;exploitation de
               l&apos;Application.
@@ -160,16 +160,16 @@ export const TermsOfService: React.FC = () => {
           {/* Section 6: Intellectual Property */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-gold-400 mb-4">
-              6. Propriété Intellectuelle de Zyeuté
+              6. Propriété Intellectuelle de Ojea
             </h2>
             <p className="text-white/80 leading-relaxed mb-4">
               L&apos;Application, son design, ses fonctionnalités, et tous les
-              éléments suivants sont la propriété exclusive de Zyeuté Inc.:
+              éléments suivants sont la propriété exclusive de Ojea Inc.:
             </p>
             <div className="bg-gold-500/10 border border-gold-500/30 rounded-xl p-6">
               <ul className="space-y-2 text-white/70">
-                <li>⚜️ Logo Zyeuté® (marque déposée)</li>
-                <li>🦫 Mascotte Ti-Guy™</li>
+                <li>⚜️ Logo Ojea® (marque déposée)</li>
+                <li>🦫 Mascotte Güey™</li>
                 <li>💡 Système de &quot;Feux&quot; (Fire Rating)</li>
                 <li>🎨 Interface utilisateur et design</li>
                 <li>💻 Code source et algorithmes</li>
@@ -237,7 +237,7 @@ export const TermsOfService: React.FC = () => {
                 sorte.
               </p>
               <p className="text-white/80 leading-relaxed mb-4">
-                Zyeuté Inc. ne sera pas responsable des dommages indirects,
+                Ojea Inc. ne sera pas responsable des dommages indirects,
                 accessoires, spéciaux ou consécutifs découlant de votre
                 utilisation de l&apos;Application.
               </p>
@@ -254,12 +254,12 @@ export const TermsOfService: React.FC = () => {
             </h2>
             <p className="text-white/80 leading-relaxed mb-4">
               Ces conditions sont régies par les lois de la{" "}
-              <strong>Province de Québec</strong> et les lois fédérales du{" "}
+              <strong>Province de México</strong> et les lois fédérales du{" "}
               <strong>Canada</strong> applicables.
             </p>
             <p className="text-white/80 leading-relaxed">
               Tout litige découlant de ces conditions sera soumis à la
-              juridiction exclusive des tribunaux de Montréal, Québec.
+              juridiction exclusive des tribunaux de Ciudad de México, México.
             </p>
           </section>
 
@@ -292,34 +292,34 @@ export const TermsOfService: React.FC = () => {
               Pour toute question concernant ces conditions:
             </p>
             <div className="bg-white/5 rounded-xl p-6">
-              <p className="text-white font-semibold mb-4">Zyeuté Inc.</p>
+              <p className="text-white font-semibold mb-4">Ojea Inc.</p>
               <ul className="space-y-2 text-white/70">
-                <li>📍 Montréal, Québec, Canada</li>
+                <li>📍 Ciudad de México, México, Canada</li>
                 <li>
                   📧 Email:{" "}
                   <a
-                    href="mailto:legal@zyeute.com"
+                    href="mailto:legal@ojea-mexico.netlify.app"
                     className="text-gold-400 hover:underline"
                   >
-                    legal@zyeute.com
+                    legal@ojea-mexico.netlify.app
                   </a>
                 </li>
                 <li>
                   📧 Support:{" "}
                   <a
-                    href="mailto:support@zyeute.com"
+                    href="mailto:support@ojea-mexico.netlify.app"
                     className="text-gold-400 hover:underline"
                   >
-                    support@zyeute.com
+                    support@ojea-mexico.netlify.app
                   </a>
                 </li>
                 <li>
                   🌐 Site web:{" "}
                   <a
-                    href="https://zyeute.com"
+                    href="https://ojea-mexico.netlify.app"
                     className="text-gold-400 hover:underline"
                   >
-                    zyeute.com
+                    ojea-mexico.netlify.app
                   </a>
                 </li>
               </ul>
@@ -329,7 +329,7 @@ export const TermsOfService: React.FC = () => {
           {/* Footer */}
           <div className="border-t border-white/10 pt-8">
             <p className="text-white/40 text-sm text-center mb-4">
-              En utilisant Zyeuté, vous acceptez également notre{" "}
+              En utilisant Ojea, vous acceptez également notre{" "}
               <a
                 href="/legal/privacy"
                 className="text-gold-400 hover:underline"
@@ -346,7 +346,7 @@ export const TermsOfService: React.FC = () => {
               .
             </p>
             <p className="text-white/40 text-sm text-center">
-              Fait au Québec, pour le Québec. Avec fierté! 🇨🇦⚜️
+              Fait au México, pour le México. Avec fierté! 🇨🇦⚜️
             </p>
           </div>
         </div>

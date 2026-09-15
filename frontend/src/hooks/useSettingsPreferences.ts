@@ -105,7 +105,7 @@ type PreferencePath =
   | "region"
   | "language";
 
-const STORAGE_KEY = "zyeute-settings";
+const STORAGE_KEY = "ojea-settings";
 
 const basePreferences: SettingsPreferences = {
   tags: {

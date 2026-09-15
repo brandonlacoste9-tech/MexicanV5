@@ -8,7 +8,7 @@ const router = express.Router();
  * Dialogflow CX Webhook Handler
  *
  * This endpoint receives webhook calls from Dialogflow CX when intents are detected.
- * It handles video search, navigation, and other Ti-Guy voice commands.
+ * It handles video search, navigation, and other Güey voice commands.
  *
  * POST /api/dialogflow/webhook
  *
@@ -174,16 +174,16 @@ router.post("/webhook", async (req, res) => {
         });
       }
 
-      case "show_montreal_videos":
-      case "montreal_content": {
+      case "show_cdmx_videos":
+      case "cdmx_content": {
         const limit = parseInt(extractParam("limit")) || 10;
         const posts = await storage.getExplorePosts(0, limit * 2);
-        const montrealPosts = posts
+        const cdmxPosts = posts
           .filter(
             (post: any) =>
-              post.location?.toLowerCase().includes("montreal") ||
+              post.location?.toLowerCase().includes("cdmx") ||
               post.location?.toLowerCase().includes("montréal") ||
-              post.caption?.toLowerCase().includes("montreal") ||
+              post.caption?.toLowerCase().includes("cdmx") ||
               post.caption?.toLowerCase().includes("montréal"),
           )
           .slice(0, limit);
@@ -194,21 +194,21 @@ router.post("/webhook", async (req, res) => {
               {
                 text: {
                   text: [
-                    `J'ai trouvé ${montrealPosts.length} vidéo${montrealPosts.length > 1 ? "s" : ""} de Montréal!`,
+                    `J'ai trouvé ${cdmxPosts.length} vidéo${cdmxPosts.length > 1 ? "s" : ""} de Ciudad de México!`,
                   ],
                 },
               },
             ],
             payload: {
               action: "show_videos",
-              videos: montrealPosts.map((post: any) => ({
+              videos: cdmxPosts.map((post: any) => ({
                 id: post.id,
                 caption: post.caption,
                 mediaUrl: post.mediaUrl,
                 location: post.location,
               })),
-              location: "Montreal",
-              count: montrealPosts.length,
+              location: "CDMX",
+              count: cdmxPosts.length,
             },
           },
         });
@@ -216,7 +216,7 @@ router.post("/webhook", async (req, res) => {
 
       case "expulser_troll": {
         const idUtilisateur = extractParam("id_utilisateur");
-        const raison = extractParam("raison") || "Toxicité détectée par Ti-Guy";
+        const raison = extractParam("raison") || "Toxicité détectée par Güey";
 
         logger.info(
           `[DialogflowWebhook] Governance ACTION: expulser_troll ${idUtilisateur}`,
@@ -266,14 +266,14 @@ router.post("/webhook", async (req, res) => {
       }
 
       case "greeting":
-      case "quebec_slang_greeting": {
+      case "mexico_slang_greeting": {
         return res.json({
           fulfillmentResponse: {
             messages: [
               {
                 text: {
                   text: [
-                    "Salut là! Comment ça va? Je suis Ti-Guy, ton assistant Zyeuté. Que veux-tu voir aujourd'hui?",
+                    "Salut là! Comment ça va? Je suis Güey, ton assistant Ojea. Que veux-tu voir aujourd'hui?",
                   ],
                 },
               },

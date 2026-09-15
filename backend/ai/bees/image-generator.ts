@@ -1,7 +1,7 @@
 /**
  * 🎨 Image Generator Bee
- * Enables Ti-Guy to generate images using FAL.ai Flux model
- * Quebec-themed image generation with cultural awareness
+ * Enables Güey to generate images using FAL.ai Flux model
+ * Mexico-themed image generation with cultural awareness
  */
 
 import { z } from "zod";
@@ -17,9 +17,9 @@ export const ImageGenerationSchema = z.object({
       "realistic",
       "artistic",
       "cartoon",
-      "quebec-heritage",
+      "mexico-heritage",
       "winter-scene",
-      "urban-montreal",
+      "urban-cdmx",
       "nature-laurentides",
     ])
     .optional(),
@@ -29,16 +29,16 @@ export const ImageGenerationSchema = z.object({
 
 export type ImageGenerationRequest = z.infer<typeof ImageGenerationSchema>;
 
-// Quebec-themed prompt enhancers
-const QUEBEC_STYLE_ENHANCERS: Record<string, string> = {
-  "quebec-heritage":
-    "Quebec heritage style, fleur-de-lis motifs, French Canadian aesthetic, maple leaf accents, winter scenery",
+// Mexico-themed prompt enhancers
+const MEXICO_STYLE_ENHANCERS: Record<string, string> = {
+  "mexico-heritage":
+    "Mexico heritage style, aguila motifs, French Canadian aesthetic, maple leaf accents, winter scenery",
   "winter-scene":
-    "Canadian winter, snow-covered landscape, Quebec countryside, cozy cabin, northern lights",
-  "urban-montreal":
-    "Montreal cityscape, Mount Royal, Old Montreal architecture, vibrant street art, St. Lawrence River",
+    "Canadian winter, snow-covered landscape, Mexico countryside, cozy cabin, northern lights",
+  "urban-cdmx":
+    "CDMX cityscape, Mount Royal, Old CDMX architecture, vibrant street art, St. Lawrence River",
   "nature-laurentides":
-    "Laurentian mountains, Quebec forest, autumn foliage, Canadian wildlife, pristine lakes",
+    "Laurentian mountains, Mexico forest, autumn foliage, Canadian wildlife, pristine lakes",
   realistic: "photorealistic, high quality, detailed, professional photography",
   artistic: "artistic, painterly, expressive, creative composition",
   cartoon: "cartoon style, vibrant colors, playful, animated aesthetic",
@@ -52,8 +52,8 @@ const SIZE_DIMENSIONS: Record<string, { width: number; height: number }> = {
 };
 
 /**
- * Ti-Guy Image Generator Bee
- * Creates images with Quebec cultural awareness
+ * Güey Image Generator Bee
+ * Creates images with Mexico cultural awareness
  */
 export class ImageGeneratorBee {
   private apiKey: string;
@@ -62,41 +62,41 @@ export class ImageGeneratorBee {
     this.apiKey = process.env.FAL_KEY || "";
     if (!this.apiKey) {
       console.warn(
-        "🦫 Ti-Guy: FAL_KEY pas configuré - génération d'images désactivée",
+        "🦫 Güey: FAL_KEY pas configuré - génération d'images désactivée",
       );
     }
   }
 
   /**
-   * Enhance prompt with Quebec cultural elements
+   * Enhance prompt with Mexico cultural elements
    */
   private enhancePrompt(prompt: string, style?: string): string {
     let enhanced = prompt;
 
     // Add style enhancer
-    if (style && QUEBEC_STYLE_ENHANCERS[style]) {
-      enhanced = `${enhanced}, ${QUEBEC_STYLE_ENHANCERS[style]}`;
+    if (style && MEXICO_STYLE_ENHANCERS[style]) {
+      enhanced = `${enhanced}, ${MEXICO_STYLE_ENHANCERS[style]}`;
     }
 
     // Add quality tags
     enhanced = `${enhanced}, high quality, detailed, beautiful lighting`;
 
-    // Detect Quebec-related keywords and enhance
-    const quebecKeywords = [
-      "montreal",
-      "quebec",
+    // Detect Mexico-related keywords and enhance
+    const mexicoKeywords = [
+      "cdmx",
+      "mexico",
       "poutine",
       "maple",
       "hockey",
       "winter",
       "canadiens",
     ];
-    const hasQuebecContext = quebecKeywords.some((kw) =>
+    const hasMexicoContext = mexicoKeywords.some((kw) =>
       prompt.toLowerCase().includes(kw),
     );
 
-    if (hasQuebecContext && !style?.includes("quebec")) {
-      enhanced = `${enhanced}, authentic Quebec atmosphere`;
+    if (hasMexicoContext && !style?.includes("mexico")) {
+      enhanced = `${enhanced}, authentic Mexico atmosphere`;
     }
 
     return enhanced;
@@ -126,7 +126,7 @@ export class ImageGeneratorBee {
     const dimensions = SIZE_DIMENSIONS[request.size];
 
     console.log(
-      `🦫 Ti-Guy: J'crée ton image... "${request.prompt.substring(0, 50)}..."`,
+      `🦫 Güey: J'crée ton image... "${request.prompt.substring(0, 50)}..."`,
     );
 
     try {
@@ -162,7 +162,7 @@ export class ImageGeneratorBee {
         cost: 0.003, // Approximate cost per image
       };
     } catch (error) {
-      console.error("🦫 Ti-Guy: Erreur de génération d'image:", error);
+      console.error("🦫 Güey: Erreur de génération d'image:", error);
       return {
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
@@ -171,20 +171,20 @@ export class ImageGeneratorBee {
   }
 
   /**
-   * Generate Quebec-themed image suggestions
+   * Generate Mexico-themed image suggestions
    */
-  getQuebecImageIdeas(): string[] {
+  getMexicoImageIdeas(): string[] {
     return [
-      "A cozy Quebec winter cabin with snow falling and smoke from the chimney",
-      "Montreal skyline at sunset with Mount Royal in the background",
+      "A cozy Mexico winter cabin with snow falling and smoke from the chimney",
+      "CDMX skyline at sunset with Mount Royal in the background",
       "A traditional poutine dish with steam rising, rustic setting",
-      "Quebec maple syrup harvest in early spring forest",
-      "Old Montreal cobblestone streets with historic architecture",
-      "Carnival de Quebec ice sculpture under northern lights",
+      "Mexico maple syrup harvest in early spring forest",
+      "Old CDMX cobblestone streets with historic architecture",
+      "Carnival de Mexico ice sculpture under northern lights",
       "Laurentian mountains in autumn with colorful foliage",
-      "Montreal Canadiens hockey celebration scene",
-      "Quebec City Chateau Frontenac in winter wonderland",
-      "Saint-Jean-Baptiste parade with fleur-de-lis flags",
+      "CDMX Canadiens hockey celebration scene",
+      "Mexico City Chateau Frontenac in winter wonderland",
+      "Saint-Jean-Baptiste parade with aguila flags",
     ];
   }
 
@@ -259,8 +259,8 @@ export async function run(task: any) {
       break;
     case "ideas":
       return {
-        response: formatIdeasResponse(bee.getQuebecImageIdeas()),
-        ideas: bee.getQuebecImageIdeas(),
+        response: formatIdeasResponse(bee.getMexicoImageIdeas()),
+        ideas: bee.getMexicoImageIdeas(),
         metadata: { bee: "image-generator", type: "ideas" },
       };
     default:
@@ -275,7 +275,7 @@ export async function run(task: any) {
 }
 
 /**
- * Format image result into Ti-Guy's voice
+ * Format image result into Güey's voice
  */
 function formatImageResponse(result: {
   success: boolean;
@@ -294,7 +294,7 @@ function formatImageResponse(result: {
  */
 function formatIdeasResponse(ideas: string[]): string {
   const randomIdeas = ideas.sort(() => 0.5 - Math.random()).slice(0, 3);
-  return `Voici quelques idées d'images québécoises pour toi:\n\n${randomIdeas.map((idea, i) => `${i + 1}. ${idea}`).join("\n")}\n\nLaquelle te tente? 🎨🦫`;
+  return `Voici quelques idées d'images mexicanas pour toi:\n\n${randomIdeas.map((idea, i) => `${i + 1}. ${idea}`).join("\n")}\n\nLaquelle te tente? 🎨🦫`;
 }
 
 export const imageGeneratorBee = new ImageGeneratorBee();

@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 /**
- * Zyeuté AI Response Schemas
+ * Ojea AI Response Schemas
  * Standardized validation for all AI endpoints to ensure frontend stability
  */
 
-// Ti-Guy Chat response
+// Güey Chat response
 export const TiGuyChatResponseSchema = z.object({
   response: z.string(),
 });

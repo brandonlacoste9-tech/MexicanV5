@@ -106,7 +106,7 @@ class ColonyOSEngine {
 
     // Confidence Logic
     // High confidence + High Luxury = Worth the cost
-    if (analysis.quebecVibes > 80 && analysis.luxuryFactor > 60) {
+    if (analysis.mexicoVibes > 80 && analysis.luxuryFactor > 60) {
       return {
         action: "premium_enhance",
         reason: "High confidence luxury candidate",
@@ -115,10 +115,10 @@ class ColonyOSEngine {
     }
 
     // Medium confidence or low luxury
-    if (analysis.quebecVibes > 50) {
+    if (analysis.mexicoVibes > 50) {
       return {
         action: "standard_filter", // Maybe lighter Fal model or just CSS
-        reason: "Standard Quebec vibes",
+        reason: "Standard Mexico vibes",
         estimatedCost: 0.01, // Assuming lighter model or skipped
       };
     }

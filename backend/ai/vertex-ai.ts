@@ -9,8 +9,8 @@ import path from "path";
  *
  * Authentication priority:
  * 1. GOOGLE_APPLICATION_CREDENTIALS env var (standard GCP auth)
- * 2. ./zyeute-vertex-key.json (primary — gen-lang-client project)
- * 3. ./zyeute-ai-key.json (fallback — unique-spirit project)
+ * 2. ./ojea-vertex-key.json (primary — gen-lang-client project)
+ * 3. ./ojea-ai-key.json (fallback — unique-spirit project)
  * 4. Application Default Credentials (gcloud auth)
  */
 
@@ -52,8 +52,8 @@ if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
 
   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     const candidates = [
-      "zyeute-vertex-key.json", // Primary: gen-lang-client project
-      "zyeute-ai-key.json", // Fallback: unique-spirit project
+      "ojea-vertex-key.json", // Primary: gen-lang-client project
+      "ojea-ai-key.json", // Fallback: unique-spirit project
     ];
 
     for (const file of candidates) {
@@ -68,7 +68,7 @@ if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
 
   if (!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     console.warn(
-      "⚠️ [Vertex AI] No credentials found. Provide zyeute-vertex-key.json or set GOOGLE_APPLICATION_CREDENTIALS",
+      "⚠️ [Vertex AI] No credentials found. Provide ojea-vertex-key.json or set GOOGLE_APPLICATION_CREDENTIALS",
     );
   }
 }

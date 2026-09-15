@@ -18,7 +18,7 @@ export type LiveFilter =
   | "vintage"
   | "bw"
   | "blur"
-  | "quebec";
+  | "mexico";
 
 export const FILTER_LABELS: Record<LiveFilter, string> = {
   none: "Normal",
@@ -27,7 +27,7 @@ export const FILTER_LABELS: Record<LiveFilter, string> = {
   vintage: "Vintage",
   bw: "Noir & Blanc",
   blur: "Doux",
-  quebec: "Québec",
+  mexico: "México",
 };
 
 export const FILTER_CSS: Record<LiveFilter, string> = {
@@ -37,7 +37,7 @@ export const FILTER_CSS: Record<LiveFilter, string> = {
   vintage: "sepia(0.45) contrast(1.1) brightness(0.95) saturate(0.85)",
   bw: "grayscale(1) contrast(1.15)",
   blur: "brightness(1.05) contrast(0.92) saturate(1.05) blur(0.4px)",
-  quebec: "hue-rotate(10deg) saturate(1.3) contrast(1.08) brightness(1.05)",
+  mexico: "hue-rotate(10deg) saturate(1.3) contrast(1.08) brightness(1.05)",
 };
 
 interface UseLiveCameraOptions {

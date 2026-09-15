@@ -1,6 +1,6 @@
 /**
  * MuxUpload - Drag & drop upload with UpChunk chunked upload
- * Zyeuté V5 - Quebec social media
+ * Ojea V5 - Mexico social media
  */
 
 import { useState, useCallback, useRef, useEffect } from "react";
@@ -88,11 +88,11 @@ export function MuxUpload({
       }>("/mux/create-upload", {
         method: "POST",
         body: JSON.stringify({
-          // Mux direct-upload CORS must match the browser origin (zyeute.com)
+          // Mux direct-upload CORS must match the browser origin (ojea-mexico.netlify.app)
           cors_origin:
             typeof window !== "undefined"
               ? window.location.origin
-              : "https://zyeute.com",
+              : "https://ojea-mexico.netlify.app",
         }),
       });
 

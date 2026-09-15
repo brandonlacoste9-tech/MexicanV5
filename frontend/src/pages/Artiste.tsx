@@ -1,5 +1,5 @@
 /**
- * Ti-Guy Artiste - AI Image Generator Page
+ * Güey Artiste - AI Image Generator Page
  */
 
 import React, { useState } from "react";
@@ -50,7 +50,7 @@ export default function Artiste() {
             🎨
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Ti-Guy Artiste</h1>
+            <h1 className="text-2xl font-bold text-white">Güey Artiste</h1>
             <p className="text-white/60">
               Crée des images uniques avec l&apos;IA
             </p>
@@ -67,7 +67,7 @@ export default function Artiste() {
           />
 
           <div className="flex flex-wrap gap-3 mt-4">
-            {["Cinematic", "Québec", "Cyberpunk", "Anime", "Realistic"].map(
+            {["Cinematic", "México", "Cyberpunk", "Anime", "Realistic"].map(
               (s) => (
                 <button
                   key={s}

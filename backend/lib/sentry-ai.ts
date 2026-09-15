@@ -1,5 +1,5 @@
 /**
- * Sentry AI monitoring helpers for Zyeuté.
+ * Sentry AI monitoring helpers for Ojea.
  *
  * - Vercel AI SDK (`ai` package) is auto-instrumented via vercelAIIntegration
  *   when experimental_telemetry is enabled on generateText/streamText.
@@ -34,7 +34,7 @@ export function aiTelemetry(
 }
 
 /**
- * Group multi-turn Ti-Guy / agent sessions in Sentry Conversations.
+ * Group multi-turn Güey / agent sessions in Sentry Conversations.
  * Safe no-op if SDK/API unavailable.
  */
 export function setAiConversationId(conversationId: string | undefined | null) {

@@ -8,7 +8,7 @@ import {
 import { SheetShell } from "@/components/ui/SheetShell";
 import { SheetActionRow } from "@/components/ui/SheetActionRow";
 
-const LANG_KEY = "zyeute_feed_actions_lang";
+const LANG_KEY = "ojea_feed_actions_lang";
 
 function readLang(): FeedActionsLang {
   try {

@@ -1,17 +1,15 @@
-# Import ZyeuteV5 code
+# How this repo was built
 
-GitHub Actions workflow: `.github/workflows/import-zyeute.yml`
-
-Run it from the Actions tab (Import ZyeuteV5 frontend and backend → Run workflow).
-
-Or locally:
+MexicanV5 is the **ZyeuteV5 stack** with a Mexico region pack. It is not a rewrite.
 
 ```bash
-git clone https://github.com/brandonlacoste9-tech/MexicanV5.git
-cd MexicanV5
-git remote add zyeute https://github.com/brandonlacoste9-tech/ZyeuteV5.git
-git fetch zyeute --depth 1
-git checkout zyeute/main -- frontend backend
-git commit -m "Copy frontend/ and backend/ from ZyeuteV5"
-git push
+# What we did:
+# 1. Copied frontend/, backend/, scripts/, supabase/, workers/ from ZyeuteV5
+# 2. Swapped config/region.ts to es-MX / America/Mexico_City
+# 3. Renamed joualizer → mexicanizer, quebecify → mexicanize, seed-bulk-quebec → seed-bulk-mexico
+# 4. Pointed .env.example at MexicoV5 (oqaswdsyqyecufdmwmxs)
 ```
+
+Do **not** import Zyeuté Supabase keys. Use MexicoV5 only.
+
+The static HTML prototype from before the copy lives in `demo/`.

@@ -219,7 +219,7 @@ export const SingleImageView = React.memo<SingleImageViewProps>(
         {/* Badges (Top Right) */}
         <div className="absolute top-16 right-4 z-20 flex flex-col gap-2 items-end">
           <EphemeralBadge post={post} className="static bg-red-600/90" />
-          {/* Vérifié par Zyeuté watermark */}
+          {/* Vérifié par Ojea watermark */}
           <VerifiedBadge variant="default" />
         </div>
 
@@ -265,7 +265,7 @@ export const SingleImageView = React.memo<SingleImageViewProps>(
             <div className="flex items-center gap-1.5 bg-red-600/80 backdrop-blur-md px-2 py-0.5 rounded-full border border-red-400/30 animate-pulse">
               <div className="w-1.5 h-1.5 rounded-full bg-white" />
               <span className="text-white text-[10px] font-bold uppercase tracking-wider">
-                {viewerCount} {viewerCount > 1 ? "Zyeuteurs" : "Zyeuteur"}
+                {viewerCount} {viewerCount > 1 ? "Ojeaurs" : "Ojeaur"}
               </span>
             </div>
           )}
@@ -278,7 +278,7 @@ export const SingleImageView = React.memo<SingleImageViewProps>(
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="absolute bottom-0 left-0 right-0 z-10 p-4 pb-20"
         >
-          {/* Ti-Guy Insight */}
+          {/* Güey Insight */}
           {post.ai_description && (
             <div className="mb-4">
               <TiGuyInsight

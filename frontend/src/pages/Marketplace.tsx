@@ -1,6 +1,6 @@
 /**
- * Marketplace - Premium Quebec Heritage Design
- * Buy & Sell Quebec Products with stitched leather cards
+ * Marketplace - Premium Mexico Heritage Design
+ * Buy & Sell Mexico Products with stitched leather cards
  */
 
 import React, { useState, useEffect, useCallback } from "react";
@@ -94,7 +94,7 @@ export default function Marketplace() {
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-black text-gold-500 embossed tracking-tight">
-              Zyeuté Commerce
+              Ojea Commerce
             </h1>
             <Link to="/marketplace/sell">
               <button className="btn-gold px-4 py-2 rounded-xl font-semibold text-sm">
@@ -114,7 +114,7 @@ export default function Marketplace() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Recherche des produits québécois..."
+              placeholder="Recherche des produits mexicano..."
               className="input-premium pl-12"
             />
             <svg
@@ -253,14 +253,14 @@ export default function Marketplace() {
         <div className="leather-card rounded-2xl p-6 mt-8 stitched">
           <h3 className="text-gold-400 font-bold mb-3 embossed flex items-center gap-2">
             <span>💡</span>
-            <span>Pourquoi acheter sur Zyeuté Commerce?</span>
+            <span>Pourquoi acheter sur Ojea Commerce?</span>
           </h3>
           <div className="grid md:grid-cols-3 gap-4 text-sm">
             <div className="flex gap-3">
               <span className="text-gold-500 text-xl">🇨🇦</span>
               <div>
                 <h4 className="text-white font-semibold mb-1">
-                  100% Québécois
+                  100% Mexicano
                 </h4>
                 <p className="text-leather-300">
                   Supporte les créateurs locaux
@@ -289,11 +289,11 @@ export default function Marketplace() {
         </div>
       </div>
 
-      {/* Quebec Pride Footer */}
+      {/* Mexico Pride Footer */}
       <div className="text-center py-8 text-leather-400 text-sm">
         <p className="flex items-center justify-center gap-2">
           <span className="text-gold-500">⚜️</span>
-          <span>Achète québécois, supporte local</span>
+          <span>Achète mexicano, supporte local</span>
           <span className="text-gold-500">🇨🇦</span>
         </p>
       </div>

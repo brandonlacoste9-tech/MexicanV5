@@ -42,7 +42,7 @@ router.get(
   async (req: Request, res: Response) => {
     const page = parseInt(req.query.page as string) || 0;
     const limit = parseInt(req.query.limit as string) || 20;
-    const hiveId = (req.query.hive as string) || "quebec";
+    const hiveId = (req.query.hive as string) || "mexico";
     try {
       const posts = await storage.getExplorePosts(page, limit, hiveId);
       res.json({ posts, hiveId });
@@ -225,7 +225,7 @@ router.get("/users/:username/posts", async (req: Request, res: Response) => {
 router.post("/posts", requireAuth, async (req: Request, res: Response) => {
   try {
     const user = await storage.getUser(req.userId!);
-    const hiveId = user?.hiveId || "quebec";
+    const hiveId = user?.hiveId || "mexico";
 
     const body = { ...req.body };
     if (body.caption && !body.content) {
@@ -243,7 +243,7 @@ router.post("/posts", requireAuth, async (req: Request, res: Response) => {
         body.thumbnailUrl = `https://image.mux.com/${playbackId}/thumbnail.jpg`;
       }
       body.content =
-        body.caption || body.content || "Nouveau partage sur Zyeuté! 🍁";
+        body.caption || body.content || "Nouveau partage sur Ojea! 🍁";
     }
 
     const parsed = insertPostSchema.safeParse({
@@ -271,7 +271,7 @@ router.post("/posts", requireAuth, async (req: Request, res: Response) => {
 
       await storage.updateUser(req.userId!, {
         role: "banned",
-        bio: "COMPTE DÉSACTIVÉ : Zyeuté applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs.",
+        bio: "COMPTE DÉSACTIVÉ : Ojea applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs.",
       });
 
       try {
@@ -366,7 +366,7 @@ router.post("/posts", requireAuth, async (req: Request, res: Response) => {
       const regionId =
         (parsed.data as any).regionId ||
         (parsed.data as any).region ||
-        "montreal";
+        "cdmx";
       const { data: postData, error: postErr } = await supabaseRest
         .from("publications")
         .insert({
@@ -386,7 +386,7 @@ router.post("/posts", requireAuth, async (req: Request, res: Response) => {
             modResult.status === "approved" && videoModerationApproved,
           est_masque:
             modResult.status !== "approved" || !videoModerationApproved,
-          hive_id: parsed.data.hiveId || "quebec",
+          hive_id: parsed.data.hiveId || "mexico",
           region_id: regionId,
           region: regionId,
           visibility: (parsed.data as any).visibility || "public",
@@ -446,7 +446,7 @@ router.post("/posts", requireAuth, async (req: Request, res: Response) => {
     }
 
     if (validatedType === "video" && post.mediaUrl) {
-      const bucketName = process.env.GCS_BUCKET_NAME || "zyeute-videos";
+      const bucketName = process.env.GCS_BUCKET_NAME || "ojea-videos";
       if (post.mediaUrl.includes(bucketName)) {
         const urlParts = post.mediaUrl.split(bucketName + "/");
         if (urlParts.length > 1) {

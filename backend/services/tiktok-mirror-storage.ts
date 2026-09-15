@@ -7,7 +7,7 @@ import { fetch } from "undici";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { isExpiringTikTokCdnUrl } from "../utils/playable-media.js";
 
-const VIDEO_BUCKET = "zyeute-videos";
+const VIDEO_BUCKET = "ojea-videos";
 const MAX_BYTES = 80 * 1024 * 1024; // 80 MB
 
 const TIKTOK_FETCH_HEADERS: Record<string, string> = {

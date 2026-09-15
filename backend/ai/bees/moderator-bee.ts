@@ -3,7 +3,7 @@ import { getGeminiModel } from "../google.js";
 interface ModerationResult {
   approved: boolean;
   reason: string;
-  score: number; // 0 to 100, where 100 is "pure Quebec perfection"
+  score: number; // 0 to 100, where 100 is "pure Mexico perfection"
   territory_conflict: boolean;
   safety_violation: boolean;
   suggested_category: "Nature" | "Urban" | "Food" | "Nightlife" | "Tech" | "Humor" | "Other";
@@ -20,12 +20,12 @@ export async function runModeratorBee(imageUrl: string): Promise<ModerationResul
   }
 
   const prompt = `
-    You are the 'Moderator Bee' of Zyeuté (The Quebec Social App).
-    Your mission is to ensure content is safe for all ages and maintains the 'Quebec Territory' vibe.
+    You are the 'Moderator Bee' of Ojea (The Mexico Social App).
+    Your mission is to ensure content is safe for all ages and maintains the 'Mexico Territory' vibe.
 
     CRITICAL RULES:
     1. ZERO TOLERANCE for child safety violations, hate speech, or explicit violence.
-    2. TERRITORY CHECK: Verify if the image feels culturally or geographically relevant to Quebec/Canada (landmarks, signs, people, fashion, or just generic social content that isn't explicitly foreign/spam).
+    2. TERRITORY CHECK: Verify if the image feels culturally or geographically relevant to Mexico/Canada (landmarks, signs, people, fashion, or just generic social content that isn't explicitly foreign/spam).
     3. CATEGORIZATION: Decide if it fits one of: Nature, Urban, Food, Nightlife, Tech, Humor.
 
     Return a clean JSON object:

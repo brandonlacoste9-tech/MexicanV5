@@ -6,7 +6,7 @@ interface DictionaryEntry {
   definition: string;
   partOfSpeech: string;
   synonyms: string[];
-  quebecVariant?: string;
+  mexicoVariant?: string;
   safetyFlag?: "hateful" | "sexual" | "violent" | "safe";
 }
 
@@ -45,7 +45,7 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({
       const data = await response.json();
       setEntry(data);
     } catch (err) {
-      setError("Désolé, Ti-Guy connaît pas encore ce mot-là! 🦫");
+      setError("Désolé, Güey connaît pas encore ce mot-là! 🦫");
     } finally {
       setLoading(false);
     }
@@ -141,13 +141,13 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({
                     )}
                   </div>
 
-                  {entry.quebecVariant && (
+                  {entry.mexicoVariant && (
                     <div className="bg-gold-500/5 border border-gold-500/20 rounded-xl p-3">
                       <span className="text-[10px] uppercase tracking-widest text-gold-500 font-bold">
-                        Variant Québécois 🦫
+                        Variant Mexicano 🦫
                       </span>
                       <p className="text-xs text-stone-300 mt-1 italic">
-                        {entry.quebecVariant}
+                        {entry.mexicoVariant}
                       </p>
                     </div>
                   )}
@@ -173,7 +173,7 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({
               )}
 
               <p className="text-[9px] text-stone-600 text-center uppercase tracking-[2px] mt-6">
-                Dictionnaire Local Zyeuté • $0 permanent
+                Dictionnaire Local Ojea • $0 permanent
               </p>
             </div>
           </div>

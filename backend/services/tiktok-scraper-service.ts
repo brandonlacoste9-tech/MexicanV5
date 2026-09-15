@@ -49,9 +49,9 @@ function omkarHeaders(apiKey: string) {
 /** Normalize user search text into a single hashtag token for TikAPI. */
 function queryToHashtag(query: string): string {
   const t = query.replace(/^#/, "").trim();
-  if (!t) return "quebec";
+  if (!t) return "mexico";
   const first = t.split(/\s+/)[0];
-  return first.replace(/[^a-zA-Z0-9_]/g, "") || "quebec";
+  return first.replace(/[^a-zA-Z0-9_]/g, "") || "mexico";
 }
 
 function urlFromTikApiMediaField(field: unknown): string | undefined {
@@ -420,8 +420,8 @@ export class TikTokScraperService {
   ): Promise<TikTokVideo[]> {
     if (isOmkarKeyConfigured()) {
       try {
-        const { isQuebecQuery } = await import("../utils/quebec-relevance.js");
-        const sortBy = isQuebecQuery(query) ? "most_liked" : "relevance";
+        const { isMexicoQuery } = await import("../utils/mexico-relevance.js");
+        const sortBy = isMexicoQuery(query) ? "most_liked" : "relevance";
         const videos = await this.searchOmkar(query, maxResults, sortBy);
         if (videos.length > 0) return videos;
       } catch (err: unknown) {

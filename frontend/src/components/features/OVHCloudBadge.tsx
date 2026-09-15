@@ -1,6 +1,6 @@
 /**
- * OVHCloudBadge - "Powered by OVH Cloud Montréal" branding
- * For sponsor recognition and Quebec pride
+ * OVHCloudBadge - "Powered by OVH Cloud Ciudad de México" branding
+ * For sponsor recognition and Mexico pride
  */
 
 import React from "react";
@@ -74,9 +74,9 @@ export const OVHCloudBadge: React.FC<OVHCloudBadgeProps> = ({
         <span className="flex items-center gap-1.5">
           <span className="font-bold">OVH Cloud</span>
           {showFlag && (
-            <span className="text-base" title="Montréal, Québec">🇨🇦</span>
+            <span className="text-base" title="Ciudad de México, México">🇨🇦</span>
           )}
-          <span className="text-[#d4af37] font-semibold">Montréal</span>
+          <span className="text-[#d4af37] font-semibold">Ciudad de México</span>
         </span>
       </div>
     </a>
@@ -92,12 +92,12 @@ export const OVHCloudFooter: React.FC = () => {
       <OVHCloudBadge variant="full" />
       
       <p className="text-xs text-muted-foreground max-w-md">
-        Hébergé fièrement à Montréal sur l'infrastructure OVH Cloud.
+        Hébergé fièrement à Ciudad de México sur l'infrastructure OVH Cloud.
         <br />
-        Proudly hosted in Montreal on OVH Cloud infrastructure.
+        Proudly hosted in CDMX on OVH Cloud infrastructure.
       </p>
       
-      {/* Quebec flag colors accent */}
+      {/* Mexico flag colors accent */}
       <div className="flex gap-1">
         <div className="w-8 h-1 bg-[#003da5] rounded-full" />
         <div className="w-8 h-1 bg-white rounded-full" />
@@ -122,7 +122,7 @@ export const OVHCloudHero: React.FC = () => {
       
       <div className="space-y-1">
         <p className="text-lg font-medium text-[#d4af37]">
-          Infrastructure québécoise
+          Infrastructure mexicana
         </p>
         <p className="text-sm text-muted-foreground">
           Low latency • Data sovereignty • Local support
@@ -138,7 +138,7 @@ export const OVHCloudHero: React.FC = () => {
 export const OVHCloudLoading: React.FC = () => {
   return (
     <div className="flex flex-col items-center gap-4 py-12">
-      {/* Animated fleur-de-lys with OVH colors */}
+      {/* Animated aguila with OVH colors */}
       <div className="relative">
         <div className="absolute inset-0 bg-blue-500/30 blur-lg rounded-full animate-pulse" />
         <span className="relative text-4xl animate-bounce">

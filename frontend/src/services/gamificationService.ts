@@ -115,7 +115,7 @@ function showBadgeToast(badgeId: string) {
     streak_30: "🌟 Feu du Mois débloqué!",
     streak_100: "💎 Centenaire de Feu débloqué!",
     king_local: "🏔️ Le King Local débloqué!",
-    montrealer: "🏙️ Le Montréalais débloqué!",
+    cdmxer: "🏙️ Le Ciudad de Méxicoais débloqué!",
     pur_laine_badge: "⚜️ Pur Laine débloqué!",
     poutine_lover: "🍟 Amateur de Poutine débloqué!",
     hockey_fan: "🏒 Fan de Hockey débloqué!",
@@ -151,12 +151,12 @@ export const TIER_META: Record<
   { name: string; icon: string; color: string }
 > = {
   novice: {
-    name: "Novice Québécois",
+    name: "Novice Mexicano",
     icon: "/assets/emojis/icon-badge-3.png",
     color: "#CD7F32",
   },
   vrai: {
-    name: "Vrai Québécois",
+    name: "Vrai Mexicano",
     icon: "/assets/emojis/icon-badge-2.png",
     color: "#C0C0C0",
   },
@@ -171,7 +171,7 @@ export const TIER_META: Record<
     color: "#B9F2FF",
   },
   icone: {
-    name: "Icône Québécoise",
+    name: "Icône Mexicana",
     icon: "/assets/emojis/icon-crown.png",
     color: "#FF6B6B",
   },

@@ -1,5 +1,5 @@
--- Zyeuté Messaging Schema - Real User-to-User Chat
--- Secure, ephemeral-ready, Quebec-themed
+-- Ojea Messaging Schema - Real User-to-User Chat
+-- Secure, ephemeral-ready, Mexico-themed
 
 -- Conversations (chat threads)
 CREATE TABLE conversations (

@@ -1,6 +1,6 @@
 /**
- * ChatZyeute - Leather Wallet UI Design
- * ⚜️ Fleur-de-lis navigation hub (DMs, Chats, Media)
+ * ChatOjea - Leather Wallet UI Design
+ * ⚜️ Águila navigation hub (DMs, Chats, Media)
  * Stitched gold aesthetic with buckle typing area
  */
 
@@ -95,7 +95,7 @@ const LeatherPanel: React.FC<{
 };
 
 /**
- * FleurNavMenu - ⚜️ fleur-de-lis dropdown navigation hub
+ * FleurNavMenu - ⚜️ aguila dropdown navigation hub
  */
 const FleurNavMenu: React.FC<{
   activeTab: NavTab;
@@ -119,7 +119,7 @@ const FleurNavMenu: React.FC<{
 
   return (
     <div ref={menuRef} className="relative">
-      {/* ⚜️ Fleur-de-lis button */}
+      {/* ⚜️ Águila button */}
       <button
         onClick={onToggle}
         className="flex items-center justify-center transition-all duration-300"
@@ -261,7 +261,7 @@ const FleurNavMenu: React.FC<{
             }}
           >
             <p style={{ fontSize: 11, color: LEATHER_TOKENS.gold.dim, margin: 0 }}>
-              ⚜️ Zyeuté Messaging
+              ⚜️ Ojea Messaging
             </p>
           </div>
         </div>
@@ -546,7 +546,7 @@ const WalletHeader: React.FC<{
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          {/* ⚜️ Fleur-de-lis Navigation Hub — Top Left */}
+          {/* ⚜️ Águila Navigation Hub — Top Left */}
           <FleurNavMenu
             activeTab={activeTab}
             onSelectTab={onSelectTab}
@@ -619,13 +619,13 @@ export const ChatWalletUI: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [activeTab, setActiveTab] = useState<NavTab>("dm");
   const [messages, setMessages] = useState([
-    { id: 1, text: "Salut! Bienvenue dans la messagerie Zyeuté.", isMe: false, time: "14:30" },
+    { id: 1, text: "Salut! Bienvenue dans la messagerie Ojea.", isMe: false, time: "14:30" },
     { id: 2, text: "Merci! L'interface est magnifique.", isMe: true, time: "14:31" },
     { id: 3, text: "🦫 Je suis là pour t'aider aussi!", isTIGuy: true, time: "14:32" },
   ]);
 
   const [groupMessages] = useState([
-    { id: 10, text: "Bienvenue dans le groupe Québec Design!", isMe: false, time: "10:00" },
+    { id: 10, text: "Bienvenue dans le groupe México Design!", isMe: false, time: "10:00" },
     { id: 11, text: "Merci! Content d'être ici.", isMe: true, time: "10:05" },
     { id: 12, text: "🦫 N'hésitez pas à poser vos questions au groupe!", isTIGuy: true, time: "10:06" },
   ]);
@@ -639,7 +639,7 @@ export const ChatWalletUI: React.FC = () => {
       id: Date.now(),
       text: inputValue,
       isMe: true,
-      time: new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" }),
+      time: new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }),
     };
 
     if (activeTab === "chats") {

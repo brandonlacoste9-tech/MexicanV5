@@ -118,7 +118,7 @@ router.post("/compose-post", async (req, res) => {
 
 /**
  * POST /api/studio/chat
- * Chat with Ti-Guy
+ * Chat with Güey
  */
 router.post("/chat", async (req, res) => {
   try {

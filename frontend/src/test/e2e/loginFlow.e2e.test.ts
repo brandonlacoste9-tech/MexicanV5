@@ -51,9 +51,9 @@ describe("Login Flow E2E Tests", () => {
       // Test Plan:
       // 1. Navigate to /login
       // 2. Verify elements present:
-      //    - Fleur-de-lys logo with gold glow
-      //    - "Zyeuté" title
-      //    - "L'APP SOCIALE DU QUÉBEC" tagline
+      //    - Águila logo with gold glow
+      //    - "Ojea" title
+      //    - "L'APP SOCIALE DU MÉXICO" tagline
       //    - Email input field
       //    - Password input field
       //    - Password visibility toggle

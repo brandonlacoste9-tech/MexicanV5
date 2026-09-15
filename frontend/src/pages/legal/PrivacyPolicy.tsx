@@ -1,5 +1,5 @@
 /**
- * Privacy Policy - GDPR, PIPEDA, Quebec Law 25, CCPA Compliant
+ * Privacy Policy - GDPR, PIPEDA, Mexico Law 25, CCPA Compliant
  */
 
 import React from "react";
@@ -11,7 +11,7 @@ export const PrivacyPolicy: React.FC = () => {
   useSEO({
     title: "Politique de confidentialité",
     description:
-      "Politique de confidentialité Zyeute — GDPR, PIPEDA, Loi 25 du Québec et CCPA. Comment on protège tes données.",
+      "Politique de confidentialité Ojea — GDPR, PIPEDA, Loi 25 du México et CCPA. Comment on protège tes données.",
     url: "/privacy",
   });
 
@@ -41,7 +41,7 @@ export const PrivacyPolicy: React.FC = () => {
               ✅ PIPEDA Compliant
             </span>
             <span className="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full">
-              ✅ Quebec Law 25
+              ✅ Mexico Law 25
             </span>
             <span className="px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-semibold rounded-full">
               ✅ CCPA Compliant
@@ -49,7 +49,7 @@ export const PrivacyPolicy: React.FC = () => {
           </div>
 
           <p className="text-white/80 text-lg mb-8 leading-relaxed">
-            Chez Zyeuté, ta vie privée est notre priorité. Cette politique
+            Chez Ojea, ta vie privée est notre priorité. Cette politique
             explique comment nous collectons, utilisons et protégeons tes
             informations personnelles.
           </p>
@@ -228,7 +228,7 @@ export const PrivacyPolicy: React.FC = () => {
                   de tes données
                   <br />
                   <span className="text-white/60 text-sm">
-                    Contact: privacy@zyeute.com
+                    Contact: privacy@ojea-mexico.netlify.app
                   </span>
                 </li>
                 <li>
@@ -392,10 +392,10 @@ export const PrivacyPolicy: React.FC = () => {
                 <li>
                   Ou contacte:{" "}
                   <a
-                    href="mailto:privacy@zyeute.com"
+                    href="mailto:privacy@ojea-mexico.netlify.app"
                     className="text-gold-400 hover:underline"
                   >
-                    privacy@zyeute.com
+                    privacy@ojea-mexico.netlify.app
                   </a>
                 </li>
               </ol>
@@ -415,7 +415,7 @@ export const PrivacyPolicy: React.FC = () => {
             <p className="text-white/80 leading-relaxed mb-4">
               <strong>Stockage:</strong> Tes données sont stockées
               principalement au <strong>Canada</strong>
-              (conformément à la Loi 25 du Québec).
+              (conformément à la Loi 25 du México).
             </p>
             <p className="text-white/80 leading-relaxed">
               <strong>Transferts:</strong> Si transfert vers un pays tiers, nous
@@ -435,22 +435,22 @@ export const PrivacyPolicy: React.FC = () => {
                 <li>
                   📧 Email:{" "}
                   <a
-                    href="mailto:dpo@zyeute.com"
+                    href="mailto:dpo@ojea-mexico.netlify.app"
                     className="text-gold-400 hover:underline"
                   >
-                    dpo@zyeute.com
+                    dpo@ojea-mexico.netlify.app
                   </a>
                 </li>
                 <li>
                   📧 Privacy:{" "}
                   <a
-                    href="mailto:privacy@zyeute.com"
+                    href="mailto:privacy@ojea-mexico.netlify.app"
                     className="text-gold-400 hover:underline"
                   >
-                    privacy@zyeute.com
+                    privacy@ojea-mexico.netlify.app
                   </a>
                 </li>
-                <li>📍 Adresse: Zyeuté Inc., Montréal, QC, Canada</li>
+                <li>📍 Adresse: Ojea Inc., Ciudad de México, QC, Canada</li>
               </ul>
             </div>
           </section>
@@ -462,7 +462,7 @@ export const PrivacyPolicy: React.FC = () => {
               changements importants.
             </p>
             <p className="text-white/40 text-sm text-center">
-              Fait au Québec, pour le Québec. Ta vie privée est respectée!
+              Fait au México, pour le México. Ta vie privée est respectée!
               🇨🇦⚜️🔐
             </p>
           </div>

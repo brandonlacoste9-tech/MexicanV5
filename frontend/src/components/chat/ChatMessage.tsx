@@ -36,7 +36,7 @@ export const ChatMessage: React.FC<Props> = ({
   const [isDecrypted, setIsDecrypted] = useState(false);
 
   const formatTime = (timestamp: string) => {
-    return new Date(timestamp).toLocaleTimeString('fr-CA', {
+    return new Date(timestamp).toLocaleTimeString('es-MX', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true

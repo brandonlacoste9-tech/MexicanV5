@@ -1,11 +1,11 @@
 /**
- * 🌉 Zyeuté ↔ Colony OS Bridge
+ * 🌉 Ojea ↔ Colony OS Bridge
  *
- * Integration layer connecting Zyeuté's frontend to Colony OS swarm intelligence.
+ * Integration layer connecting Ojea's frontend to Colony OS swarm intelligence.
  *
  * Architecture:
  * ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
- * │  Zyeuté UI     │────▶│ TiGuySwarmAdapter │────▶│  Colony OS      │
+ * │  Ojea UI     │────▶│ TiGuySwarmAdapter │────▶│  Colony OS      │
  * │  (React)       │     │ (Orchestrator)    │     │  (Worker Bees)  │
  * └─────────────────┘     └──────────────────┘     └─────────────────┘
  *                                │
@@ -29,7 +29,7 @@ export * from "./types";
 export { ColonyClient } from "./ColonyClient";
 export { colonyClient } from "./ColonyClient";
 
-// Ti-Guy Swarm Adapter - Main orchestrator
+// Güey Swarm Adapter - Main orchestrator
 export { TiGuySwarmAdapter } from "./TiGuySwarmAdapter";
 export { tiGuySwarm } from "./TiGuySwarmAdapter";
 

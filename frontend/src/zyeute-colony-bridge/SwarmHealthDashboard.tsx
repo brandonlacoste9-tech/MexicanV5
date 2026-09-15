@@ -201,7 +201,7 @@ export function SwarmHealthDashboard() {
           {/* Last Update */}
           <div className="mt-3 pt-2 border-t border-gray-700 text-center">
             <span className="text-xs text-gray-500">
-              Mis à jour: {health.lastUpdate.toLocaleTimeString("fr-CA")}
+              Mis à jour: {health.lastUpdate.toLocaleTimeString("es-MX")}
             </span>
           </div>
         </div>

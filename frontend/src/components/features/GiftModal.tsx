@@ -1,6 +1,6 @@
 /**
  * GiftModal - Virtual gift sending system with Stripe payments
- * Quebec-themed animated gifts for supporting creators
+ * Mexico-themed animated gifts for supporting creators
  */
 
 import React, { useState, useEffect } from "react";
@@ -261,7 +261,7 @@ export const GiftModal: React.FC<GiftModalProps> = ({
             {/* Gift grid */}
             <div className="p-4 overflow-y-auto max-h-[45vh]">
               <p className="text-gold-400 text-sm mb-4 text-center">
-                Choisis un cadeau québécois!
+                Choisis un cadeau mexicano!
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {GIFT_CATALOG.map((gift) => (
@@ -305,7 +305,7 @@ export const GiftModal: React.FC<GiftModalProps> = ({
                   : "Choisis un cadeau"}
               </Button>
               <p className="text-white/40 text-xs text-center mt-3">
-                💰 100% des revenus vont à Zyeuté pour le moment
+                💰 100% des revenus vont à Ojea pour le moment
               </p>
             </div>
           </>

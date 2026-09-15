@@ -2,7 +2,7 @@ import postgres from "postgres";
 
 /**
  * 🦫 GOVERNANCE BEE (L'Abeille du Grand Castor)
- * Cette "Bee" gère la souveraineté et l'ordre sur la plateforme Zyeuté.
+ * Cette "Bee" gère la souveraineté et l'ordre sur la plateforme Ojea.
  * Elle a le pouvoir d'influencer l'algorithme et de modérer les citoyens.
  */
 

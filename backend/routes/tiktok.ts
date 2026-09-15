@@ -58,7 +58,7 @@ router.get("/diag", async (_req, res) => {
     const r = await axios.get(
       "https://tiktok-scraper.omkar.cloud/tiktok/videos/search",
       {
-        params: { search_query: "quebec", market: "ca", max_results: 1 },
+        params: { search_query: "mexico", market: "ca", max_results: 1 },
         headers: { "API-Key": key || "" },
         timeout: 10000,
       },
@@ -182,7 +182,7 @@ router.post("/import", requireStaff, async (req, res) => {
     case "no_system_user":
       return res.status(500).json({
         error:
-          "Aucun utilisateur système (ti_guy_bot / zyeute_scout) ni profil de repli.",
+          "Aucun utilisateur système (guey_bot / ojea_scout) ni profil de repli.",
       });
     default:
       return res.status(500).json({

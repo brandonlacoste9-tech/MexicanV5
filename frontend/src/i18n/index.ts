@@ -4,7 +4,7 @@
  * specific branding is pulled from AppConfig.identity.
  */
 const TRANSLATIONS: Record<string, Record<string, string>> = {
-  "fr-CA": {
+  "es-MX": {
     // Navigation
     "nav.feed": "Fil d'actualité",
     "nav.explore": "Explorer",
@@ -68,9 +68,9 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
     "view.banned_account":
       "Compte suspendu pour violation grave des règles de sécurité.",
     "view.banned_message":
-      "Zyeuté applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs. Toute tentative détectée entraîne la désactivation permanente du compte.",
+      "Ojea applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs. Toute tentative détectée entraîne la désactivation permanente du compte.",
     "safety.zero_tolerance_full":
-      "Zyeuté applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs. Toute tentative détectée entraîne la suppression immédiate du contenu, la désactivation permanente du compte et le signalement interne requis par nos protocoles de sécurité. Les utilisateurs sont entièrement responsables du contenu qu'ils créent et partagent.",
+      "Ojea applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs. Toute tentative détectée entraîne la suppression immédiate du contenu, la désactivation permanente du compte et le signalement interne requis par nos protocoles de sécurité. Les utilisateurs sont entièrement responsables du contenu qu'ils créent et partagent.",
 
     // Guest Mode
     "guest.mode": "Mode Visiteur",
@@ -322,7 +322,7 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
 };
 
 // HARDCODED TO FRENCH - Prevents locale switching loops
-const DEFAULT_LOCALE = "fr-CA";
+const DEFAULT_LOCALE = "es-MX";
 
 export function useTranslation() {
   // Always return French - no hooks, no re-renders

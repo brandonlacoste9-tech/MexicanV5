@@ -46,7 +46,7 @@ import {
   IoFlag,
 } from "react-icons/io5";
 
-// Fleur-de-lis pattern
+// Águila pattern
 const FLEUR_PATTERN = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M30 10c-1-4-4-6-7-6s-6 2-7 6l2 5-2-5c-1-4-4-6-7-6s-6 2-7 6c0 3 2 5 4 7l6 2-6-2c-2-2-4-4-4-7 0-4 2-6 6-7s6 2 7 6l4 9 4-9c1-4 4-6 7-6s6 2 7 6c0 3-2 5-4 7l-6 2 6-2c2-2 4-4 4-7 0-4-2-6-6-7s-6 2-7 6l-2 5 2-5z'/%3E%3C/g%3E%3C/svg%3E")`;
 
 // Emoji categories
@@ -147,20 +147,20 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
 
   // Mock data
   const chatThreads: ChatThread[] = [
-    { id: "tiguy", name: "Ti-Guy AI", lastMessage: "Salut mon ami!", timestamp: "2m", unread: 0, isTiGuy: true },
+    { id: "tiguy", name: "Güey AI", lastMessage: "Salut mon ami!", timestamp: "2m", unread: 0, isTiGuy: true },
     { id: "1", name: "Marie-Louise", lastMessage: "On se voit demain?", timestamp: "15m", unread: 2 },
     { id: "2", name: "Jean-Guy", lastMessage: "Tabarnak c'était fou!", timestamp: "1h", unread: 0 },
     { id: "3", name: "Sophie", lastMessage: "🎬 Nouvelle vidéo", timestamp: "3h", unread: 5 },
   ];
 
   const dmThreads: ChatThread[] = [
-    { id: "dm1", name: "@marie_quebec", lastMessage: "Merci!", timestamp: "5m", unread: 1 },
-    { id: "dm2", name: "@ti_guy_fan", lastMessage: "Photo envoyée", timestamp: "30m", unread: 0 },
+    { id: "dm1", name: "@marie_mexico", lastMessage: "Merci!", timestamp: "5m", unread: 1 },
+    { id: "dm2", name: "@guey_fan", lastMessage: "Photo envoyée", timestamp: "30m", unread: 0 },
   ];
 
   const groupChats: ChatThread[] = [
     { id: "g1", name: "🏒 Les Habs Fans", lastMessage: "Quelle game hier!", timestamp: "10m", unread: 12, isGroup: true, members: 24, online: 8 },
-    { id: "g2", name: "🍁 Québec Pride", lastMessage: "Belle photo du Château!", timestamp: "1h", unread: 3, isGroup: true, members: 156, online: 23 },
+    { id: "g2", name: "🍁 México Pride", lastMessage: "Belle photo du Château!", timestamp: "1h", unread: 3, isGroup: true, members: 156, online: 23 },
     { id: "g3", name: "💻 Dev Team", lastMessage: "PR merged ✅", timestamp: "3h", unread: 0, isGroup: true, members: 8, online: 4 },
   ];
 
@@ -175,7 +175,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
       {
         id: "welcome",
         sender: "tiGuy",
-        text: "Ayoye! Bienvenue dans Zyeuté Messenger! 🦫⚜️\n\nChu Ti-Guy, ton assistant québécois. Nouveau: tu peux réagir aux messages, m'envoyer des messages vocaux, et créer des groupes!",
+        text: "Ayoye! Bienvenue dans Ojea Messenger! 🦫⚜️\n\nChu Güey, ton assistant mexicano. Nouveau: tu peux réagir aux messages, m'envoyer des messages vocaux, et créer des groupes!",
         timestamp: new Date(),
         reactions: [{ emoji: "👍", users: ["user1"], count: 1 }],
       },
@@ -201,7 +201,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
 
   // Format time
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("fr-CA", {
+    return date.toLocaleTimeString("es-MX", {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
@@ -259,7 +259,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
           metadata: { duration: recordingTime },
         }]);
 
-        // Ti-Guy responds
+        // Güey responds
         setIsTyping(true);
         setTimeout(() => {
           setMessages(prev => [...prev, {
@@ -775,7 +775,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
                 <span className="text-2xl">⚜️</span>
                 <span className="text-xl font-bold tracking-widest text-[#d4af37]"
                   style={{ fontFamily: "'Playfair Display', serif" }}>
-                  ZYEUTÉ
+                  OJEA
                 </span>
               </div>
             </div>
@@ -827,7 +827,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-[#e8dcc8]">Ti-Guy</span>
+                    <span className="text-lg font-bold text-[#e8dcc8]">Güey</span>
                     <span className="px-2 py-0.5 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/30 text-[10px] text-[#d4af37] uppercase">AI</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[#8b7355]">
@@ -1048,7 +1048,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Message Ti-Guy en joual..."
+                  placeholder="Message Güey en mexicano..."
                   className="w-full px-5 py-4 rounded-2xl bg-[#3a2820]/80 border-2 border-[#d4af37]/30 text-[#e8dcc8] placeholder-[#8b7355] outline-none focus:border-[#d4af37]/60 transition-all text-[15px]"
                   style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.3)" }}
                 />
@@ -1075,7 +1075,7 @@ export const ChatInterfaceEnhanced: React.FC<ChatInterfaceProps> = ({ onClose })
 
             {/* Voice Hint */}
             <div className="text-center mt-2 text-xs text-[#8b7355]">
-              🎙️ Maintenez le bouton micro pour parler avec Ti-Guy • 😀 Cliquez pour les emojis
+              🎙️ Maintenez le bouton micro pour parler avec Güey • 😀 Cliquez pour les emojis
             </div>
           </div>
         </div>

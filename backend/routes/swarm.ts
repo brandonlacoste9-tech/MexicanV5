@@ -10,7 +10,7 @@ import {
 import { generateVideo } from "../ai/media/video-engine.js";
 import { storage } from "../storage.js";
 import { volumePricingService } from "../services/volume-pricing-service.js";
-import { joualizeText, type JoualStyle } from "../services/joualizer.js";
+import { mexicanoizeText, type MexicanoStyle } from "../services/mexicanoizer.js";
 
 const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   if (!req.userId) return res.status(401).json({ error: "Unauthorized" });
@@ -27,7 +27,7 @@ const aiRateLimiter = rateLimit({
 
 const router = Router();
 
-// Ti-Guy Chat (V3 Swarm)
+// Güey Chat (V3 Swarm)
 router.post("/chat", aiRateLimiter, requireAuth, async (req, res) => {
   try {
     const { message, context } = req.body;
@@ -43,7 +43,7 @@ router.post("/chat", aiRateLimiter, requireAuth, async (req, res) => {
     console.error("V3 Chat error:", error);
     res
       .status(500)
-      .json({ error: error.message || "Ti-Guy is currently busy" });
+      .json({ error: error.message || "Güey is currently busy" });
   }
 });
 
@@ -83,7 +83,7 @@ router.post("/feed-item", aiRateLimiter, requireAuth, async (req, res) => {
   }
 });
 
-// V3 Microcopy - Generate UI text in Ti-Guy voice
+// V3 Microcopy - Generate UI text in Güey voice
 router.post("/microcopy", aiRateLimiter, requireAuth, async (req, res) => {
   try {
     const { type, context } = req.body;
@@ -214,8 +214,8 @@ router.post("/regenerate-video", requireAuth, async (req, res) => {
   }
 });
 
-// Joualizer Rewrite Engine
-router.post("/joualize", requireAuth, aiRateLimiter, async (req, res) => {
+// Mexicanoizer Rewrite Engine
+router.post("/mexicanoize", requireAuth, aiRateLimiter, async (req, res) => {
   try {
     const { text, style } = req.body;
 
@@ -223,18 +223,18 @@ router.post("/joualize", requireAuth, aiRateLimiter, async (req, res) => {
       return res.status(400).json({ error: "Text is required" });
     }
 
-    const validStyles: JoualStyle[] = ["street", "old", "enhanced"];
-    if (!style || !validStyles.includes(style as JoualStyle)) {
+    const validStyles: MexicanoStyle[] = ["street", "old", "enhanced"];
+    if (!style || !validStyles.includes(style as MexicanoStyle)) {
       return res.status(400).json({
         error: "Invalid style. Use 'street', 'old', or 'enhanced'.",
       });
     }
 
-    const rewrittenText = await joualizeText(text, style as JoualStyle);
+    const rewrittenText = await mexicanoizeText(text, style as MexicanoStyle);
     res.json({ originalText: text, rewrittenText, style });
   } catch (error) {
-    console.error("Joualizer error:", error);
-    res.status(500).json({ error: "Failed to joualize text" });
+    console.error("Mexicanoizer error:", error);
+    res.status(500).json({ error: "Failed to mexicanoize text" });
   }
 });
 

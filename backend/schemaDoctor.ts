@@ -1,7 +1,7 @@
 import pg from "pg";
 
 /**
- * Zyeute Schema Doctor 🩺
+ * Ojea Schema Doctor 🩺
  * Automatically heals the database schema by ensuring required columns exist.
  * This is a 'self-healing' mechanism for data drift.
  */
@@ -18,9 +18,9 @@ export async function healSchema(pool: pg.Pool) {
       { name: "comments_count", type: "integer DEFAULT 0" },
       { name: "est_masque", type: "boolean DEFAULT false" },
       { name: "visibility", type: "text DEFAULT 'public'" },
-      { name: "hive_id", type: "text DEFAULT 'quebec'" },
+      { name: "hive_id", type: "text DEFAULT 'mexico'" },
       { name: "embedding", type: "text" },
-      { name: "quebec_score", type: "integer DEFAULT 0" },
+      { name: "mexico_score", type: "integer DEFAULT 0" },
       { name: "shares_count", type: "integer DEFAULT 0" },
       { name: "piasse_count", type: "integer DEFAULT 0" },
       { name: "transcribed_at", type: "timestamp" },
@@ -38,7 +38,7 @@ export async function healSchema(pool: pg.Pool) {
     const userColumns = [
       { name: "location", type: "text" },
       { name: "city", type: "text" },
-      { name: "hive_id", type: "text DEFAULT 'quebec'" },
+      { name: "hive_id", type: "text DEFAULT 'mexico'" },
       { name: "role", type: "text DEFAULT 'citoyen'" },
       { name: "credits", type: "integer DEFAULT 0" },
       { name: "piasse_balance", type: "double precision DEFAULT 0.0" },

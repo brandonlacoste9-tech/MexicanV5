@@ -24,7 +24,7 @@ export const EmailCampaigns: React.FC = () => {
     setTimeout(() => {
       setCampaign((prev) => ({
         ...prev,
-        subject: "🔥 Nouveautés sur Zyeuté! (Généré par IA)",
+        subject: "🔥 Nouveautés sur Ojea! (Généré par IA)",
         body: "<h1>Salut la gang!</h1><p>Plein de nouvelles affaires sur la plateforme...</p>",
       }));
       setIsGenerating(false);

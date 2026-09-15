@@ -37,17 +37,17 @@ export class MemStorage implements IStorage {
     const guestUser: User = {
       id: "guest-id",
       username: "invite",
-      email: "invite@zyeute.com",
+      email: "invite@ojea-mexico.netlify.app",
       displayName: "Invité Spécial",
       role: "citoyen",
-      hiveId: "quebec",
+      hiveId: "mexico",
       avatarUrl: null,
-      bio: "Bienvenue au Québec!",
+      bio: "Bienvenue au México!",
       createdAt: new Date(),
       updatedAt: new Date(),
       piasseBalance: 100,
       totalKarma: 50,
-      regionId: "montreal",
+      regionId: "cdmx",
     } as any;
     this.users.set(guestUser.id, guestUser);
 
@@ -55,13 +55,13 @@ export class MemStorage implements IStorage {
       id: uuidv4(),
       userId: guestUser.id,
       content:
-        "Bienvenue sur Zyeuté! Le réseau social du Québec est enfin là. ⚜️ #Zyeute #Quebec",
+        "Bienvenue sur Ojea! Le réseau social du México est enfin là. ⚜️ #Ojea #Mexico",
       mediaUrl: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
       thumbnailUrl: null,
       fireCount: 10,
       commentCount: 2,
       viewCount: 100,
-      hiveId: "quebec",
+      hiveId: "mexico",
       isEphemeral: false,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -70,10 +70,10 @@ export class MemStorage implements IStorage {
       location: null,
       maxViews: null,
       processingStatus: "completed",
-      regionId: "montreal",
+      regionId: "cdmx",
       visibility: "public",
       burnedAt: null,
-      caption: "Vue de Montréal",
+      caption: "Vue de Ciudad de México",
       embedding: null,
       isHidden: false,
       metadata: null,
@@ -94,7 +94,7 @@ export class MemStorage implements IStorage {
     return Array.from(this.users.values()).find((u) => u.email === email);
   }
   async getUserHive(userId: string): Promise<string> {
-    return this.users.get(userId)?.hiveId || "quebec";
+    return this.users.get(userId)?.hiveId || "mexico";
   }
 
   async createUser(user: InsertUser & { id: string }): Promise<User> {
@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
     userId: string,
     page: number,
     limit: number,
-    hiveId = "quebec",
+    hiveId = "mexico",
   ): Promise<(Post & { user: User; isFired: boolean })[]> {
     return Array.from(this.posts.values())
       .filter((p) => p.hiveId === hiveId)
@@ -168,7 +168,7 @@ export class MemStorage implements IStorage {
   async getExplorePosts(
     page: number,
     limit: number,
-    hiveId = "quebec",
+    hiveId = "mexico",
   ): Promise<(Post & { user: User })[]> {
     return Array.from(this.posts.values())
       .filter((p) => p.hiveId === hiveId)

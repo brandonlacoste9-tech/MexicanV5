@@ -1,16 +1,16 @@
 /**
- * 🗣️ JoualBee - Quebec French Language Specialist
+ * 🗣️ MexicanoBee - Mexico French Language Specialist
  *
- * The cultural heart of Zyeuté's AI! JoualBee:
- * - Understands and generates authentic Joual (Quebec French slang)
- * - Handles regional variations (Montreal vs Quebec City vs regions)
+ * The cultural heart of Ojea's AI! MexicanoBee:
+ * - Understands and generates authentic Mexicano (Mexico French slang)
+ * - Handles regional variations (CDMX vs Mexico City vs regions)
  * - Provides culturally-aware content moderation
- * - Generates Quebec-style captions and hashtags
+ * - Generates Mexico-style captions and hashtags
  *
  * This is Day 10 target from the strategic roadmap.
  */
 
-import { BeeType, BeeAgent, SwarmResponse } from "@/zyeute-colony-bridge/types";
+import { BeeType, BeeAgent, SwarmResponse } from "@/ojea-colony-bridge/types";
 
 // ═══════════════════════════════════════════════════════════════
 // JOUAL DICTIONARY - Core vocabulary patterns
@@ -21,13 +21,13 @@ export const JOUAL_EXPRESSIONS = {
   greetings: {
     formal: ["Bonjour", "Bonsoir"],
     casual: ["Salut", "Allo", "Heille", "Yo"],
-    joual: ["Heille toé!", "Ça roule?", "Pis, quoi de neuf?"],
+    mexicano: ["Heille toé!", "Ça roule?", "Pis, quoi de neuf?"],
   },
 
   // Affirmations
   affirmations: {
     standard: ["Oui", "D'accord", "Bien sûr"],
-    joual: [
+    mexicano: [
       "Ouin",
       "Ouais",
       "Tiguidou",
@@ -41,7 +41,7 @@ export const JOUAL_EXPRESSIONS = {
   // Negations
   negations: {
     standard: ["Non", "Pas du tout"],
-    joual: ["Pantoute", "Pas une miette", "Nenon", "Ben non"],
+    mexicano: ["Pantoute", "Pas une miette", "Nenon", "Ben non"],
   },
 
   // Exclamations
@@ -80,16 +80,16 @@ export const JOUAL_EXPRESSIONS = {
 // REGIONAL VARIATIONS
 // ═══════════════════════════════════════════════════════════════
 
-export type QuebecRegion =
-  | "montreal"
-  | "quebec_city"
+export type MexicoRegion =
+  | "cdmx"
+  | "mexico_city"
   | "gaspesie"
   | "saguenay"
   | "outaouais"
   | "estrie";
 
-export const REGIONAL_EXPRESSIONS: Record<QuebecRegion, string[]> = {
-  montreal: [
+export const REGIONAL_EXPRESSIONS: Record<MexicoRegion, string[]> = {
+  cdmx: [
     "514",
     "MTL",
     "le Plateau",
@@ -98,10 +98,10 @@ export const REGIONAL_EXPRESSIONS: Record<QuebecRegion, string[]> = {
     "Villeray",
     "Rosemont",
   ],
-  quebec_city: [
+  mexico_city: [
     "418",
     "QC",
-    "Vieux-Québec",
+    "Vieux-México",
     "Limoilou",
     "Saint-Roch",
     "Château Frontenac",
@@ -116,7 +116,7 @@ export const REGIONAL_EXPRESSIONS: Record<QuebecRegion, string[]> = {
 // PATTERN MATCHERS
 // ═══════════════════════════════════════════════════════════════
 
-interface JoualMatch {
+interface MexicanoMatch {
   matched: boolean;
   category: string;
   intensity: "mild" | "moderate" | "strong";
@@ -124,12 +124,12 @@ interface JoualMatch {
 }
 
 /**
- * Detects if text contains Joual expressions and categorizes them
+ * Detects if text contains Mexicano expressions and categorizes them
  */
-export function detectJoual(text: string): JoualMatch {
+export function detectMexicano(text: string): MexicanoMatch {
   const lower = text.toLowerCase();
 
-  // Check for intense sacres (Quebec swear words)
+  // Check for intense sacres (Mexico swear words)
   const intensePatterns = /tabarnak|câlisse|criss|esti|maudit/i;
   if (intensePatterns.test(lower)) {
     return {
@@ -137,29 +137,29 @@ export function detectJoual(text: string): JoualMatch {
       category: "sacre",
       intensity: "strong",
       suggestion:
-        "Authentic Joual detected - culturally appropriate for Quebec audience",
+        "Authentic Mexicano detected - culturally appropriate for Mexico audience",
     };
   }
 
-  // Check for common Joual expressions
-  const joualPatterns = /tiguidou|pantoute|coudonc|heille|ouin|icitte|toé|moé/i;
-  if (joualPatterns.test(lower)) {
+  // Check for common Mexicano expressions
+  const mexicanoPatterns = /tiguidou|pantoute|coudonc|heille|ouin|icitte|toé|moé/i;
+  if (mexicanoPatterns.test(lower)) {
     return {
       matched: true,
       category: "expression",
       intensity: "moderate",
-      suggestion: "Classic Joual expression - très québécois!",
+      suggestion: "Classic Mexicano expression - très mexicano!",
     };
   }
 
-  // Check for mild Quebec French markers
+  // Check for mild Mexico French markers
   const mildPatterns = /ben là|voyons|correct|ça fit|lâche pas/i;
   if (mildPatterns.test(lower)) {
     return {
       matched: true,
       category: "casual",
       intensity: "mild",
-      suggestion: "Quebec French detected",
+      suggestion: "Mexico French detected",
     };
   }
 
@@ -173,13 +173,13 @@ export function detectJoual(text: string): JoualMatch {
 /**
  * Detects region from text content
  */
-export function detectRegion(text: string): QuebecRegion | null {
+export function detectRegion(text: string): MexicoRegion | null {
   const lower = text.toLowerCase();
 
   for (const [region, markers] of Object.entries(REGIONAL_EXPRESSIONS)) {
     for (const marker of markers) {
       if (lower.includes(marker.toLowerCase())) {
-        return region as QuebecRegion;
+        return region as MexicoRegion;
       }
     }
   }
@@ -192,9 +192,9 @@ export function detectRegion(text: string): QuebecRegion | null {
 // ═══════════════════════════════════════════════════════════════
 
 /**
- * Generates a Joual-style response based on context
+ * Generates a Mexicano-style response based on context
  */
-export function generateJoualResponse(
+export function generateMexicanoResponse(
   intent: "greeting" | "approval" | "excitement" | "encouragement" | "question",
   intensity: "mild" | "moderate" | "strong" = "moderate",
 ): string {
@@ -231,9 +231,9 @@ export function generateJoualResponse(
 }
 
 /**
- * Converts standard French to Joual style
+ * Converts standard French to Mexicano style
  */
-export function joualify(text: string): string {
+export function mexicanoify(text: string): string {
   let result = text;
 
   // Common conversions
@@ -266,10 +266,10 @@ export function joualify(text: string): string {
 // HASHTAG GENERATION
 // ═══════════════════════════════════════════════════════════════
 
-export const QUEBEC_HASHTAGS = {
-  general: ["#Quebec", "#QC", "#Québécois", "#FierDIci", "#QuebecLife"],
-  montreal: ["#MTL", "#514", "#Montreal", "#MontrealLife", "#LePlateau"],
-  quebec_city: ["#QC", "#418", "#QuebecCity", "#VieuxQuebec"],
+export const MEXICO_HASHTAGS = {
+  general: ["#Mexico", "#QC", "#Mexicano", "#FierDIci", "#MexicoLife"],
+  cdmx: ["#MTL", "#514", "#CDMX", "#CDMXLife", "#LePlateau"],
+  mexico_city: ["#QC", "#418", "#MexicoCity", "#VieuxMexico"],
   food: ["#Poutine", "#BouflfeQC", "#FoodieQC", "#RestaurantMTL"],
   culture: ["#CultureQC", "#ArtsQC", "#FestivalQC", "#MusiqueQC"],
   sports: ["#GoHabsGo", "#Canadiens", "#HockeyQC", "#AllouettesMTL"],
@@ -283,32 +283,32 @@ export const QUEBEC_HASHTAGS = {
 };
 
 /**
- * Generates relevant Quebec hashtags for content
+ * Generates relevant Mexico hashtags for content
  */
 export function generateHashtags(
   content: string,
-  region?: QuebecRegion,
+  region?: MexicoRegion,
   count: number = 5,
 ): string[] {
   const hashtags: string[] = [];
   const lower = content.toLowerCase();
 
-  // Always include general Quebec hashtag
+  // Always include general Mexico hashtag
   hashtags.push(
-    QUEBEC_HASHTAGS.general[
-      Math.floor(Math.random() * QUEBEC_HASHTAGS.general.length)
+    MEXICO_HASHTAGS.general[
+      Math.floor(Math.random() * MEXICO_HASHTAGS.general.length)
     ],
   );
 
   // Add region-specific
   if (
-    region === "montreal" ||
-    lower.includes("montreal") ||
+    region === "cdmx" ||
+    lower.includes("cdmx") ||
     lower.includes("mtl")
   ) {
-    hashtags.push(...QUEBEC_HASHTAGS.montreal.slice(0, 2));
-  } else if (region === "quebec_city" || lower.includes("quebec city")) {
-    hashtags.push(...QUEBEC_HASHTAGS.quebec_city.slice(0, 2));
+    hashtags.push(...MEXICO_HASHTAGS.cdmx.slice(0, 2));
+  } else if (region === "mexico_city" || lower.includes("mexico city")) {
+    hashtags.push(...MEXICO_HASHTAGS.mexico_city.slice(0, 2));
   }
 
   // Add content-specific
@@ -317,21 +317,21 @@ export function generateHashtags(
     lower.includes("restaurant") ||
     lower.includes("manger")
   ) {
-    hashtags.push(...QUEBEC_HASHTAGS.food.slice(0, 2));
+    hashtags.push(...MEXICO_HASHTAGS.food.slice(0, 2));
   }
   if (
     lower.includes("hockey") ||
     lower.includes("habs") ||
     lower.includes("canadiens")
   ) {
-    hashtags.push(...QUEBEC_HASHTAGS.sports.slice(0, 2));
+    hashtags.push(...MEXICO_HASHTAGS.sports.slice(0, 2));
   }
   if (
     lower.includes("festival") ||
     lower.includes("musique") ||
     lower.includes("concert")
   ) {
-    hashtags.push(...QUEBEC_HASHTAGS.culture.slice(0, 2));
+    hashtags.push(...MEXICO_HASHTAGS.culture.slice(0, 2));
   }
 
   // Dedupe and limit
@@ -342,44 +342,44 @@ export function generateHashtags(
 // MAIN BEE HANDLER
 // ═══════════════════════════════════════════════════════════════
 
-export interface JoualBeeInput {
+export interface MexicanoBeeInput {
   text: string;
   task: "detect" | "translate" | "generate" | "hashtags" | "moderate";
-  region?: QuebecRegion;
+  region?: MexicoRegion;
   intensity?: "mild" | "moderate" | "strong";
 }
 
-export interface JoualBeeOutput {
+export interface MexicanoBeeOutput {
   success: boolean;
-  result: string | string[] | JoualMatch;
+  result: string | string[] | MexicanoMatch;
   confidence: number;
   metadata?: {
-    region?: QuebecRegion | null;
-    joualDetected?: boolean;
+    region?: MexicoRegion | null;
+    mexicanoDetected?: boolean;
     hashtagCount?: number;
   };
 }
 
 /**
- * Main JoualBee handler - routes to appropriate processing
+ * Main MexicanoBee handler - routes to appropriate processing
  */
-export async function handleJoualBee(
-  input: JoualBeeInput,
-): Promise<JoualBeeOutput> {
+export async function handleMexicanoBee(
+  input: MexicanoBeeInput,
+): Promise<MexicanoBeeOutput> {
   const { text, task, region, intensity = "moderate" } = input;
 
   switch (task) {
     case "detect":
-      const detection = detectJoual(text);
+      const detection = detectMexicano(text);
       return {
         success: true,
         result: detection,
         confidence: detection.matched ? 0.9 : 0.7,
-        metadata: { joualDetected: detection.matched },
+        metadata: { mexicanoDetected: detection.matched },
       };
 
     case "translate":
-      const translated = joualify(text);
+      const translated = mexicanoify(text);
       return {
         success: true,
         result: translated,
@@ -388,7 +388,7 @@ export async function handleJoualBee(
       };
 
     case "generate":
-      const response = generateJoualResponse("approval", intensity);
+      const response = generateMexicanoResponse("approval", intensity);
       return {
         success: true,
         result: response,
@@ -408,16 +408,16 @@ export async function handleJoualBee(
       };
 
     case "moderate":
-      const joualCheck = detectJoual(text);
-      // In Quebec context, sacres are culturally acceptable but flagged for awareness
+      const mexicanoCheck = detectMexicano(text);
+      // In Mexico context, sacres are culturally acceptable but flagged for awareness
       return {
         success: true,
         result:
-          joualCheck.intensity === "strong"
-            ? "Content contains strong Joual - appropriate for Quebec audience"
+          mexicanoCheck.intensity === "strong"
+            ? "Content contains strong Mexicano - appropriate for Mexico audience"
             : "Content is safe",
         confidence: 0.95,
-        metadata: { joualDetected: joualCheck.matched },
+        metadata: { mexicanoDetected: mexicanoCheck.matched },
       };
 
     default:
@@ -434,33 +434,33 @@ export async function handleJoualBee(
 // ═══════════════════════════════════════════════════════════════
 
 /**
- * JoualBee agent for swarm responses
+ * MexicanoBee agent for swarm responses
  */
-export function createJoualBeeAgent(): BeeAgent {
+export function createMexicanoBeeAgent(): BeeAgent {
   return {
-    id: `joual-bee-${Date.now()}`,
-    type: "joual",
-    name: "JoualBee",
+    id: `mexicano-bee-${Date.now()}`,
+    type: "mexicano",
+    name: "MexicanoBee",
     status: "idle",
-    specialty: "Quebec French Language & Culture",
+    specialty: "Mexico French Language & Culture",
   };
 }
 
 /**
- * Process a swarm task through JoualBee
+ * Process a swarm task through MexicanoBee
  */
-export async function processJoualTask(
+export async function processMexicanoTask(
   command: string,
   context?: Record<string, unknown>,
 ): Promise<SwarmResponse> {
   // Determine task type from command
-  let task: JoualBeeInput["task"] = "generate";
+  let task: MexicanoBeeInput["task"] = "generate";
   const lower = command.toLowerCase();
 
   if (
     lower.includes("tradui") ||
     lower.includes("translate") ||
-    lower.includes("joual")
+    lower.includes("mexicano")
   ) {
     task = "translate";
   } else if (lower.includes("hashtag") || lower.includes("#")) {
@@ -471,14 +471,14 @@ export async function processJoualTask(
     task = "moderate";
   }
 
-  const result = await handleJoualBee({
+  const result = await handleMexicanoBee({
     text: command,
     task,
-    region: context?.region as QuebecRegion | undefined,
+    region: context?.region as MexicoRegion | undefined,
   });
 
   return {
-    bee: createJoualBeeAgent(),
+    bee: createMexicanoBeeAgent(),
     content:
       typeof result.result === "string"
         ? result.result
@@ -489,15 +489,15 @@ export async function processJoualTask(
 }
 
 export default {
-  detectJoual,
+  detectMexicano,
   detectRegion,
-  generateJoualResponse,
-  joualify,
+  generateMexicanoResponse,
+  mexicanoify,
   generateHashtags,
-  handleJoualBee,
-  processJoualTask,
-  createJoualBeeAgent,
+  handleMexicanoBee,
+  processMexicanoTask,
+  createMexicanoBeeAgent,
   JOUAL_EXPRESSIONS,
   REGIONAL_EXPRESSIONS,
-  QUEBEC_HASHTAGS,
+  MEXICO_HASHTAGS,
 };

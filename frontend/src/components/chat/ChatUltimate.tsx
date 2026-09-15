@@ -56,7 +56,7 @@ import {
   IoRecording,
 } from "react-icons/io5";
 
-// Fleur-de-lis pattern
+// Águila pattern
 const FLEUR_PATTERN = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M30 10c-1-4-4-6-7-6s-6 2-7 6l2 5-2-5c-1-4-4-6-7-6s-6 2-7 6c0 3 2 5 4 7l6 2-6-2c-2-2-4-4-4-7 0-4 2-6 6-7s6 2 7 6l4 9 4-9c1-4 4-6 7-6s6 2 7 6c0 3-2 5-4 7l-6 2 6-2c2-2 4-4 4-7 0-4-2-6-6-7s-6 2-7 6l-2 5 2-5z'/%3E%3C/g%3E%3C/svg%3E")`;
 
 // EMOJI DATA
@@ -248,7 +248,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
 
   // Mock data
   const chatThreads: ChatThread[] = [
-    { id: "tiguy", name: "Ti-Guy AI", lastMessage: "Salut mon ami!", timestamp: "2m", unread: 0, isTiGuy: true },
+    { id: "tiguy", name: "Güey AI", lastMessage: "Salut mon ami!", timestamp: "2m", unread: 0, isTiGuy: true },
     { id: "1", name: "Marie-Louise", lastMessage: "On se voit demain?", timestamp: "15m", unread: 2 },
     { id: "g1", name: "🏒 Les Habs", lastMessage: "Quelle game!", timestamp: "10m", unread: 5, isGroup: true, members: 24 },
   ];
@@ -259,7 +259,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
       {
         id: "welcome",
         sender: "tiGuy",
-        text: "🎉 NOUVEAUTÉS!\n\n• 🔍 Recherche de messages\n• ⏱️ Messages éphémères\n• 🔒 Chiffrement E2E\n• 🌐 Traduction auto\n• 📹 Appels vidéo\n\nChu Ti-Guy, ton assistant québécois ultime!",
+        text: "🎉 NOUVEAUTÉS!\n\n• 🔍 Recherche de messages\n• ⏱️ Messages éphémères\n• 🔒 Chiffrement E2E\n• 🌐 Traduction auto\n• 📹 Appels vidéo\n\nChu Güey, ton assistant mexicano ultime!",
         timestamp: new Date(),
         reactions: [{ emoji: "🔥", users: ["user1"], count: 1 }],
       },
@@ -584,7 +584,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
   };
 
   // FORMATTING
-  const formatTime = (date: Date) => date.toLocaleTimeString("fr-CA", { hour: "numeric", minute: "2-digit", hour12: true });
+  const formatTime = (date: Date) => date.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
   const formatDuration = (seconds: number) => `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, "0")}`;
   const formatTimeLeft = (expiresAt: Date) => {
     const diff = Math.max(0, Math.floor((expiresAt.getTime() - Date.now()) / 1000));
@@ -668,7 +668,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center">🦫</div>
             <div>
-              <div className="text-[#e8dcc8] font-bold">Ti-Guy AI</div>
+              <div className="text-[#e8dcc8] font-bold">Güey AI</div>
               <div className="text-green-400 text-sm flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 {activeCall === "video" ? "Appel vidéo" : "Appel audio"} en cours
@@ -680,13 +680,13 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
 
         {/* Video Area */}
         <div className="flex-1 relative bg-[#1a1410]">
-          {/* Remote Video (Ti-Guy placeholder) */}
+          {/* Remote Video (Güey placeholder) */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-amber-400 to-amber-700 border-4 border-[#d4af37] flex items-center justify-center text-6xl mb-4 animate-pulse">
                 🦫
               </div>
-              <p className="text-[#d4af37] text-lg">Ti-Guy AI</p>
+              <p className="text-[#d4af37] text-lg">Güey AI</p>
               <p className="text-[#8b7355]">En attente de connexion...</p>
             </div>
           </div>
@@ -731,7 +731,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
           <div className="px-4 py-4 border-b-2 border-[#d4af37]/30" style={{ background: "linear-gradient(180deg, rgba(43,31,23,0.98) 0%, rgba(35,25,18,0.98) 100%)" }}>
             <div className="flex items-center gap-2 mb-4">
               <span className="text-2xl">⚜️</span>
-              <span className="text-xl font-bold tracking-widest text-[#d4af37]" style={{ fontFamily: "'Playfair Display', serif" }}>ZYEUTÉ</span>
+              <span className="text-xl font-bold tracking-widest text-[#d4af37]" style={{ fontFamily: "'Playfair Display', serif" }}>OJEA</span>
             </div>
             <div className="flex gap-1 p-1 rounded-xl bg-[#3a2820]/80 border border-[#d4af37]/20">
               {[
@@ -780,7 +780,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-amber-700 border-2 border-[#d4af37] flex items-center justify-center text-2xl shadow-lg shadow-[#d4af37]/20">🦫</div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-[#e8dcc8]">Ti-Guy</span>
+                    <span className="text-lg font-bold text-[#e8dcc8]">Güey</span>
                     {encryptionEnabled && <IoLockClosed className="w-4 h-4 text-green-400" title="Chiffrement activé" />}
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[#8b7355]">
@@ -906,7 +906,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
                         {message.text}
                       </p>
 
-                      {/* Translation toggle for Ti-Guy messages */}
+                      {/* Translation toggle for Güey messages */}
                       {message.sender === "tiGuy" && translationEnabled && (
                         <button onClick={() => toggleTranslation(message.id)} className="text-[10px] text-[#d4af37] mt-1 hover:underline">
                           {translatedMessages.has(message.id) ? "Voir l'original" : `Traduire en ${LANGUAGES.find(l => l.code === targetLanguage)?.name}`}
@@ -1031,7 +1031,7 @@ export const ChatUltimate: React.FC<ChatUltimateProps> = ({ onClose }) => {
 
               <div className="flex-1 relative">
                 <input ref={inputRef} type="text" value={inputText} onChange={(e) => setInputText(e.target.value)}
-                  placeholder={encryptionEnabled ? "🔒 Message chiffré..." : "Message Ti-Guy en joual..."}
+                  placeholder={encryptionEnabled ? "🔒 Message chiffré..." : "Message Güey en mexicano..."}
                   className="w-full px-5 py-4 rounded-2xl bg-[#3a2820]/80 border-2 border-[#d4af37]/30 text-[#e8dcc8] placeholder-[#8b7355] outline-none focus:border-[#d4af37]/60 transition-all text-[15px]"
                   style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.3)" }} />
               </div>

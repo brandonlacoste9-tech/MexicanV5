@@ -4,7 +4,7 @@ import { logger } from "../utils/logger";
 const PROJECT_ID =
   process.env.GOOGLE_CLOUD_PROJECT ||
   process.env.VERTEX_AI_PROJECT_ID ||
-  "zyeute-production";
+  "ojea-production";
 const LOCATION = process.env.VERTEX_AI_LOCATION || "us-central1";
 
 // Optional import - only load if package is available

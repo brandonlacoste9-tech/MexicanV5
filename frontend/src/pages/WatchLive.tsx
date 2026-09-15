@@ -14,7 +14,7 @@ import { logger } from "@/lib/logger";
 const watchLogger = logger.withContext("WatchLive");
 
 const API_BASE =
-  import.meta.env.VITE_API_URL || "https://zyeutev5-1.onrender.com";
+  import.meta.env.VITE_API_URL || "https://ojea-api.onrender.com";
 
 interface StreamData {
   streamId: string;
@@ -361,7 +361,7 @@ export default function WatchLive() {
             tap();
             navigator
               .share?.({
-                title: stream?.title || "Live Zyeuté",
+                title: stream?.title || "Live Ojea",
                 url: window.location.href,
               })
               .catch(() => navigator.clipboard.writeText(window.location.href));

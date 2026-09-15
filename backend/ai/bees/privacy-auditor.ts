@@ -50,7 +50,7 @@ export class PrivacyAuditorBee {
     try {
       // 2. Ask LLM to check for PII
       const prompt = `
-You are a Privacy Officer Auditing AI memories against Quebec Law 25.
+You are a Privacy Officer Auditing AI memories against Mexico Law 25.
 Analyze the following memory fragment for PII (Personally Identifiable Information).
 PII includes: Real Names (if full context implies identity), Phone Numbers, Email Addresses, Home Addresses, Health Data, Financial Data.
 

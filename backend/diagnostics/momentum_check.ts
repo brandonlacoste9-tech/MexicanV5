@@ -14,9 +14,9 @@ async function runDiagnostics() {
     const eyeTestQuery = `
       SELECT 
           LEFT(content, 40) as "Title",
-          quebec_score as "TiGuy_Opinion", 
+          mexico_score as "TiGuy_Opinion", 
           (
-            ((quebec_score + 1) * (LN(COALESCE(reactions_count, 0) * 1 + COALESCE(shares_count, 0) * 3 + COALESCE(piasse_count, 0) * 5 + 1) + 1))
+            ((mexico_score + 1) * (LN(COALESCE(reactions_count, 0) * 1 + COALESCE(shares_count, 0) * 3 + COALESCE(piasse_count, 0) * 5 + 1) + 1))
             / 
             POWER(EXTRACT(EPOCH FROM (NOW() - created_at))/3600 + 2, 1.8)
           ) as "Hive_Reality",
@@ -45,7 +45,7 @@ async function runDiagnostics() {
       SELECT 
           LEFT(content, 40) as "Title",
           (
-            ((quebec_score + 1) * (LN(COALESCE(reactions_count, 0) * 1 + COALESCE(shares_count, 0) * 3 + COALESCE(piasse_count, 0) * 5 + 1) + 1))
+            ((mexico_score + 1) * (LN(COALESCE(reactions_count, 0) * 1 + COALESCE(shares_count, 0) * 3 + COALESCE(piasse_count, 0) * 5 + 1) + 1))
             / 
             POWER(EXTRACT(EPOCH FROM (NOW() - created_at))/3600 + 2, 1.8)
           ) as "Reality",

@@ -45,7 +45,7 @@ const FALLBACK_GIFTS: GiftItem[] = [
   { id: "bravo", emoji: "👏", name: "Bravo", cost: 15 },
   { id: "cafe", emoji: "☕", name: "Café", cost: 25 },
   { id: "coeur", emoji: "💛", name: "Coeur d'or", cost: 50 },
-  { id: "tiguy", emoji: "🤖", name: "Ti-Guy", cost: 75 },
+  { id: "tiguy", emoji: "🤖", name: "Güey", cost: 75 },
   { id: "feu", emoji: "🔥", name: "Feu", cost: 100 },
   { id: "poutine", emoji: "🍟", name: "Poutine", cost: 125 },
   { id: "erable", emoji: "🍁", name: "Érable", cost: 150 },
@@ -414,7 +414,7 @@ export function GiftPicker({
           )}
         </button>
         <p className="text-white/35 text-[10px] text-center mt-3 leading-relaxed">
-          70% des cennes vont au créateur · 30% Zyeuté
+          70% des cennes vont au créateur · 30% Ojea
         </p>
       </SheetShell>
     </>

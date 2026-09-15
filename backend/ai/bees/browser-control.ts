@@ -1,12 +1,12 @@
 /**
  * 🌐 Browser Control Bee
- * Enables Ti-Guy to control the browser, navigate websites, and perform web tasks
+ * Enables Güey to control the browser, navigate websites, and perform web tasks
  * Uses browser-use patterns for automation
  */
 
 import { z } from "zod";
 
-// Browser action types Ti-Guy can perform
+// Browser action types Güey can perform
 export const BrowserActionSchema = z.object({
   action: z.enum([
     "navigate", // Go to a URL
@@ -31,8 +31,8 @@ const BROWSER_SERVICE_URL =
   process.env.BROWSER_SERVICE_URL || "http://localhost:8000";
 
 /**
- * Ti-Guy Browser Control Bee
- * Provides browser automation capabilities with Quebec personality
+ * Güey Browser Control Bee
+ * Provides browser automation capabilities with Mexico personality
  */
 export class BrowserControlBee {
   private sessionId: string | null = null;
@@ -64,7 +64,7 @@ export class BrowserControlBee {
       }
       return this.sessionId;
     } catch (error) {
-      console.error("🦫 Ti-Guy: Oups, le browser veut pas partir!", error);
+      console.error("🦫 Güey: Oups, le browser veut pas partir!", error);
       throw error;
     }
   }
@@ -107,7 +107,7 @@ export class BrowserControlBee {
   async navigate(
     url: string,
   ): Promise<{ success: boolean; title?: string; error?: string }> {
-    console.log(`🦫 Ti-Guy: J'me rends sur ${url}...`);
+    console.log(`🦫 Güey: J'me rends sur ${url}...`);
     return this.executeAction({
       action: "navigate",
       target: url,
@@ -128,7 +128,7 @@ export class BrowserControlBee {
       tiktok: `https://www.tiktok.com/search?q=${encodeURIComponent(query)}`,
     };
 
-    console.log(`🦫 Ti-Guy: J'cherche "${query}" sur ${platform}...`);
+    console.log(`🦫 Güey: J'cherche "${query}" sur ${platform}...`);
 
     await this.navigate(urls[platform]);
 
@@ -153,7 +153,7 @@ export class BrowserControlBee {
     image?: string;
     error?: string;
   }> {
-    console.log("🦫 Ti-Guy: J'prends une photo de l'écran!");
+    console.log("🦫 Güey: J'prends une photo de l'écran!");
     return this.executeAction({
       action: "screenshot",
       description: "Taking screenshot",
@@ -166,7 +166,7 @@ export class BrowserControlBee {
   async extractContent(
     selector?: string,
   ): Promise<{ success: boolean; content?: string; error?: string }> {
-    console.log("🦫 Ti-Guy: J'lis la page pour toi...");
+    console.log("🦫 Güey: J'lis la page pour toi...");
     return this.executeAction({
       action: "extract",
       target: selector || "body",
@@ -180,7 +180,7 @@ export class BrowserControlBee {
   async fillForm(
     fields: Record<string, string>,
   ): Promise<{ success: boolean; error?: string }> {
-    console.log("🦫 Ti-Guy: J'remplis le formulaire...");
+    console.log("🦫 Güey: J'remplis le formulaire...");
     return this.executeAction({
       action: "fill_form",
       value: JSON.stringify(fields),
@@ -200,7 +200,7 @@ export class BrowserControlBee {
           body: JSON.stringify({ sessionId: this.sessionId }),
         });
         this.sessionId = null;
-        console.log("🦫 Ti-Guy: Browser fermé, merci bonsoir!");
+        console.log("🦫 Güey: Browser fermé, merci bonsoir!");
       } catch (error) {
         console.error("Error closing session:", error);
       }
@@ -258,7 +258,7 @@ export async function run(task: any) {
 }
 
 /**
- * Format browser result into Ti-Guy's voice
+ * Format browser result into Güey's voice
  */
 function formatBrowserResponse(action: string, result: any): string {
   if (!result.success) {

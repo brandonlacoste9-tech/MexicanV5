@@ -49,7 +49,7 @@ export class GiftbitService {
   async placeOrder(
     orderData: GiftbitOrderRequest,
   ): Promise<GiftbitOrderResponse> {
-    const idempotencyKey = `zyeute_${crypto.randomUUID()}`;
+    const idempotencyKey = `ojea_${crypto.randomUUID()}`;
 
     try {
       // In a real implementation, this would call the Giftbit API

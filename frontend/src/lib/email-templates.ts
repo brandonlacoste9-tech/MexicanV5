@@ -1,12 +1,12 @@
 /**
- * Zyeuté Email Templates - Joual-forward, warm, authentic Quebec voice
+ * Ojea Email Templates - Mexicano-forward, warm, authentic Mexico voice
  *
  * Voice guidelines (matching copy.ts):
  * - Use "tu" (informal) over "vous"
- * - Joual expressions: icitte, ben, faque, pis, là-là
+ * - Mexicano expressions: icitte, ben, faque, pis, là-là
  * - Warm and encouraging
  * - Inclusive - no gendered assumptions
- * - Ti-Guy personality throughout
+ * - Güey personality throughout
  */
 
 export interface EmailTemplate {
@@ -28,7 +28,7 @@ export type EmailType =
   | "upgrade_prompt"
   | "reengagement";
 
-// Base email template with Quebec heritage styling
+// Base email template with Mexico heritage styling
 export const emailStyles = {
   container: `
     max-width: 600px;
@@ -106,16 +106,16 @@ export const emailStyles = {
 // Welcome email - First impression, warm and inviting
 export const welcomeEmail = (username: string): EmailTemplate => ({
   subject: `Bienvenue dans la gang, ${username}! 🦫🔥`,
-  preheader: "Ti-Guy t'accueille dans la communauté Zyeuté",
+  preheader: "Güey t'accueille dans la communauté Ojea",
   body: `
     <div style="${emailStyles.tiguy}">🦫</div>
     <h1 style="${emailStyles.heading}">Allô ${username}!</h1>
     <p style="${emailStyles.paragraph}">
-      C'est Ti-Guy! Content que tu sois là!
+      C'est Güey! Content que tu sois là!
     </p>
     <p style="${emailStyles.paragraph}">
-      Zyeuté, c'est <span style="${emailStyles.highlight}">l'app sociale du Québec</span>. 
-      Icitte, on partage nos moments, on découvre du monde de partout au Québec, 
+      Ojea, c'est <span style="${emailStyles.highlight}">l'app sociale du México</span>. 
+      Icitte, on partage nos moments, on découvre du monde de partout au México, 
       pis on se donne des 🔥 au lieu des likes.
     </p>
     <p style="${emailStyles.paragraph}">
@@ -123,30 +123,30 @@ export const welcomeEmail = (username: string): EmailTemplate => ({
     </p>
     <div style="${emailStyles.card}">
       <p style="margin: 8px 0;">🔥 <strong>Les Feux</strong> - Notre façon unique de réagir</p>
-      <p style="margin: 8px 0;">🎨 <strong>Ti-Guy Studio</strong> - Crée des images avec l'IA</p>
-      <p style="margin: 8px 0;">📱 <strong>La Zyeute</strong> - Feed vertical style TikTok</p>
-      <p style="margin: 8px 0;">⚜️ <strong>100% Québec</strong> - Fait icitte, pour icitte</p>
+      <p style="margin: 8px 0;">🎨 <strong>Güey Studio</strong> - Crée des images avec l'IA</p>
+      <p style="margin: 8px 0;">📱 <strong>La Ojea</strong> - Feed vertical style TikTok</p>
+      <p style="margin: 8px 0;">⚜️ <strong>100% México</strong> - Fait icitte, pour icitte</p>
     </div>
     <p style="${emailStyles.paragraph}">
       Viens faire un tour, on t'attend! 🦫⚜️
     </p>
   `,
   cta: {
-    text: "Commence à zyeuter →",
+    text: "Commence à ojear →",
     url: "{{APP_URL}}/",
   },
 });
 
-// Onboarding Day 1 - Ti-Guy Studio intro
+// Onboarding Day 1 - Güey Studio intro
 export const onboardingDay1Email = (username: string): EmailTemplate => ({
-  subject: `${username}, as-tu essayé Ti-Guy Studio? 🎨`,
+  subject: `${username}, as-tu essayé Güey Studio? 🎨`,
   preheader: "Crée des images avec l'IA - c'est gratuit pour commencer!",
   body: `
     <div style="${emailStyles.tiguy}">🎨</div>
     <h1 style="${emailStyles.heading}">Hey ${username}!</h1>
     <p style="${emailStyles.paragraph}">
       J'espère que tu t'installes ben! Aujourd'hui, je voulais te parler de 
-      <span style="${emailStyles.highlight}">Ti-Guy Studio</span>.
+      <span style="${emailStyles.highlight}">Güey Studio</span>.
     </p>
     <p style="${emailStyles.paragraph}">
       C'est mon petit coin création où tu peux faire des images avec l'intelligence artificielle. 
@@ -164,15 +164,15 @@ export const onboardingDay1Email = (username: string): EmailTemplate => ({
     </p>
   `,
   cta: {
-    text: "Essayer Ti-Guy Studio →",
+    text: "Essayer Güey Studio →",
     url: "{{APP_URL}}/ai-studio",
   },
 });
 
 // Onboarding Day 3 - Fire reactions + engagement
 export const onboardingDay3Email = (username: string): EmailTemplate => ({
-  subject: `🔥 Comment les feux marchent sur Zyeuté`,
-  preheader: "Notre système unique de réactions québécoises",
+  subject: `🔥 Comment les feux marchent sur Ojea`,
+  preheader: "Notre système unique de réactions mexicanas",
   body: `
     <div style="${emailStyles.tiguy}">🔥</div>
     <h1 style="${emailStyles.heading}">Salut ${username}!</h1>
@@ -181,8 +181,8 @@ export const onboardingDay3Email = (username: string): EmailTemplate => ({
       À place, on donne des <span style="${emailStyles.highlight}">🔥 Feux</span>!
     </p>
     <p style="${emailStyles.paragraph}">
-      Pourquoi des feux? Ben, au Québec, on dit souvent "c'est en feu" 
-      quand quelque chose est vraiment hot! Faque c'était parfait pour Zyeuté.
+      Pourquoi des feux? Ben, au México, on dit souvent "c'est en feu" 
+      quand quelque chose est vraiment hot! Faque c'était parfait pour Ojea.
     </p>
     <div style="${emailStyles.card}">
       <p style="margin: 8px 0;"><strong>Le savais-tu?</strong></p>
@@ -202,7 +202,7 @@ export const onboardingDay3Email = (username: string): EmailTemplate => ({
 
 // Onboarding Day 7 - Premium upgrade soft pitch
 export const onboardingDay7Email = (username: string): EmailTemplate => ({
-  subject: `Une semaine sur Zyeuté! 🎉 Merci ${username}`,
+  subject: `Une semaine sur Ojea! 🎉 Merci ${username}`,
   preheader: "On a un petit cadeau pour toi...",
   body: `
     <div style="${emailStyles.tiguy}">🎉</div>
@@ -216,7 +216,7 @@ export const onboardingDay7Email = (username: string): EmailTemplate => ({
       <span style="${emailStyles.highlight}">VIP</span> que certains ont...
     </p>
     <div style="${emailStyles.card}">
-      <p style="margin: 8px 0;"><strong>Zyeuté Premium, c'est:</strong></p>
+      <p style="margin: 8px 0;"><strong>Ojea Premium, c'est:</strong></p>
       <p style="margin: 8px 0;">🥉 <strong>Bronze</strong> - 4.99$/mois - Plus de créations AI</p>
       <p style="margin: 8px 0;">🥈 <strong>Argent</strong> - 9.99$/mois - Vidéos AI + badge vérifié</p>
       <p style="margin: 8px 0;">🥇 <strong>Or</strong> - 19.99$/mois - Tout illimité + support VIP</p>
@@ -243,7 +243,7 @@ export const weeklyDigestEmail = (
   },
   suggestedUsers: string[],
 ): EmailTemplate => ({
-  subject: `Ta semaine sur Zyeuté, ${username} 📊`,
+  subject: `Ta semaine sur Ojea, ${username} 📊`,
   preheader: `${stats.firesReceived} feux reçus cette semaine!`,
   body: `
     <div style="${emailStyles.tiguy}">📊</div>
@@ -267,7 +267,7 @@ export const weeklyDigestEmail = (
         : `
       <p style="${emailStyles.paragraph}">
         C'est tranquille cette semaine, mais ça va venir! 
-        Essaie de poster quelque chose de ton coin du Québec!
+        Essaie de poster quelque chose de ton coin du México!
       </p>
     `
     }
@@ -294,14 +294,14 @@ export const upgradePromptEmail = (
   aiGenerationsUsed: number,
   maxFreeGenerations: number,
 ): EmailTemplate => ({
-  subject: `${username}, débloque Ti-Guy Studio Pro! 🚀`,
+  subject: `${username}, débloque Güey Studio Pro! 🚀`,
   preheader: "Crée encore plus avec l'IA - images et vidéos illimitées",
   body: `
     <div style="${emailStyles.tiguy}">🚀</div>
     <h1 style="${emailStyles.heading}">T'aimes créer avec l'IA?</h1>
     <p style="${emailStyles.paragraph}">
       Hey ${username}! J'ai vu que t'as utilisé <strong>${aiGenerationsUsed}</strong> de tes 
-      <strong>${maxFreeGenerations}</strong> générations gratuites dans Ti-Guy Studio.
+      <strong>${maxFreeGenerations}</strong> générations gratuites dans Güey Studio.
     </p>
     <p style="${emailStyles.paragraph}">
       Si tu veux continuer à créer sans limites, 
@@ -315,7 +315,7 @@ export const upgradePromptEmail = (
       <p style="margin: 8px 0;">⚡ Génération prioritaire (plus rapide!)</p>
     </div>
     <p style="${emailStyles.paragraph}">
-      Pis tu supportes une app québécoise en même temps! 🦫⚜️
+      Pis tu supportes une app mexicana en même temps! 🦫⚜️
     </p>
   `,
   cta: {
@@ -330,19 +330,19 @@ export const reengagementEmail = (
   daysSinceLastVisit: number,
 ): EmailTemplate => ({
   subject: `${username}, on s'ennuie de toi! 🦫`,
-  preheader: "Y'a du nouveau sur Zyeuté depuis ta dernière visite",
+  preheader: "Y'a du nouveau sur Ojea depuis ta dernière visite",
   body: `
     <div style="${emailStyles.tiguy}">🦫</div>
     <h1 style="${emailStyles.heading}">Allô ${username}!</h1>
     <p style="${emailStyles.paragraph}">
       Ça fait ${daysSinceLastVisit} jours qu'on t'a pas vu! 
-      Ti-Guy s'ennuie de toi! 😢
+      Güey s'ennuie de toi! 😢
     </p>
     <p style="${emailStyles.paragraph}">
-      Pendant ce temps-là, y'a eu plein de belles affaires sur Zyeuté:
+      Pendant ce temps-là, y'a eu plein de belles affaires sur Ojea:
     </p>
     <div style="${emailStyles.card}">
-      <p style="margin: 8px 0;">🆕 Du nouveau contenu de créateurs québécois</p>
+      <p style="margin: 8px 0;">🆕 Du nouveau contenu de créateurs mexicano</p>
       <p style="margin: 8px 0;">🔥 Des posts qui font réagir</p>
       <p style="margin: 8px 0;">🎨 Des nouvelles fonctionnalités dans Studio</p>
     </div>
@@ -351,7 +351,7 @@ export const reengagementEmail = (
     </p>
   `,
   cta: {
-    text: "Revenir sur Zyeuté →",
+    text: "Revenir sur Ojea →",
     url: "{{APP_URL}}/",
   },
 });
@@ -384,8 +384,8 @@ export function wrapEmailTemplate(
   <div style="${emailStyles.container}">
     <!-- Header -->
     <div style="${emailStyles.header}">
-      <div style="${emailStyles.logo}">Zyeuté</div>
-      <p style="margin: 8px 0 0 0; color: #d4d4d4; font-size: 14px;">L'app sociale du Québec 🦫⚜️</p>
+      <div style="${emailStyles.logo}">Ojea</div>
+      <p style="margin: 8px 0 0 0; color: #d4d4d4; font-size: 14px;">L'app sociale du México 🦫⚜️</p>
     </div>
     
     <!-- Body -->
@@ -399,14 +399,14 @@ export function wrapEmailTemplate(
     
     <!-- Footer -->
     <div style="${emailStyles.footer}">
-      <p style="margin: 0 0 8px 0;">Fait au Québec, pour le Québec 🦫⚜️</p>
+      <p style="margin: 0 0 8px 0;">Fait au México, pour le México 🦫⚜️</p>
       <p style="margin: 0 0 8px 0;">
         <a href="${appUrl}/settings/notifications" style="color: #FFBF00; text-decoration: none;">Gérer mes notifications</a>
         &nbsp;•&nbsp;
         <a href="${appUrl}/unsubscribe?email={{EMAIL}}" style="color: #737373; text-decoration: none;">Se désabonner</a>
       </p>
       <p style="margin: 0; color: #525252;">
-        © ${new Date().getFullYear()} Zyeuté Inc. • Montréal, Québec
+        © ${new Date().getFullYear()} Ojea Inc. • Ciudad de México, México
       </p>
     </div>
   </div>

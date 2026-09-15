@@ -32,7 +32,7 @@ export async function backfillTikTokToMuxOrStorage(options: {
   };
 
   const limit = Math.min(options.limit ?? 10, 50);
-  const hiveId = options.hiveId ?? "quebec";
+  const hiveId = options.hiveId ?? "mexico";
   const supabase = createClient(
     options.supabaseUrl,
     options.supabaseServiceKey,

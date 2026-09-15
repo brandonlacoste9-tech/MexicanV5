@@ -151,7 +151,7 @@ export const ChatLayout: React.FC = () => {
         {
           id: 'welcome',
           sender: 'tiguy',
-          content: "Ayoye! Bienvenue sur Zyeuté Messenger! 🦫⚜️\n\nChu Ti-Guy, ton assistant québécois. Pose-moi tes questions!",
+          content: "Ayoye! Bienvenue sur Ojea Messenger! 🦫⚜️\n\nChu Güey, ton assistant mexicano. Pose-moi tes questions!",
           timestamp: new Date().toISOString(),
           type: 'bot',
         }
@@ -215,7 +215,7 @@ export const ChatLayout: React.FC = () => {
       } catch (error) {
         setIsTyping(false);
         haptics.error();
-        toast.error("Ti-Guy est indisponible");
+        toast.error("Güey est indisponible");
       }
     }
 
@@ -274,7 +274,7 @@ export const ChatLayout: React.FC = () => {
         >
           {/* TI-GUY Energy Indicator */}
           <div className="energy-indicator" title={`Énergie TI-GUY: ${charge}%`}>
-            <div className={`fleur-de-lys ${charge < 20 ? 'critical' : charge < 50 ? 'low' : ''}`}>
+            <div className={`aguila ${charge < 20 ? 'critical' : charge < 50 ? 'low' : ''}`}>
               ⚜️
             </div>
             <div className="energy-bar">

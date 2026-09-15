@@ -15,7 +15,7 @@ export interface ModerationResult {
   flagged: boolean;
 }
 
-const MODERATION_PROMPT = `Tu es un modérateur de contenu strict pour Zyeute, une app sociale québécoise.
+const MODERATION_PROMPT = `Tu es un modérateur de contenu strict pour Ojea, une app sociale mexicana.
 Analyse le texte et retourne UNIQUEMENT un JSON valide sans markdown:
 {
   "safe": boolean,
@@ -33,7 +33,7 @@ RÈGLES STRICTES:
 - "high" si harcèlement direct, haine ciblée, contenu sexuel explicite
 - "medium" si insultes graves, intimidation, contenu choquant
 - "low" si langage vulgaire léger, contenu ambigu
-- "safe" si contenu normal (le joual québécois et sacres légers = safe)
+- "safe" si contenu normal (le mexicano mexicano et sacres légers = safe)
 Retourne SEULEMENT le JSON.`;
 
 /**
@@ -161,7 +161,7 @@ export async function moderateVideoFrame(
             {
               parts: [
                 {
-                  text: `Tu es un modérateur de contenu pour Zyeute, une app sociale québécoise.
+                  text: `Tu es un modérateur de contenu pour Ojea, une app sociale mexicana.
 Analyse cette image et retourne UNIQUEMENT un JSON valide:
 {
   "safe": boolean,

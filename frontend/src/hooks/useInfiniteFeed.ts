@@ -1,7 +1,7 @@
 /**
  * Infinite Scroll Feed Hook
  * Uses React Query for data fetching with cursor-based pagination
- * Compatible with both Zyeute (TikTok feed) and Feed (grid) components
+ * Compatible with both Ojea (TikTok feed) and Feed (grid) components
  */
 
 import {
@@ -24,9 +24,9 @@ import { getGuestSeenForRequest } from "@/lib/watchTracking";
 
 function getStoredHive(): string {
   try {
-    return localStorage.getItem("zyeute_hive_id") || "quebec";
+    return localStorage.getItem("ojea_hive_id") || "mexico";
   } catch {
-    return "quebec";
+    return "mexico";
   }
 }
 

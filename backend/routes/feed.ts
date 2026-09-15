@@ -218,7 +218,7 @@ const FEED_PUBLICATIONS_SELECT = `
   )
 `;
 
-/** Pull Ti-Guy / AI / Castor posts even when viral_score keeps them out of the top block. */
+/** Pull Güey / AI / Castor posts even when viral_score keeps them out of the top block. */
 async function fetchTiGuyCuratedSupabase(
   supabase: SupabaseClient,
   hiveId: string,
@@ -227,7 +227,7 @@ async function fetchTiGuyCuratedSupabase(
   const { data: botRow } = await supabase
     .from("user_profiles")
     .select("id")
-    .eq("username", "ti_guy_bot")
+    .eq("username", "guey_bot")
     .maybeSingle();
 
   const { data } = await supabase
@@ -237,7 +237,7 @@ async function fetchTiGuyCuratedSupabase(
     .eq("est_masque", false)
     .is("deleted_at", null)
     .filter("processing_status::text", "neq", "no_audio")
-    .filter("hive_id::text", "eq", hiveId || "quebec")
+    .filter("hive_id::text", "eq", hiveId || "mexico")
     .not("media_url", "is", null)
     .or(
       "processing_status::text.eq.completed,processing_status.is.null,mux_playback_id.not.is.null",
@@ -268,7 +268,7 @@ async function fetchTikTokExploreSupabase(
     .filter("visibility::text", "eq", "public")
     .eq("est_masque", false)
     .is("deleted_at", null)
-    .filter("hive_id::text", "eq", hiveId || "quebec")
+    .filter("hive_id::text", "eq", hiveId || "mexico")
     .not("media_url", "is", null)
     .in("video_source", ["tiktok", "tiktok_apify", "apify"])
     .or(
@@ -330,7 +330,7 @@ async function fetchWatchedPostIds(
 async function getPostsViaSupabase(
   limit: number,
   page: number,
-  _hiveId = "quebec",
+  _hiveId = "mexico",
   seed = 0,
   viewerId?: string,
   guestSeenIds: string[] = [],
@@ -400,11 +400,11 @@ router.get("/pool-stats", async (_req, res) => {
       await import("../services/feed-replenish-tikapi.js");
     const { isMuxIngestConfigured } =
       await import("../services/tiktok-mux-ingest.js");
-    const count = await countPublicFeedPosts("quebec");
-    const playableCount = await countPlayableFeedPosts("quebec");
+    const count = await countPublicFeedPosts("mexico");
+    const playableCount = await countPlayableFeedPosts("mexico");
     const minPosts = parseInt(process.env.FEED_MIN_PLAYABLE_POSTS || "150", 10);
     res.json({
-      hive: "quebec",
+      hive: "mexico",
       publicVideoCount: count,
       playableVideoCount: playableCount,
       minThreshold: minPosts,
@@ -423,7 +423,7 @@ router.get("/", optionalAuth, async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.query.page as string) || 0;
     const limit = parseInt(req.query.limit as string) || 20;
-    const hive = (req.query.hive as string) || "quebec";
+    const hive = (req.query.hive as string) || "mexico";
     const viewerId = (req as any).userId as string | undefined;
     const seed = resolveFeedSeed(req.query.session, viewerId);
 
@@ -470,7 +470,7 @@ router.get("/", optionalAuth, async (req: Request, res: Response) => {
 router.get("/smart", optionalAuth, async (req: Request, res: Response) => {
   try {
     const limit = parseInt(req.query.limit as string) || 20;
-    const hive = (req.query.hive as string) || "quebec";
+    const hive = (req.query.hive as string) || "mexico";
     const viewerId = (req as any).userId as string | undefined;
     const seed = resolveFeedSeed(req.query.session, viewerId);
 
@@ -586,7 +586,7 @@ router.get(
       }
 
       // Fetch viewer's region and affinities for region-aware feed weighting
-      let viewerRegion = hiveId || "quebec";
+      let viewerRegion = hiveId || "mexico";
       let viewerAffinities: string[] = [];
       if (viewerId) {
         const { data: viewerProfile } = await supabase
@@ -675,7 +675,7 @@ router.get(
           .eq("est_masque", false)
           .is("deleted_at", null)
           .filter("processing_status::text", "neq", "no_audio")
-          .filter("hive_id::text", "eq", hiveId || "quebec")
+          .filter("hive_id::text", "eq", hiveId || "mexico")
           .or(
             "processing_status::text.eq.completed,processing_status.is.null,mux_playback_id.not.is.null",
           )
@@ -815,7 +815,7 @@ router.get(
         error = fallback.error;
       }
 
-      // Pour toi: inject Ti-Guy + TikTok clips (buried under bulk stock seed)
+      // Pour toi: inject Güey + TikTok clips (buried under bulk stock seed)
       if (feedType === "explore") {
         const excludedSetForMerge = new Set(excludedIds.map(String));
         const mergeCurated = (rows: Record<string, unknown>[]) => {
@@ -838,8 +838,8 @@ router.get(
         try {
           const blockSeed = (seed + blockIndex) >>> 0;
           const [curated, tiktokRows] = await Promise.all([
-            fetchTiGuyCuratedSupabase(supabase, hiveId || "quebec"),
-            fetchTikTokExploreSupabase(supabase, hiveId || "quebec"),
+            fetchTiGuyCuratedSupabase(supabase, hiveId || "mexico"),
+            fetchTikTokExploreSupabase(supabase, hiveId || "mexico"),
           ]);
           mergeCurated(shuffleWithSeed(tiktokRows, blockSeed).slice(0, 18));
           mergeCurated(shuffleWithSeed(curated, blockSeed + 99).slice(0, 12));

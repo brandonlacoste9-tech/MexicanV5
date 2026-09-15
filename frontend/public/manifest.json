@@ -1,7 +1,7 @@
 {
-  "name": "Zyeute — La scène québécoise",
-  "short_name": "Zyeute",
-  "description": "La plateforme vidéo 100% québécoise. Partage, découvre, connecte.",
+  "name": "Ojea — La scène mexicana",
+  "short_name": "Ojea",
+  "description": "La plateforme vidéo 100% mexicana. Partage, découvre, connecte.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,13 +10,13 @@
   "theme_color": "#D4AF37",
   "icons": [
     {
-      "src": "/zyeute_app_icon.png",
+      "src": "/ojea_app_icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/zyeute_app_icon.png",
+      "src": "/ojea_app_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -25,24 +25,24 @@
   "categories": ["social", "entertainment"],
   "screenshots": [
     {
-      "src": "/zyeute_og_image.png",
+      "src": "/ojea_og_image.png",
       "sizes": "1672x941",
       "type": "image/png",
-      "label": "Zyeute — La scène québécoise",
+      "label": "Ojea — La scène mexicana",
       "form_factor": "wide"
     },
     {
-      "src": "/zyeute_splash.png",
+      "src": "/ojea_splash.png",
       "sizes": "864x1821",
       "type": "image/png",
-      "label": "Zyeute splash",
+      "label": "Ojea splash",
       "form_factor": "narrow"
     },
     {
-      "src": "/zyeute_tablet_1920x1080.png",
+      "src": "/ojea_tablet_1920x1080.png",
       "sizes": "1920x1080",
       "type": "image/png",
-      "label": "Zyeute — Vue tablette",
+      "label": "Ojea — Vue tablette",
       "form_factor": "wide"
     }
   ]

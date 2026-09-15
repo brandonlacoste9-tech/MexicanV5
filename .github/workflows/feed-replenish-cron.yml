@@ -1,0 +1,70 @@
+# Top up the production video feed (Omkar TikTok + Mux backfill).
+name: Feed replenish (scheduled)
+
+on:
+  schedule:
+    - cron: "0 7,13,19 * * *"
+    - cron: "*/10 7-13 * * *"
+  workflow_dispatch:
+
+jobs:
+  replenish:
+    name: Seed feed providers on production
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Omkar TikTok seed (primary)
+        env:
+          API_BASE: ${{ vars.OJEA_API_BASE || 'https://ojea-api.onrender.com' }}
+        run: |
+          echo "POST $API_BASE/api/seed/omkar?force=1&limit=15"
+          code=$(curl -sS -o /tmp/omkar.json -w "%{http_code}" \
+            -X POST "$API_BASE/api/seed/omkar?force=1&limit=15" \
+            -H "Content-Type: application/json" \
+            -H "X-Cron-Secret: ${{ secrets.CRON_SECRET }}" || echo "000")
+          echo "HTTP $code"
+          cat /tmp/omkar.json || true
+
+      - name: Apify fallback (optional)
+        env:
+          API_BASE: ${{ vars.OJEA_API_BASE || 'https://ojea-api.onrender.com' }}
+        run: |
+          echo "POST $API_BASE/api/seed/providers?force=1&apify_only=1&limit=20"
+          code=$(curl -sS -o /tmp/providers.json -w "%{http_code}" \
+            -X POST "$API_BASE/api/seed/providers?force=1&apify_only=1&limit=20" \
+            -H "Content-Type: application/json" \
+            -H "X-Cron-Secret: ${{ secrets.CRON_SECRET }}" || echo "000")
+          echo "HTTP $code"
+          cat /tmp/providers.json || true
+          if [ "$code" = "404" ]; then
+            echo "::warning::Deploy latest main (POST /api/seed/providers) first"
+          fi
+
+      - name: Mux backfill dead TikTok CDN
+        env:
+          API_BASE: ${{ vars.OJEA_API_BASE || 'https://ojea-api.onrender.com' }}
+        run: |
+          echo "POST $API_BASE/api/seed/mux-backfill?limit=25"
+          curl -sS -o /tmp/mux-backfill.json -w "HTTP %{http_code}\n" \
+            -X POST "$API_BASE/api/seed/mux-backfill?limit=25" \
+            -H "Content-Type: application/json" \
+            -H "X-Cron-Secret: ${{ secrets.CRON_SECRET }}" || true
+          cat /tmp/mux-backfill.json || true
+
+      - name: TikAPI Mux ingest (when pool low)
+        env:
+          API_BASE: ${{ vars.OJEA_API_BASE || 'https://ojea-api.onrender.com' }}
+        run: |
+          echo "POST $API_BASE/api/seed/tikapi?limit=30"
+          curl -sS -o /tmp/tikapi.json -w "HTTP %{http_code}\n" \
+            -X POST "$API_BASE/api/seed/tikapi?limit=30" \
+            -H "Content-Type: application/json" \
+            -H "X-Cron-Secret: ${{ secrets.CRON_SECRET }}" || true
+          cat /tmp/tikapi.json || true
+
+      - name: Pool stats
+        env:
+          API_BASE: ${{ vars.OJEA_API_BASE || 'https://ojea-api.onrender.com' }}
+        run: |
+          curl -sS "$API_BASE/api/feed/pool-stats" || true
+          curl -sS "$API_BASE/api/seed/status" || true

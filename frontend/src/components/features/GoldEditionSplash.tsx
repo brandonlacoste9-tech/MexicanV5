@@ -90,7 +90,7 @@ export const GoldEditionSplash: React.FC<GoldEditionSplashProps> = ({
             transition={{ delay: 5, duration: 2 }}
             className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/40 text-[10px] tracking-[0.5em] uppercase font-light pointer-events-none"
           >
-            Zyeuté AG © 2026 Gold Edition
+            Ojea AG © 2026 Gold Edition
           </motion.div>
         </motion.div>
       )}

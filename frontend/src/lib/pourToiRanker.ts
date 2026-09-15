@@ -141,7 +141,7 @@ export function pourToiRank(
 }
 
 /** Cache key for watch history (session-scoped). */
-const WATCH_CACHE_KEY = "zyeute_pour_toi_history";
+const WATCH_CACHE_KEY = "ojea_pour_toi_history";
 const WATCH_CACHE_TTL_MS = 30 * 60 * 1000; // 30 min
 
 interface WatchCache {

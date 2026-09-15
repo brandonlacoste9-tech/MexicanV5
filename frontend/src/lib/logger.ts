@@ -21,7 +21,7 @@ const config = {
     error: true, // Always show errors
   },
   // Prefix for all logs (helps identify source)
-  prefix: "[Zyeuté]",
+  prefix: "[Ojea]",
 };
 
 /**

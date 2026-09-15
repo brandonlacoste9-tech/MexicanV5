@@ -9,9 +9,9 @@ import { useSEO } from "@/hooks/useSEO";
 
 const Landing: React.FC = () => {
   useSEO({
-    title: "L'app vidéo du Québec | TikTok québécois",
+    title: "L'app vidéo du México | TikTok mexicano",
     description:
-      "Zyeute est la plateforme de vidéos courtes 100% québécoise. Partage tes clips, découvre des créateurs de Montréal, Québec et partout au Québec.",
+      "Ojea est la plateforme de vidéos courtes 100% mexicana. Partage tes clips, découvre des créateurs de Ciudad de México, México et partout au México.",
     url: "/",
   });
 

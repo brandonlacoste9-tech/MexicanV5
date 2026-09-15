@@ -12,7 +12,7 @@ captureReferralFromUrl();
 
 const APP_VERSION = "20260605-1";
 try {
-  const storedVersion = localStorage.getItem("zyeute_app_version");
+  const storedVersion = localStorage.getItem("ojea_app_version");
   if (storedVersion !== APP_VERSION) {
     // Only clear auth tokens if the major version changed (not on every deploy)
     // This prevents forcing re-login on minor updates
@@ -28,7 +28,7 @@ try {
       }
       keysToRemove.forEach((k) => localStorage.removeItem(k));
     }
-    localStorage.setItem("zyeute_app_version", APP_VERSION);
+    localStorage.setItem("ojea_app_version", APP_VERSION);
   }
 } catch {}
 

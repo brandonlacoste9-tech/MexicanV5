@@ -44,7 +44,7 @@ export class AlertService {
     // 2. Send email notification via Resend
     const emailHtml = `
       <div style="font-family: sans-serif; padding: 20px; border: 2px solid #D4AF37; border-radius: 10px;">
-        <h2 style="color: #D4AF37;">⚜️ Zyeuté Budget Alert: ${threshold * 100}%</h2>
+        <h2 style="color: #D4AF37;">⚜️ Ojea Budget Alert: ${threshold * 100}%</h2>
         <p>Your TI-GUY AI spending has hit a critical threshold.</p>
         <div style="background: #f4f4f4; padding: 15px; border-radius: 5px;">
           <p><strong>Total Spent:</strong> $${totalCost.toFixed(4)}</p>
@@ -57,8 +57,8 @@ export class AlertService {
 
     try {
       await sendEmail({
-        to: process.env.ADMIN_EMAIL || "admin@zyeute.com",
-        subject: `🚨 [Zyeute] Budget Alert: ${threshold * 100}% Threshold Hit`,
+        to: process.env.ADMIN_EMAIL || "admin@ojea-mexico.netlify.app",
+        subject: `🚨 [Ojea] Budget Alert: ${threshold * 100}% Threshold Hit`,
         html: emailHtml,
       });
     } catch (err) {
@@ -76,7 +76,7 @@ export class AlertService {
     queriesToday: number;
     cap: number;
   }) {
-    const title = "📊 Zyeuté AI - Daily Cost Summary";
+    const title = "📊 Ojea AI - Daily Cost Summary";
     const percentUsed = (data.totalCost / data.cap) * 100;
 
     const emailHtml = `
@@ -104,14 +104,14 @@ export class AlertService {
             <td style="padding: 8px; border-bottom: 1px solid #eee;">$${data.cap}</td>
           </tr>
         </table>
-        <p style="margin-top: 20px; font-size: 12px; color: #666;">Zyeuté Cost Monitor Hub • Montréal</p>
+        <p style="margin-top: 20px; font-size: 12px; color: #666;">Ojea Cost Monitor Hub • Ciudad de México</p>
       </div>
     `;
 
     try {
       await sendEmail({
-        to: process.env.ADMIN_EMAIL || "admin@zyeute.com",
-        subject: `📊 [Zyeute] Daily AI Cost Summary: $${data.totalCost.toFixed(2)}`,
+        to: process.env.ADMIN_EMAIL || "admin@ojea-mexico.netlify.app",
+        subject: `📊 [Ojea] Daily AI Cost Summary: $${data.totalCost.toFixed(2)}`,
         html: emailHtml,
       });
     } catch (err) {

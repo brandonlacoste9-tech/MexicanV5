@@ -7,12 +7,12 @@ import {
   signInWithGoogle,
 } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
-import "./ZyeuteLogin.css";
+import "./OjeaLogin.css";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
 const FleurDeLis = () => (
-  <svg viewBox="0 0 100 100" className="fleur-de-lis">
+  <svg viewBox="0 0 100 100" className="aguila">
     <defs>
       <linearGradient id="goldGradient">
         <stop offset="0%" stopColor="#5b8de6" />
@@ -27,7 +27,7 @@ const FleurDeLis = () => (
   </svg>
 );
 
-const ZyeuteLogin: React.FC = () => {
+const OjeaLogin: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [biometricAvailable, setBiometricAvailable] = useState(false);
@@ -114,8 +114,8 @@ const ZyeuteLogin: React.FC = () => {
         </div>
 
         <FleurDeLis />
-        <h1 className="title">Zyeuté</h1>
-        <p className="subtitle">L'APP SOCIALE DU QUÉBEC</p>
+        <h1 className="title">Ojea</h1>
+        <p className="subtitle">L'APP SOCIALE DU MÉXICO</p>
 
         <div className="login-card">
           <h2 className="card-title">Connecte-toi</h2>
@@ -173,7 +173,7 @@ const ZyeuteLogin: React.FC = () => {
         {/* [PHASE 9] Zero Tolerance Safety Policy Footer */}
         <div className="max-w-xs mx-auto mt-6 px-4 py-3 bg-red-500/5 backdrop-blur-md border border-red-500/20 rounded-xl text-center shadow-lg">
           <p className="text-[10px] text-red-400 font-bold uppercase tracking-[2px] mb-1">
-            Sécurité Zyeuté
+            Sécurité Ojea
           </p>
           <p className="text-[10px] text-white/40 leading-tight">
             Politique de <span className="text-red-400">tolérance zéro</span> :
@@ -207,4 +207,4 @@ const ZyeuteLogin: React.FC = () => {
   );
 };
 
-export default ZyeuteLogin;
+export default OjeaLogin;

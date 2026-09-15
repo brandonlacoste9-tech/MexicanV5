@@ -60,7 +60,7 @@ const PREF_LABELS: { key: keyof EmailPrefs; label: string; desc: string }[] = [
   {
     key: "emailPromotional",
     label: "Offres & nouveautés",
-    desc: "Nouvelles fonctionnalités, concours et promotions Zyeuté",
+    desc: "Nouvelles fonctionnalités, concours et promotions Ojea",
   },
   {
     key: "emailSystemUpdates",

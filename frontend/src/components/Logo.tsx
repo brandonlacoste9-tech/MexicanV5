@@ -1,7 +1,7 @@
 /**
- * Zyeuté Logo Component
- * Golden Stitched Fleur-de-lys Emblem on Dark Leather
- * Premium Quebec Heritage Design
+ * Ojea Logo Component
+ * Golden Stitched Águila Emblem on Dark Leather
+ * Premium Mexico Heritage Design
  */
 
 import React from "react";
@@ -128,7 +128,7 @@ export const Logo: React.FC<LogoProps> = ({
             }}
           />
 
-          {/* Fleur-de-lys SVG with Stitched Embroidery Effect */}
+          {/* Águila SVG with Stitched Embroidery Effect */}
           <svg
             viewBox="0 0 100 120"
             className={`${config.icon} relative z-10`}
@@ -175,7 +175,7 @@ export const Logo: React.FC<LogoProps> = ({
               </filter>
             </defs>
 
-            {/* Main Fleur-de-lys with embroidered look */}
+            {/* Main Águila with embroidered look */}
             <g
               fill="url(#goldThread)"
               stroke="url(#goldHighlight)"
@@ -217,7 +217,7 @@ export const Logo: React.FC<LogoProps> = ({
           </svg>
         </div>
 
-        {/* "Québec" Text Under Logo */}
+        {/* "México" Text Under Logo */}
         {size === "xl" && (
           <p
             className="text-center text-xs font-bold tracking-[0.25em] mt-2"
@@ -228,7 +228,7 @@ export const Logo: React.FC<LogoProps> = ({
                 : "0 1px 2px rgba(0,0,0,0.8)",
             }}
           >
-            QUÉBEC
+            MÉXICO
           </p>
         )}
       </div>
@@ -252,7 +252,7 @@ export const Logo: React.FC<LogoProps> = ({
               WebkitTextStroke: glowing ? "0.5px rgba(184,134,11,0.3)" : "none",
             }}
           >
-            Zyeuté
+            Ojea
           </span>
           {size !== "sm" && (
             <span
@@ -262,7 +262,7 @@ export const Logo: React.FC<LogoProps> = ({
                 textShadow: "0 1px 2px rgba(0,0,0,0.6)",
               }}
             >
-              L&apos;app sociale du Québec
+              L&apos;app sociale du México
             </span>
           )}
         </div>

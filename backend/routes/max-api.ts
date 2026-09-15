@@ -9,7 +9,7 @@ const router = express.Router();
 /**
  * Max API Routes
  *
- * Endpoints for Max (WhatsApp Production Manager) to execute Zyeuté commands
+ * Endpoints for Max (WhatsApp Production Manager) to execute Ojea commands
  *
  * Authentication: Uses MAX_API_TOKEN header
  * Phone: +15143481161
@@ -53,7 +53,7 @@ router.get("/status", verifyMaxAuth, async (req, res) => {
   try {
     const status = {
       timestamp: new Date().toISOString(),
-      system: "Zyeuté Colony OS",
+      system: "Ojea Colony OS",
       status: "operational",
       components: {
         backend: "online",
@@ -185,7 +185,7 @@ router.get("/verify-service-account", verifyMaxAuth, async (req, res) => {
  * POST /api/max/command
  *
  * Generic command handler for Max
- * Supports various Zyeuté commands
+ * Supports various Ojea commands
  */
 router.post("/command", verifyMaxAuth, async (req, res) => {
   try {

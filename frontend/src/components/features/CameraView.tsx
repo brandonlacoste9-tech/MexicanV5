@@ -1,5 +1,5 @@
 /**
- * CameraView - Unified camera interface for Zyeuté
+ * CameraView - Unified camera interface for Ojea
  * Supports photo and video capture with a premium leather/gold UI
  */
 

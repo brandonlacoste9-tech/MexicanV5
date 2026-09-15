@@ -32,7 +32,7 @@ export const TiGuyInsight: React.FC<TiGuyInsightProps> = ({
       >
         <span className="text-sm group-hover:animate-bounce">🦫</span>
         <span className="text-[10px] font-bold uppercase tracking-widest text-gold-400">
-          Ti-Guy Insight
+          Güey Insight
         </span>
       </button>
 
@@ -46,7 +46,7 @@ export const TiGuyInsight: React.FC<TiGuyInsightProps> = ({
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase tracking-[2px] text-gold-500 font-bold">
-                L'avis de Ti-Guy
+                L'avis de Güey
               </span>
               <button
                 onClick={() => setIsOpen(false)}

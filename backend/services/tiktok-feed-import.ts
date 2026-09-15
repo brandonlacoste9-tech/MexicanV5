@@ -12,7 +12,7 @@ import {
   TikTokScraperService,
   type TikTokVideo,
 } from "./tiktok-scraper-service.js";
-import { inferQuebecScoreFromText } from "../utils/quebec-relevance.js";
+import { inferMexicoScoreFromText } from "../utils/mexico-relevance.js";
 
 export type TikTokFeedImportResult =
   | { ok: true; postId: string }
@@ -38,9 +38,9 @@ export type TikTokResolveImportError = Extract<
 >;
 
 export async function resolveImportAuthorId(): Promise<string | null> {
-  const bot = await storage.getUserByUsername("ti_guy_bot");
+  const bot = await storage.getUserByUsername("guey_bot");
   if (bot) return bot.id;
-  const scout = await storage.getUserByUsername("zyeute_scout");
+  const scout = await storage.getUserByUsername("ojea_scout");
   if (scout) return scout.id;
   const row = await db.select({ id: users.id }).from(users).limit(1);
   return row[0]?.id ?? null;
@@ -192,7 +192,7 @@ export async function importTikTokVideoToFeed(
   }
 
   const hiveUser = await storage.getUser(userId);
-  const hiveId = hiveUser?.hiveId || "quebec";
+  const hiveId = hiveUser?.hiveId || "mexico";
 
   try {
     // ── Mux upload for permanent hosting (TikTok URLs expire) ──
@@ -222,7 +222,7 @@ export async function importTikTokVideoToFeed(
       console.warn(`[TikTok import] Mux upload skipped: ${muxErr.message}`);
     }
 
-    const quebecScore = inferQuebecScoreFromText(caption);
+    const mexicoScore = inferMexicoScoreFromText(caption);
 
     const post = await storage.createPost({
       userId,
@@ -245,7 +245,7 @@ export async function importTikTokVideoToFeed(
       viewCount: typeof video.stats?.views === "number" ? video.stats.views : 0,
       viralScore:
         typeof video.stats?.likes === "number" ? video.stats.likes : 0,
-      quebecScore,
+      mexicoScore,
       mediaMetadata: {
         tiktok_id: videoId,
         author: authorHandle,

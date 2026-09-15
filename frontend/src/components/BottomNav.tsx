@@ -1,5 +1,5 @@
 /**
- * Bottom Navigation - Premium Quebec Heritage Design
+ * Bottom Navigation - Premium Mexico Heritage Design
  * Leather texture with gold stitching and glowing icons
  */
 

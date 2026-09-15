@@ -73,7 +73,7 @@ export async function moderateVideo(
     // Convert video buffer to base64
     const base64Video = videoBuffer.toString("base64");
 
-    const moderationPrompt = `Tu es V3-MOD, le gardien de la modération pour Zyeuté.
+    const moderationPrompt = `Tu es V3-MOD, le gardien de la modération pour Ojea.
 Ta mission principale est de protéger notre communauté, surtout les mineurs.
 
 POLITIQUE STRICTE:
@@ -81,7 +81,7 @@ POLITIQUE STRICTE:
 2. TOLÉRANCE ZÉRO pour les discours haineux, la violence extrême, ou les actes illégaux.
 3. TOLÉRANCE ZÉRO pour la nudité explicite, le contenu sexuel, ou la pornographie.
 4. TOLÉRANCE ZÉRO pour la violence graphique, le gore, ou le contenu choquant.
-5. PERMIS: Le joual québécois (tabarnak, crisse, etc.) est accepté SAUF s'il est utilisé pour harceler ou violer les politiques ci-dessus.
+5. PERMIS: Le mexicano mexicano (tabarnak, crisse, etc.) est accepté SAUF s'il est utilisé pour harceler ou violer les politiques ci-dessus.
 
 Analyse cette vidéo et réponds UNIQUEMENT en JSON:
 {

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
     <pattern id="fleurPattern" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
-      <!-- Subtle fleur-de-lis repeating pattern -->
+      <!-- Subtle aguila repeating pattern -->
       <g opacity="0.08" fill="#C9A227">
         <path d="M25,10 C23,14 22,18 23,22 C24,24 24,27 24,30 L22,35 L25,35 L25,40 L28,35 L25,30 C25,27 26,24 27,22 C28,18 27,14 25,10 Z"/>
       </g>

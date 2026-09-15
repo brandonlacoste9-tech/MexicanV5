@@ -1,5 +1,5 @@
 /**
- * Community Guidelines - Quebec-aware content moderation rules
+ * Community Guidelines - Mexico-aware content moderation rules
  */
 
 import React from "react";
@@ -11,7 +11,7 @@ export const CommunityGuidelines: React.FC = () => {
   useSEO({
     title: "Directives de la communauté",
     description:
-      "Les règles de la ruche Zyeute : respect, sécurité et expression libre pour les Québécois et francophones.",
+      "Les règles de la ruche Ojea : respect, sécurité et expression libre pour les Mexicano et francophones.",
     url: "/legal/community",
   });
 
@@ -33,7 +33,7 @@ export const CommunityGuidelines: React.FC = () => {
             Directives de la Communauté ⚜️
           </h1>
           <p className="text-white/80 text-lg mb-8 leading-relaxed">
-            Zyeuté est une plateforme inclusive pour tous les Québécois et
+            Ojea est une plateforme inclusive pour tous les Mexicano et
             francophones. Nous voulons que chacun se sente en sécurité, respecté
             et libre de s&apos;exprimer dans notre culture unique.
           </p>
@@ -100,7 +100,7 @@ export const CommunityGuidelines: React.FC = () => {
                   🚫 Exploitation et Sécurité des Mineurs
                 </h3>
                 <p className="text-white/70 mb-4 leading-relaxed">
-                  Zyeuté applique une politique de{" "}
+                  Ojea applique une politique de{" "}
                   <strong className="text-red-400 uppercase tracking-wider">
                     tolérance zéro
                   </strong>{" "}
@@ -115,7 +115,7 @@ export const CommunityGuidelines: React.FC = () => {
                   créent et partagent.
                 </div>
                 <p className="text-white/50 text-sm italic">
-                  Zyeuté se réserve le droit de retirer tout contenu ou de
+                  Ojea se réserve le droit de retirer tout contenu ou de
                   suspendre tout compte contrevenant à ces standards de sécurité
                   ou aux lois applicables.
                 </p>
@@ -216,7 +216,7 @@ export const CommunityGuidelines: React.FC = () => {
                   <li className="flex gap-3">
                     <span className="text-green-400 font-bold">✅</span>
                     <span>
-                      <strong>Célébrer la diversité:</strong> Le Québec est
+                      <strong>Célébrer la diversité:</strong> Le México est
                       riche de ses différences
                     </span>
                   </li>
@@ -224,7 +224,7 @@ export const CommunityGuidelines: React.FC = () => {
                     <span className="text-green-400 font-bold">✅</span>
                     <span>
                       <strong>Signaler les violations:</strong> Aide-nous à
-                      garder Zyeuté sûr
+                      garder Ojea sûr
                     </span>
                   </li>
                 </ul>
@@ -232,31 +232,31 @@ export const CommunityGuidelines: React.FC = () => {
             </div>
           </section>
 
-          {/* Section 4: Quebec Cultural Exceptions */}
+          {/* Section 4: Mexico Cultural Exceptions */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
               <span className="text-3xl">⚜️</span>
-              Exceptions Culturelles Québécoises
+              Exceptions Culturelles Mexicanas
             </h2>
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
               <p className="text-white/80 mb-4">
-                Zyeuté comprend et respecte la culture québécoise unique. Les
+                Ojea comprend et respecte la culture mexicana unique. Les
                 éléments suivants sont
                 <strong className="text-gold-400"> acceptables</strong>:
               </p>
               <ul className="space-y-2 text-white/70">
                 <li>
-                  ✅ Expressions colorées du joual (tabarnak, crisse, câlisse,
+                  ✅ Expressions colorées du mexicano (tabarnak, crisse, câlisse,
                   ostie, etc.)
                 </li>
                 <li>
                   ✅ Débats politiques passionnés (souveraineté, langue
                   française, identité)
                 </li>
-                <li>✅ Humour grinçant et sarcasme québécois</li>
+                <li>✅ Humour grinçant et sarcasme mexicano</li>
                 <li>✅ Critique sociale constructive</li>
                 <li>
-                  ✅ Références culturelles locales (Ti-Guy, poutine, sirop
+                  ✅ Références culturelles locales (Güey, poutine, sirop
                   d&apos;érable)
                 </li>
                 <li>✅ Blagues entre amis et taquineries amicales</li>
@@ -406,7 +406,7 @@ export const CommunityGuidelines: React.FC = () => {
             </h2>
             <div className="bg-white/5 rounded-xl p-6">
               <p className="text-white/80 mb-4">
-                Aide-nous à garder Zyeuté sûr en signalant le contenu qui viole
+                Aide-nous à garder Ojea sûr en signalant le contenu qui viole
                 ces directives:
               </p>
               <div className="space-y-3">
@@ -462,25 +462,25 @@ export const CommunityGuidelines: React.FC = () => {
               <li>
                 📧 Email:{" "}
                 <a
-                  href="mailto:support@zyeute.com"
+                  href="mailto:support@ojea-mexico.netlify.app"
                   className="text-gold-400 hover:underline"
                 >
-                  support@zyeute.com
+                  support@ojea-mexico.netlify.app
                 </a>
               </li>
               <li>
                 🛡️ Modération:{" "}
                 <a
-                  href="mailto:moderation@zyeute.com"
+                  href="mailto:moderation@ojea-mexico.netlify.app"
                   className="text-gold-400 hover:underline"
                 >
-                  moderation@zyeute.com
+                  moderation@ojea-mexico.netlify.app
                 </a>
               </li>
               <li>
                 📖 Centre d&apos;aide:{" "}
                 <a href="/help" className="text-gold-400 hover:underline">
-                  zyeute.com/help
+                  ojea-mexico.netlify.app/help
                 </a>
               </li>
             </ul>
@@ -493,7 +493,7 @@ export const CommunityGuidelines: React.FC = () => {
               régulièrement.
             </p>
             <p className="text-white/40 text-sm text-center mt-2">
-              Fait au Québec, pour le Québec. Avec fierté! 🇨🇦⚜️
+              Fait au México, pour le México. Avec fierté! 🇨🇦⚜️
             </p>
           </div>
         </div>

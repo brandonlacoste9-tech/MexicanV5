@@ -174,9 +174,9 @@ export function useGuestMode() {
       startGuestSession: () => {
         // Fallback: Still set localStorage even without context
         console.warn("🎭 [GuestMode] Using fallback - context not available");
-        localStorage.setItem("zyeute_guest_mode", "true");
-        localStorage.setItem("zyeute_guest_timestamp", Date.now().toString());
-        localStorage.setItem("zyeute_guest_views", "0");
+        localStorage.setItem("ojea_guest_mode", "true");
+        localStorage.setItem("ojea_guest_timestamp", Date.now().toString());
+        localStorage.setItem("ojea_guest_views", "0");
       },
       endGuestSession: () => {},
       incrementViews: () => {},

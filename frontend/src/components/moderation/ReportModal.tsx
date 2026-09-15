@@ -1,6 +1,6 @@
 /**
  * ReportModal - User content reporting system
- * Quebec-aware categories and anonymous reporting
+ * Mexico-aware categories and anonymous reporting
  */
 
 import React, { useState } from "react";
@@ -267,7 +267,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                 </button>
               </div>
               <p className="text-white/70 text-sm">
-                Aide-nous à garder Zyeuté sécuritaire pour tous. Ton signalement
+                Aide-nous à garder Ojea sécuritaire pour tous. Ton signalement
                 est confidentiel.
               </p>
             </div>
@@ -368,10 +368,10 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                   </span>
                   <div className="flex-1">
                     <p className="text-red-400 font-bold mb-1 uppercase tracking-wider text-xs">
-                      Politique de sécurité Zyeuté
+                      Politique de sécurité Ojea
                     </p>
                     <p className="text-white/80 text-xs leading-relaxed">
-                      Zyeuté applique une politique de{" "}
+                      Ojea applique une politique de{" "}
                       <span className="text-red-400 font-bold">
                         tolérance zéro
                       </span>{" "}

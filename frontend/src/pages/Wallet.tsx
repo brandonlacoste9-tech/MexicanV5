@@ -345,7 +345,7 @@ export default function Wallet() {
               🎁 Tes fans t'envoient des cadeaux pendant tes lives ou sur tes
               vidéos
             </li>
-            <li>💰 Tu reçois 70% de chaque cadeau — Zyeuté garde 30%</li>
+            <li>💰 Tu reçois 70% de chaque cadeau — Ojea garde 30%</li>
             <li>
               🏦 Connecte ton compte bancaire via Stripe pour recevoir tes gains
             </li>

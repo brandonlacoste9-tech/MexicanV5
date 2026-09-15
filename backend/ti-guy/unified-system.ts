@@ -1,16 +1,16 @@
-import { QuebecContextEngine } from "./context-engine.js";
+import { MexicoContextEngine } from "./context-engine.js";
 import { TiGuyPromptBuilder } from "./prompt-builder.js";
 import { MemoryService } from "./memory-service.js";
 import { getMemoryQueue } from "../queue.js";
 
 export class TiGuyUnified {
   private static instance: TiGuyUnified;
-  private contextEngine: QuebecContextEngine;
+  private contextEngine: MexicoContextEngine;
   private promptBuilder: TiGuyPromptBuilder;
   private memory: MemoryService;
 
   private constructor() {
-    this.contextEngine = new QuebecContextEngine();
+    this.contextEngine = new MexicoContextEngine();
     this.promptBuilder = new TiGuyPromptBuilder();
     this.memory = new MemoryService();
   }

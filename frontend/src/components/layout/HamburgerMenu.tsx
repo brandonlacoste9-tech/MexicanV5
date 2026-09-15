@@ -308,11 +308,11 @@ export const HamburgerMenu: React.FC = () => {
     },
     { divider: true, label: "", icon: null },
 
-    // Quebec Features
+    // Mexico Features
     {
-      label: "Ti-Guy AI",
+      label: "Güey AI",
       icon: <span className="text-lg">🦫</span>,
-      to: "/ti-guy",
+      to: "/guey",
     },
     {
       label: "Hive Mind",
@@ -603,10 +603,10 @@ export const HamburgerMenu: React.FC = () => {
 
             {/* Footer */}
             <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800/50 text-center text-xs text-gray-500 dark:text-gray-400 rounded-b-xl space-y-1">
-              <span>Zyeuté ⚜️ Fait au Québec 🦫</span>
+              <span>Ojea ⚜️ Fait au México 🦫</span>
               <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
                 <a
-                  href="https://hublife.ca/?from=network&via=zyeute&utm_source=north_network&utm_medium=cross_app&utm_campaign=zyeute_v1"
+                  href="https://hublife.ca/?from=network&via=ojea&utm_source=north_network&utm_medium=cross_app&utm_campaign=ojea_v1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-amber-700 dark:text-amber-400 font-semibold hover:underline"
@@ -615,7 +615,7 @@ export const HamburgerMenu: React.FC = () => {
                 </a>
                 <span aria-hidden>·</span>
                 <a
-                  href="https://grok-assistant.com/?from=network&via=zyeute&intent=ask&utm_source=north_network&utm_medium=cross_app&utm_campaign=zyeute_v1"
+                  href="https://grok-assistant.com/?from=network&via=ojea&intent=ask&utm_source=north_network&utm_medium=cross_app&utm_campaign=ojea_v1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline"

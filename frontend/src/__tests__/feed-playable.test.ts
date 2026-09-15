@@ -40,7 +40,7 @@ describe("postHasPlayableMedia", () => {
       postHasPlayableMedia(
         post({
           media_url:
-            "https://vuanulvyqkfefmjcikfk.supabase.co/storage/v1/object/public/zyeute-videos/apify/123.mp4",
+            "https://vuanulvyqkfefmjcikfk.supabase.co/storage/v1/object/public/ojea-videos/apify/123.mp4",
         }),
       ),
     ).toBe(true);

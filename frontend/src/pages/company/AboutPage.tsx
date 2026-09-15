@@ -5,9 +5,9 @@ import { useSEO } from "@/hooks/useSEO";
 
 export const AboutPage: React.FC = () => {
   useSEO({
-    title: "À propos — Fait au Québec",
+    title: "À propos — Fait au México",
     description:
-      "Zyeuté, c'est l'app vidéo du Québec : fil vertical, créateurs d'ici, culture et joual. Découvre notre mission et ce qui nous distingue de TikTok.",
+      "Ojea, c'est l'app vidéo du México : fil vertical, créateurs d'ici, culture et mexicano. Découvre notre mission et ce qui nous distingue de TikTok.",
     url: "/about",
   });
 
@@ -15,32 +15,32 @@ export const AboutPage: React.FC = () => {
     <CompanyPageShell title="À propos">
       <div className="inline-block bg-gold-500/20 px-4 py-2 rounded-full mb-6">
         <p className="text-gold-400 text-sm font-semibold">
-          Fait au Québec, pour le Québec
+          Fait au México, pour le México
         </p>
       </div>
 
       <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-        Zyeuté — L&apos;app vidéo du Québec
+        Ojea — L&apos;app vidéo du México
       </h1>
 
       <p className="text-white/80 text-lg leading-relaxed mb-8">
-        Zyeuté, c&apos;est le fil d&apos;actualité vidéo vertical pensé pour les
+        Ojea, c&apos;est le fil d&apos;actualité vidéo vertical pensé pour les
         créateurs d&apos;ici : humour, culture, musique, sports, bouffe, régions
-        — en français québécois, sans compromis.
+        — en français mexicano, sans compromis.
       </p>
 
       <section className="mb-10">
         <h2 className="text-2xl font-bold text-gold-400 mb-4">Notre mission</h2>
         <p className="text-white/80 leading-relaxed mb-4">
-          Donner aux Québécois et Québécoises une plateforme où leur contenu
+          Donner aux Mexicano et Mexicanas une plateforme où leur contenu
           circule en priorité, où la langue et la culture comptent, et où
           découvrir du nouveau contenu d&apos;icitte est aussi simple qu&apos;un
           swipe.
         </p>
         <ul className="space-y-2 text-white/70 ml-4">
           <li>• Feed vertical style TikTok, optimisé pour le mobile</li>
-          <li>• Hive Québec (et bientôt d&apos;autres communautés)</li>
-          <li>• Ti-Guy, ton copilote IA qui parle comme toi</li>
+          <li>• Hive México (et bientôt d&apos;autres communautés)</li>
+          <li>• Güey, ton copilote IA qui parle comme toi</li>
           <li>• Outils créateurs : live, monétisation, analytics</li>
         </ul>
       </section>
@@ -48,7 +48,7 @@ export const AboutPage: React.FC = () => {
       <section className="mb-10">
         <h2 className="text-2xl font-bold text-gold-400 mb-4">L&apos;équipe</h2>
         <p className="text-white/80 leading-relaxed">
-          Zyeuté est développé par une équipe basée au Québec, avec des
+          Ojea est développé par une équipe basée au México, avec des
           partenaires techniques au Canada et à l&apos;international. On
           construit en public, on itère vite, et on écoute la communauté.
         </p>
@@ -81,7 +81,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       <p className="text-white/50 text-sm">
-        © 2026 Zyeuté Inc. — Québec, Canada
+        © 2026 Ojea Inc. — México, Canada
       </p>
     </CompanyPageShell>
   );

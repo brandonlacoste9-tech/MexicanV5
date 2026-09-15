@@ -1,10 +1,10 @@
 /**
- * Zyeuté Copy System - Joual-forward, inclusive voice
- * Women-forward but not gendered - warm, welcoming, authentic Quebec
+ * Ojea Copy System - Mexicano-forward, inclusive voice
+ * Women-forward but not gendered - warm, welcoming, authentic Mexico
  *
  * Voice guidelines:
  * - Use "tu" (informal) over "vous"
- * - Joual expressions where natural (icitte, ben, faque, pis)
+ * - Mexicano expressions where natural (icitte, ben, faque, pis)
  * - Warm and encouraging
  * - Inclusive - no gendered assumptions
  * - Local pride without being exclusionary
@@ -45,7 +45,7 @@ export const copy = {
   // Empty states - warm and encouraging
   empty: {
     feed: {
-      title: "Rien à zyeuter pour l'instant!",
+      title: "Rien à ojear pour l'instant!",
       subtitle: "Découvre du monde icitte ou crée ton premier post.",
       action: "Découvrir des créateurs",
     },
@@ -125,7 +125,7 @@ export const copy = {
       feed: "On prépare ton feed...",
       post: "Ton post s'en vient...",
       upload: "Upload en cours...",
-      ai: "Ti-Guy réfléchit...",
+      ai: "Güey réfléchit...",
     },
     info: {
       endOfFeed: "T'as tout vu! 🎉",
@@ -134,10 +134,10 @@ export const copy = {
     },
   },
 
-  // Ti-Guy AI assistant
+  // Güey AI assistant
   tiguy: {
-    greeting: "Allô! C'est Ti-Guy 🦫",
-    intro: "Ton assistant québécois. Comment je peux t'aider?",
+    greeting: "Allô! C'est Güey 🦫",
+    intro: "Ton assistant mexicano. Comment je peux t'aider?",
     thinking: "Hmm, laisse-moi réfléchir...",
     generating: "Je travaille là-dessus...",
     placeholder: "Pose-moi une question...",
@@ -201,7 +201,7 @@ export const copy = {
     currentPlan: "Ton plan actuel",
   },
 
-  // Dates - casual Quebec style
+  // Dates - casual Mexico style
   dates: {
     now: "là-là",
     secondsAgo: "y'a quelques secondes",
@@ -219,15 +219,15 @@ export const copy = {
   misc: {
     or: "ou ben",
     and: "pis",
-    madeInQuebec: "Fait au Québec 🦫⚜️",
-    tagline: "L'app sociale du Québec",
+    madeInMexico: "Fait au México 🦫⚜️",
+    tagline: "L'app sociale du México",
     you: "Toi",
     verified: "Vérifié",
     sponsored: "Commandité",
   },
 } as const;
 
-// Helper to format relative time in joual style
+// Helper to format relative time in mexicano style
 export function formatRelativeTime(date: Date | string): string {
   const now = new Date();
   const then = new Date(date);

@@ -23,7 +23,7 @@ router.get("/", async (req: Request, res: Response) => {
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
     const pattern = `%${query}%`;
-    const hive = (req.query.hive as string) || "quebec";
+    const hive = (req.query.hive as string) || "mexico";
 
     const [usersResult, postsResult] = await Promise.all([
       supabase

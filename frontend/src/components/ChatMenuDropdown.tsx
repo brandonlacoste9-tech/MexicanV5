@@ -53,21 +53,21 @@ interface ChatMenuDropdownProps {
 const MOCK_RECENT_CHATS: RecentChat[] = [
   {
     id: "1",
-    name: "Ti-Guy",
+    name: "Güey",
     preview: "Salut! Comment ça va aujourd'hui?",
     timestamp: new Date(Date.now() - 5 * 60 * 1000), // 5 min ago
     unread: 2,
   },
   {
     id: "2",
-    name: "Support Zyeuté",
+    name: "Support Ojea",
     preview: "Merci pour ton message!",
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
   },
   {
     id: "3",
-    name: "Agent Québec",
-    preview: "Bienvenue sur Zyeuté! 🇨🇦",
+    name: "Agent México",
+    preview: "Bienvenue sur Ojea! 🇨🇦",
     timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
   },
 ];
@@ -103,7 +103,7 @@ const MOCK_IMAGES: MediaItem[] = [
     id: "img1",
     thumbnail: "https://picsum.photos/seed/1/200/200",
     timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000),
-    sender: "Ti-Guy",
+    sender: "Güey",
   },
   {
     id: "img2",

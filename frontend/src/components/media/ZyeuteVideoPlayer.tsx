@@ -3,13 +3,13 @@ import Hls from "hls.js";
 import { Play, Pause, Volume2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface ZyeutePlayerProps {
+interface OjeaPlayerProps {
   src: string; // The .m3u8 URL from Colony OS
   poster?: string;
   autoPlay?: boolean;
 }
 
-const ZyeuteVideoPlayer: React.FC<ZyeutePlayerProps> = ({
+const OjeaVideoPlayer: React.FC<OjeaPlayerProps> = ({
   src,
   poster,
   autoPlay = false,
@@ -107,7 +107,7 @@ const ZyeuteVideoPlayer: React.FC<ZyeutePlayerProps> = ({
       {isPaused && !hasError && (
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center transition-all z-10">
           <div className="text-gold/80 opacity-40 select-none text-2xl font-bold tracking-widest uppercase">
-            ZYEUTÉ
+            OJEA
           </div>
           <Play className="absolute w-12 h-12 text-gold fill-gold animate-pulse" />
         </div>
@@ -146,4 +146,4 @@ const ZyeuteVideoPlayer: React.FC<ZyeutePlayerProps> = ({
   );
 };
 
-export default ZyeuteVideoPlayer;
+export default OjeaVideoPlayer;

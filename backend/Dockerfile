@@ -1,5 +1,5 @@
 # ========================================
-# Zyeuté V5 Backend - Fly.io Dockerfile (Railway Compatible)
+# Ojea V5 Backend - Fly.io Dockerfile (Railway Compatible)
 # Express + TypeScript + Python Colony Bridge
 # Updated: 2026-02-05 - Force fresh build (esbuild)
 # ========================================
@@ -81,7 +81,7 @@ COPY --from=build /app/backend/colony ./colony
 
 # Copy other necessary runtime files
 COPY --from=build /app/backend/routes ./routes
-COPY --from=build /app/backend/ti-guy ./ti-guy
+COPY --from=build /app/backend/guey ./guey
 COPY --from=build /app/backend/utils ./utils
 
 # Change ownership to appuser

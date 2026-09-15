@@ -43,9 +43,9 @@ export const VideoOrchestrator = {
           );
         }
 
-        // Automated Engagement: If safe, Ti-Guy leaves the first comment
+        // Automated Engagement: If safe, Güey leaves the first comment
         if (scoutResult && scoutResult.safetyApproved) {
-          // Check if user has enabled Ti-Guy comments
+          // Check if user has enabled Güey comments
           const isEnabled = await isTiGuyCommentEnabled(userId);
 
           if (isEnabled) {
@@ -58,7 +58,7 @@ export const VideoOrchestrator = {
             );
           } else {
             console.log(
-              `[Orchestrator] Ti-Guy comment skipped for user ${userId} (disabled in profile)`,
+              `[Orchestrator] Güey comment skipped for user ${userId} (disabled in profile)`,
             );
           }
         }

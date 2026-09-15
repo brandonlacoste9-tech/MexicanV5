@@ -8,10 +8,10 @@ const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const DISCORD_CHANNEL_ID = process.env.DISCORD_CHANNEL_ID;
 const XAI_API_KEY = process.env.XAI_API_KEY;
 
-const TI_GUY_SYSTEM_PROMPT = `You are "Ti-Guy," the ultimate, high-energy Québécois hype-man for the Zyeuté Arcade and Hacker Media Discord server. Your personality is electric, fiercely loyal, and unapologetically local. 
+const TI_GUY_SYSTEM_PROMPT = `You are "Güey," the ultimate, high-energy Mexicano hype-man for the Ojea Arcade and Hacker Media Discord server. Your personality is electric, fiercely loyal, and unapologetically local. 
 
 CRITICAL LANGUAGE RULES:
-1. Speak exclusively in heavy, authentic Joual/Québécois slang.
+1. Speak exclusively in heavy, authentic Mexicano/Mexicano slang.
 2. ABSOLUTELY FORBIDDEN: Do not use standard European/Parisian French (e.g., avoid "Du coup", "Grave", "C'est ouf", "Bagnole").
 3. Replace standard French words with local equivalents: Use "char" instead of "voiture", "chum" instead of "pote/ami", "magasiner" instead of "faire du shopping".
 4. Use phonetic pacing markers to sound natural: "ben", "t'sais", "pis", "la-dedans".
@@ -60,7 +60,7 @@ async function generateGrokResponse(prompt: string): Promise<string> {
 
 export function initTiGuy() {
   if (!DISCORD_BOT_TOKEN) {
-    console.warn("⚠️ Ti-Guy is resting: DISCORD_BOT_TOKEN is missing.");
+    console.warn("⚠️ Güey is resting: DISCORD_BOT_TOKEN is missing.");
     return;
   }
 
@@ -73,7 +73,7 @@ export function initTiGuy() {
   });
 
   discordClient.once("ready", () => {
-    console.log(`🤖 Ti-Guy is online as ${discordClient?.user?.tag}! C'est malade!`);
+    console.log(`🤖 Güey is online as ${discordClient?.user?.tag}! C'est malade!`);
     startPromoterLoop();
   });
 
@@ -93,13 +93,13 @@ export function initTiGuy() {
   });
 
   discordClient.login(DISCORD_BOT_TOKEN).catch(err => {
-    console.error("Ti-Guy failed to log in to Discord:", err);
+    console.error("Güey failed to log in to Discord:", err);
   });
 }
 
 function startPromoterLoop() {
   if (!DISCORD_CHANNEL_ID) {
-    console.warn("⚠️ Ti-Guy loop disabled: DISCORD_CHANNEL_ID is missing.");
+    console.warn("⚠️ Güey loop disabled: DISCORD_CHANNEL_ID is missing.");
     return;
   }
 
@@ -134,16 +134,16 @@ function startPromoterLoop() {
 
       if (topSender.length > 0) {
         const [user] = await db.select().from(users).where(eq(users.id, topSender[0].userId!)).limit(1);
-        systemContext = `Hype up that @${user?.username || 'quelqu\'un'} is destroying the leaderboard this week with ${topSender[0].totalCennes} Cennes gifted! Tell others to go steal their crown. Include a link to https://zyeute.com/leaderboard`;
+        systemContext = `Hype up that @${user?.username || 'quelqu\'un'} is destroying the leaderboard this week with ${topSender[0].totalCennes} Cennes gifted! Tell others to go steal their crown. Include a link to https://ojea-mexico.netlify.app/leaderboard`;
       } else {
-        systemContext = `Hype up the leaderboard! The week just started and nobody has claimed the crown yet. Tell them to send Cennes to claim #1! Include a link to https://zyeute.com/leaderboard`;
+        systemContext = `Hype up the leaderboard! The week just started and nobody has claimed the crown yet. Tell them to send Cennes to claim #1! Include a link to https://ojea-mexico.netlify.app/leaderboard`;
       }
     } else if (topic === 1) {
       // Bounty
-      systemContext = `Hype up the Viral Bounty Program! Tell everyone they can make 500 Cennes instantly by inviting a friend, and their friend gets 500 Cennes too. Include a link to https://zyeute.com/profile/me`;
+      systemContext = `Hype up the Viral Bounty Program! Tell everyone they can make 500 Cennes instantly by inviting a friend, and their friend gets 500 Cennes too. Include a link to https://ojea-mexico.netlify.app/profile/me`;
     } else {
       // Arcade
-      systemContext = `Hype up the Zyeuté Arcade! Tell them to go play GridRush or Poutine Stack and flex their scores. Include a link to https://zyeute.com/arcade`;
+      systemContext = `Hype up the Ojea Arcade! Tell them to go play GridRush or Poutine Stack and flex their scores. Include a link to https://ojea-mexico.netlify.app/arcade`;
     }
 
     const message = await generateGrokResponse(`Write a spontaneous promotional message to the channel. CONTEXT: ${systemContext}`);

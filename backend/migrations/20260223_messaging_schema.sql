@@ -1,4 +1,4 @@
--- Messaging Schema for Zyeuté
+-- Messaging Schema for Ojea
 -- Conversations, messages, and group chat support
 
 -- Conversations table (1-on-1 and group chats)

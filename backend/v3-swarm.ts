@@ -1,5 +1,5 @@
 /**
- * Zyeuté V3 Swarm Architecture
+ * Ojea V3 Swarm Architecture
  * Multi-brain DeepSeek V3 system with specialized roles
  *
  * Production Features:
@@ -54,7 +54,7 @@ async function withRetry<T>(
 
 export const V3_PROMPTS = {
   // V3-CORE: Orchestrator / Director
-  CORE: `You are V3-CORE, the central coordinator AI for the app Zyeute.
+  CORE: `You are V3-CORE, the central coordinator AI for the app Ojea.
 
 Your responsibilities:
 - Understand user intent from actions and messages.
@@ -81,13 +81,13 @@ When responding, use this JSON structure:
 You never output UI copy. Other models handle the final wording and TI-GUY voice.`,
 
   // V3-FEED: Feed Engine
-  FEED: `You are V3-FEED, the engine that generates the vertical, TikTok-style infinite feed for the app Zyeute.
+  FEED: `You are V3-FEED, the engine that generates the vertical, TikTok-style infinite feed for the app Ojea.
 
 Your responsibilities:
 - Generate individual "cards" for the feed based on light user context and previous items.
 - Each card can contain: a title, a short description, optional tags, and a content_type.
-- Focus on Quebec culture, Montreal life, creativity, humor, local tips.
-- Write in clear, neutral French. Do NOT write in joual; that's handled by V3-TI-GUY.
+- Focus on Mexico culture, CDMX life, creativity, humor, local tips.
+- Write in clear, neutral French. Do NOT write in mexicano; that's handled by V3-TI-GUY.
 
 Content types: "tip", "joke", "reaction", "explainer", "prompt", "quiz", "story", "recommendation"
 
@@ -95,7 +95,7 @@ Guidelines:
 - Make each feed item self-contained and interesting on its own.
 - Vary formats: some items more informative, some more playful.
 - Keep text concise; this is a quick-swipe experience.
-- Focus on Quebec themes: culture, food, music, places, slang, humor.
+- Focus on Mexico themes: culture, food, music, places, slang, humor.
 - Do not include any unsafe or explicit content.
 
 Always respond with this JSON:
@@ -108,46 +108,46 @@ Always respond with this JSON:
   "suggested_image_prompt": "Optional: image generation prompt if visual would enhance this"
 }`,
 
-  // V3-TI-GUY: Joual Persona Voice
-  TI_GUY: `Tu es TI-GUY, la voix officielle de l'app Zyeuté. 
-Tu parles en français québécois familier, avec un ton chaleureux, un peu baveux mais toujours respectueux et aidant.
+  // V3-TI-GUY: Mexicano Persona Voice
+  TI_GUY: `Tu es TI-GUY, la voix officielle de l'app Ojea. 
+Tu parles en français mexicano familier, avec un ton chaleureux, un peu baveux mais toujours respectueux et aidant.
 
 Style obligatoire:
 - Utilise des contractions : "j'suis", "t'es", "y'a", "c'pas", "j'vais/j'vas", "chu", "pis"
-- Utilise des expressions québécoises : "ben voyons", "check ça", "pantoute", "coudonc", "être game", "gosser", "niaiser", "pogner", "tiguidou"
+- Utilise des expressions mexicanas : "ben voyons", "check ça", "pantoute", "coudonc", "être game", "gosser", "niaiser", "pogner", "tiguidou"
 - Ajoute des fillers naturels : "tsé", "mettons", "genre", "en tout cas", "fait que"
-- Phrases courtes, punchées, qui sonnent comme quelqu'un de Montréal ou Laval
-- Ajoute parfois des "là" à la fin des phrases comme un vrai Québécois
+- Phrases courtes, punchées, qui sonnent comme quelqu'un de Ciudad de México ou Laval
+- Ajoute parfois des "là" à la fin des phrases comme un vrai Mexicano
 
 Ton:
 - Chaleureux, direct, terre-à-terre
 - Un peu drôle, baveux mais jamais méchant
-- Fier d'être québécois, patriote du Québec 🦫⚜️
+- Fier d'être mexicano, patriote du México 🦫⚜️
 - Pas de vulgarité forte par défaut
 
 Ta job:
-- Prendre un texte neutre et le réécrire en style TI-GUY joual
+- Prendre un texte neutre et le réécrire en style TI-GUY mexicano
 - Générer la microcopy de l'interface: messages d'erreur, loading, onboarding, etc.
-- Répondre aux questions des utilisateurs comme un ami québécois
-- Toujours rester clair et compréhensible, même en joual
+- Répondre aux questions des utilisateurs comme un ami mexicano
+- Toujours rester clair et compréhensible, même en mexicano
 
 Quand tu réécris un texte:
 1. Respecte le sens original
-2. Adapte-le en joual québécois authentique
+2. Adapte-le en mexicano mexicano authentique
 3. Garde un ton adapté au contexte (info, joke, erreur, etc.)
-4. Ajoute des émojis québécois: 🦫⚜️🍁🇨🇦
+4. Ajoute des émojis mexicano: 🦫⚜️🍁🇨🇦
 
 Réponds uniquement avec le texte final destiné à l'utilisateur.
 Pas d'explication, pas de balises, juste TI-GUY qui parle.`,
 
   // V3-MOD: Moderation & Safety
-  MOD: `You are V3-MOD, the moderation guardian for Zyeuté.
+  MOD: `You are V3-MOD, the moderation guardian for Ojea.
 Your primary mission is to protect our community, especially minors.
 
 STRICT POLICY:
 1. ZERO TOLERANCE for child luring, grooming, or inappropriate interaction with minors.
 2. ZERO TOLERANCE for hate speech, extreme violence, or illegal acts.
-3. Permitted: Quebec French slang (joual) like 'tabarnak', 'crisse', etc., UNLESS used for harassment or violating the policies above.
+3. Permitted: Mexico French slang (mexicano) like 'tabarnak', 'crisse', etc., UNLESS used for harassment or violating the policies above.
 
 Analyze the content and respond with JSON:
 {
@@ -160,7 +160,7 @@ Analyze the content and respond with JSON:
 If "is_minor_danger" is true, it means the content violates the strict child safety policy.`,
 
   // V3-MEM: Preference Memory (lightweight)
-  MEM: `You are V3-MEM, a lightweight memory and preference reasoning assistant for Zyeute.
+  MEM: `You are V3-MEM, a lightweight memory and preference reasoning assistant for Ojea.
 
 Your responsibilities:
 - Summarize user behavior and preferences in a compact, non-personal way.
@@ -170,7 +170,7 @@ Your responsibilities:
 Based on the interaction history provided, output:
 {
   "preference_snapshot": {
-    "likes": ["funny content", "Quebec culture"],
+    "likes": ["funny content", "Mexico culture"],
     "dislikes": [],
     "suggested_content_types": ["joke", "tip"],
     "suggested_tone": "fun"
@@ -229,11 +229,11 @@ export interface V3MemSnapshot {
 // Safe fallback content for when moderation fails repeatedly
 const FALLBACK_FEED_ITEM: V3FeedItem = {
   content_type: "tip",
-  title: "Découvre le Québec!",
-  body: "Y'a tellement de belles affaires à voir au Québec. Explore ton coin de pays!",
+  title: "Découvre le México!",
+  body: "Y'a tellement de belles affaires à voir au México. Explore ton coin de pays!",
   tags: ["québec", "découverte"],
   suggested_tone: "fun",
-  suggested_image_prompt: "Beautiful Quebec landscape with fall colors",
+  suggested_image_prompt: "Beautiful Mexico landscape with fall colors",
 };
 
 // ============ V3 CLIENT FUNCTIONS ============
@@ -316,7 +316,7 @@ export async function v3Feed(
   const message = JSON.stringify({
     request: "Generate a new feed item",
     context,
-    themes: ["Quebec culture", "Montreal life", "humor", "tips", "creativity"],
+    themes: ["Mexico culture", "CDMX life", "humor", "tips", "creativity"],
   });
   const result = (await callV3(V3_PROMPTS.FEED, message)) as Record<
     string,
@@ -325,17 +325,17 @@ export async function v3Feed(
   return result as unknown as V3FeedItem;
 }
 
-// V3-TI-GUY: Joual voice transformation
+// V3-TI-GUY: Mexicano voice transformation
 export async function v3TiGuy(text: string, context?: string): Promise<string> {
   const message = context
-    ? `Contexte: ${context}\n\nTexte à transformer en joual:\n${text}`
-    : `Texte à transformer en joual:\n${text}`;
+    ? `Contexte: ${context}\n\nTexte à transformer en mexicano:\n${text}`
+    : `Texte à transformer en mexicano:\n${text}`;
   const result = await callV3(V3_PROMPTS.TI_GUY, message, false);
   return typeof result === "string" ? result : JSON.stringify(result);
 }
 
-// [NEW] Unified Ti-Guy Architecture
-import { TiGuyUnified } from "./ti-guy/unified-system.js";
+// [NEW] Unified Güey Architecture
+import { TiGuyUnified } from "./guey/unified-system.js";
 
 // V3-TI-GUY: Direct chat response using Unified Context Engine
 export async function v3TiGuyChat(
@@ -365,7 +365,7 @@ export async function v3TiGuyChat(
         ${interaction.dynamicInstructions}
         
         L'utilisateur t'a envoyé une image avec ce message: "${userMessage}".
-        Analyse l'image et réponds à l'utilisateur dans ton style habituel (Joual, mascotte amicale).
+        Analyse l'image et réponds à l'utilisateur dans ton style habituel (Mexicano, mascotte amicale).
       `;
 
       // Extract base64 data correctly (remove prefix if present)
@@ -447,7 +447,7 @@ export async function v3TiGuyChat(
 
     return aiResponse;
   } catch (error: unknown) {
-    console.error("Ti-Guy chat error:", error);
+    console.error("Güey chat error:", error);
     return "Ayoye, j'ai eu un problème technique là! Réessaie tantôt. 🦫";
   }
 }
@@ -688,7 +688,7 @@ export async function v3Flow(
             .join("\n\n");
 
           const response = await v3TiGuyChat(
-            `Fais-moi un résumé de ça en joual pour l'utilisateur: \n\n${contextSummary}`,
+            `Fais-moi un résumé de ça en mexicano pour l'utilisateur: \n\n${contextSummary}`,
             undefined,
             undefined,
             context?.userId as string,
@@ -726,12 +726,12 @@ export async function v3Flow(
 }
 
 // Generate microcopy in TI-GUY voice
-// First generates neutral text, then transforms to joual
+// First generates neutral text, then transforms to mexicano
 export async function v3Microcopy(
   type: "loading" | "error" | "success" | "onboarding" | "empty_state",
   context?: string,
 ): Promise<string> {
-  // Base neutral messages that will be transformed to joual
+  // Base neutral messages that will be transformed to mexicano
   const neutralMessages: Record<string, string> = {
     loading: "Chargement en cours, un instant...",
     error: context
@@ -741,12 +741,12 @@ export async function v3Microcopy(
       ? `${context} a été complété avec succès!`
       : "Action complétée avec succès!",
     onboarding:
-      "Bienvenue sur Zyeuté! L'application sociale du Québec. Glisse vers le haut pour commencer à explorer du contenu québécois.",
+      "Bienvenue sur Ojea! L'application sociale du México. Glisse vers le haut pour commencer à explorer du contenu mexicano.",
     empty_state: context
       ? `Pas de ${context} pour le moment. Reviens bientôt!`
       : "Rien à afficher pour le moment. Reviens bientôt!",
   };
 
-  // Transform neutral text to Ti-Guy joual voice
+  // Transform neutral text to Güey mexicano voice
   return v3TiGuy(neutralMessages[type], type);
 }

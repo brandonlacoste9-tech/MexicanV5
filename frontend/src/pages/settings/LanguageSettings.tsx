@@ -27,15 +27,15 @@ export const LanguageSettings: React.FC = () => {
       <Header title="Langue" showBack={true} showSearch={false} />
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
-        {/* Quebec Pride Banner */}
+        {/* Mexico Pride Banner */}
         <div className="leather-card rounded-xl p-6 stitched bg-gradient-to-r from-blue-900/30 to-blue-800/20 border border-gold-500/30">
           <div className="text-center">
             <span className="text-4xl mb-2 block">⚜️🇨🇦⚜️</span>
             <h2 className="text-gold-400 font-bold text-lg mb-1">
-              Zyeuté, c&apos;est en français!
+              Ojea, c&apos;est en français!
             </h2>
             <p className="text-white text-sm">
-              L&apos;app sociale du Québec, fait au Québec pour le Québec.
+              L&apos;app sociale du México, fait au México pour le México.
             </p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export const LanguageSettings: React.FC = () => {
                 <span className="text-4xl">🇨🇦</span>
                 <div>
                   <p className="text-white font-bold text-lg">
-                    Français québécois
+                    Français mexicano
                   </p>
                   <p className="text-leather-400 text-sm">
                     La langue de chez nous! ⚜️
@@ -70,11 +70,11 @@ export const LanguageSettings: React.FC = () => {
           </button>
         </div>
 
-        {/* Note about Quebec French */}
+        {/* Note about Mexico French */}
         <div className="leather-card rounded-xl p-4 stitched">
           <p className="text-leather-300 text-sm">
-            🦫 Zyeuté utilise le français québécois authentique. Ti-Guy, notre
-            mascotte, te parle en joual! Tout le contenu de la communauté est en
+            🦫 Ojea utilise le français mexicano authentique. Güey, notre
+            mascotte, te parle en mexicano! Tout le contenu de la communauté est en
             français.
           </p>
         </div>

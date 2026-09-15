@@ -1,16 +1,16 @@
 /**
- * Québec Or symbol (Fleur-de-lis with lion, QUÉBEC OR, maple leaf).
- * Place the asset at frontend/public/quebec-or-symbol.png
+ * México Or symbol (Águila with lion, MÉXICO OR, maple leaf).
+ * Place the asset at frontend/public/mexico-or-symbol.png
  */
 
 import React from "react";
 import { cn } from "../../lib/utils";
 
-export interface QuebecOrSymbolProps {
+export interface MexicoOrSymbolProps {
   /** Size preset */
   size?: "xs" | "sm" | "md" | "lg";
   className?: string;
-  /** Optional link (e.g. to about or Quebec info) */
+  /** Optional link (e.g. to about or Mexico info) */
   linkTo?: string;
 }
 
@@ -21,9 +21,9 @@ const SIZE_CLASSES = {
   lg: "h-14 w-auto",
 };
 
-const IMG_SRC = "/quebec-or-symbol.png";
+const IMG_SRC = "/mexico-or-symbol.png";
 
-export const QuebecOrSymbol: React.FC<QuebecOrSymbolProps> = ({
+export const MexicoOrSymbol: React.FC<MexicoOrSymbolProps> = ({
   size = "sm",
   className,
   linkTo,
@@ -31,7 +31,7 @@ export const QuebecOrSymbol: React.FC<QuebecOrSymbolProps> = ({
   const img = (
     <img
       src={IMG_SRC}
-      alt="Québec Or"
+      alt="México Or"
       className={cn("object-contain", SIZE_CLASSES[size], className)}
       loading="lazy"
       onError={(e) => {
@@ -51,4 +51,4 @@ export const QuebecOrSymbol: React.FC<QuebecOrSymbolProps> = ({
   return <span className="inline-flex items-center shrink-0">{img}</span>;
 };
 
-export default QuebecOrSymbol;
+export default MexicoOrSymbol;

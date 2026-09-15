@@ -71,7 +71,7 @@ export default function CarteSucreePage() {
   return (
     <ArcadeShell
       title="Carte Sucrée"
-      subtitle="Match-3 du Québec"
+      subtitle="Match-3 du México"
       icon={<Candy className="w-5 h-5 shrink-0" />}
     >
       {error && (

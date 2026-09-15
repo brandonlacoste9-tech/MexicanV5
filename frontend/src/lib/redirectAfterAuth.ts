@@ -3,7 +3,7 @@
  * Persisted in sessionStorage so Google OAuth round-trips keep the target.
  */
 
-const STORAGE_KEY = "zyeute_return_to";
+const STORAGE_KEY = "ojea_return_to";
 
 const AUTH_PATH_PREFIXES = [
   "/login",

@@ -62,7 +62,7 @@ surgicalUploadRouter.post(
 
       // 2. Upload to Supabase Storage
       const { data, error: uploadError } = await supabase.storage
-        .from("zyeute-videos")
+        .from("ojea-videos")
         .upload(fileName, buffer, {
           contentType: mimetype,
           upsert: false,
@@ -76,7 +76,7 @@ surgicalUploadRouter.post(
       // 3. Get Public URL
       const {
         data: { publicUrl },
-      } = supabase.storage.from("zyeute-videos").getPublicUrl(fileName);
+      } = supabase.storage.from("ojea-videos").getPublicUrl(fileName);
 
       // 4. 🛡️ GUARDRAIL: Infer media type from URL/mimetype
       const inferredType = inferMediaType(publicUrl);
@@ -86,7 +86,7 @@ surgicalUploadRouter.post(
 
       // 5. Create Database Record via Supabase REST (no DATABASE_URL needed)
       const caption =
-        req.body.caption || originalname || `Nouveau partage sur Zyeuté! 🍁`;
+        req.body.caption || originalname || `Nouveau partage sur Ojea! 🍁`;
       // Normalize type for feed players (video vs image)
       const mediaType =
         inferredType === "video" ||
@@ -103,13 +103,13 @@ surgicalUploadRouter.post(
         media_url: publicUrl,
         type: mediaType,
         processing_status: "completed",
-        hive_id: req.body.hiveId || "quebec",
+        hive_id: req.body.hiveId || "mexico",
         visibility: "public",
         est_masque: false,
         is_moderated: true,
         moderation_approved: true,
-        region: req.body.region || "montreal",
-        region_id: req.body.region || "montreal",
+        region: req.body.region || "cdmx",
+        region_id: req.body.region || "cdmx",
         video_source: "upload",
       };
       // Untyped Supabase client (no generated Database) — publications row shape is valid at runtime

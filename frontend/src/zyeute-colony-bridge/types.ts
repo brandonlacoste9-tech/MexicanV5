@@ -1,7 +1,7 @@
 export type BeeType =
   | "finance"
   | "security"
-  | "joual"
+  | "mexicano"
   | "poutine"
   | "hockey"
   | "region";

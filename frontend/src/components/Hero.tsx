@@ -1,6 +1,6 @@
 /**
  * Hero Component - Landing Page Hero Section
- * Quebec-inspired design with clear CTA hierarchy
+ * Mexico-inspired design with clear CTA hierarchy
  * Primary: "Commencer Gratuitement" with no credit card requirement
  * Secondary: De-emphasized login link
  */
@@ -20,14 +20,14 @@ export const Hero: React.FC = () => {
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight">
           Bienvenue sur{" "}
           <span className="text-gold-500 inline-block relative">
-            Zyeuté
+            Ojea
             <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gold-500/30 rounded-full" />
           </span>
         </h1>
 
         {/* Hero Subtitle */}
         <p className="text-xl md:text-2xl text-stone-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-          La plateforme sociale québécoise qui célèbre notre culture et
+          La plateforme sociale mexicana qui célèbre notre culture et
           créativité
         </p>
 
@@ -88,7 +88,7 @@ export const Hero: React.FC = () => {
         {/* Feature Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 text-sm">
           {[
-            { emoji: "🦫", text: "100% Québécois" },
+            { emoji: "🦫", text: "100% Mexicano" },
             { emoji: "⚜️", text: "Créé avec fierté" },
             { emoji: "✨", text: "Gratuit pour tous" },
           ].map((feature, index) => (

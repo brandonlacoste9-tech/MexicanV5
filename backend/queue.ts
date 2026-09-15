@@ -49,7 +49,7 @@ export const getVideoQueue = (): Queue => {
   // 3. Connect (Only happens once per container)
   console.log("🔌 Initializing Video Queue Redis connection...");
   try {
-    videoQueueInstance = new Queue("zyeute-video-enhance", {
+    videoQueueInstance = new Queue("ojea-video-enhance", {
       connection: {
         ...connection,
         // Fail fast if local
@@ -169,7 +169,7 @@ export const getMemoryQueue = (): Queue => {
   }
 
   console.log("🔌 Initializing Memory Queue Redis connection...");
-  memoryQueueInstance = new Queue("zyeute-memory-miner", { connection });
+  memoryQueueInstance = new Queue("ojea-memory-miner", { connection });
   return memoryQueueInstance;
 };
 
@@ -188,7 +188,7 @@ export const getPrivacyQueue = (): Queue => {
   }
 
   console.log("🔌 Initializing Privacy Queue Redis connection...");
-  privacyQueueInstance = new Queue("zyeute-privacy-auditor", { connection });
+  privacyQueueInstance = new Queue("ojea-privacy-auditor", { connection });
   return privacyQueueInstance;
 };
 
@@ -209,7 +209,7 @@ export const getModerationQueue = (): Queue => {
       close: async () => {},
     } as unknown as Queue;
   }
-  moderationQueueInstance = new Queue("zyeute-content-moderation", {
+  moderationQueueInstance = new Queue("ojea-content-moderation", {
     connection,
     defaultJobOptions: {
       attempts: 3,

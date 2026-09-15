@@ -9,48 +9,48 @@ interface TrendingTag {
   category: "food" | "culture" | "sports" | "politics" | "nature";
 }
 
-export const QuebecHashtags: React.FC = () => {
+export const MexicoHashtags: React.FC = () => {
   const trendingTags: TrendingTag[] = [
     {
       tag: "#Poutine",
       count: 1243,
       trending: true,
-      region: "Québec",
+      region: "México",
       category: "food",
     },
     {
-      tag: "#Québec",
+      tag: "#México",
       count: 892,
       trending: true,
-      region: "Québec",
+      region: "México",
       category: "culture",
     },
     {
-      tag: "#Montréal",
+      tag: "#Ciudad de México",
       count: 756,
       trending: false,
-      region: "Montréal",
+      region: "Ciudad de México",
       category: "culture",
     },
     {
       tag: "#GoHabsGo",
       count: 543,
       trending: true,
-      region: "Montréal",
+      region: "Ciudad de México",
       category: "sports",
     },
     {
       tag: "#CultureQC",
       count: 432,
       trending: false,
-      region: "Québec",
+      region: "México",
       category: "culture",
     },
     {
       tag: "#FEQ2024",
       count: 321,
       trending: true,
-      region: "Québec",
+      region: "México",
       category: "culture",
     },
     {
@@ -64,7 +64,7 @@ export const QuebecHashtags: React.FC = () => {
       tag: "#Tourtière",
       count: 254,
       trending: false,
-      region: "Québec",
+      region: "México",
       category: "food",
     },
   ];
@@ -83,7 +83,7 @@ export const QuebecHashtags: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold flex items-center">
             <TrendingUp className="w-5 h-5 mr-2 text-gold-400" />
-            Hashtags tendance au Québec
+            Hashtags tendance au México
           </h2>
           <p className="text-gray-400 text-sm mt-1">
             Découvrez ce qui buzz en ce moment

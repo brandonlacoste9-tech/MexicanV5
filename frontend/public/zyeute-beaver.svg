@@ -134,23 +134,23 @@
     </g>
   </g>
   
-  <!-- Text: ZYEUTÉ at top -->
+  <!-- Text: OJEA at top -->
   <text x="200" y="65" 
         font-family="'Cormorant Garamond', Georgia, serif" 
         font-size="32" 
         font-weight="700" 
         fill="url(#goldEngraved)" 
         text-anchor="middle"
-        letter-spacing="0.2em">ZYEUTÉ</text>
+        letter-spacing="0.2em">OJEA</text>
   
-  <!-- Text: QUEBEC at bottom -->
+  <!-- Text: MEXICO at bottom -->
   <text x="200" y="355" 
         font-family="'Cormorant Garamond', Georgia, serif" 
         font-size="24" 
         font-weight="600" 
         fill="url(#goldEngraved)" 
         text-anchor="middle"
-        letter-spacing="0.15em">QUÉBEC</text>
+        letter-spacing="0.15em">MÉXICO</text>
   
   <!-- Decorative corner flourishes -->
   <g stroke="url(#goldEngraved)" stroke-width="1.5" fill="none" opacity="0.4">
@@ -160,7 +160,7 @@
     <path d="M370,370 Q350,370 350,350"/>
   </g>
   
-  <!-- Fleur-de-lis accents at sides -->
+  <!-- Águila accents at sides -->
   <g fill="url(#goldEngraved)" opacity="0.6">
     <!-- Left -->
     <g transform="translate(35, 200) scale(0.4)">

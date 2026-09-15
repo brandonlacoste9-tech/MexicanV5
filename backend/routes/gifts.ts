@@ -30,7 +30,7 @@ router.get("/catalog", (req, res) => {
 // Get available gifts for a hive
 router.get("/catalog/:hiveId", async (req, res) => {
   try {
-    const hiveId = req.params.hiveId || "quebec";
+    const hiveId = req.params.hiveId || "mexico";
     const availableGifts = Object.entries(
       GIFT_CATALOG as Record<string, any>,
     ).filter(([key, gift]) => !gift.hive || gift.hive === hiveId);
@@ -126,7 +126,7 @@ router.post("/confirm", requireAuth, async (req: Request, res: Response) => {
 
     const recipientId = paymentIntent.metadata.recipientId;
     const recipient = await storage.getUser(recipientId);
-    const recipientHive = recipient?.hiveId || "quebec";
+    const recipientHive = recipient?.hiveId || "mexico";
 
     const availableGifts = Object.entries(
       GIFT_CATALOG as Record<string, any>,

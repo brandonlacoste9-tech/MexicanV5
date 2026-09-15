@@ -1,5 +1,5 @@
 /**
- * Zyeute - TikTok-style Vertical Swipe Feed
+ * Ojea - TikTok-style Vertical Swipe Feed
  * Full-screen vertical scroll experience with snap scrolling
  * Edge lighting effects when content is playing
  */
@@ -88,7 +88,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     id: "demo-1",
     user_id: "demo-user-1",
     type: "video" as const,
-    caption: "Welcome to Zyeuté! 🍁 Bienvenue au Québec!",
+    caption: "Welcome to Ojea! 🍁 Bienvenue au México!",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050417_ae1b6da4-ae6a-4b16-ac2b-54709541bb30.mp4",
     mediaUrl:
@@ -97,8 +97,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     thumbnailUrl: "/demo/branding.png",
     user: {
       id: "demo-user-1",
-      username: "zyeute",
-      display_name: "Zyeuté Officiel",
+      username: "ojea",
+      display_name: "Ojea Officiel",
       avatar_url: null,
       is_verified: true,
       created_at: new Date().toISOString(),
@@ -116,8 +116,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 42,
     created_at: new Date().toISOString(),
     visibility: "public",
-    hive_id: (localStorage.getItem("zyeute_hive_id") || "quebec") as
-      | "quebec"
+    hive_id: (localStorage.getItem("ojea_hive_id") || "mexico") as
+      | "mexico"
       | "mexico",
     is_moderated: false,
     moderation_approved: true,
@@ -130,17 +130,17 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     id: "demo-2",
     user_id: "demo-user-2",
     type: "video" as const,
-    caption: "Montreal vibes 🏙️⚜️ #Montreal #Quebec",
+    caption: "CDMX vibes 🏙️⚜️ #CDMX #Mexico",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050501_05f7421d-94d8-4613-964b-e8c4746aaa54.mp4",
     mediaUrl:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050501_05f7421d-94d8-4613-964b-e8c4746aaa54.mp4",
-    thumbnail_url: "/demo/montreal.png",
-    thumbnailUrl: "/demo/montreal.png",
+    thumbnail_url: "/demo/cdmx.png",
+    thumbnailUrl: "/demo/cdmx.png",
     user: {
       id: "demo-user-2",
-      username: "montreal",
-      display_name: "Montréal",
+      username: "cdmx",
+      display_name: "Ciudad de México",
       avatar_url: null,
       is_verified: true,
       created_at: new Date().toISOString(),
@@ -158,8 +158,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 23,
     created_at: new Date(Date.now() - 3600000).toISOString(),
     visibility: "public",
-    hive_id: (localStorage.getItem("zyeute_hive_id") || "quebec") as
-      | "quebec"
+    hive_id: (localStorage.getItem("ojea_hive_id") || "mexico") as
+      | "mexico"
       | "mexico",
     is_moderated: false,
     moderation_approved: true,
@@ -172,7 +172,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     id: "demo-3",
     user_id: "demo-user-3",
     type: "video" as const,
-    caption: "Beautiful Quebec nature 🍁🌲",
+    caption: "Beautiful Mexico nature 🍁🌲",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050555_039e6bb5-9285-4356-80ef-d56b5f670848.mp4",
     mediaUrl:
@@ -181,8 +181,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     thumbnailUrl: "/demo/nature.png",
     user: {
       id: "demo-user-3",
-      username: "quebec_nature",
-      display_name: "Nature Québec",
+      username: "mexico_nature",
+      display_name: "Nature México",
       avatar_url: null,
       is_verified: false,
       created_at: new Date().toISOString(),
@@ -200,8 +200,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 15,
     created_at: new Date(Date.now() - 7200000).toISOString(),
     visibility: "public",
-    hive_id: (localStorage.getItem("zyeute_hive_id") || "quebec") as
-      | "quebec"
+    hive_id: (localStorage.getItem("ojea_hive_id") || "mexico") as
+      | "mexico"
       | "mexico",
     is_moderated: false,
     moderation_approved: true,
@@ -214,7 +214,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     id: "demo-4",
     user_id: "demo-user-4",
     type: "video" as const,
-    caption: "Winter in Quebec ❄️❄️❄️",
+    caption: "Winter in Mexico ❄️❄️❄️",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050645_3dcddf03-cff8-4a7d-819c-97cfdd27d675.mp4",
     mediaUrl:
@@ -223,8 +223,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     thumbnailUrl: "/demo/winter.png",
     user: {
       id: "demo-user-4",
-      username: "quebec_winter",
-      display_name: "Hiver Québécois",
+      username: "mexico_winter",
+      display_name: "Hiver Mexicano",
       avatar_url: null,
       is_verified: false,
       created_at: new Date().toISOString(),
@@ -242,8 +242,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 31,
     created_at: new Date(Date.now() - 10800000).toISOString(),
     visibility: "public",
-    hive_id: (localStorage.getItem("zyeute_hive_id") || "quebec") as
-      | "quebec"
+    hive_id: (localStorage.getItem("ojea_hive_id") || "mexico") as
+      | "mexico"
       | "mexico",
     is_moderated: false,
     moderation_approved: true,
@@ -256,17 +256,17 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     id: "demo-5",
     user_id: "demo-user-5",
     type: "video" as const,
-    caption: "Quebec City old town 🏰⚜️",
+    caption: "Mexico City old town 🏰⚜️",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050733_eb975d16-26d7-4fdb-bd6d-784e466e68ec.mp4",
     mediaUrl:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_050733_eb975d16-26d7-4fdb-bd6d-784e466e68ec.mp4",
-    thumbnail_url: "/demo/quebec_city.png",
-    thumbnailUrl: "/demo/quebec_city.png",
+    thumbnail_url: "/demo/mexico_city.png",
+    thumbnailUrl: "/demo/mexico_city.png",
     user: {
       id: "demo-user-5",
-      username: "vieux_quebec",
-      display_name: "Vieux Québec",
+      username: "vieux_mexico",
+      display_name: "Vieux México",
       avatar_url: null,
       is_verified: true,
       created_at: new Date().toISOString(),
@@ -284,8 +284,8 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 56,
     created_at: new Date(Date.now() - 14400000).toISOString(),
     visibility: "public",
-    hive_id: (localStorage.getItem("zyeute_hive_id") || "quebec") as
-      | "quebec"
+    hive_id: (localStorage.getItem("ojea_hive_id") || "mexico") as
+      | "mexico"
       | "mexico",
     is_moderated: false,
     moderation_approved: true,
@@ -299,7 +299,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     user_id: "demo-user-1",
     type: "video" as const,
     caption:
-      "Le temps des sucres est arrivé! Petit déjeuner à la cabane! 🧇 #Quebec #Erable",
+      "Le temps des sucres est arrivé! Petit déjeuner à la cabane! 🧇 #Mexico #Erable",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_051415_3583fd2d-dafb-4a34-bce0-64577f419f4a.mp4",
     mediaUrl:
@@ -327,7 +327,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 850,
     created_at: new Date().toISOString(),
     visibility: "public",
-    hive_id: "quebec",
+    hive_id: "mexico",
     is_moderated: false,
     moderation_approved: true,
     is_hidden: false,
@@ -340,7 +340,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     user_id: "demo-user-2",
     type: "video" as const,
     caption:
-      "La Chute-Montmorency est plus haute que le Niagara! 🌊 #VoyageQuebec",
+      "La Chute-Montmorency est plus haute que le Niagara! 🌊 #VoyageMexico",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_051514_01824e32-ce71-4386-bf19-c4e5c769acf9.mp4",
     mediaUrl:
@@ -368,7 +368,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 420,
     created_at: new Date().toISOString(),
     visibility: "public",
-    hive_id: "quebec",
+    hive_id: "mexico",
     is_moderated: false,
     moderation_approved: true,
     is_hidden: false,
@@ -380,13 +380,13 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     id: "demo-8",
     user_id: "demo-user-3",
     type: "video" as const,
-    caption: "Cirque du Soleil — quand Montréal illumine le monde entier! ✨",
+    caption: "Cirque du Soleil — quand Ciudad de México illumine le monde entier! ✨",
     media_url:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_051620_5174c6fe-ed9e-4f17-b2ac-bcc3ca314dac.mp4",
     mediaUrl:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3FpjWWwSTgfvg6hEFzeRHYWHcBU/hf_20260630_051620_5174c6fe-ed9e-4f17-b2ac-bcc3ca314dac.mp4",
-    thumbnail_url: "/demo/montreal.png",
-    thumbnailUrl: "/demo/montreal.png",
+    thumbnail_url: "/demo/cdmx.png",
+    thumbnailUrl: "/demo/cdmx.png",
     user: {
       id: "demo-user-3",
       username: "arts_spectacles",
@@ -408,7 +408,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 1100,
     created_at: new Date().toISOString(),
     visibility: "public",
-    hive_id: "quebec",
+    hive_id: "mexico",
     is_moderated: false,
     moderation_approved: true,
     is_hidden: false,
@@ -431,7 +431,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     user: {
       id: "demo-user-4",
       username: "faune_qc",
-      display_name: "Faune Québec",
+      display_name: "Faune México",
       avatar_url: null,
       is_verified: true,
       created_at: new Date().toISOString(),
@@ -449,7 +449,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 210,
     created_at: new Date().toISOString(),
     visibility: "public",
-    hive_id: "quebec",
+    hive_id: "mexico",
     is_moderated: false,
     moderation_approved: true,
     is_hidden: false,
@@ -490,7 +490,7 @@ const DEMO_VIDEOS: Array<Post & { user: User }> = [
     comment_count: 670,
     created_at: new Date().toISOString(),
     visibility: "public",
-    hive_id: "quebec",
+    hive_id: "mexico",
     is_moderated: false,
     moderation_approved: true,
     is_hidden: false,
@@ -509,7 +509,7 @@ type PostWithEngagement = Post & {
   commentCount?: number;
 };
 
-export const Zyeute: React.FC = () => {
+export const Ojea: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { edgeLighting } = useTheme();
@@ -524,9 +524,9 @@ export const Zyeute: React.FC = () => {
     title:
       feedSource === "following"
         ? "Abonnements — Fil d'actualité"
-        : "Pour toi — Vidéos du Québec",
+        : "Pour toi — Vidéos du México",
     description:
-      "Le fil vertical Zyeute : vidéos courtes des créateurs d'ici. Swipe, like, partage — fait au Québec.",
+      "Le fil vertical Ojea : vidéos courtes des créateurs d'ici. Swipe, like, partage — fait au México.",
     url: "/feed",
   });
 
@@ -574,7 +574,7 @@ export const Zyeute: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isMuted, setIsMuted] = useState(() => {
     try {
-      return sessionStorage.getItem("zyeute_muted") !== "false";
+      return sessionStorage.getItem("ojea_muted") !== "false";
     } catch {
       return true;
     }
@@ -583,7 +583,7 @@ export const Zyeute: React.FC = () => {
   const [showUnmuteHint, setShowUnmuteHint] = useState(true);
   const [showSwipeHint, setShowSwipeHint] = useState(() => {
     try {
-      return sessionStorage.getItem("zyeute_swipe_hint") !== "dismissed";
+      return sessionStorage.getItem("ojea_swipe_hint") !== "dismissed";
     } catch {
       return true;
     }
@@ -759,7 +759,7 @@ export const Zyeute: React.FC = () => {
     if (currentIndex > 0 && showSwipeHint) {
       setShowSwipeHint(false);
       try {
-        sessionStorage.setItem("zyeute_swipe_hint", "dismissed");
+        sessionStorage.setItem("ojea_swipe_hint", "dismissed");
       } catch {
         /* */
       }
@@ -841,7 +841,7 @@ export const Zyeute: React.FC = () => {
         if (newIndex >= 0 && newIndex < posts.length) {
           try {
             sessionStorage.setItem(
-              `zyeute_scroll_${feedSource}`,
+              `ojea_scroll_${feedSource}`,
               String(newIndex),
             );
           } catch {
@@ -1009,7 +1009,7 @@ export const Zyeute: React.FC = () => {
           setIsMuted(false);
           setShowUnmuteHint(false);
           try {
-            sessionStorage.setItem("zyeute_muted", "false");
+            sessionStorage.setItem("ojea_muted", "false");
           } catch {
             /* */
           }
@@ -1071,8 +1071,8 @@ export const Zyeute: React.FC = () => {
     }
 
     const raw =
-      sessionStorage.getItem(`zyeute_scroll_${feedSource}`) ??
-      sessionStorage.getItem(`zyeute_la_scroll_${feedSource}`);
+      sessionStorage.getItem(`ojea_scroll_${feedSource}`) ??
+      sessionStorage.getItem(`ojea_la_scroll_${feedSource}`);
     const idx = raw
       ? Math.min(
           Math.max(0, parseInt(raw, 10) || 0),
@@ -1149,7 +1149,7 @@ export const Zyeute: React.FC = () => {
             </div>
 
             <h2 className="text-gold-400 font-black text-2xl tracking-tight mb-2 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
-              Zyeute
+              Ojea
             </h2>
             <div className="flex items-center justify-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-bounce [animation-delay:-0.3s]" />
@@ -1194,7 +1194,7 @@ export const Zyeute: React.FC = () => {
         <p className="mt-1 text-sm text-white/70">
           {feedError
             ? "Vérifie ta connexion, puis réessaie. Si ça continue, le serveur se réveille peut-être (Render free)."
-            : "Sois le premier à publier du contenu québécois!"}
+            : "Sois le premier à publier du contenu mexicano!"}
         </p>
         {feedError && (
           <p className="mt-2 text-xs text-red-300/80 break-words">
@@ -1316,7 +1316,7 @@ export const Zyeute: React.FC = () => {
   return (
     <FeedErrorBoundary fallbackTitle="Le fil n’a pas pu s’afficher">
       <div className="fixed inset-0 lg:absolute lg:inset-0 leather-dark overflow-hidden flex justify-center h-full">
-        {/* Phone-stage: pure black video canvas on leather app chrome (Zyeuté soul) */}
+        {/* Phone-stage: pure black video canvas on leather app chrome (Ojea soul) */}
         <div className="w-full h-full lg:max-w-[420px] lg:mx-auto relative bg-black lg:shadow-[0_0_0_1px_rgba(212,175,55,0.12),0_25px_80px_rgba(0,0,0,0.65)]">
           {/* Soft top vignette */}
           <div
@@ -1613,7 +1613,7 @@ export const Zyeute: React.FC = () => {
                   {/* Bottom vignette for caption readability */}
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/75 pointer-events-none" />
 
-                  {/* Caption stack — TikTok density, Zyeuté gold only on Suivre */}
+                  {/* Caption stack — TikTok density, Ojea gold only on Suivre */}
                   <div className="absolute bottom-6 left-3 right-14 lg:right-4 z-20 drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]">
                     <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                       <Link
@@ -1886,7 +1886,7 @@ export const Zyeute: React.FC = () => {
                 setIsMuted(false);
                 setShowUnmuteHint(false);
                 try {
-                  sessionStorage.setItem("zyeute_muted", "false");
+                  sessionStorage.setItem("ojea_muted", "false");
                 } catch {
                   /* */
                 }
@@ -2205,5 +2205,5 @@ export const Zyeute: React.FC = () => {
 };
 
 // Keep backward-compat alias for any lazy import that uses the old name
-export { Zyeute as LaZyeute };
-export default Zyeute;
+export { Ojea as LaOjea };
+export default Ojea;

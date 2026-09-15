@@ -1,7 +1,7 @@
 /**
  * Reset Password Page
  * Allows user to set new password from email link
- * Matches luxury Quebec heritage design
+ * Matches luxury Mexico heritage design
  */
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -153,7 +153,7 @@ export const ResetPassword: React.FC = () => {
                   "drop-shadow(0 0 10px rgba(255,215,0,0.6)) drop-shadow(0 3px 6px rgba(0,0,0,0.9))",
               }}
             >
-              Zyeuté
+              Ojea
             </h1>
 
             <div
@@ -219,7 +219,7 @@ export const ResetPassword: React.FC = () => {
                 "drop-shadow(0 0 10px rgba(255,215,0,0.6)) drop-shadow(0 3px 6px rgba(0,0,0,0.9))",
             }}
           >
-            Zyeuté
+            Ojea
           </h1>
         </div>
 

@@ -39,7 +39,7 @@ function categorizeError(error: Error): {
     return {
       category: "chunk",
       userMessage:
-        "Mise à jour de l'app détectée. Appuie sur « Recharger » (ou ferme l'onglet et rouvre zyeute.com).",
+        "Mise à jour de l'app détectée. Appuie sur « Recharger » (ou ferme l'onglet et rouvre ojea-mexico.netlify.app).",
       isRecoverable: true,
     };
   }
@@ -237,7 +237,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
                 onClick={() => {
                   if (isChunk) {
                     try {
-                      sessionStorage.removeItem("zyeute_chunk_reload_at");
+                      sessionStorage.removeItem("ojea_chunk_reload_at");
                     } catch {
                       /* ignore */
                     }

@@ -43,7 +43,7 @@ export function rowToFeedSeedCandidate(
 
   return {
     video,
-    region: String(row.region_id ?? "montreal"),
+    region: String(row.region_id ?? "cdmx"),
     source: String(meta.source ?? "custom-seed"),
   };
 }

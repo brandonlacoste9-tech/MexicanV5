@@ -11,7 +11,7 @@ const router = Router();
  */
 function getCurrentESTDateString(): string {
   const options: Intl.DateTimeFormatOptions = { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' };
-  const formatter = new Intl.DateTimeFormat('en-CA', options); // en-CA gives YYYY-MM-DD
+  const formatter = new Intl.DateTimeFormat('es-MX', options); // es-MX gives YYYY-MM-DD
   return formatter.format(new Date());
 }
 
@@ -23,7 +23,7 @@ function getESTDateString(date: Date | string | null): string | null {
   const d = typeof date === 'string' ? new Date(date) : date;
   if (isNaN(d.getTime())) return null;
   const options: Intl.DateTimeFormatOptions = { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' };
-  const formatter = new Intl.DateTimeFormat('en-CA', options);
+  const formatter = new Intl.DateTimeFormat('es-MX', options);
   return formatter.format(d);
 }
 
@@ -110,13 +110,13 @@ router.post("/claim", requireAuth, async (req: any, res) => {
     });
 
     if (rewardAmount === 100) {
-      import("../bot/ti-guy.js").then(({ broadcastEmbed }) => {
+      import("../bot/guey.js").then(({ broadcastEmbed }) => {
         broadcastEmbed(
           "🚨 JACKPOT DE SÉQUENCE! 🚨",
           `**@${user.username || "Quelqu'un"}** vient de péter le feu pis de ramasser 100 Cennes pour sa séquence de ${newStreak} jours consécutifs! C'est malade! 🔥`,
           0xFF4500
         );
-      }).catch(err => console.error("Could not trigger Ti-Guy broadcast:", err));
+      }).catch(err => console.error("Could not trigger Güey broadcast:", err));
     }
 
     return res.json({

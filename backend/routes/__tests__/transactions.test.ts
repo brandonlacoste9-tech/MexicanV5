@@ -27,7 +27,7 @@ describe("getUserTransactions", () => {
         feeAmount: 50,
         taxAmount: 25,
         metadata: { message: "Pour ta poutine!" },
-        hiveId: "quebec",
+        hiveId: "mexico",
         createdAt: new Date("2024-01-01"),
         sender: {
           id: "user-1",
@@ -53,7 +53,7 @@ describe("getUserTransactions", () => {
         feeAmount: 25,
         taxAmount: 12,
         metadata: {},
-        hiveId: "quebec",
+        hiveId: "mexico",
         createdAt: new Date("2024-01-02"),
         sender: {
           id: "user-2",
@@ -95,7 +95,7 @@ describe("getUserTransactions", () => {
         feeAmount: 5,
         taxAmount: 2,
         metadata: {},
-        hiveId: "quebec",
+        hiveId: "mexico",
         createdAt: new Date(),
       }));
 
@@ -121,7 +121,7 @@ describe("getUserTransactions", () => {
       feeAmount: 50,
       taxAmount: 25,
       metadata: {},
-      hiveId: "quebec",
+      hiveId: "mexico",
       createdAt: new Date(),
       sender: {
         id: "user-1",
@@ -157,7 +157,7 @@ describe("getUserTransactions", () => {
       feeAmount: 50,
       taxAmount: 25,
       metadata: {},
-      hiveId: "quebec",
+      hiveId: "mexico",
       createdAt: new Date(),
       sender: {
         id: "user-2",

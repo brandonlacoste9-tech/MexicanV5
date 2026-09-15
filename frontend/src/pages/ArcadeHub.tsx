@@ -13,9 +13,9 @@ import { useSEO } from "@/hooks/useSEO";
 export default function ArcadeHub() {
   const navigate = useNavigate();
   useSEO({
-    title: "Arcade — Jeux québécois",
+    title: "Arcade — Jeux mexicano",
     description:
-      "Zyeuté Arcade : Grid Rush, Poutine Stack, Carte Sucrée et plus. Mini-jeux gratuits pour la gang d'icitte.",
+      "Ojea Arcade : Grid Rush, Poutine Stack, Carte Sucrée et plus. Mini-jeux gratuits pour la gang d'icitte.",
     url: "/arcade",
   });
 
@@ -40,12 +40,12 @@ export default function ArcadeHub() {
             </div>
             <p className="arcade-insert-coin text-center mb-3">INSERT COIN</p>
             <h1 className="arcade-font-pixel text-center text-sm sm:text-base arcade-title-gradient leading-relaxed px-2">
-              ZYEUTÉ ARCADE
+              OJEA ARCADE
             </h1>
             <p
               className={`text-center text-xs mt-3 uppercase tracking-[0.2em] ${arcadeTextMuted}`}
             >
-              Est. 1985 · Montréal QC
+              Est. 1985 · Ciudad de México QC
             </p>
           </div>
         </header>

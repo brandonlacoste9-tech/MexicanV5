@@ -20,7 +20,7 @@ export const Leaderboard: React.FC = () => {
   useSEO({
     title: "Classement — Top pourboires",
     description:
-      "Le classement hebdomadaire des plus généreux de Zyeute. Cennes, créateurs et communauté québécoise.",
+      "Le classement hebdomadaire des plus généreux de Ojea. Cennes, créateurs et communauté mexicana.",
     url: "/leaderboard",
   });
 

@@ -38,7 +38,7 @@ function dbConfig() {
   return { databaseUrl, supabaseUrl, supabaseServiceKey };
 }
 
-export async function countPublicFeedPosts(hiveId = "quebec"): Promise<number> {
+export async function countPublicFeedPosts(hiveId = "mexico"): Promise<number> {
   const { databaseUrl, supabaseUrl, supabaseServiceKey } = dbConfig();
 
   if (databaseUrl) {
@@ -61,7 +61,7 @@ export async function countPublicFeedPosts(hiveId = "quebec"): Promise<number> {
 }
 
 export async function countPlayableFeedPosts(
-  hiveId = "quebec",
+  hiveId = "mexico",
 ): Promise<number> {
   const { databaseUrl, supabaseUrl, supabaseServiceKey } = dbConfig();
   if (supabaseUrl && supabaseServiceKey) {
@@ -85,7 +85,7 @@ export async function replenishFeedTikApiIfLow(options?: {
   maxImport?: number;
   hiveId?: string;
 }): Promise<ReplenishResult> {
-  const hiveId = options?.hiveId ?? "quebec";
+  const hiveId = options?.hiveId ?? "mexico";
   const minPosts = envInt("FEED_MIN_PLAYABLE_POSTS", 150);
   const targetPosts = envInt("FEED_REPLENISH_TARGET", 350);
   const defaultBatch = envInt("FEED_REPLENISH_BATCH", 50);
@@ -235,8 +235,8 @@ export function startFeedReplenishJob(): () => void {
       supabaseServiceKey
     ) {
       import("./feed-seed-providers.js")
-        .then(({ replenishQuebecFeedPool }) =>
-          replenishQuebecFeedPool({ supabaseUrl, supabaseServiceKey }),
+        .then(({ replenishMexicoFeedPool }) =>
+          replenishMexicoFeedPool({ supabaseUrl, supabaseServiceKey }),
         )
         .then((r) =>
           log.info(

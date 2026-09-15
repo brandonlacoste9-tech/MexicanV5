@@ -83,7 +83,7 @@ export async function chatWithTIGuy(
 export async function detectTIGuyIntent(
   sessionId: string,
   query: { text?: string; audio?: Buffer },
-  languageCode: string = "fr-CA",
+  languageCode: string = "es-MX",
 ): Promise<any> {
   // Check credits
   const creditCheck = checkRequestAllowed(
@@ -114,7 +114,7 @@ export async function detectTIGuyIntent(
 
 /**
  * Fallback responses when credits depleted or service unavailable
- * Quebec-themed rule-based responses
+ * Mexico-themed rule-based responses
  */
 function fallbackResponse(
   message: string,

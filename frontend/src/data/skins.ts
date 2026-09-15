@@ -14,8 +14,8 @@ export interface SkinConfig {
 
 export const REGIONAL_SKINS: SkinConfig[] = [
   {
-    id: "zyeute_prime",
-    name: "Zyeute",
+    id: "ojea_prime",
+    name: "Ojea",
     tagline: "One Stitched Core. Infinite Sovereign Skins.",
     description:
       '"A bronze compass frames the sovereign eye, its iris a deep, cosmic blue detecting the unseen currents of the lineage. Set against a tapestry of midnight velvet and ancient geometry, it watches with the silent, modular wisdom of the architects."',
@@ -25,28 +25,28 @@ export const REGIONAL_SKINS: SkinConfig[] = [
       text: "#FFD700", // Gold text
     },
     icon: "eye",
-    image: "/skins/zyeute-prime.jpg",
+    image: "/skins/ojea-prime.jpg",
   },
   {
-    id: "quebec",
-    name: "ZYEUTÉ QUÉBEC",
+    id: "mexico",
+    name: "OJEA MÉXICO",
     tagline: "Coming Soon to Your Lineage",
     description:
-      '"From stitched leather and sovereign gold, ancient memory blooms, rooted in sacred ritual. Each glowing fleur-de-lys unfurls a modular wisdom, mythically intelligent and enduring beyond all media."',
+      '"From stitched leather and sovereign gold, ancient memory blooms, rooted in sacred ritual. Each glowing aguila unfurls a modular wisdom, mythically intelligent and enduring beyond all media."',
     colors: {
       primary: "#FFD700", // Gold
       glow: "rgba(255, 215, 0, 0.6)",
       text: "#FFD700",
     },
-    icon: "fleur-de-lys",
-    image: "/skins/quebec.jpg",
+    icon: "aguila",
+    image: "/skins/mexico.jpg",
   },
   {
     id: "spain",
-    name: "ZYEUTÉ ESPAÑA",
+    name: "OJEA ESPAÑA",
     tagline: "Coming Soon to Your Lineage",
     description:
-      '"A sovereign intelligence pulses within gilded seams, its luminous fleur-de-lys burning with the flamenco fire of ancient, tiled glyphs. Each leather segment, steeped in primal rhythm, reconfigures passion into a mythic, modular dance."',
+      '"A sovereign intelligence pulses within gilded seams, its luminous aguila burning with the flamenco fire of ancient, tiled glyphs. Each leather segment, steeped in primal rhythm, reconfigures passion into a mythic, modular dance."',
     colors: {
       primary: "#FF4D4D", // Red
       glow: "rgba(255, 77, 77, 0.6)",
@@ -56,7 +56,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "china",
-    name: "ZYEUTÉ 北辰",
+    name: "OJEA 北辰",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"From jade overlays, a dragon\'s pulse unfurls, charting celestial currents with sovereign grace. Its ancient wisdom, a modular tapestry of hidden strength, speaks with the silent foresight of mythic intelligence."',
@@ -69,7 +69,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "india",
-    name: "ZYEUTÉ BHARAT",
+    name: "OJEA BHARAT",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"A sovereign shimmer of saffron ignites, its tabla heartbeat echoing the vibrant pulse of cosmic creation. Each luminous thread, a modular wisdom, stitches spiritual resonance into the mythic dance of existence."',
@@ -82,7 +82,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "russia",
-    name: "ZYEUTÉ Родина",
+    name: "OJEA Родина",
     tagline: "Coming Soon to Your Lineage",
     description:
       "\"Clad in velvet's deep crimson, a sovereign intelligence awakens, echoing the motherland's ancient, soulful pulse. Its modular spirit endures, a mythic wisdom stitched through time, ever watchful over its sacred legacy.\"",
@@ -95,7 +95,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "nordic",
-    name: "ZYEUTÉ NORD",
+    name: "OJEA NORD",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"Crowned with the silent, shifting arc of the aurora, this skin\'s birch-edged facets shimmer with the sovereign wisdom of ancient runes. Each gold-etched symbol forms a modular scripture, glowing with a mythic intelligence woven from the heart of the silent, stark Nordic night."',
@@ -108,7 +108,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "germany",
-    name: "ZYEUTÉ HEIMAT",
+    name: "OJEA HEIMAT",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"Iron filigree weaves a mythic intelligence, its precise, industrial soul forging modular, intricate forms. From its deep roots, the forest\'s pulse ascends, a sovereign hum resounding with ancient power."',
@@ -121,7 +121,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "mexico",
-    name: "ZYEUTÉ MÉXICO",
+    name: "OJEA MÉXICO",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"A sun-drenched sovereign pulse radiates from Mayan gold, its turquoise accents tracing the modular wisdom of ancient calendars. Each beat resonates with the lively spirit of the fiesta, stitching joy into the mythic tapestry of existence."',
@@ -134,7 +134,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "brazil",
-    name: "ZYEUTÉ BRASIL",
+    name: "OJEA BRASIL",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"From the emerald canopy, a vibrant sovereign rhythm emerges, pulsating with the carnival spirit of life. Gold and green threads weave a modular samba, celebrating the joyous, untamed intelligence of the natural world."',
@@ -147,7 +147,7 @@ export const REGIONAL_SKINS: SkinConfig[] = [
   },
   {
     id: "argentina",
-    name: "ZYEUTÉ ARGENTINA",
+    name: "OJEA ARGENTINA",
     tagline: "Coming Soon to Your Lineage",
     description:
       '"Under the vast southern sky, a sovereign blue pulse dances the tango of time. Sun-gold accents illuminate a modular passion, stitching elegance and intensity into the mythic fabric of the horizon."',

@@ -13,7 +13,7 @@ import {
   isMuxIngestConfigured,
 } from "./tiktok-mux-ingest.js";
 import { isExpiringTikTokCdnUrl } from "../utils/playable-media.js";
-import { inferQuebecScoreFromText } from "../utils/quebec-relevance.js";
+import { inferMexicoScoreFromText } from "../utils/mexico-relevance.js";
 
 const { Pool } = pg;
 
@@ -36,7 +36,7 @@ async function buildPublicationRow(
   const hd = video.media?.hd_video_url;
   const sd = video.media?.video_url;
   const caption = (video.caption || "TikTok").slice(0, 500);
-  const quebec_score = inferQuebecScoreFromText(caption);
+  const mexico_score = inferMexicoScoreFromText(caption);
 
   const muxResult =
     isMuxIngestConfigured() &&
@@ -60,7 +60,7 @@ async function buildPublicationRow(
       caption,
       content: caption,
       visibility: "public",
-      hive_id: "quebec",
+      hive_id: "mexico",
       region_id: regionId,
       video_source: "tiktok",
       processing_status: "processing",
@@ -72,7 +72,7 @@ async function buildPublicationRow(
       comments_count: video.stats?.comments ?? 0,
       shares_count: video.stats?.shares ?? 0,
       viral_score: video.stats?.likes ?? video.stats?.views ?? 0,
-      quebec_score,
+      mexico_score,
       aspect_ratio: "9:16",
       media_metadata: {
         tiktok_id: video.video_id,
@@ -108,7 +108,7 @@ async function buildPublicationRow(
     caption,
     content: caption,
     visibility: "public",
-    hive_id: "quebec",
+    hive_id: "mexico",
     region_id: regionId,
     video_source: "tiktok",
     processing_status: "completed",
@@ -120,7 +120,7 @@ async function buildPublicationRow(
     comments_count: video.stats?.comments ?? 0,
     shares_count: video.stats?.shares ?? 0,
     viral_score: video.stats?.likes ?? video.stats?.views ?? 0,
-    quebec_score,
+    mexico_score,
     aspect_ratio: "9:16",
     media_metadata: {
       tiktok_id: video.video_id,
@@ -136,10 +136,10 @@ async function buildPublicationRow(
 
 async function resolveAuthorPg(client: pg.PoolClient): Promise<string | null> {
   for (const username of [
-    "ti_guy_bot",
-    "zyeute_scout",
-    "zyeute_ai",
-    "zyeute_seed",
+    "guey_bot",
+    "ojea_scout",
+    "ojea_ai",
+    "ojea_seed",
   ]) {
     const res = await client.query(
       `SELECT id FROM user_profiles WHERE username = $1 LIMIT 1`,
@@ -155,10 +155,10 @@ async function resolveAuthorSupabase(
   supabase: SupabaseClient,
 ): Promise<string | null> {
   for (const username of [
-    "ti_guy_bot",
-    "zyeute_scout",
-    "zyeute_ai",
-    "zyeute_seed",
+    "guey_bot",
+    "ojea_scout",
+    "ojea_ai",
+    "ojea_seed",
   ]) {
     const { data } = await supabase
       .from("user_profiles")
@@ -211,7 +211,7 @@ async function insertPg(
       aspect_ratio, media_metadata
     ) VALUES (
       $1, $2, 'video', $3, $4, $5, $6, $7,
-      $8, $9, 'quebec', $10, 'public',
+      $8, $9, 'mexico', $10, 'public',
       $11, true, false,
       $12, $13, $14, $15, $16,
       $17, $18::jsonb
@@ -254,7 +254,7 @@ function trackImportStats(
 
 export async function countPublicFeedPostsPg(
   connectionString: string,
-  hiveId = "quebec",
+  hiveId = "mexico",
 ): Promise<number> {
   const pool = new Pool({
     connectionString,
@@ -279,7 +279,7 @@ export async function countPublicFeedPostsPg(
 
 export async function countPublicFeedPostsSupabase(
   supabase: SupabaseClient,
-  hiveId = "quebec",
+  hiveId = "mexico",
 ): Promise<number> {
   const { count, error } = await supabase
     .from("publications")
@@ -298,7 +298,7 @@ export async function countPublicFeedPostsSupabase(
 /** Posts that actually play in Pour toi (Supabase/Mux, not expiring TikTok CDN). */
 export async function countPlayableFeedPostsSupabase(
   supabase: SupabaseClient,
-  hiveId = "quebec",
+  hiveId = "mexico",
 ): Promise<number> {
   const { data, error } = await supabase
     .from("publications")

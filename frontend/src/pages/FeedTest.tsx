@@ -14,7 +14,7 @@ export default function Sandbox() {
       <header className="mb-12 border-b border-gold-500/30 pb-6 relative">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 opacity-50" />
         <h1 className="text-4xl font-bold bg-gradient-to-r from-gold-300 to-gold-600 bg-clip-text text-transparent mb-2 mt-4 ml-4">
-          Zyeuté Design Sandbox
+          Ojea Design Sandbox
         </h1>
         <p className="text-gold-100/60 ml-4 font-mono text-sm">
           Theme Verification: Premium Leather & Gold (Dark Luxury)

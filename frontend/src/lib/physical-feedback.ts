@@ -1,7 +1,7 @@
 /**
  * 📱 PHYSICAL FEEDBACK MODULE
  * Orchestres les haptiques (vibrations) et les effets visuels (strobe)
- * pour une immersion "Souveraine" dans Zyeuté.
+ * pour une immersion "Souveraine" dans Ojea.
  */
 
 export const PhysicalFeedback = {

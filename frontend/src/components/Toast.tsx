@@ -179,5 +179,5 @@ export const toast = new ToastManager();
 // import { toast } from './Toast';
 // toast.success('Post créé avec succès! 🔥');
 // toast.error('Erreur de connexion');
-// toast.info('Ti-Guy est en train de générer ta légende...');
+// toast.info('Güey est en train de générer ta légende...');
 // toast.warning('Ton quota de cennes est bas!');

@@ -10,7 +10,7 @@
  */
 import { lazy, type ComponentType, type LazyExoticComponent } from "react";
 
-const RELOAD_KEY = "zyeute_chunk_reload_at";
+const RELOAD_KEY = "ojea_chunk_reload_at";
 const RELOAD_COOLDOWN_MS = 15_000;
 
 export function isChunkLoadError(err: unknown): boolean {

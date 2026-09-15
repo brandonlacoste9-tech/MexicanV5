@@ -9,8 +9,8 @@ export const AFFINITY_TAG_CATALOG = [
   "musique",
   "food",
   "poutine",
-  "montreal",
-  "quebec",
+  "cdmx",
+  "mexico",
   "nature",
   "hiver",
   "voyage",
@@ -121,7 +121,7 @@ export function personalizePostOrder(
       const pr = normalizeTag(String(p.region || p.region_id || ""));
       const city = normalizeTag(String(p.city || ""));
       if (hive === region || pr === region || city === region) regionBoost = 20;
-      if (hive === "quebec" && (region === "quebec" || region === "montreal"))
+      if (hive === "mexico" && (region === "mexico" || region === "cdmx"))
         regionBoost = Math.max(regionBoost, 10);
     }
 

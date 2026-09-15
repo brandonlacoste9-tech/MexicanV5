@@ -1,5 +1,5 @@
 /**
- * Zyeuté Prompt Evolution Engine - "L'Évolution de Ti-Guy"
+ * Ojea Prompt Evolution Engine - "L'Évolution de Güey"
  * * Layer 3.2: Closes the feedback loop by learning from high-momentum anomalies.
  */
 
@@ -11,7 +11,7 @@ import { Router, Request, Response } from "express";
 // ═══════════════════════════════════════════════════════════════════════════
 
 export interface EvolutionConfig {
-  /** Minimum ratio of Hive_Reality / Ti-Guy_Score to flag as anomaly */
+  /** Minimum ratio of Hive_Reality / Güey_Score to flag as anomaly */
   anomalyThreshold: number;
 
   /** Minimum engagement to consider (filters noise) */
@@ -59,9 +59,9 @@ export interface MomentumAnomaly {
   region?: string;
 
   // Scores
-  quebecScore: number; // Ti-Guy's initial assessment
+  mexicoScore: number; // Güey's initial assessment
   momentumScore: number; // Hive reality (calculated)
-  anomalyRatio: number; // momentum / quebec_score
+  anomalyRatio: number; // momentum / mexico_score
 
   // Engagement breakdown
   fires: number;
@@ -77,8 +77,8 @@ export interface MomentumAnomaly {
 
 export interface PatternAnalysis {
   // Linguistic patterns
-  joualMarkers: string[];
-  joualDensity: number; // markers per 100 chars
+  mexicanoMarkers: string[];
+  mexicanoDensity: number; // markers per 100 chars
   averageWordLength: number;
   sentenceStyle: "short" | "medium" | "long";
   questionCount: number;
@@ -96,12 +96,12 @@ export interface PatternAnalysis {
 
   // Cultural signals
   cultureSignals: string[];
-  emergingTerms: string[]; // New joual not in our dictionary
+  emergingTerms: string[]; // New mexicano not in our dictionary
 }
 
 export interface EvolutionRecommendation {
   type:
-    | "add_joual_term"
+    | "add_mexicano_term"
     | "adjust_weight"
     | "add_hashtag_bonus"
     | "region_boost"
@@ -136,7 +136,7 @@ export class AnomalyDetector {
   }
 
   /**
-   * Find posts where Hive reality significantly exceeds Ti-Guy's prediction
+   * Find posts where Hive reality significantly exceeds Güey's prediction
    */
   async findAnomalies(db: any): Promise<MomentumAnomaly[]> {
     const { anomalyThreshold, minEngagement, batchSize, weights, gravity } =
@@ -153,7 +153,7 @@ export class AnomalyDetector {
           p.caption,
           p.hashtags,
           p.region,
-          p.quebec_score,
+          p.mexico_score,
           COALESCE(p.reactions_count, 0) as fires,
           COALESCE(p.shares_count, 0) as shares,
           COALESCE(p.piasse_count, 0) as piasse,
@@ -173,23 +173,23 @@ export class AnomalyDetector {
           EXTRACT(EPOCH FROM (NOW() - p.created_at)) / 3600 as age_hours,
           
           -- Momentum score (matches implementation)
-          ((p.quebec_score + 1) * (LN(COALESCE(p.reactions_count, 0) * ${weights.fires} + COALESCE(p.shares_count, 0) * ${weights.shares} + COALESCE(p.piasse_count, 0) * ${weights.piasse} + COALESCE(p.comments_count, 0) * ${weights.comments} + 1) + 1))
+          ((p.mexico_score + 1) * (LN(COALESCE(p.reactions_count, 0) * ${weights.fires} + COALESCE(p.shares_count, 0) * ${weights.shares} + COALESCE(p.piasse_count, 0) * ${weights.piasse} + COALESCE(p.comments_count, 0) * ${weights.comments} + 1) + 1))
           / 
           POWER(EXTRACT(EPOCH FROM (NOW() - p.created_at))/3600 + 2, ${gravity})
           as momentum_score
           
         FROM publications p
         JOIN user_profiles u ON p.user_id = u.id
-        WHERE p.quebec_score IS NOT NULL
-          AND p.quebec_score > 0
+        WHERE p.mexico_score IS NOT NULL
+          AND p.mexico_score > 0
           AND p.created_at > NOW() - INTERVAL '30 days'
           AND (p.est_masque = false OR p.est_masque IS NULL)
       )
       SELECT *,
-        (momentum_score / NULLIF(quebec_score, 0)) as anomaly_ratio
+        (momentum_score / NULLIF(mexico_score, 0)) as anomaly_ratio
       FROM momentum_calc
       WHERE weighted_engagement >= ${minEngagement}
-        AND (momentum_score / NULLIF(quebec_score, 0)) >= ${anomalyThreshold}
+        AND (momentum_score / NULLIF(mexico_score, 0)) >= ${anomalyThreshold}
       ORDER BY anomaly_ratio DESC
       LIMIT ${batchSize}
     `);
@@ -202,7 +202,7 @@ export class AnomalyDetector {
       caption: row.caption,
       hashtags: row.hashtags || [],
       region: row.region,
-      quebecScore: parseFloat(row.quebec_score) || 0,
+      mexicoScore: parseFloat(row.mexico_score) || 0,
       momentumScore: parseFloat(row.momentum_score) || 0,
       anomalyRatio: parseFloat(row.anomaly_ratio) || 0,
       fires: parseInt(row.fires) || 0,
@@ -232,7 +232,7 @@ export class AnomalyDetector {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export class PatternExtractor {
-  // Known joual markers
+  // Known mexicano markers
   private static readonly KNOWN_JOUAL = new Set([
     "toé",
     "moé",
@@ -284,12 +284,12 @@ export class PatternExtractor {
       .join(" ")
       .toLowerCase();
 
-    // Find joual markers
-    const foundJoual = this.findJoualMarkers(allText);
-    const knownFound = foundJoual.filter((m) =>
+    // Find mexicano markers
+    const foundMexicano = this.findMexicanoMarkers(allText);
+    const knownFound = foundMexicano.filter((m) =>
       PatternExtractor.KNOWN_JOUAL.has(m),
     );
-    const newFound = foundJoual.filter(
+    const newFound = foundMexicano.filter(
       (m) => !PatternExtractor.KNOWN_JOUAL.has(m),
     );
 
@@ -352,12 +352,12 @@ export class PatternExtractor {
 
     // Culture signals
     const cultureSignals: string[] = [];
-    if (foundJoual.length > anomalies.length * 0.5) {
+    if (foundMexicano.length > anomalies.length * 0.5) {
       cultureSignals.push("HIGH_JOUAL_DENSITY");
     }
     if (
       topRegions.some((r) =>
-        ["montreal", "québec", "quebec"].includes(r.region.toLowerCase()),
+        ["cdmx", "québec", "mexico"].includes(r.region.toLowerCase()),
       )
     ) {
       cultureSignals.push("MAJOR_CITY_CONCENTRATION");
@@ -370,8 +370,8 @@ export class PatternExtractor {
     }
 
     return {
-      joualMarkers: knownFound,
-      joualDensity: (foundJoual.length / Math.max(allText.length, 1)) * 100,
+      mexicanoMarkers: knownFound,
+      mexicanoDensity: (foundMexicano.length / Math.max(allText.length, 1)) * 100,
       averageWordLength: this.averageWordLength(allText),
       sentenceStyle,
       questionCount,
@@ -387,7 +387,7 @@ export class PatternExtractor {
     };
   }
 
-  private findJoualMarkers(text: string): string[] {
+  private findMexicanoMarkers(text: string): string[] {
     const found: string[] = [];
     const words = text.toLowerCase().split(/\s+/);
 
@@ -398,8 +398,8 @@ export class PatternExtractor {
       }
     });
 
-    // Detect potential new joual
-    const potentialNewJoual = words.filter((word) => {
+    // Detect potential new mexicano
+    const potentialNewMexicano = words.filter((word) => {
       if (word.endsWith("tte") || word.endsWith("oune")) return true;
       if (
         word.includes("'") &&
@@ -411,7 +411,7 @@ export class PatternExtractor {
       return false;
     });
 
-    return [...found, ...potentialNewJoual];
+    return [...found, ...potentialNewMexicano];
   }
 
   private averageWordLength(text: string): number {
@@ -422,8 +422,8 @@ export class PatternExtractor {
 
   private emptyAnalysis(): PatternAnalysis {
     return {
-      joualMarkers: [],
-      joualDensity: 0,
+      mexicanoMarkers: [],
+      mexicanoDensity: 0,
       averageWordLength: 0,
       sentenceStyle: "medium",
       questionCount: 0,
@@ -451,7 +451,7 @@ export class PromptEvolver {
   ): EvolutionRecommendation[] {
     const recommendations: EvolutionRecommendation[] = [];
 
-    // 1. New joual terms to add
+    // 1. New mexicano terms to add
     if (patterns.emergingTerms.length > 0) {
       const frequentNew = this.findFrequentTerms(
         patterns.emergingTerms,
@@ -459,9 +459,9 @@ export class PromptEvolver {
       );
       frequentNew.forEach((term) => {
         recommendations.push({
-          type: "add_joual_term",
+          type: "add_mexicano_term",
           confidence: Math.min(0.9, 0.3 + term.frequency * 0.1),
-          description: `Add "${term.term}" to joual marker dictionary`,
+          description: `Add "${term.term}" to mexicano marker dictionary`,
           implementation: `JOUAL_MARKERS.push('${term.term}');`,
           evidence: term.postIds.slice(0, 3),
         });
@@ -478,7 +478,7 @@ export class PromptEvolver {
         type: "add_hashtag_bonus",
         confidence: Math.min(0.85, 0.4 + (h.count / anomalies.length) * 0.5),
         description: `Add culture bonus for #${h.tag} (appeared in ${h.count}/${anomalies.length} anomalies)`,
-        implementation: `QUEBEC_HASHTAGS.push('#${h.tag}');`,
+        implementation: `MEXICO_HASHTAGS.push('#${h.tag}');`,
         evidence: anomalies
           .filter((a) => a.hashtags?.includes(h.tag))
           .map((a) => a.postId)
@@ -541,7 +541,7 @@ export class PromptEvolver {
         type: "prompt_update",
         confidence: 0.75,
         description: "High-performing content uses enthusiastic tone",
-        implementation: `// Add to Ti-Guy prompt: "Content with enthusiastic, excited tone tends to resonate"`,
+        implementation: `// Add to Güey prompt: "Content with enthusiastic, excited tone tends to resonate"`,
         evidence: [],
       });
     }
@@ -551,7 +551,7 @@ export class PromptEvolver {
         type: "prompt_update",
         confidence: 0.7,
         description: "Conversational style performs well",
-        implementation: `// Add to Ti-Guy prompt: "Content that asks questions performs well"`,
+        implementation: `// Add to Güey prompt: "Content that asks questions performs well"`,
         evidence: [],
       });
     }
@@ -593,7 +593,7 @@ export class PromptEvolver {
     recommendations: EvolutionRecommendation[],
   ): EvolutionReport {
     const cultureScorerAdditions = recommendations
-      .filter((r) => r.type === "add_joual_term" && r.confidence >= 0.6)
+      .filter((r) => r.type === "add_mexicano_term" && r.confidence >= 0.6)
       .map((r) => r.implementation.match(/'([^']+)'/)?.[1] || "")
       .filter(Boolean);
 
@@ -706,8 +706,8 @@ export class PromptEvolutionEngine {
       generatedAt: new Date(),
       anomaliesAnalyzed: 0,
       patterns: {
-        joualMarkers: [],
-        joualDensity: 0,
+        mexicanoMarkers: [],
+        mexicanoDensity: 0,
         averageWordLength: 0,
         sentenceStyle: "medium",
         questionCount: 0,

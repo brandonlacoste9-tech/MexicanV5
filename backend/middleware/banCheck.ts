@@ -33,18 +33,18 @@ export async function banCheck(
         .status(403)
         .json({
           error:
-            "Compte banni définitivement. Contactez zyeutequebec@gmail.com pour faire appel.",
+            "Compte banni définitivement. Contactez ojeamexico@gmail.com pour faire appel.",
           banned: true,
         });
       return;
     }
 
     if (data.ban_until && new Date(data.ban_until) > new Date()) {
-      const until = new Date(data.ban_until).toLocaleDateString("fr-CA");
+      const until = new Date(data.ban_until).toLocaleDateString("es-MX");
       res
         .status(403)
         .json({
-          error: `Compte suspendu jusqu'au ${until}. Contactez zyeutequebec@gmail.com pour faire appel.`,
+          error: `Compte suspendu jusqu'au ${until}. Contactez ojeamexico@gmail.com pour faire appel.`,
           banned: true,
           ban_until: data.ban_until,
         });

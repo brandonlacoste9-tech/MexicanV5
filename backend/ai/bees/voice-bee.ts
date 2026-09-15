@@ -1,14 +1,14 @@
 /**
  * 🎤 Voice Bee (Version Souveraine - Google Cloud)
- * Text-to-Speech et Speech-to-Text pour Ti-Guy
- * Branchement sur Google Cloud pour un accent québécois authentique.
+ * Text-to-Speech et Speech-to-Text pour Güey
+ * Branchement sur Google Cloud pour un accent mexicano authentique.
  *
- * 🌟 VOIX CÉLÈBRES DU QUÉBEC:
+ * 🌟 VOIX CÉLÈBRES DU MÉXICO:
  * - "celine" → Céline Dion (style diva)
- * - "ginette" → Ginette Reno (style maman Québécoise)
+ * - "ginette" → Ginette Reno (style maman Mexicana)
  * - "denis" → Denis Lévesque (style animateur TVA)
  * - "jean" → Jean Lapointe (style humoriste)
- * - "ti-guy" → Notre castor national 🦫
+ * - "guey" → Notre castor national 🦫
  */
 
 import { z } from "zod";
@@ -20,7 +20,7 @@ export const VoiceGenerationSchema = z.object({
   text: z.string().min(1).max(5000),
   voice: z
     .enum([
-      "ti-guy",
+      "guey",
       "celine", // Céline Dion style
       "ginette", // Ginette Reno style
       "denis", // Denis Lévesque style
@@ -29,7 +29,7 @@ export const VoiceGenerationSchema = z.object({
       "mike", // Mike Ward style
       "mario", // Mario Dumont style
     ])
-    .default("ti-guy"),
+    .default("guey"),
   speed: z.number().optional().default(1.0),
   emotion: z.string().optional().default("happy"),
 });
@@ -47,56 +47,56 @@ const CELEBRITY_VOICES: Record<
     effects?: string;
   }
 > = {
-  "ti-guy": {
-    name: "fr-CA-Standard-D",
+  "guey": {
+    name: "es-MX-Standard-D",
     gender: "MALE",
     pitch: 0,
     speakingRate: 1.0,
   },
   celine: {
-    name: "fr-CA-Standard-A", // Voix féminine
+    name: "es-MX-Standard-A", // Voix féminine
     gender: "FEMALE",
     pitch: 2.5, // Plus aigu comme Céline
     speakingRate: 0.9, // Un peu plus lent (dramatique)
     effects: "Céline Dion style: 'Mon dieu, c'est fantastique!'",
   },
   ginette: {
-    name: "fr-CA-Standard-C",
+    name: "es-MX-Standard-C",
     gender: "FEMALE",
     pitch: -1.5, // Plus grave (maman)
     speakingRate: 1.1,
     effects: "Ginette Reno style: chaleureuse et maternelle",
   },
   denis: {
-    name: "fr-CA-Standard-D",
+    name: "es-MX-Standard-D",
     gender: "MALE",
     pitch: -2, // Grave comme animateur
     speakingRate: 1.2, // Rapide comme au journal
     effects: "Denis Lévesque style: journaliste dynamique",
   },
   jean: {
-    name: "fr-CA-Standard-B",
+    name: "es-MX-Standard-B",
     gender: "MALE",
     pitch: -1,
     speakingRate: 0.95,
     effects: "Jean Lapointe style: humoriste charismatique",
   },
   julie: {
-    name: "fr-CA-Standard-A",
+    name: "es-MX-Standard-A",
     gender: "FEMALE",
     pitch: 1.5,
     speakingRate: 1.3, // Très rapide
     effects: "Julie Snyder style: énergique et rapide",
   },
   mike: {
-    name: "fr-CA-Standard-D",
+    name: "es-MX-Standard-D",
     gender: "MALE",
     pitch: -0.5,
     speakingRate: 1.1,
     effects: "Mike Ward style: comédien sarcastique",
   },
   mario: {
-    name: "fr-CA-Standard-B",
+    name: "es-MX-Standard-B",
     gender: "MALE",
     pitch: 0.5,
     speakingRate: 0.9, // Lent et posé
@@ -124,9 +124,9 @@ export class VoiceBee {
   }> {
     return [
       {
-        id: "ti-guy",
+        id: "guey",
         name: "TI-GUY",
-        description: "Le castor québécois",
+        description: "Le castor mexicano",
         emoji: "🦫",
       },
       {
@@ -138,7 +138,7 @@ export class VoiceBee {
       {
         id: "ginette",
         name: "Ginette",
-        description: "La maman du Québec",
+        description: "La maman du México",
         emoji: "❤️",
       },
       {
@@ -179,7 +179,7 @@ export class VoiceBee {
       zyeuté: "zi-yeu-té",
       poutine: "pou-tsine",
       québec: "ké-bek",
-      "ti-guy": "tsi-ghi",
+      "guey": "tsi-ghi",
       chum: "tchum",
       char: "tchar",
       frette: "frette",
@@ -187,7 +187,7 @@ export class VoiceBee {
   }
 
   /**
-   * 🗣️ TEXT-TO-SPEECH (Génération de la voix de Ti-Guy ou Célébrités)
+   * 🗣️ TEXT-TO-SPEECH (Génération de la voix de Güey ou Célébrités)
    */
   async textToSpeech(request: VoiceGenerationRequest): Promise<{
     success: boolean;
@@ -197,7 +197,7 @@ export class VoiceBee {
   }> {
     try {
       const voiceConfig =
-        CELEBRITY_VOICES[request.voice] || CELEBRITY_VOICES["ti-guy"];
+        CELEBRITY_VOICES[request.voice] || CELEBRITY_VOICES["guey"];
 
       console.log(
         `🎙️ Synthèse vocale [${request.voice}] pour : "${request.text.substring(0, 50)}..."`,
@@ -216,7 +216,7 @@ export class VoiceBee {
       const [response] = await this.clientTTS.synthesizeSpeech({
         input: { text: textToSpeak },
         voice: {
-          languageCode: "fr-CA",
+          languageCode: "es-MX",
           name: voiceConfig.name,
           ssmlGender: voiceConfig.gender as any,
         },
@@ -250,7 +250,7 @@ export class VoiceBee {
   }
 
   /**
-   * 🎧 SPEECH-TO-TEXT (Les oreilles de Ti-Guy)
+   * 🎧 SPEECH-TO-TEXT (Les oreilles de Güey)
    */
   async speechToText(audioBase64: string): Promise<{
     success: boolean;
@@ -258,14 +258,14 @@ export class VoiceBee {
     error?: string;
   }> {
     try {
-      console.log("👂 Transcription audio en cours (fr-CA)...");
+      console.log("👂 Transcription audio en cours (es-MX)...");
 
       const request = {
         audio: { content: audioBase64 },
         config: {
           encoding: "WEBM_OPUS" as any, // Format standard des blobs média navigateur
           sampleRateHertz: 48000,
-          languageCode: "fr-CA", // On écoute le Joual !
+          languageCode: "es-MX", // On écoute le Mexicano !
         },
       };
 

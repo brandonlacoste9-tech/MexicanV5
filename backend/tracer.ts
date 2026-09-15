@@ -31,7 +31,7 @@ function initializeTracing() {
       if (process.env.VERCEL || process.env.ENABLE_OTEL === "true") {
         const { registerOTel } = await import("@vercel/otel");
         registerOTel({
-          serviceName: "zyeute-v3",
+          serviceName: "ojea-v3",
         });
 
         // Register instrumentations for automatic tracing
@@ -66,7 +66,7 @@ function initializeTracing() {
 initializeTracing();
 
 // Get the tracer instance
-const tracer = trace.getTracer("zyeute-v3", "1.0.0");
+const tracer = trace.getTracer("ojea-v3", "1.0.0");
 
 /**
  * Create a traced operation

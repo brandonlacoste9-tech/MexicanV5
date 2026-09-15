@@ -30,7 +30,7 @@ const COPY: Record<
   empty: {
     emoji: "⚜️",
     title: "Le fil t'attend",
-    body: "Aucune vidéo pour l'instant. Reviens bientôt ou sois le premier à partager un moment québécois.",
+    body: "Aucune vidéo pour l'instant. Reviens bientôt ou sois le premier à partager un moment mexicano.",
   },
   error: {
     emoji: "📡",
@@ -40,7 +40,7 @@ const COPY: Record<
   offline: {
     emoji: "📴",
     title: "Tu es hors ligne",
-    body: "Reconnecte-toi pour découvrir les dernières vidéos du Québec.",
+    body: "Reconnecte-toi pour découvrir les dernières vidéos du México.",
   },
   "abonnements-empty": {
     emoji: "👥",

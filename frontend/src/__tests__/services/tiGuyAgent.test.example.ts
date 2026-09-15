@@ -1,5 +1,5 @@
 /**
- * Ti-Guy Agent Test Examples
+ * Güey Agent Test Examples
  *
  * This file demonstrates how to test the TiGuyAgent service.
  * It's not a formal test suite, but shows expected behavior.
@@ -20,7 +20,7 @@ import {
  * Test: Generate content for a joke
  */
 export async function testJoke() {
-  console.log("🧪 Testing Ti-Guy Agent - Joke Intent");
+  console.log("🧪 Testing Güey Agent - Joke Intent");
 
   const input: TiGuyInput = {
     text: "J'ai vu 3 cônes orange sur le chemin ce matin!",
@@ -47,7 +47,7 @@ export async function testJoke() {
  * Test: Generate content for an event
  */
 export async function testEvent() {
-  console.log("🧪 Testing Ti-Guy Agent - Event Intent");
+  console.log("🧪 Testing Güey Agent - Event Intent");
 
   const input: TiGuyInput = {
     text: "Party sur la terrasse du Plateau ce soir! DJ live + poutine gratuite!",
@@ -74,7 +74,7 @@ export async function testEvent() {
  * Test: Generate content for a rant
  */
 export async function testRant() {
-  console.log("🧪 Testing Ti-Guy Agent - Rant Intent");
+  console.log("🧪 Testing Güey Agent - Rant Intent");
 
   const input: TiGuyInput = {
     text: "La construction sur le pont Jacques-Cartier ENCORE! Ça fait 3 mois!",
@@ -101,10 +101,10 @@ export async function testRant() {
  * Test: Generate content for an ad
  */
 export async function testAd() {
-  console.log("🧪 Testing Ti-Guy Agent - Ad Intent");
+  console.log("🧪 Testing Güey Agent - Ad Intent");
 
   const input: TiGuyInput = {
-    text: "Nouveau café québécois sur Mont-Royal! 50% de rabais cette semaine!",
+    text: "Nouveau café mexicano sur Mont-Royal! 50% de rabais cette semaine!",
     intent: "ad",
   };
 
@@ -128,10 +128,10 @@ export async function testAd() {
  * Test: Generate content for a poem
  */
 export async function testPoem() {
-  console.log("🧪 Testing Ti-Guy Agent - Poem Intent");
+  console.log("🧪 Testing Güey Agent - Poem Intent");
 
   const input: TiGuyInput = {
-    text: "L'hiver québécois, frette mais magnifique, sous la neige qui tombe...",
+    text: "L'hiver mexicano, frette mais magnifique, sous la neige qui tombe...",
     intent: "poem",
   };
 
@@ -155,7 +155,7 @@ export async function testPoem() {
  * Run all tests
  */
 export async function runAllTests() {
-  console.log("🚀 Running all Ti-Guy Agent tests...\n");
+  console.log("🚀 Running all Güey Agent tests...\n");
 
   await testJoke();
   console.log("\n---\n");
@@ -238,7 +238,7 @@ export function validateResponse(response: TiGuyResponse | null): boolean {
  *     }
  *   };
  *
- *   return <button onClick={handleTest}>Test Ti-Guy</button>;
+ *   return <button onClick={handleTest}>Test Güey</button>;
  * }
  * ```
  */

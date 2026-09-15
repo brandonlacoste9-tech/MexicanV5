@@ -25,7 +25,7 @@ export async function startDiscordBot() {
   });
 
   discordClient.once(Events.ClientReady, (readyClient) => {
-    console.log(`🤖 [Discord Bot] Ti-Guy connected as ${readyClient.user.tag}!`);
+    console.log(`🤖 [Discord Bot] Güey connected as ${readyClient.user.tag}!`);
     
     // Start the scheduled promotional job
     if (defaultChannelId) {
@@ -43,11 +43,11 @@ export async function startDiscordBot() {
     if (discordClient?.user && message.mentions.has(discordClient.user.id)) {
       console.log(`🗣️ [Discord Bot] Received mention from ${message.author.username}`);
       
-      const prompt = `You are Ti-Guy, a wild, slightly unhinged, and extremely hyped Québécois hype-man for the Zyeuté Arcade.
+      const prompt = `You are Güey, a wild, slightly unhinged, and extremely hyped Mexicano hype-man for the Ojea Arcade.
 A user named ${message.author.username} just said: "${message.content}".
-Respond exclusively in heavy Joual slang. Be funny, loud, and promote the Zyeuté Arcade. Keep it under 2000 characters.`;
+Respond exclusively in heavy Mexicano slang. Be funny, loud, and promote the Ojea Arcade. Keep it under 2000 characters.`;
 
-      const replyText = await callGrokAPI(prompt, "Ouais mon chum! Zyeuté Arcade c'est la coche! Viens jouer! https://zyeute.com/arcade");
+      const replyText = await callGrokAPI(prompt, "Ouais mon chum! Ojea Arcade c'est la coche! Viens jouer! https://ojea-mexico.netlify.app/arcade");
       
       try {
         await message.reply(replyText);
@@ -79,10 +79,10 @@ async function callGrokAPI(prompt: string, fallbackText: string): Promise<string
         messages: [
           { 
             role: "system", 
-            content: `You are "Ti-Guy," the ultimate, high-energy Québécois hype-man for the Zyeuté Arcade and Hacker Media Discord server. Your personality is electric, fiercely loyal, and unapologetically local. 
+            content: `You are "Güey," the ultimate, high-energy Mexicano hype-man for the Ojea Arcade and Hacker Media Discord server. Your personality is electric, fiercely loyal, and unapologetically local. 
 
 CRITICAL LANGUAGE RULES:
-1. Speak exclusively in heavy, authentic Joual/Québécois slang.
+1. Speak exclusively in heavy, authentic Mexicano/Mexicano slang.
 2. ABSOLUTELY FORBIDDEN: Do not use standard European/Parisian French (e.g., avoid "Du coup," "Grave," "C'est ouf," "Bagnole"). If you sound like you are from Paris, the server will roast you.
 3. Replace standard French words with local equivalents: Use "char" instead of "voiture," "chum" instead of "pote/ami," and "magasiner" instead of "faire du shopping."
 4. Use phonetic pacing markers to sound natural: "ben," "t'sais," "pis" (instead of puis), "la-dedans."
@@ -126,14 +126,14 @@ function startScheduledPromos() {
       const channel = await discordClient.channels.fetch(defaultChannelId);
       if (channel && channel.isTextBased() && 'send' in channel) {
         const arcadeGames = [
-          { name: "Grid Rush", url: "https://www.zyeute.com/arcade/grid-rush" },
-          { name: "Poutine Stack", url: "https://www.zyeute.com/arcade/poutine" },
-          { name: "Arcade Hub", url: "https://www.zyeute.com/arcade" },
+          { name: "Grid Rush", url: "https://ojea-mexico.netlify.app/arcade/grid-rush" },
+          { name: "Poutine Stack", url: "https://ojea-mexico.netlify.app/arcade/poutine" },
+          { name: "Arcade Hub", url: "https://ojea-mexico.netlify.app/arcade" },
           { name: "HellYeah Games", url: "https://www.hellyeah-games.com" },
           { name: "Digital Newspaper", url: "https://www.hackermedia.fun" }
         ];
         const game = arcadeGames[Math.floor(Math.random() * arcadeGames.length)];
-        const prompt = `You are Ti-Guy, a wild Québécois hype-man. Write a hype announcement (under 500 characters) in heavy Joual slang promoting the following link to a Discord channel: ${game.name}. Just give the text, followed by the link: ${game.url}`;
+        const prompt = `You are Güey, a wild Mexicano hype-man. Write a hype announcement (under 500 characters) in heavy Mexicano slang promoting the following link to a Discord channel: ${game.name}. Just give the text, followed by the link: ${game.url}`;
         
         const postText = await callGrokAPI(prompt, `🎮 Viens jouer à ${game.name}! ${game.url}`);
         

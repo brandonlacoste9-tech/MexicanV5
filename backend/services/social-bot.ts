@@ -60,16 +60,16 @@ async function fetchTopUntweetedPost() {
 }
 
 /**
- * Uses Grok (xAI) to generate an unhinged Joual promotional tweet.
+ * Uses Grok (xAI) to generate an unhinged Mexicano promotional tweet.
  * Falls back to standard templates if the API key is missing or fails.
  */
 async function generateTweetContent(topic: string, url: string, fallbackText: string): Promise<string> {
   if (!xaiApiKey) {
-    return `${fallbackText}\n\n👉 ${url} #Zyeute`;
+    return `${fallbackText}\n\n👉 ${url} #Ojea`;
   }
 
   try {
-    const prompt = `You are a wild, slightly unhinged, and extremely hyped Québécois hype-man. Write a single short tweet (under 200 characters) in authentic Joual slang promoting the following link: ${topic}. Do not include hashtags. Just give the text of the tweet, followed by the link: ${url}`;
+    const prompt = `You are a wild, slightly unhinged, and extremely hyped Mexicano hype-man. Write a single short tweet (under 200 characters) in authentic Mexicano slang promoting the following link: ${topic}. Do not include hashtags. Just give the text of the tweet, followed by the link: ${url}`;
     
     const response = await fetch("https://api.x.ai/v1/chat/completions", {
       method: "POST",
@@ -79,7 +79,7 @@ async function generateTweetContent(topic: string, url: string, fallbackText: st
       },
       body: JSON.stringify({
         messages: [
-          { role: "system", content: "You are a wild Quebecois hype-man on Twitter. Speak exclusively in heavy Joual slang." },
+          { role: "system", content: "You are a wild Mexican hype-man on Twitter. Speak exclusively in heavy Mexicano slang." },
           { role: "user", content: prompt }
         ],
         model: "grok-beta",
@@ -99,7 +99,7 @@ async function generateTweetContent(topic: string, url: string, fallbackText: st
     return content.replace(/^["']|["']$/g, '');
   } catch (err) {
     console.error("🐦 [Twitter Bot] Error calling Grok API, falling back:", err);
-    return `${fallbackText}\n\n👉 ${url} #Zyeute`;
+    return `${fallbackText}\n\n👉 ${url} #Ojea`;
   }
 }
 
@@ -118,17 +118,17 @@ export async function runSocialBotJob() {
     // 20% chance to tweet about an Arcade game instead of a viral video
     if (Math.random() < 0.20) {
       const arcadeGames = [
-        { name: "Grid Rush", url: "https://www.zyeute.com/arcade/grid-rush", desc: "Prêt pour Grid Rush ? Viens tester tes réflexes sur l'Arcade Zyeuté ! 🕹️⚡", imageUrl: "https://www.zyeute.com/zyeute_og_image.png" },
-        { name: "Hive Tap", url: "https://www.zyeute.com/arcade/hive-tap", desc: "Tape au rythme du Hive ! 🐝🎵 Viens jouer à Hive Tap sur l'Arcade Zyeuté !", imageUrl: "https://www.zyeute.com/zyeute_og_image.png" },
-        { name: "Poutine Stack", url: "https://www.zyeute.com/arcade/poutine", desc: "Empile ta poutine comme un pro ! 🍟🧀 Viens jouer sur l'Arcade Zyeuté !", imageUrl: "https://www.zyeute.com/zyeute_og_image.png" },
-        { name: "Arcade Hub", url: "https://www.zyeute.com/arcade", desc: "Découvre tous nos jeux rétro dans le Hub Arcade Zyeuté ! 👾🎮 Viens battre les high scores !", imageUrl: "https://www.zyeute.com/zyeute_og_image.png" },
+        { name: "Grid Rush", url: "https://ojea-mexico.netlify.app/arcade/grid-rush", desc: "Prêt pour Grid Rush ? Viens tester tes réflexes sur l'Arcade Ojea ! 🕹️⚡", imageUrl: "https://ojea-mexico.netlify.app/ojea_og_image.png" },
+        { name: "Hive Tap", url: "https://ojea-mexico.netlify.app/arcade/hive-tap", desc: "Tape au rythme du Hive ! 🐝🎵 Viens jouer à Hive Tap sur l'Arcade Ojea !", imageUrl: "https://ojea-mexico.netlify.app/ojea_og_image.png" },
+        { name: "Poutine Stack", url: "https://ojea-mexico.netlify.app/arcade/poutine", desc: "Empile ta poutine comme un pro ! 🍟🧀 Viens jouer sur l'Arcade Ojea !", imageUrl: "https://ojea-mexico.netlify.app/ojea_og_image.png" },
+        { name: "Arcade Hub", url: "https://ojea-mexico.netlify.app/arcade", desc: "Découvre tous nos jeux rétro dans le Hub Arcade Ojea ! 👾🎮 Viens battre les high scores !", imageUrl: "https://ojea-mexico.netlify.app/ojea_og_image.png" },
         { name: "HellYeah Games", url: "https://www.hellyeah-games.com", desc: "Plonge dans l'action avec HellYeah Games ! 🤘🎮 Les meilleurs jeux d'arcade sont ici.", imageUrl: "https://www.hellyeah-games.com/promo.png" }, // <--- Make sure this image exists on your server!
         { name: "Gamer Gurls", url: "https://www.gamergurls.com", desc: "Découvre la communauté ultime sur Gamer Gurls ! 🕹️✨ Le gaming à son meilleur.", imageUrl: "https://www.gamergurls.com/promo.png" }, // <--- Make sure this image exists on your server!
         { name: "IronClaw", url: "https://www.ironclaw.ca", desc: "Attrape la victoire sur IronClaw ! 🦅🎮 Des jeux intenses pour de vrais joueurs.", imageUrl: "https://www.ironclaw.ca/promo.png" }, // <--- Make sure this image exists on your server!
         { name: "KryptoTrac", url: "https://www.kryptotrac.com", desc: "La nouvelle ère du jeu est sur KryptoTrac ! 🚀👾 Joue et découvre de nouvelles dimensions.", imageUrl: "https://www.kryptotrac.com/promo.png" }, // <--- Make sure this image exists on your server!
         { name: "Cyborg Gamers", url: "https://www.cyborggamers.com", desc: "Rejoins l'élite sur Cyborg Gamers ! 🤖🎮 Prépare-toi pour des sessions intenses.", imageUrl: "https://www.cyborggamers.com/promo.png" }, // <--- Make sure this image exists on your server!
-        { name: "Digital Newspaper", url: "https://digital-newspaper-gamma.vercel.app/", desc: "Reste informé avec notre Digital Newspaper ! 📰✨ L'actualité qui compte pour toi.", imageUrl: "https://www.zyeute.com/zyeute_og_image.png" },
-        { name: "Floguru", url: "https://www.floguru.com", desc: "Trouve ton rythme sur Floguru ! 🌊🕹️ Laisse-toi emporter par le flow du jeu.", imageUrl: "https://www.zyeute.com/zyeute_og_image.png" }
+        { name: "Digital Newspaper", url: "https://digital-newspaper-gamma.vercel.app/", desc: "Reste informé avec notre Digital Newspaper ! 📰✨ L'actualité qui compte pour toi.", imageUrl: "https://ojea-mexico.netlify.app/ojea_og_image.png" },
+        { name: "Floguru", url: "https://www.floguru.com", desc: "Trouve ton rythme sur Floguru ! 🌊🕹️ Laisse-toi emporter par le flow du jeu.", imageUrl: "https://ojea-mexico.netlify.app/ojea_og_image.png" }
       ];
       const game = arcadeGames[Math.floor(Math.random() * arcadeGames.length)];
       const postText = await generateTweetContent(`our awesome game site ${game.name}`, game.url, game.desc);
@@ -186,11 +186,11 @@ export async function runSocialBotJob() {
       return;
     }
 
-    const postUrl = `https://www.zyeute.com/post/${post.id}`;
-    const fallbackText = `🔥 Le buzz du moment sur Zyeuté ! Check out this viral moment by @${post.username}:\n\n"${post.caption || 'Incroyable!'}"`;
-    const postText = await generateTweetContent(`a viral video on Zyeuté by @${post.username} titled "${post.caption || 'Incroyable!'}"`, postUrl, fallbackText);
+    const postUrl = `https://ojea-mexico.netlify.app/post/${post.id}`;
+    const fallbackText = `🔥 Le buzz du moment sur Ojea ! Check out this viral moment by @${post.username}:\n\n"${post.caption || 'Incroyable!'}"`;
+    const postText = await generateTweetContent(`a viral video on Ojea by @${post.username} titled "${post.caption || 'Incroyable!'}"`, postUrl, fallbackText);
 
-    console.log(`🌐 [Social Bot] Attempting to post for Zyeute Post ID: ${post.id}`);
+    console.log(`🌐 [Social Bot] Attempting to post for Ojea Post ID: ${post.id}`);
     
     // 1. Post directly to Twitter
     if (twitterClient) {

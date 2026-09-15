@@ -10,7 +10,7 @@ const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || "";
 
 if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(
-    "mailto:zyeutequebec@gmail.com",
+    "mailto:ojeamexico@gmail.com",
     VAPID_PUBLIC_KEY,
     VAPID_PRIVATE_KEY,
   );
@@ -44,7 +44,7 @@ export async function sendPushToUser(
       icon: payload.icon || "/icons/icon-192.png",
       badge: "/icons/badge-72.png",
       url: payload.url || "/feed",
-      tag: payload.tag || "zyeute-notification",
+      tag: payload.tag || "ojea-notification",
     });
 
     await Promise.allSettled(
@@ -74,7 +74,7 @@ export async function notifyNewFollower(
 ): Promise<void> {
   await sendPushToUser(followedUserId, {
     title: "Nouveau abonné! 🎉",
-    body: `@${followerUsername} te suit maintenant sur Zyeute`,
+    body: `@${followerUsername} te suit maintenant sur Ojea`,
     url: `/profile/${followerUsername}`,
     tag: "new-follower",
   });

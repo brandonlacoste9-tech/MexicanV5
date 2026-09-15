@@ -1,5 +1,5 @@
 /**
- * Signup Page - Premium Quebec Heritage Design
+ * Signup Page - Premium Mexico Heritage Design
  * Matching the luxury login aesthetic
  */
 
@@ -28,7 +28,7 @@ export const Signup: React.FC = () => {
   useSEO({
     title: "Créer un compte",
     description:
-      "Rejoins Zyeute — l'app vidéo du Québec. Inscription gratuite en quelques secondes.",
+      "Rejoins Ojea — l'app vidéo du México. Inscription gratuite en quelques secondes.",
     url: "/signup",
   });
 
@@ -89,11 +89,11 @@ export const Signup: React.FC = () => {
 
       // Apply selected hive
       switchHive(selectedHive);
-      localStorage.setItem("zyeute_hive_id", selectedHive);
+      localStorage.setItem("ojea_hive_id", selectedHive);
 
       // Detect and persist language (fire-and-forget)
       const detectedLang = detectLanguageFromBrowser();
-      localStorage.setItem("zyeute_language", detectedLang);
+      localStorage.setItem("ojea_language", detectedLang);
 
       // Clear guest mode on successful signup
       localStorage.removeItem(GUEST_MODE_KEY);
@@ -112,7 +112,7 @@ export const Signup: React.FC = () => {
       toast.success(successMsg);
 
       // Claim Bounty if referral code exists
-      const refCode = localStorage.getItem("zyeute_bounty_ref");
+      const refCode = localStorage.getItem("ojea_bounty_ref");
       if (refCode) {
         try {
           const { supabase } = await import("@/lib/supabase");
@@ -133,7 +133,7 @@ export const Signup: React.FC = () => {
             if (res.ok) {
               const data = await res.json();
               toast.success(`Bounty réclamée! +${data.amount} Cennes 💰`);
-              localStorage.removeItem("zyeute_bounty_ref");
+              localStorage.removeItem("ojea_bounty_ref");
             }
           }
         } catch (e) {
@@ -147,7 +147,7 @@ export const Signup: React.FC = () => {
       navigationTimeoutRef.current = setTimeout(() => {
         if (isMountedRef.current) {
           const alreadyOnboarded =
-            localStorage.getItem("zyeute_onboarded") === "1";
+            localStorage.getItem("ojea_onboarded") === "1";
           window.location.href = alreadyOnboarded ? "/feed" : "/onboarding";
         }
       }, 150);
@@ -185,7 +185,7 @@ export const Signup: React.FC = () => {
             REJOINS LA COMMUNAUTÉ QUÉBÉCOISE
           </p>
           <p className="text-white/80 text-sm embossed">
-            Fait au Québec, pour vous autres ⚜️
+            Fait au México, pour vous autres ⚜️
           </p>
         </div>
 
@@ -375,7 +375,7 @@ export const Signup: React.FC = () => {
             onClick={() => {
               enterGuestMode();
               const alreadyOnboarded =
-                localStorage.getItem("zyeute_onboarded") === "1";
+                localStorage.getItem("ojea_onboarded") === "1";
               navigate(alreadyOnboarded ? "/feed" : "/onboarding");
             }}
             aria-label="Continuer en tant qu'invité"
@@ -407,11 +407,11 @@ export const Signup: React.FC = () => {
           </p>
         </div>
 
-        {/* Quebec Pride */}
+        {/* Mexico Pride */}
         <div className="text-center mt-6 text-leather-400 text-sm">
           <p className="flex items-center justify-center gap-2 embossed">
             <span className="text-gold-500">⚜️</span>
-            <span>Bienvenue dans la famille québécoise</span>
+            <span>Bienvenue dans la famille mexicana</span>
             <span className="text-gold-500">⚜️</span>
           </p>
         </div>
@@ -419,16 +419,16 @@ export const Signup: React.FC = () => {
         {/* Legal Footer */}
         <div className="mt-6 pt-4 border-t border-white/10 text-center space-y-1">
           <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} Zyeuté™ — Tous droits réservés.{" "}
+            © {new Date().getFullYear()} Ojea™ — Tous droits réservés.{" "}
             <a
-              href="mailto:zyeutequebec@gmail.com"
+              href="mailto:ojeamexico@gmail.com"
               className="hover:text-gold-400 transition-colors"
             >
-              zyeutequebec@gmail.com
+              ojeamexico@gmail.com
             </a>
           </p>
           <p className="text-xs text-white/20 px-4 leading-relaxed">
-            Zyeuté™ est une marque de commerce. Zyeuté n&apos;est pas
+            Ojea™ est une marque de commerce. Ojea n&apos;est pas
             responsable du contenu publié par les utilisateurs.
           </p>
         </div>

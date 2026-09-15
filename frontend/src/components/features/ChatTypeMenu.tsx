@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useHaptics } from "@/hooks/useHaptics";
 import { toast } from "@/components/Toast";
 
-// Fleur-de-lis pattern
+// Águila pattern
 const FLEUR_PATTERN = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M30 10c-1-4-4-6-7-6s-6 2-7 6l2 5-2-5c-1-4-4-6-7-6s-6 2-7 6c0 3 2 5 4 7l6 2-6-2c-2-2-4-4-4-7 0-4 2-6 6-7s6 2 7 6l4 9 4-9c1-4 4-6 7-6s6 2 7 6c0 3-2 5-4 7l-6 2 6-2c2-2 4-4 4-7 0-4-2-6-6-7s-6 2-7 6l-2 5 2-5z'/%3E%3C/g%3E%3C/svg%3E")`;
 
 type ChatType = 'dms' | 'groups' | 'channels' | 'vault' | 'tiguy';
@@ -34,10 +34,10 @@ interface Props {
 const CHAT_TYPES: ChatTypeOption[] = [
   {
     id: 'tiguy',
-    label: 'Ti-Guy AI',
-    labelFr: 'Ti-Guy AI',
+    label: 'Güey AI',
+    labelFr: 'Güey AI',
     icon: '🦫',
-    description: 'Ton assistant québécois',
+    description: 'Ton assistant mexicano',
     unlocked: true,
     likesRequired: 0,
   },

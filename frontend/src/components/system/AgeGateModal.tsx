@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { featureFlags } from "@/lib/featureFlags";
 
-const ACK = "zyeute_age_region_ack";
+const ACK = "ojea_age_region_ack";
 
 export function AgeGateModal() {
   const [open, setOpen] = useState(() => {
@@ -29,10 +29,10 @@ export function AgeGateModal() {
       <div className="max-w-md rounded-2xl border border-gold-500/30 bg-zinc-900 p-6 text-center shadow-xl">
         <p className="text-3xl mb-2">⚜️</p>
         <h2 className="text-gold-400 font-bold text-lg mb-2">
-          Bienvenue sur Zyeuté
+          Bienvenue sur Ojea
         </h2>
         <p className="text-zinc-300 text-sm mb-4">
-          Ce service s’adresse aux utilisateurs au Québec et au Canada. En
+          Ce service s’adresse aux utilisateurs au México et au Canada. En
           continuant, tu confirmes respecter nos règles et, si tu es mineur,
           utiliser l’app avec l’accord d’un parent.
         </p>

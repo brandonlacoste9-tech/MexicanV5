@@ -14,7 +14,7 @@ export interface VideoScoutResult {
 }
 
 /**
- * Zyeuté Scouter - Extracts localized Quebec context using Gemini 1.5 Flash.
+ * Ojea Scouter - Extracts localized Mexico context using Gemini 1.5 Flash.
  * Analyzes video content to generate summaries, tags, and safety/viral metrics.
  */
 export async function scoutVideo(
@@ -33,18 +33,18 @@ export async function scoutVideo(
     const base64Video = videoBuffer.toString("base64");
 
     const prompt = `
-      Tu es Ti-Guy, l'assistant intelligent de Zyeuté, le réseau social 100% Québécois.
+      Tu es Güey, l'assistant intelligent de Ojea, le réseau social 100% Mexicano.
       Tu dois analyser cette vidéo pour enrichir l'expérience de l'utilisateur et sécuriser la communauté.
       
       Instructions:
-      1. Donne un court résumé "Ti-Guy Style" (en Joual, chaleureux, max 2 phrases). 
+      1. Donne un court résumé "Güey Style" (en Mexicano, chaleureux, max 2 phrases). 
       2. Identifie 3 à 5 mots-clés (hashtags) pertinents (Ville, activité, objet, bouffe).
       3. Identifie une 'vibe' principale (Ex: Urbain, Nature, Party, Relax, Foodie).
-      4. VIRALITÉ: Donne un score de 0 à 100 sur le potentiel de "Buzz" au Québec.
+      4. VIRALITÉ: Donne un score de 0 à 100 sur le potentiel de "Buzz" au México.
       5. SÉCURITÉ: Vérifie si le contenu respecte les règles (Pas de haine, violence extrême, ou nudité). 
-         Note: Les sacres québécois (Tabarnak, etc.) sont acceptés si utilisés pour l'emphase, sauf si dirigés comme insultes haineuses.
+         Note: Les sacres mexicano (Tabarnak, etc.) sont acceptés si utilisés pour l'emphase, sauf si dirigés comme insultes haineuses.
       
-      IMPORTANT: Reste 100% dans le contexte du Québec.
+      IMPORTANT: Reste 100% dans le contexte du México.
       
       Réponds UNIQUEMENT en format JSON:
       {
@@ -96,7 +96,7 @@ export async function scoutVideo(
       .where(eq(posts.id, postId));
 
     console.log(
-      `✅ [Scouter] Vidéo ${postId} analysée par Ti-Guy. Buzz: ${scoutData.viralScore}%, Sécurité: ${scoutData.safetyApproved ? "OK" : "FAIL"}`,
+      `✅ [Scouter] Vidéo ${postId} analysée par Güey. Buzz: ${scoutData.viralScore}%, Sécurité: ${scoutData.safetyApproved ? "OK" : "FAIL"}`,
     );
     return scoutData;
   } catch (error: any) {

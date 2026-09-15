@@ -30,7 +30,7 @@ const aiRateLimiter = rateLimit({
 /**
  * POST /api/hive/chat
  *
- * Ti-Guy chat powered by Hive Mind router
+ * Güey chat powered by Hive Mind router
  * Uses FREE Groq for 90% of requests, falls back to Vertex/DeepSeek
  */
 router.post("/chat", aiRateLimiter, async (req, res) => {
@@ -41,7 +41,7 @@ router.post("/chat", aiRateLimiter, async (req, res) => {
       return res.status(400).json({ error: "Message is required" });
     }
 
-    // Get Ti-Guy personality prompt
+    // Get Güey personality prompt
     const systemPrompt = getTiGuyPrompt("CONTENT_CREATION");
 
     // Build full prompt with context
@@ -72,7 +72,7 @@ router.post("/chat", aiRateLimiter, async (req, res) => {
     console.error("❌ [HIVE CHAT] Error:", error);
     res.status(500).json({
       error:
-        "Ti-Guy est temporairement indisponible. Réessaie dans quelques instants!",
+        "Güey est temporairement indisponible. Réessaie dans quelques instants!",
       details:
         process.env.NODE_ENV === "development" ? error.message : undefined,
     });
@@ -82,7 +82,7 @@ router.post("/chat", aiRateLimiter, async (req, res) => {
 /**
  * POST /api/hive/generate-content
  *
- * Generate Quebec-focused content (captions, posts, ideas)
+ * Generate Mexico-focused content (captions, posts, ideas)
  * Routes to Vertex for complex generation, Groq for simple
  */
 router.post("/generate-content", aiRateLimiter, async (req, res) => {
@@ -93,14 +93,14 @@ router.post("/generate-content", aiRateLimiter, async (req, res) => {
       return res.status(400).json({ error: "Content type is required" });
     }
 
-    const systemPrompt = `Tu es un expert en création de contenu pour les réseaux sociaux québécois.
-Génère du contenu engageant, authentique, et culturellement pertinent pour le Québec.
+    const systemPrompt = `Tu es un expert en création de contenu pour les réseaux sociaux mexicano.
+Génère du contenu engageant, authentique, et culturellement pertinent pour le México.
 Format: ${type}
 Thème: ${theme || "général"}`;
 
-    const prompt = `Génère du contenu ${type} pour Zyeuté.${theme ? ` Thème: ${theme}.` : ""}${context ? ` Contexte: ${context}` : ""}
+    const prompt = `Génère du contenu ${type} pour Ojea.${theme ? ` Thème: ${theme}.` : ""}${context ? ` Contexte: ${context}` : ""}
 
-Sois créatif, authentique, et utilise des références québécoises quand c'est approprié.`;
+Sois créatif, authentique, et utilise des références mexicanas quand c'est approprié.`;
 
     const response = await hiveMindChat({
       prompt,
@@ -142,7 +142,7 @@ router.post("/moderate", async (req, res) => {
       return res.status(400).json({ error: "Content is required" });
     }
 
-    const systemPrompt = `Tu es un modérateur pour Zyeuté, réseau social québécois.
+    const systemPrompt = `Tu es un modérateur pour Ojea, réseau social mexicano.
 Analyse le contenu et détermine s'il respecte nos règles:
 - Pas de harcèlement, discours haineux, ou violence
 - Pas de contenu sexuel explicite

@@ -7,7 +7,7 @@
 import { apiCall } from "@/services/api";
 import { invalidatePourToiCache } from "@/lib/pourToiRanker";
 
-const GUEST_SEEN_KEY = "zyeute_seen_posts";
+const GUEST_SEEN_KEY = "ojea_seen_posts";
 /** Total ids retained locally (guests + authed backup). */
 const GUEST_SEEN_CAP = 400;
 /**

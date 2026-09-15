@@ -2,7 +2,7 @@ import axios from "axios";
 import { supabase } from "@/lib/supabase";
 
 /**
- * Centalisés Axios client for Zyeuté
+ * Centalisés Axios client for Ojea
  */
 export const apiClient = axios.create({
   baseURL: "/api",

@@ -18,7 +18,7 @@ interface AnalyzeImageResult {
   detected_objects: string[];
   vibe_category: string;
   confidence: number;
-  joual_caption?: string; // Quebec slang version
+  mexicano_caption?: string; // Mexico slang version
 }
 
 /**
@@ -28,7 +28,7 @@ interface AnalyzeImageResult {
 export async function analyzeImageWithGenAI(
   imageUrl: string,
   options?: {
-    generateJoual?: boolean; // Generate Quebec slang caption
+    generateMexicano?: boolean; // Generate Mexico slang caption
     location?: string;
   },
 ): Promise<AnalyzeImageResult> {
@@ -53,11 +53,11 @@ export async function analyzeImageWithGenAI(
     // Return a default response instead of throwing
     return {
       caption: "Ben coudonc, c'est quelque chose de spécial! 🦫",
-      tags: ["quebec", "cool"],
+      tags: ["mexico", "cool"],
       detected_objects: [],
       vibe_category: "chill",
       confidence: 0.8,
-      joual_caption: "C'est malade en tabarnouche! 🔥",
+      mexicano_caption: "C'est malade en tabarnouche! 🔥",
     };
   }
 }
@@ -85,7 +85,7 @@ async function setupCredentials(): Promise<void> {
 
 async function tryGenAIAppBuilder(
   imageUrl: string,
-  options?: { generateJoual?: boolean; location?: string },
+  options?: { generateMexicano?: boolean; location?: string },
 ): Promise<AnalyzeImageResult | null> {
   try {
     // GenAI App Builder uses the discoveryengine or aiplatform APIs
@@ -113,19 +113,19 @@ async function tryGenAIAppBuilder(
 
     const endpoint = `projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/gemini-2.0-flash-exp`;
 
-    const prompt = `Analyze this image for a TikTok-like app called Zyeuté (Quebec social media).
+    const prompt = `Analyze this image for a TikTok-like app called Ojea (Mexico social media).
     
     Provide a response in this exact JSON format:
     {
       "caption": "A fun, engaging caption in English/French",
-      "joual_caption": "A Quebec slang version using joual (casual Quebec French)",
+      "mexicano_caption": "A Mexico slang version using mexicano (casual Mexico French)",
       "tags": ["tag1", "tag2", "tag3"],
       "detected_objects": ["object1", "object2"],
       "vibe_category": "chill|party|nature|urban|food|sports|art",
       "confidence": 0.95
     }
     
-    Make the captions feel authentic to Quebec culture. Use expressions like "ben coudonc", 
+    Make the captions feel authentic to Mexico culture. Use expressions like "ben coudonc", 
     "en tabarnouche", "c'est malade", "rock le house" when appropriate.`;
 
     const response = await client.predict({
@@ -175,11 +175,11 @@ async function tryGenAIAppBuilder(
         const parsed = JSON.parse(jsonMatch[0]);
         return {
           caption: parsed.caption || "C'est cool! 🦫",
-          tags: parsed.tags || ["quebec"],
+          tags: parsed.tags || ["mexico"],
           detected_objects: parsed.detected_objects || [],
           vibe_category: parsed.vibe_category || "chill",
           confidence: parsed.confidence || 0.8,
-          joual_caption: parsed.joual_caption || parsed.caption,
+          mexicano_caption: parsed.mexicano_caption || parsed.caption,
         };
       }
     } catch (parseError) {
@@ -193,7 +193,7 @@ async function tryGenAIAppBuilder(
       detected_objects: [],
       vibe_category: "chill",
       confidence: 0.85,
-      joual_caption: "C'est malade en tabarnouche!",
+      mexicano_caption: "C'est malade en tabarnouche!",
     };
   } catch (error: any) {
     logger.error("[GenAI-App-Builder] API error:", error.message);
@@ -203,7 +203,7 @@ async function tryGenAIAppBuilder(
 
 async function fallbackToVertexAI(
   imageUrl: string,
-  options?: { generateJoual?: boolean; location?: string },
+  options?: { generateMexicano?: boolean; location?: string },
 ): Promise<AnalyzeImageResult> {
   // Import the existing Vertex AI service
   const { analyzeImage } = await import("./vertex-service.js");
@@ -211,11 +211,11 @@ async function fallbackToVertexAI(
 
   return {
     caption: result.description || "C'est cool! \ud83e\uddab",
-    tags: result.tags || ["quebec"],
+    tags: result.tags || ["mexico"],
     detected_objects: result.tags || [],
     vibe_category: result.vibe || "chill",
     confidence: 0.8,
-    joual_caption: result.description || "C'est malade! \ud83e\uddab",
+    mexicano_caption: result.description || "C'est malade! \ud83e\uddab",
   };
 }
 
@@ -245,8 +245,8 @@ function extractTags(text: string): string[] {
     "art",
     "fashion",
     "travel",
-    "quebec",
-    "montreal",
+    "mexico",
+    "cdmx",
   ];
   return commonTags
     .filter((tag) => text.toLowerCase().includes(tag.toLowerCase()))

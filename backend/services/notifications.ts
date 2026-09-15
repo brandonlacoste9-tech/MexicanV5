@@ -41,7 +41,7 @@ export async function notifyCompletion(
     userId,
     success ? "Ta vidéo est prête! 🎬" : "Erreur de traitement vidéo",
     success
-      ? "Clique pour voir ta vidéo sur Zyeuté"
+      ? "Clique pour voir ta vidéo sur Ojea"
       : "Une erreur est survenue lors du traitement. Réessaie.",
     postId ? `/post/${postId}` : "/",
   ).catch((err) => console.warn("[Push] notifyCompletion push failed:", err));

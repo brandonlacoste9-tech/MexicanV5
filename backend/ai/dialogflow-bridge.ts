@@ -27,7 +27,7 @@ async function initializeClient() {
 
       // Check for service account key file or env var
       const keyFile =
-        process.env.GOOGLE_APPLICATION_CREDENTIALS || "./zyeute-ai-key.json";
+        process.env.GOOGLE_APPLICATION_CREDENTIALS || "./ojea-ai-key.json";
       const keyPath = path.resolve(process.cwd(), keyFile);
 
       const credsJson =
@@ -94,12 +94,12 @@ export const DialogflowBridge = {
    *
    * @param sessionId Unique session ID (e.g., user ID or conversation ID)
    * @param queryInput Text or audio input from user
-   * @param languageCode Language code (default: "fr-CA" for Quebec French/Joual)
+   * @param languageCode Language code (default: "es-MX" for Mexico French/Mexicano)
    */
   async detectIntent(
     sessionId: string,
     queryInput: { text?: string; audio?: Buffer },
-    languageCode: string = "fr-CA",
+    languageCode: string = "es-MX",
   ) {
     // Try to initialize client if not already done
     if (!client) {
@@ -163,12 +163,12 @@ export const DialogflowBridge = {
    *
    * @param sessionId Unique session ID
    * @param audioChunk Audio data chunk
-   * @param languageCode Language code (default: "fr-CA")
+   * @param languageCode Language code (default: "es-MX")
    */
   async streamAudio(
     sessionId: string,
     audioChunk: Buffer,
-    languageCode: string = "fr-CA",
+    languageCode: string = "es-MX",
   ) {
     if (!client) {
       await initializeClient();
@@ -203,11 +203,11 @@ export const DialogflowBridge = {
   },
 
   /**
-   * Get Ti-Guy voice response via Dialogflow CX
-   * This uses Dialogflow CX credits for Ti-Guy's voice interactions
+   * Get Güey voice response via Dialogflow CX
+   * This uses Dialogflow CX credits for Güey's voice interactions
    *
    * @param userId User ID for session management
-   * @param message User message to Ti-Guy
+   * @param message User message to Güey
    * @param context Optional context for the conversation
    */
   async getTiGuyVoiceResponse(
@@ -226,7 +226,7 @@ export const DialogflowBridge = {
     const result = await this.detectIntent(
       sessionId,
       { text: queryText },
-      "fr-CA",
+      "es-MX",
     );
 
     return {
@@ -242,7 +242,7 @@ export const DialogflowBridge = {
 
 // --- Mock Data for Development without Credits ---
 function mockIntentResponse(query: string) {
-  // Simple mock responses for common Ti-Guy queries
+  // Simple mock responses for common Güey queries
   const lowerQuery = query.toLowerCase();
 
   if (lowerQuery.includes("bonjour") || lowerQuery.includes("salut")) {
@@ -250,7 +250,7 @@ function mockIntentResponse(query: string) {
       intent: "greeting",
       confidence: 0.9,
       fulfillmentText:
-        "Salut là! Comment ça va? Je suis Ti-Guy, ton assistant Zyeuté.",
+        "Salut là! Comment ça va? Je suis Güey, ton assistant Ojea.",
       parameters: {},
       payload: null,
     };

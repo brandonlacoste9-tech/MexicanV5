@@ -14,7 +14,7 @@ export interface CarteSucreeLevel {
 export const CARTE_SUCREE_LEVELS: CarteSucreeLevel[] = [
   {
     id: "mtl-1",
-    region: "Montréal",
+    region: "Ciudad de México",
     name: "Centre Bell",
     moves: 20,
     goalKind: "puck",
@@ -44,7 +44,7 @@ export const CARTE_SUCREE_LEVELS: CarteSucreeLevel[] = [
 const LEVEL_BY_ID = new Map(CARTE_SUCREE_LEVELS.map((l) => [l.id, l]));
 
 export function torontoPlayDate(now = new Date()): string {
-  return now.toLocaleDateString("en-CA", { timeZone: "America/Toronto" });
+  return now.toLocaleDateString("es-MX", { timeZone: "America/Mexico_City" });
 }
 
 export interface LevelProgress {

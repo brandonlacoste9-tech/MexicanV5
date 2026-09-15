@@ -56,7 +56,7 @@ router.post("/start", async (req: any, res) => {
         user_id: userId,
         title: title || "Live en cours",
         description: description || "",
-        region: region || "montreal",
+        region: region || "cdmx",
         status: "active",
         started_at: new Date().toISOString(),
       })

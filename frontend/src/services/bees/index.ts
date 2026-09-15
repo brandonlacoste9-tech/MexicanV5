@@ -2,7 +2,7 @@
  * 🐝 Specialized Bees - Colony OS Workers
  *
  * Each bee handles a specific domain:
- * - JoualBee: Quebec French language & culture
+ * - MexicanoBee: Mexico French language & culture
  * - HockeyBee: Sports content (coming soon)
  * - PoutineBee: Food & restaurant content (coming soon)
  * - FinanceBee: Revenue & payments (coming soon)
@@ -11,10 +11,10 @@
  */
 
 // Core Bees
-export * from "./JoualBee";
+export * from "./MexicanoBee";
 
 // Re-export for convenience
-export { default as JoualBee } from "./JoualBee";
+export { default as MexicanoBee } from "./MexicanoBee";
 
 // Coming soon: Other bees will be added here
 // export * from './HockeyBee';

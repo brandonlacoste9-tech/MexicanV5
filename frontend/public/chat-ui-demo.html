@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leather Wallet Chat UI - Zyeuté</title>
+    <title>Leather Wallet Chat UI - Ojea</title>
     <style>
         :root {
             --leather-brown: #4a2c1f;
@@ -357,7 +357,7 @@
         <div class="chat-area">
             <div class="message received stitched">
                 <div class="message-header">Alex</div>
-                Salut! Bienvenue sur Zyeuté!
+                Salut! Bienvenue sur Ojea!
                 <div class="message-time">14:30</div>
             </div>
 
@@ -411,7 +411,7 @@
                 newMessage.className = 'message sent stitched';
                 newMessage.innerHTML = `
                     ${input.value}
-                    <div class="message-time">${new Date().toLocaleTimeString('fr-CA', {hour: '2-digit', minute:'2-digit'})} ✓</div>
+                    <div class="message-time">${new Date().toLocaleTimeString('es-MX', {hour: '2-digit', minute:'2-digit'})} ✓</div>
                 `;
                 chatArea.appendChild(newMessage);
                 chatArea.scrollTop = chatArea.scrollHeight;

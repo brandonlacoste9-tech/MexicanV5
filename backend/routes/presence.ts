@@ -11,8 +11,8 @@ export const presenceRouter = express.Router();
  */
 
 const REGION_COORDS: Record<string, { lat: number; lng: number }> = {
-  montreal: { lat: 45.5017, lng: -73.5673 },
-  quebec: { lat: 46.8139, lng: -71.208 },
+  cdmx: { lat: 45.5017, lng: -73.5673 },
+  mexico: { lat: 46.8139, lng: -71.208 },
   gatineau: { lat: 45.4287, lng: -75.7013 },
   sherbrooke: { lat: 45.401, lng: -71.8922 },
   "trois-rivieres": { lat: 46.3416, lng: -72.5421 },
@@ -71,7 +71,7 @@ presenceRouter.get("/map", async (req, res) => {
       .filter((p) => p.lat !== 0);
 
     res.json({
-      hive: "quebec",
+      hive: "mexico",
       timestamp: new Date().toISOString(),
       points: activePoints,
     });

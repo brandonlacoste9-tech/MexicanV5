@@ -2,7 +2,7 @@
  * Tracing Framework for Monitoring and Debugging
  *
  * This module provides utilities for tracing service calls, agent operations,
- * and debugging complex workflows in the Zyeuté application.
+ * and debugging complex workflows in the Ojea application.
  */
 
 export type LogLevel = "debug" | "info" | "warn" | "error";
@@ -41,7 +41,7 @@ export class Tracer {
   private events: TraceEvent[] = [];
   private enabled: boolean = true;
 
-  constructor(private serviceName: string = "zyeute") {}
+  constructor(private serviceName: string = "ojea") {}
 
   /**
    * Generate unique trace ID
@@ -241,7 +241,7 @@ export class Tracer {
 /**
  * Global tracer instance
  */
-export const globalTracer = new Tracer("zyeute");
+export const globalTracer = new Tracer("ojea");
 
 /**
  * Decorator for tracing function calls

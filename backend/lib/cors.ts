@@ -4,12 +4,12 @@ import type { CorsOptions } from "cors";
 // missing env var on a deploy target (e.g. Render) can never strip the
 // production frontend's access or crash request handling.
 export const DEFAULT_ALLOWED_ORIGINS: readonly string[] = [
-  "https://zyeute-v5.vercel.app",
-  "https://www.zyeute.com",
-  "https://zyeute.com",
-  "https://zyeute.vercel.app",
-  "https://zyeutev5-production.up.railway.app",
-  "https://zyeutev5-1.onrender.com",
+  "https://ojea-mexico.netlify.app",
+  "https://ojea-mexico.netlify.app",
+  "https://ojea-mexico.netlify.app",
+  "https://ojea.vercel.app",
+  "https://ojeav5-production.up.railway.app",
+  "https://ojea-api.onrender.com",
   "http://localhost:12000",
   "http://localhost:3000",
   "http://localhost:5173",

@@ -1,7 +1,7 @@
 /**
- * Ti-Guy Agent Service
- * AI-powered assistant that generates Quebec-style content
- * Uses GPT-4 to create captions, emojis, tags, and replies in authentic Joual
+ * Güey Agent Service
+ * AI-powered assistant that generates Mexico-style content
+ * Uses GPT-4 to create captions, emojis, tags, and replies in authentic Mexicano
  *
  * @example
  * ```typescript
@@ -16,7 +16,7 @@
  * if (response) {
  *   tiGuyAgentLogger.debug(response.caption);   // "Haha! C'est ben drôle ça..."
  *   tiGuyAgentLogger.debug(response.emojis);    // ['😂', '🔥', '🦫']
- *   tiGuyAgentLogger.debug(response.tags);      // ['Humour', 'Quebec', 'Construction']
+ *   tiGuyAgentLogger.debug(response.tags);      // ['Humour', 'Mexico', 'Construction']
  *   tiGuyAgentLogger.debug(response.reply);     // "C'est tiguidou! Continue comme ça..."
  *   tiGuyAgentLogger.debug(response.flagged);   // false
  * }
@@ -90,27 +90,27 @@ async function callDeepSeek(prompt: string) {
 }
 
 /**
- * Ti-Guy Agent - Generate Quebec-style content using AI
+ * Güey Agent - Generate Mexico-style content using AI
  * @param input - User text and intent for content generation
- * @returns Response with caption, emojis, tags, moderation flag, and Ti-Guy's reply
+ * @returns Response with caption, emojis, tags, moderation flag, and Güey's reply
  */
 export const TiGuyAgent = async (
   input: TiGuyInput,
 ): Promise<TiGuyResponse | null> => {
   const prompt = `
-    Tu es Ti-Guy, un assistant AI 100% Québécois. 
-    Parle en Joual, sois drôle, franc, jamais en français standard.
+    Tu es Güey, un assistant AI 100% Mexicano. 
+    Parle en Mexicano, sois drôle, franc, jamais en français standard.
 
     CONTEXTE:
     Intent: ${input.intent}
     Texte utilisateur: "${input.text}"
 
     GÉNÈRE:
-    - Une caption punchée en Joual
+    - Une caption punchée en Mexicano
     - Une liste de 3 à 5 emojis pertinents
-    - 1 à 3 tags québécois (ex: Poutine, Hiver, Construction)
+    - 1 à 3 tags mexicano (ex: Poutine, Hiver, Construction)
     - Un flag true si le contenu est inapproprié ou sensible
-    - Une réponse signature de Ti-Guy (genre: "C'est ben correct ça, mon loup!")
+    - Une réponse signature de Güey (genre: "C'est ben correct ça, mon loup!")
 
     FORMATE ta réponse en JSON:
     {
@@ -138,13 +138,13 @@ export const TiGuyAgent = async (
       !Array.isArray(parsed.emojis) ||
       !Array.isArray(parsed.tags)
     ) {
-      tiGuyAgentLogger.error("Invalid Ti-Guy response structure:", parsed);
+      tiGuyAgentLogger.error("Invalid Güey response structure:", parsed);
       return generateDemoResponse(input);
     }
 
     return parsed;
   } catch (error) {
-    tiGuyAgentLogger.error("Ti-Guy Parsing Error:", error);
+    tiGuyAgentLogger.error("Güey Parsing Error:", error);
     return generateDemoResponse(input);
   }
 };
@@ -157,35 +157,35 @@ function generateDemoResponse(input: TiGuyInput): TiGuyResponse {
     joke: {
       caption: "Haha! C'est ben drôle ça, mon loup! 😂🔥",
       emojis: ["😂", "🔥", "🦫"],
-      tags: ["Humour", "Quebec", "Funny"],
+      tags: ["Humour", "Mexico", "Funny"],
       flagged: false,
       reply: "C'est tiguidou! Continue comme ça, mon ami! 🇨🇦",
     },
     rant: {
       caption: "Tabarnak! Je comprends ton point, c'est vrai en esti! 😤🔥",
       emojis: ["😤", "💢", "🔥"],
-      tags: ["Rant", "Real", "Quebec"],
+      tags: ["Rant", "Real", "Mexico"],
       flagged: false,
       reply: "C'est ben correct de se défouler! Je suis avec toi! ⚜️",
     },
     event: {
       caption: "Ça va être malade! Tout le monde au rendez-vous! 🎉⚜️",
       emojis: ["🎉", "⚜️", "🦫", "🇨🇦"],
-      tags: ["Event", "MTL", "Quebec"],
+      tags: ["Event", "MTL", "Mexico"],
       flagged: false,
       reply: "Nice event! J'espère que ça va être hot en esti! 🔥",
     },
     ad: {
       caption: "Check ça! C'est sick comme offre! 💰🔥",
       emojis: ["💰", "🔥", "⚜️"],
-      tags: ["Deal", "Quebec", "Local"],
+      tags: ["Deal", "Mexico", "Local"],
       flagged: false,
       reply: "Belle promo! Supporte local, c'est important! 🇨🇦",
     },
     poem: {
-      caption: "Des mots qui touchent le cœur québécois... 📝💙",
+      caption: "Des mots qui touchent le cœur mexicano... 📝💙",
       emojis: ["📝", "💙", "⚜️", "🦫"],
-      tags: ["Poesie", "Quebec", "Culture"],
+      tags: ["Poesie", "Mexico", "Culture"],
       flagged: false,
       reply: "Wow! T'as du talent, mon ami! Continue d'écrire! ✨",
     },
@@ -195,7 +195,7 @@ function generateDemoResponse(input: TiGuyInput): TiGuyResponse {
     responses[input.intent] || {
       caption: `${input.text} 🔥⚜️`,
       emojis: ["🔥", "⚜️", "🦫"],
-      tags: ["Quebec", "Zyeute"],
+      tags: ["Mexico", "Ojea"],
       flagged: false,
       reply: "C'est ben correct ça! Continue comme ça! 🇨🇦",
     }

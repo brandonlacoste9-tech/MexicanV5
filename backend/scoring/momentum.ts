@@ -26,7 +26,7 @@ export const DEFAULT_CONFIG: ScoringConfig = {
     comments: 1,
     culture: 5,
   },
-  redisPrefix: "zyeute:momentum:",
+  redisPrefix: "ojea:momentum:",
   velocityCacheTTL: 300,
 };
 
@@ -40,8 +40,8 @@ export interface PostMetrics {
   commentCount: number;
   viewCount: number;
   createdAt: Date;
-  hasJoualCaption?: boolean;
-  hasQuebecLocation?: boolean;
+  hasMexicanoCaption?: boolean;
+  hasMexicoLocation?: boolean;
   creatorRegion?: string;
   hashtags?: string[];
 }
@@ -107,7 +107,7 @@ export class EngagementCache {
 
   constructor(
     redisUrl?: string,
-    prefix: string = "zyeute:momentum:",
+    prefix: string = "ojea:momentum:",
     cacheTTL: number = 300,
   ) {
     this.prefix = prefix;
@@ -257,11 +257,11 @@ export class CultureScorer {
     "les boys",
     "la gang",
   ];
-  private static readonly QUEBEC_LOCATIONS = [
+  private static readonly MEXICO_LOCATIONS = [
     "montréal",
-    "montreal",
+    "cdmx",
     "québec",
-    "quebec",
+    "mexico",
     "laval",
     "gatineau",
     "sherbrooke",
@@ -278,16 +278,16 @@ export class CultureScorer {
     "mtl",
     "qc",
   ];
-  private static readonly QUEBEC_HASHTAGS = [
-    "#quebec",
+  private static readonly MEXICO_HASHTAGS = [
+    "#mexico",
     "#québec",
     "#mtl",
-    "#montreal",
-    "#zyeute",
-    "#joual",
+    "#cdmx",
+    "#ojea",
+    "#mexicano",
     "#tabarnac",
-    "#quebecois",
-    "#québécois",
+    "#mexican",
+    "#mexicano",
     "#frenchy",
     "#bière",
     "#poutine",
@@ -296,18 +296,18 @@ export class CultureScorer {
 
   static calculateScore(post: PostMetrics): number {
     let score = 0;
-    if (post.hasJoualCaption) score += 3;
-    if (post.hasQuebecLocation) score += 2;
+    if (post.hasMexicanoCaption) score += 3;
+    if (post.hasMexicoLocation) score += 2;
     if (post.creatorRegion) {
       const region = post.creatorRegion.toLowerCase();
-      if (this.QUEBEC_LOCATIONS.some((loc) => region.includes(loc))) score += 2;
+      if (this.MEXICO_LOCATIONS.some((loc) => region.includes(loc))) score += 2;
     }
     if (post.hashtags && post.hashtags.length > 0) {
       const hashtagsLower = post.hashtags.map((h) => h.toLowerCase());
-      const quebecHashtags = hashtagsLower.filter((h) =>
-        this.QUEBEC_HASHTAGS.some((qh) => h.includes(qh.replace("#", ""))),
+      const mexicoHashtags = hashtagsLower.filter((h) =>
+        this.MEXICO_HASHTAGS.some((qh) => h.includes(qh.replace("#", ""))),
       );
-      score += Math.min(quebecHashtags.length, 3);
+      score += Math.min(mexicoHashtags.length, 3);
     }
     return Math.min(score, 10);
   }

@@ -1,6 +1,6 @@
 /** Per-app-session id so feed order reshuffles on close/reopen. */
-const SESSION_KEY = "zyeute_feed_session";
-const HIDDEN_AT_KEY = "zyeute_feed_hidden_at";
+const SESSION_KEY = "ojea_feed_session";
+const HIDDEN_AT_KEY = "ojea_feed_hidden_at";
 
 /** Treat long background as a new session (PWA resume without full kill). */
 export const FEED_BACKGROUND_MS = 3 * 60 * 1000;
@@ -26,10 +26,10 @@ export function rotateFeedSessionId(): string {
   const id = newSessionId();
   try {
     sessionStorage.setItem(SESSION_KEY, id);
-    sessionStorage.removeItem("zyeute_feed_shuffle_seed");
+    sessionStorage.removeItem("ojea_feed_shuffle_seed");
     for (const key of ["explore", "feed", "smart"]) {
-      sessionStorage.removeItem(`zyeute_scroll_${key}`);
-      sessionStorage.removeItem(`zyeute_la_scroll_${key}`);
+      sessionStorage.removeItem(`ojea_scroll_${key}`);
+      sessionStorage.removeItem(`ojea_la_scroll_${key}`);
     }
   } catch {
     /* ignore */

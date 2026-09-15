@@ -1,6 +1,6 @@
 /**
  * 🔍 Smart Search Component
- * GenAI-powered multimodal search for Zyeute
+ * GenAI-powered multimodal search for Ojea
  * Uses GenAI App Builder ($1,367.95 credits)
  */
 
@@ -120,10 +120,10 @@ export const SmartSearch: React.FC = () => {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-yellow-400" />
-          Zyeute Smart Search
+          Ojea Smart Search
         </h1>
         <p className="text-gray-400 text-sm mt-1">
-          Recherche intelligente avec AI • Comprend le joual québécois
+          Recherche intelligente avec AI • Comprend le mexicano mexicano
         </p>
       </div>
 
@@ -295,7 +295,7 @@ export const SmartSearch: React.FC = () => {
           🔍 Smart Search utilise GenAI App Builder ($1,367.95 crédits
           disponibles)
         </p>
-        <p>Comprend le contexte québécois et le joual</p>
+        <p>Comprend le contexte mexicano et le mexicano</p>
       </div>
     </div>
   );

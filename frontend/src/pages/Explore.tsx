@@ -1,5 +1,5 @@
 /**
- * Explore Page - Premium Quebec Heritage Design
+ * Explore Page - Premium Mexico Heritage Design
  * Discover trending content with leather grid and gold filters
  */
 
@@ -10,7 +10,7 @@ import { Header } from "@/components/Header";
 import { getExplorePosts, apiCall } from "@/services/api";
 import { useHive } from "@/contexts/HiveContext";
 import { Avatar } from "@/components/Avatar";
-import { QUEBEC_HASHTAGS, QUEBEC_REGIONS } from "@/lib/quebecFeatures";
+import { MEXICO_HASHTAGS, MEXICO_REGIONS } from "@/lib/mexicoFeatures";
 import { formatNumber } from "@/lib/utils";
 import { useHaptics } from "@/hooks/useHaptics";
 import { toast } from "@/components/Toast";
@@ -19,7 +19,7 @@ import type { Post, User } from "@/types";
 import { logger } from "@/lib/logger";
 import { BottomNav } from "@/components/BottomNav";
 import { useSEO } from "@/hooks/useSEO";
-import { QuebecHashtags } from "@/components/trending/QuebecHashtags";
+import { MexicoHashtags } from "@/components/trending/MexicoHashtags";
 import { ErrorBoundary, ErrorFallback } from "@/components/ErrorBoundary";
 import { ExploreGridSkeleton } from "@/components/ui/Skeleton";
 import { Gamepad2 } from "lucide-react";
@@ -28,9 +28,9 @@ const exploreLogger = logger.withContext("Explore");
 
 export const Explore: React.FC = () => {
   useSEO({
-    title: "Découvrir — Vidéos et créateurs du Québec",
+    title: "Découvrir — Vidéos et créateurs du México",
     description:
-      "Explore les vidéos tendances, trouve des créateurs québécois et découvre les hashtags populaires. Filtre par région — Montréal, Québec, Gatineau et plus.",
+      "Explore les vidéos tendances, trouve des créateurs mexicano et découvre les hashtags populaires. Filtre par région — Ciudad de México, México, Gatineau et plus.",
     url: "/explore",
   });
 
@@ -143,7 +143,7 @@ export const Explore: React.FC = () => {
     };
   }, [posts, searchQuery, selectedRegion, selectedHashtag, selectedCategory]);
 
-  /** Deep link from captions: /explore?tag=Montreal */
+  /** Deep link from captions: /explore?tag=CDMX */
   React.useEffect(() => {
     const raw = searchParams.get("tag");
     if (!raw?.trim()) return;
@@ -173,9 +173,9 @@ export const Explore: React.FC = () => {
   }, []); // Only run on mount/unmount
 
   // Memoize trending hashtags slice (constant array operation)
-  // Performance optimization: Only compute once since QUEBEC_HASHTAGS doesn't change
+  // Performance optimization: Only compute once since MEXICO_HASHTAGS doesn't change
   const trendingHashtags = useMemo(() => {
-    return QUEBEC_HASHTAGS.slice(0, 10);
+    return MEXICO_HASHTAGS.slice(0, 10);
   }, []);
 
   // Fetch posts
@@ -362,7 +362,7 @@ export const Explore: React.FC = () => {
             navigate("/arcade");
           }}
           className="w-full mb-6 rounded-md p-4 flex items-center gap-4 text-left transition-colors duration-200 cursor-pointer group arcade-explore-teaser"
-          aria-label="Ouvrir l'Arcade Zyeuté"
+          aria-label="Ouvrir l'Arcade Ojea"
         >
           <div className="flex-shrink-0 w-14 h-14 rounded-sm border-2 border-[#00f3ff]/50 bg-black/50 flex items-center justify-center group-hover:border-[#ff2bd6]/60 transition-colors shadow-[0_0_16px_rgba(0,243,255,0.2)]">
             <Gamepad2 className="w-7 h-7 text-[#00f3ff]" aria-hidden />
@@ -370,7 +370,7 @@ export const Explore: React.FC = () => {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               <h2 className="arcade-font-pixel text-[#ffe600] uppercase tracking-wider text-[0.65rem] leading-relaxed">
-                Arcade Zyeuté
+                Arcade Ojea
               </h2>
               <span className="text-[9px] font-bold uppercase tracking-wider bg-[#39ff14]/10 text-[#39ff14] px-2 py-0.5 rounded-sm border border-[#39ff14]/40">
                 LIVE
@@ -396,7 +396,7 @@ export const Explore: React.FC = () => {
         </button>
 
         {/* Enhanced Trending Hashtags Component */}
-        <QuebecHashtags />
+        <MexicoHashtags />
 
         {/* Dynamic Tendances — live hashtags from API based on selected region */}
         {(trendingFromApi.length > 0 || isTrendingLoading) && (
@@ -406,7 +406,7 @@ export const Explore: React.FC = () => {
               <span>
                 Tendances
                 {selectedRegion
-                  ? ` — ${QUEBEC_REGIONS.find((r) => r.id === selectedRegion)?.name || selectedRegion}`
+                  ? ` — ${MEXICO_REGIONS.find((r) => r.id === selectedRegion)?.name || selectedRegion}`
                   : ""}
               </span>
             </h2>
@@ -506,7 +506,7 @@ export const Explore: React.FC = () => {
             >
               Toutes
             </button>
-            {QUEBEC_REGIONS.map((region) => {
+            {MEXICO_REGIONS.map((region) => {
               const isSelected = selectedRegion === region.id;
 
               return (
@@ -547,7 +547,7 @@ export const Explore: React.FC = () => {
             )}
             {selectedRegion && (
               <span className="badge-premium text-xs">
-                📍 {QUEBEC_REGIONS.find((r) => r.id === selectedRegion)?.name}
+                📍 {MEXICO_REGIONS.find((r) => r.id === selectedRegion)?.name}
               </span>
             )}
             <button
@@ -730,11 +730,11 @@ export const Explore: React.FC = () => {
         )}
       </div>
 
-      {/* Quebec Pride Footer */}
+      {/* Mexico Pride Footer */}
       <div className="text-center py-8 text-leather-400 text-sm">
         <p className="flex items-center justify-center gap-2">
           <span className="text-gold-500">⚜️</span>
-          <span>Découvre le meilleur du Québec</span>
+          <span>Découvre le meilleur du México</span>
           <span className="text-gold-500">🇨🇦</span>
         </p>
       </div>

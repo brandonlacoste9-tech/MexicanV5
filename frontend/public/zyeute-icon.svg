@@ -33,7 +33,7 @@
   <rect x="64" y="64" width="384" height="384" rx="76" ry="76" 
         fill="none" stroke="url(#goldRich)" stroke-width="2" opacity="0.4"/>
   
-  <!-- Fleur-de-lis Monogram -->
+  <!-- Águila Monogram -->
   <g transform="translate(256, 256)" filter="url(#iconShadow)">
     <!-- Scale to fit -->
     <g transform="scale(2.2)">

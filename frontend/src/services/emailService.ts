@@ -24,7 +24,7 @@ export const generateMarketingEmail = async (
           {
             role: "system",
             content:
-              "Tu es un expert en marketing par courriel pour une audience québécoise. Tu parles un français québécois engageant, amical et coloré (joual léger). Génère un objet et un corps de courriel HTML.",
+              "Tu es un expert en marketing par courriel pour une audience mexicana. Tu parles un français mexicano engageant, amical et coloré (mexicano léger). Génère un objet et un corps de courriel HTML.",
           },
           {
             role: "user",

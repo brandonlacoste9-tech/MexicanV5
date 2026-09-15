@@ -1,5 +1,5 @@
 /**
- * Zyeuté Service Worker
+ * Ojea Service Worker
  * Handles background push notifications
  */
 
@@ -19,16 +19,16 @@ self.addEventListener("push", (event) => {
   try {
     data = event.data.json();
   } catch {
-    data = { title: "Zyeuté", body: event.data.text() };
+    data = { title: "Ojea", body: event.data.text() };
   }
 
-  const { title = "Zyeuté", body = "", icon, badge, url = "/" } = data;
+  const { title = "Ojea", body = "", icon, badge, url = "/" } = data;
 
   event.waitUntil(
     self.registration.showNotification(title, {
       body,
-      icon: icon || "/zyeute_app_icon.png",
-      badge: badge || "/zyeute_app_icon.png",
+      icon: icon || "/ojea_app_icon.png",
+      badge: badge || "/ojea_app_icon.png",
       data: { url },
       vibrate: [100, 50, 100],
       requireInteraction: false,

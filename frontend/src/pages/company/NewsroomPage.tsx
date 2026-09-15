@@ -6,23 +6,23 @@ import { useSEO } from "@/hooks/useSEO";
 const PRESS_ITEMS = [
   {
     date: "5 juin 2026",
-    title: "Zyeuté améliore le feed Pour toi",
+    title: "Ojea améliore le feed Pour toi",
     summary:
-      "Nouveau moteur de découverte, priorité au contenu vertical québécois et expérience TikTok-style repensée pour moins de répétitions.",
+      "Nouveau moteur de découverte, priorité au contenu vertical mexicano et expérience TikTok-style repensée pour moins de répétitions.",
     tag: "Produit",
   },
   {
     date: "26 novembre 2025",
-    title: "Lancement public de zyeute.com",
+    title: "Lancement public de ojea-mexico.netlify.app",
     summary:
-      "La plateforme vidéo sociale du Québec ouvre ses portes avec feed vertical, profils créateurs, Ti-Guy IA et monétisation en piasses.",
+      "La plateforme vidéo sociale du México ouvre ses portes avec feed vertical, profils créateurs, Güey IA et monétisation en piasses.",
     tag: "Lancement",
   },
   {
     date: "Automne 2025",
-    title: "Ti-Guy rejoint la ruche",
+    title: "Güey rejoint la ruche",
     summary:
-      "Copilote IA intégré à l'app — aide à la création, modération assistée et réponses en français québécois.",
+      "Copilote IA intégré à l'app — aide à la création, modération assistée et réponses en français mexicano.",
     tag: "IA",
   },
 ] as const;
@@ -31,7 +31,7 @@ export const NewsroomPage: React.FC = () => {
   useSEO({
     title: "Newsroom — Presse et actualités",
     description:
-      "Nouvelles produit, lancements et communiqués Zyeute. Contact presse : press@zyeute.com.",
+      "Nouvelles produit, lancements et communiqués Ojea. Contact presse : press@ojea-mexico.netlify.app.",
     url: "/newsroom",
   });
 
@@ -44,10 +44,10 @@ export const NewsroomPage: React.FC = () => {
         Nouvelles, lancements produit et communiqués pour la presse. Pour toute
         demande média, écris à{" "}
         <a
-          href="mailto:press@zyeute.com"
+          href="mailto:press@ojea-mexico.netlify.app"
           className="text-gold-400 hover:underline"
         >
-          press@zyeute.com
+          press@ojea-mexico.netlify.app
         </a>
         .
       </p>

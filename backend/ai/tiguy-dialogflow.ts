@@ -1,6 +1,6 @@
 /**
  * TI-GUY Dialogflow Integration
- * Connects Dialogflow CX/ES to Zyeuté messaging via WebSocket
+ * Connects Dialogflow CX/ES to Ojea messaging via WebSocket
  */
 
 import { SessionsClient } from "@google-cloud/dialogflow-cx";
@@ -13,7 +13,7 @@ const DF_CONFIG = {
   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
   location: process.env.DIALOGFLOW_LOCATION || "global",
   agentId: process.env.DIALOGFLOW_AGENT_ID,
-  languageCode: "fr-CA", // Quebec French
+  languageCode: "es-MX", // Mexico French
 };
 
 const client = new SessionsClient({
@@ -168,9 +168,9 @@ export async function sendTIGuyResponse(
       id: message.id,
       senderId: TI_GUY_USER_ID,
       sender: {
-        username: "ti-guy",
+        username: "guey",
         displayName: "TI-GUY",
-        avatarUrl: "/avatars/ti-guy.png",
+        avatarUrl: "/avatars/guey.png",
       },
       contentType: "text",
       contentText: response.text,
@@ -205,8 +205,8 @@ export async function handleUserMessage(
   // Check if message should trigger AI
   const shouldTriggerAI =
     // Direct mention
-    userMessage.toLowerCase().includes("@ti-guy") ||
-    userMessage.toLowerCase().includes("ti-guy") ||
+    userMessage.toLowerCase().includes("@guey") ||
+    userMessage.toLowerCase().includes("guey") ||
     userMessage.toLowerCase().includes("ti guy") ||
     // Keywords
     options.aiTriggerKeywords?.some((kw) =>

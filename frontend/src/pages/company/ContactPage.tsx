@@ -6,27 +6,27 @@ import { useSEO } from "@/hooks/useSEO";
 const CONTACT_CHANNELS = [
   {
     label: "Support général",
-    email: "support@zyeute.com",
+    email: "support@ojea-mexico.netlify.app",
     desc: "Compte, bugs, aide avec l'app",
   },
   {
     label: "Presse & partenariats",
-    email: "press@zyeute.com",
+    email: "press@ojea-mexico.netlify.app",
     desc: "Médias, collaborations, événements",
   },
   {
     label: "Confidentialité",
-    email: "privacy@zyeute.com",
+    email: "privacy@ojea-mexico.netlify.app",
     desc: "Données personnelles, Loi 25, GDPR",
   },
   {
     label: "Juridique",
-    email: "legal@zyeute.com",
+    email: "legal@ojea-mexico.netlify.app",
     desc: "Conditions, propriété intellectuelle",
   },
   {
     label: "Modération",
-    email: "moderation@zyeute.com",
+    email: "moderation@ojea-mexico.netlify.app",
     desc: "Signalements, sécurité communautaire",
   },
 ] as const;
@@ -35,7 +35,7 @@ export const ContactPage: React.FC = () => {
   useSEO({
     title: "Contact",
     description:
-      "Contacte Zyeute : support, presse, confidentialité, juridique et modération. On répond en français.",
+      "Contacte Ojea : support, presse, confidentialité, juridique et modération. On répond en français.",
     url: "/contact",
   });
 
@@ -70,12 +70,12 @@ export const ContactPage: React.FC = () => {
       <section className="mb-8">
         <h2 className="text-xl font-bold text-gold-400 mb-3">Site web</h2>
         <a
-          href="https://zyeute.com"
+          href="https://ojea-mexico.netlify.app"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gold-400 hover:underline"
         >
-          zyeute.com
+          ojea-mexico.netlify.app
         </a>
       </section>
 
@@ -102,7 +102,7 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      <p className="text-white/50 text-sm mt-8">Zyeuté Inc. — Québec, Canada</p>
+      <p className="text-white/50 text-sm mt-8">Ojea Inc. — México, Canada</p>
     </CompanyPageShell>
   );
 };

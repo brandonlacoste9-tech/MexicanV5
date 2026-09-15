@@ -1,5 +1,5 @@
 /**
- * Ti-Guy Knowledge Base
+ * Güey Knowledge Base
  * Static data for prompting and context generation
  */
 
@@ -24,7 +24,7 @@ export const SLANG_LEVELS = {
     },
   },
   adulte: {
-    description: "Français québécois standard familier, bon vivant",
+    description: "Français mexicano standard familier, bon vivant",
     examples: ["pas pire", "j'suis", "t'sais", "coudonc", "frette"],
     vocabulary: {
       oui: "oui",
@@ -36,7 +36,7 @@ export const SLANG_LEVELS = {
   },
   formel: {
     description:
-      "Français international avec légère teinte québécoise respectueuse",
+      "Français international avec légère teinte mexicana respectueuse",
     examples: ["bienvenue", "bonjour", "certainement", "s'il vous plaît"],
     vocabulary: {
       oui: "oui",
@@ -159,7 +159,7 @@ export const CULTURAL_REFS = {
 };
 
 export const REGIONAL_EXPRESSIONS = {
-  montreal: [
+  cdmx: [
     "château",
     "métro",
     "plateau",
@@ -168,7 +168,7 @@ export const REGIONAL_EXPRESSIONS = {
     "heure de pointe",
     "pont champlain",
   ],
-  quebec: [
+  mexico: [
     "château-frontenac",
     "carnaval",
     "tire",

@@ -1,5 +1,5 @@
 /**
- * Ti-Guy Persistent Memory
+ * Güey Persistent Memory
  *
  * One compact summary row per user in `tiguy_memory`.
  * - readMemory(userId)   → returns the summary string (empty string if none yet)
@@ -48,16 +48,16 @@ export async function compactMemory(
   tiGuyReply: string,
 ): Promise<void> {
   try {
-    const compactPrompt = `Tu es un assistant qui maintient un résumé compact de la mémoire d'un utilisateur pour Ti-Guy, l'IA de Zyeuté.
+    const compactPrompt = `Tu es un assistant qui maintient un résumé compact de la mémoire d'un utilisateur pour Güey, l'IA de Ojea.
 
 RÉSUMÉ ACTUEL (peut être vide si c'est la première conversation):
 ${existingSummary || "(aucun résumé pour l'instant)"}
 
 NOUVEL ÉCHANGE:
 Utilisateur: ${userMessage.slice(0, 400)}
-Ti-Guy: ${tiGuyReply.slice(0, 400)}
+Güey: ${tiGuyReply.slice(0, 400)}
 
-Mets à jour le résumé en y intégrant les nouvelles informations pertinentes sur l'utilisateur: ses préférences, ses projets, ses goûts, son style de contenu, ce dont il a parlé, ce qu'il a demandé à Ti-Guy. 
+Mets à jour le résumé en y intégrant les nouvelles informations pertinentes sur l'utilisateur: ses préférences, ses projets, ses goûts, son style de contenu, ce dont il a parlé, ce qu'il a demandé à Güey. 
 
 RÈGLES STRICTES:
 - Maximum ${MAX_SUMMARY_CHARS} caractères au total

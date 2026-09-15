@@ -1,5 +1,5 @@
 /**
- * Feed Page - Premium Quebec Heritage Design
+ * Feed Page - Premium Mexico Heritage Design
  * Leather post cards with gold accents and stitching
  */
 
@@ -115,14 +115,14 @@ export const Feed: React.FC = () => {
         trackDailyInteract().catch(() => {});
 
         // Auto-detect hive/language if not already set
-        const storedHive = localStorage.getItem("zyeute_hive_id");
+        const storedHive = localStorage.getItem("ojea_hive_id");
         if (!(user as any).hiveId || !storedHive) {
           const detectedHive = detectHiveFromBrowser();
           const detectedLang = detectLanguageFromBrowser();
           const detectedRegion = detectRegionFromTimezone(detectedHive);
 
-          localStorage.setItem("zyeute_hive_id", detectedHive);
-          localStorage.setItem("zyeute_language", detectedLang);
+          localStorage.setItem("ojea_hive_id", detectedHive);
+          localStorage.setItem("ojea_language", detectedLang);
 
           // Persist to backend — fire-and-forget, never block UI
           fetch("/api/users/me", {
@@ -207,7 +207,7 @@ export const Feed: React.FC = () => {
                     backgroundClip: "text",
                   }}
                 >
-                  Zyeuté
+                  Ojea
                 </span>
               </div>
             </div>

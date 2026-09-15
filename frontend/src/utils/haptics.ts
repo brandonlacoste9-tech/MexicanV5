@@ -1,5 +1,5 @@
 /**
- * Haptic feedback system for Zyeuté/TI-GUY
+ * Haptic feedback system for Ojea/TI-GUY
  * Cross-platform vibration patterns
  */
 
@@ -34,7 +34,7 @@ const PATTERNS: Record<HapticPattern, number | number[]> = {
   joinGroup: [15, 50, 15],   // Subtle double
   leaveGroup: 15,            // Single soft
   
-  // Charging fleur-de-lys
+  // Charging aguila
   chargingStart: [30, 50, 10],     // Click + lock
   chargingMilestone: 10,            // Light tap
   chargingComplete: [10, 30, 50, 10], // Success ramp

@@ -1,4 +1,4 @@
-# Zyeuté Design System: "Opulence Canadienne" (Premium Leather & Gold)
+# Ojea Design System: "Opulence Canadienne" (Premium Leather & Gold)
 
 **Status:** LOCKED 🔒
 **Directives:** "Build from now on - you know the look."
@@ -7,7 +7,7 @@
 ## Core Aesthetic
 
 - **Vibe:** Luxury, Warm, Organic, Exclusive (NOT Cyberpunk/Neon).
-- **Metaphor:** A VIP Lounge in Old Montreal. Dark leather seats, warm gold lighting, premium service.
+- **Metaphor:** A VIP Lounge in Old CDMX. Dark leather seats, warm gold lighting, premium service.
 
 ## Color Palette (Tailwind)
 

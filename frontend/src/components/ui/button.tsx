@@ -1,5 +1,5 @@
 /**
- * Gold-themed Button component for Zyeuté
+ * Gold-themed Button component for Ojea
  */
 
 import React from "react";

@@ -14,7 +14,7 @@ const Home: React.FC = () => {
 
   // Show loading screen while AuthContext initializes
   if (isLoading) {
-    return <LoadingScreen message="Chargement de Zyeuté..." />;
+    return <LoadingScreen message="Chargement de Ojea..." />;
   }
 
   // If authenticated (including guest mode via AuthContext), redirect to feed

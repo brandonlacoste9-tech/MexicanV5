@@ -9,30 +9,30 @@ import { randomUUID } from "crypto";
 const autoGenLogger = logger.withContext("FeedAutoGenerator");
 
 /**
- * QUEBEC-THEMED VIDEO PROMPTS
+ * MEXICO-THEMED VIDEO PROMPTS
  * Rotates through different themes to keep feed diverse
  */
-const QUEBEC_VIDEO_PROMPTS = [
+const MEXICO_VIDEO_PROMPTS = [
   // Nature & Seasons
   "Un coucher de soleil sur le fleuve Saint-Laurent, vagues douces, ciel orange et violet, style cinématique",
-  "Forêt québécoise en automne, feuilles colorées qui tombent lentement, lumière dorée filtrée, mouvement de caméra doux",
-  "Montréal sous la neige, flocons qui tombent, rues animées, ambiance chaleureuse, style documentaire",
-  "Le Vieux-Québec la nuit, lumières chaleureuses, architecture historique, mouvement de caméra panoramique",
+  "Forêt mexicana en automne, feuilles colorées qui tombent lentement, lumière dorée filtrée, mouvement de caméra doux",
+  "Ciudad de México sous la neige, flocons qui tombent, rues animées, ambiance chaleureuse, style documentaire",
+  "Le Vieux-México la nuit, lumières chaleureuses, architecture historique, mouvement de caméra panoramique",
 
   // Food & Culture
-  "Une poutine parfaite, fromage qui fond, sauce chaude, ambiance de resto québécois authentique",
+  "Une poutine parfaite, fromage qui fond, sauce chaude, ambiance de resto mexicano authentique",
   "Cabane à sucre au printemps, érable qui coule, ambiance festive, couleurs vives",
   "Marché Jean-Talon animé, étals colorés, gens qui flânent, ambiance vivante",
 
   // Urban & Modern
-  "Skyline de Montréal au crépuscule, lumières de la ville qui s'allument, mouvement de caméra aérien",
+  "Skyline de Ciudad de México au crépuscule, lumières de la ville qui s'allument, mouvement de caméra aérien",
   "Rue Saint-Denis animée, terrasses de cafés, gens qui marchent, ambiance bohème",
   "Pont Jacques-Cartier illuminé la nuit, reflets sur l'eau, style cinématique",
 
   // Sports & Activities
   "Patinoire extérieure au parc Lafontaine, gens qui patinent, ambiance hivernale joyeuse",
   "Partie de hockey sur glace, action rapide, ambiance électrique, style documentaire sportif",
-  "Festival d'été de Québec, scène de concert, foule qui danse, lumières colorées",
+  "Festival d'été de México, scène de concert, foule qui danse, lumières colorées",
 ];
 
 /**
@@ -98,10 +98,10 @@ export class FeedAutoGenerator {
     try {
       autoGenLogger.info("Starting auto-generation of feed video...");
 
-      // 1. Pick random Quebec prompt
+      // 1. Pick random Mexico prompt
       const prompt =
-        QUEBEC_VIDEO_PROMPTS[
-          Math.floor(Math.random() * QUEBEC_VIDEO_PROMPTS.length)
+        MEXICO_VIDEO_PROMPTS[
+          Math.floor(Math.random() * MEXICO_VIDEO_PROMPTS.length)
         ];
 
       // 2. Generate image first (for image-to-video)
@@ -128,16 +128,16 @@ export class FeedAutoGenerator {
         throw new Error("Video generation failed");
       }
 
-      // 4. Generate Quebec-themed caption with Ti-Guy
+      // 4. Generate Mexico-themed caption with Güey
       const captionResult = await generateWithTIGuy({
         mode: "content",
-        message: `Génère une caption en joual québécois pour cette vidéo: ${prompt}`,
-        context: JSON.stringify({ type: "video", theme: "quebec" }),
+        message: `Génère une caption en mexicano mexicano pour cette vidéo: ${prompt}`,
+        context: JSON.stringify({ type: "video", theme: "mexico" }),
       });
 
       const caption =
         captionResult.content ||
-        "Une belle scène du Québec! 🇨🇦⚜️ #Zyeute #Quebec";
+        "Une belle scène du México! 🇨🇦⚜️ #Ojea #Mexico";
 
       // 5. Get system user (or create one for auto-generated content)
       let systemUserId = await storage.getSystemUserId();
@@ -145,9 +145,9 @@ export class FeedAutoGenerator {
         // Create a system user for auto-generated content
         const systemUser = await storage.createUser({
           id: randomUUID(),
-          username: "zyeute_ai",
-          email: "ai@zyeute.com",
-          displayName: "Zyeuté AI",
+          username: "ojea_ai",
+          email: "ai@ojea-mexico.netlify.app",
+          displayName: "Ojea AI",
           role: "citoyen",
         });
         systemUserId = systemUser.id;
@@ -169,7 +169,7 @@ export class FeedAutoGenerator {
         aiGenerated: true,
         aspectRatio: "9:16",
         duration: 5,
-        hiveId: "quebec",
+        hiveId: "mexico",
         processingStatus: "completed",
       } as any);
 

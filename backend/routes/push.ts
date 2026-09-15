@@ -17,7 +17,7 @@ const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || "";
 
 if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(
-    "mailto:zyeutequebec@gmail.com",
+    "mailto:ojeamexico@gmail.com",
     VAPID_PUBLIC_KEY,
     VAPID_PRIVATE_KEY,
   );
@@ -141,8 +141,8 @@ router.post("/send", async (req, res) => {
   const payload = JSON.stringify({
     title,
     body,
-    icon: icon || "/zyeute_app_icon.png",
-    badge: "/zyeute_app_icon.png",
+    icon: icon || "/ojea_app_icon.png",
+    badge: "/ojea_app_icon.png",
     url: url || "/",
     timestamp: Date.now(),
   });
@@ -202,8 +202,8 @@ export async function sendPushToUser(
   const payload = JSON.stringify({
     title,
     body,
-    icon: "/zyeute_app_icon.png",
-    badge: "/zyeute_app_icon.png",
+    icon: "/ojea_app_icon.png",
+    badge: "/ojea_app_icon.png",
     url: url || "/",
     timestamp: Date.now(),
   });

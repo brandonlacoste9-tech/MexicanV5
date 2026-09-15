@@ -10,7 +10,7 @@ import { Header } from "@/components/Header";
 import { BottomNav } from "@/components/BottomNav";
 import { Avatar } from "@/components/Avatar";
 import { supabase } from "@/lib/supabase";
-import { QUEBEC_REGIONS } from "@/lib/quebecFeatures";
+import { MEXICO_REGIONS } from "@/lib/mexicoFeatures";
 import { toast } from "@/components/Toast";
 import { useHaptics } from "@/hooks/useHaptics";
 import { apiCall, getCurrentUser } from "@/services/api";
@@ -402,7 +402,7 @@ export const ProfileEditSettings: React.FC = () => {
               className="input-premium"
             >
               <option value="">Sélectionne</option>
-              {QUEBEC_REGIONS.map((r) => (
+              {MEXICO_REGIONS.map((r) => (
                 <option key={r.id} value={r.id}>
                   {r.emoji} {r.name}
                 </option>
@@ -421,7 +421,7 @@ export const ProfileEditSettings: React.FC = () => {
                 setFormData({ ...formData, city: e.target.value })
               }
               className="input-premium"
-              placeholder="Montréal"
+              placeholder="Ciudad de México"
               maxLength={100}
             />
           </div>

@@ -38,7 +38,7 @@ router.post("/tickets", requireAuth, async (req, res) => {
 
     res.status(201).json({
       ticket,
-      message: "Votre demande de support a été créée. Ti-Guy va vous aider! 🦫",
+      message: "Votre demande de support a été créée. Güey va vous aider! 🦫",
     });
   } catch (error: any) {
     console.error("Create support ticket error:", error);

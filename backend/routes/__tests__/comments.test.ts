@@ -50,8 +50,8 @@ function makeQuery(table: string) {
         return {
           data: {
             id: "user-1",
-            username: "ti_guy",
-            display_name: "Ti-Guy",
+            username: "guey",
+            display_name: "Güey",
             avatar_url: null,
             username_color: "#FFFFFF",
           },
@@ -132,7 +132,7 @@ describe("POST /api/posts/:id/comments", () => {
     expect(json.comment.userId).toBe("user-1");
     expect(json.comment.created_at).toBeTruthy();
     expect(json.comment.createdAt).toBeTruthy();
-    expect(json.comment.user?.username).toBe("ti_guy");
+    expect(json.comment.user?.username).toBe("guey");
   });
 
   it("rejects empty content with 400", async () => {

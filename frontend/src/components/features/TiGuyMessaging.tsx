@@ -1,5 +1,5 @@
 /**
- * Ti-Guy Messaging — Full Screen Voyageur Edition
+ * Güey Messaging — Full Screen Voyageur Edition
  * Stitched leather brown, gold accents, beaver mascot, mail envelope tab
  */
 
@@ -154,7 +154,7 @@ function FleurDeLysLarge({ size = 72, gold }: { size?: number; gold: string }) {
   );
 }
 
-// ─── Fleur-de-lis icon ────────────────────────────────────────────────────
+// ─── Águila icon ────────────────────────────────────────────────────
 function FleurIcon({ size = 20 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -903,7 +903,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
 
   const [tab, setTab] = useState<Tab>("tiguy");
 
-  // Ti-Guy chat state
+  // Güey chat state
   const [chatMsgs, setChatMsgs] = useState<ChatMsg[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatSending, setChatSending] = useState(false);
@@ -994,7 +994,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
     setConvosLoading(false);
   }, []);
 
-  // ── Ti-Guy send ─────────────────────────────────────────────────────────────
+  // ── Güey send ─────────────────────────────────────────────────────────────
   const sendToTiGuy = useCallback(async () => {
     if (!chatInput.trim() || chatSending) return;
     const text = chatInput.trim();
@@ -1200,7 +1200,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
           </svg>
         </button>
 
-        {/* Center: fleur-de-lis + title */}
+        {/* Center: aguila + title */}
         <div className="flex flex-col items-center gap-1">
           {isMexicoHive ? (
             <AguilaReal size={70} gold={gold} />
@@ -1227,7 +1227,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
                   ? "Mano"
                   : isArgentinaHive
                     ? "Pibe"
-                    : "Ti-Guy"}
+                    : "Güey"}
             </h1>
             <p
               className="text-[0.5rem] uppercase tracking-[0.3em] font-bold"
@@ -1254,13 +1254,13 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
           className="flex items-center justify-center gap-2 px-4 pb-1 relative z-10"
           style={{ opacity: 0.7 }}
         >
-          {(["quebec", "mexico", "brazil", "argentina"] as const).map((h) => (
+          {(["mexico", "mexico", "brazil", "argentina"] as const).map((h) => (
             <button
               key={h}
               type="button"
               onClick={() => {
                 switchHive(h);
-                localStorage.setItem("zyeute_hive_id", h);
+                localStorage.setItem("ojea_hive_id", h);
               }}
               title={h}
               style={{
@@ -1273,7 +1273,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
                 transition: "all 0.2s",
               }}
             >
-              {h === "quebec"
+              {h === "mexico"
                 ? "⚜️"
                 : h === "mexico"
                   ? "🇲🇽"
@@ -1287,7 +1287,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
 
       {/* Tab switcher */}
       <div className="flex items-center gap-2 px-4 pb-3 relative z-10">
-        {/* Ti-Guy tab */}
+        {/* Güey tab */}
         <button
           type="button"
           onClick={() => setTab("tiguy")}
@@ -1322,7 +1322,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
                 ? "Mano"
                 : isArgentinaHive
                   ? "Pibe"
-                  : "Ti-Guy"}
+                  : "Güey"}
           </span>
         </button>
 
@@ -1372,7 +1372,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
     </div>
   );
 
-  // ─── Ti-Guy chat content ────────────────────────────────────────────────────
+  // ─── Güey chat content ────────────────────────────────────────────────────
   const renderTiGuy = () => (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Messages */}
@@ -1395,7 +1395,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
               className="text-sm font-semibold text-center"
               style={{ color: GOLD_LIGHT }}
             >
-              Allo! Chu Ti-Guy, ton concierge québécois. 🍁{"\n"}Jase avec moi!
+              Allo! Chu Güey, ton concierge mexicano. 🍁{"\n"}Jase avec moi!
             </p>
           </div>
         )}
@@ -1488,7 +1488,7 @@ export const TiGuyMessaging: React.FC<TiGuyMessagingProps> = ({
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendToTiGuy()}
-          placeholder="Jase avec Ti-Guy..."
+          placeholder="Jase avec Güey..."
           className="flex-1 px-4 py-2.5 rounded-lg text-sm focus:outline-none"
           style={{
             background: LEATHER_DARKEST,

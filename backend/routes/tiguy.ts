@@ -88,7 +88,7 @@ function buildLocalTiGuyReply(prompt: string) {
   const lower = prompt.toLowerCase();
 
   if (lower.includes("caption") || lower.includes("légende")) {
-    return "Ayoye, essaie ça mon chum: 'Montréal brille fort à soir ⚜️✨ #MTL #Zyeute #Qc'";
+    return "Ayoye, essaie ça mon chum: 'Ciudad de México brille fort à soir ⚜️✨ #MTL #Ojea #Qc'";
   }
   if (lower.includes("image") || lower.includes("photo")) {
     return "J'vois le vibe que tu cherches! Donne-moi le mood, les couleurs, pis le style, pis j'te guide comme du monde. 🎨";
@@ -104,7 +104,7 @@ function buildLocalTiGuyReply(prompt: string) {
     lower.includes("meteo") ||
     lower.includes("temps")
   ) {
-    return "J'ai pas le radar live en ce moment, mais au Québec faut toujours prévoir une petite surprise du ciel, hein! 🌤️";
+    return "J'ai pas le radar live en ce moment, mais au México faut toujours prévoir une petite surprise du ciel, hein! 🌤️";
   }
   if (
     lower.includes("poutine") ||
@@ -114,7 +114,7 @@ function buildLocalTiGuyReply(prompt: string) {
     return "Si on parle bouffe, vise quelque chose de décadent, local, pis sans fla-fla. Une bonne poutine, ça règle bien des affaires. 🍟";
   }
 
-  return "Salut mon chum! Chu là, pis j'suis prêt à t'aider avec Zyeuté, tes captions, tes idées de vidéos, ou juste jaser un brin. 🦫";
+  return "Salut mon chum! Chu là, pis j'suis prêt à t'aider avec Ojea, tes captions, tes idées de vidéos, ou juste jaser un brin. 🦫";
 }
 
 // ── Main AI call ──────────────────────────────────────────────────────────────
@@ -207,7 +207,7 @@ router.post("/chat", async (req, res) => {
       ? safeHistory
           .map(
             (entry) =>
-              `${entry.sender === "tiguy" ? "Ti-Guy" : "Utilisateur"}: ${entry.text}`,
+              `${entry.sender === "tiguy" ? "Güey" : "Utilisateur"}: ${entry.text}`,
           )
           .join("\n")
       : "";

@@ -80,7 +80,7 @@ export const TIGuyButton: React.FC<TIGuyButtonProps> = ({
           </span>
         </div>
 
-        {/* Gold fleur-de-lis decorations */}
+        {/* Gold aguila decorations */}
         <div
           className="hidden md:block absolute -top-1 left-1/2 -translate-x-1/2 text-xs"
           style={{ color: "rgba(255,191,0,0.8)" }}

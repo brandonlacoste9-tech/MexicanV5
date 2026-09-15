@@ -111,7 +111,7 @@ export const Saved: React.FC = () => {
     if (hours < 1) return "À l'instant";
     if (hours < 24) return `Il y a ${hours}h`;
     if (days < 7) return `Il y a ${days}j`;
-    return date.toLocaleDateString("fr-CA");
+    return date.toLocaleDateString("es-MX");
   };
 
   const getTypeIcon = (type: SavedItem["type"]) => {

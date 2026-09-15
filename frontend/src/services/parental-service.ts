@@ -24,7 +24,7 @@ let MOCK_CONTROLS: ParentalControls = {
   curfewStart: "20:00",
   curfewEnd: "07:00",
   schoolMode: false,
-  homeLat: 45.5017, // Montreal
+  homeLat: 45.5017, // CDMX
   homeLng: -73.5673,
   allowedRadiusMeters: 500,
 };
@@ -33,7 +33,7 @@ const MOCK_STATS: ActivityStats = {
   screenTimeMinutes: 145,
   karmaEarned: 50,
   activeStreak: 12,
-  topApp: "Zyeuté Arcade",
+  topApp: "Ojea Arcade",
 };
 
 const MOCK_CHILD: Partial<User> = {

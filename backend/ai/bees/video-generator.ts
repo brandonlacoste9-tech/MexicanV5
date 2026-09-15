@@ -1,6 +1,6 @@
 /**
  * 🎬 Video Generator Bee
- * Enables Ti-Guy to generate short videos using AI
+ * Enables Güey to generate short videos using AI
  * Delegates to video-engine.ts (FAL.ai/Kling) — single source of truth.
  */
 
@@ -17,46 +17,46 @@ export const VideoGenerationSchema = z.object({
       "realistic",
       "cinematic",
       "animated",
-      "quebec-winter",
-      "urban-montreal",
+      "mexico-winter",
+      "urban-cdmx",
     ])
     .optional(),
 });
 
 export type VideoGenerationRequest = z.infer<typeof VideoGenerationSchema>;
 
-// Quebec-themed video prompt enhancers
-const QUEBEC_VIDEO_ENHANCERS: Record<string, string> = {
-  "quebec-winter":
-    "Canadian winter scene, snow falling gently, cozy atmosphere, Quebec landscape",
-  "urban-montreal":
-    "Montreal cityscape, vibrant urban life, Saint-Laurent street, Mount Royal view",
+// Mexico-themed video prompt enhancers
+const MEXICO_VIDEO_ENHANCERS: Record<string, string> = {
+  "mexico-winter":
+    "Canadian winter scene, snow falling gently, cozy atmosphere, Mexico landscape",
+  "urban-cdmx":
+    "CDMX cityscape, vibrant urban life, Saint-Laurent street, Mount Royal view",
   realistic: "photorealistic, cinematic quality, natural lighting, high detail",
   cinematic: "cinematic, dramatic lighting, film grain, professional quality",
   animated: "animated style, smooth motion, vibrant colors, artistic",
 };
 
 /**
- * Ti-Guy Video Generator Bee
- * Creates short-form videos with Quebec cultural awareness
+ * Güey Video Generator Bee
+ * Creates short-form videos with Mexico cultural awareness
  */
 export class VideoGeneratorBee {
   constructor() {
     if (!process.env.FAL_API_KEY) {
       console.warn(
-        "🦫 Ti-Guy: FAL_API_KEY pas configuré - génération vidéo désactivée",
+        "🦫 Güey: FAL_API_KEY pas configuré - génération vidéo désactivée",
       );
     }
   }
 
   /**
-   * Enhance prompt with Quebec elements
+   * Enhance prompt with Mexico elements
    */
   private enhancePrompt(prompt: string, style?: string): string {
     let enhanced = prompt;
 
-    if (style && QUEBEC_VIDEO_ENHANCERS[style]) {
-      enhanced = `${enhanced}, ${QUEBEC_VIDEO_ENHANCERS[style]}`;
+    if (style && MEXICO_VIDEO_ENHANCERS[style]) {
+      enhanced = `${enhanced}, ${MEXICO_VIDEO_ENHANCERS[style]}`;
     }
 
     // Add quality tags for video
@@ -86,7 +86,7 @@ export class VideoGeneratorBee {
     const finalPrompt = this.enhancePrompt(request.prompt, request.style);
 
     console.log(
-      `🦫 Ti-Guy: J'crée ton vidéo... "${request.prompt.substring(0, 50)}..."`,
+      `🦫 Güey: J'crée ton vidéo... "${request.prompt.substring(0, 50)}..."`,
     );
 
     try {
@@ -104,7 +104,7 @@ export class VideoGeneratorBee {
         cost: result.cost,
       };
     } catch (error) {
-      console.error("🦫 Ti-Guy: Erreur de génération vidéo:", error);
+      console.error("🦫 Güey: Erreur de génération vidéo:", error);
       return {
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
@@ -127,7 +127,7 @@ export class VideoGeneratorBee {
       return { success: false, error: "FAL API key not configured" };
     }
 
-    console.log(`🦫 Ti-Guy: J'anime ton image...`);
+    console.log(`🦫 Güey: J'anime ton image...`);
 
     try {
       const result = await generateVideo({
@@ -150,18 +150,18 @@ export class VideoGeneratorBee {
   }
 
   /**
-   * Get Quebec-themed video ideas
+   * Get Mexico-themed video ideas
    */
-  getQuebecVideoIdeas(): string[] {
+  getMexicoVideoIdeas(): string[] {
     return [
-      "Neige qui tombe doucement sur le Vieux-Montréal",
+      "Neige qui tombe doucement sur le Vieux-Ciudad de México",
       "Timelapse du lever de soleil sur le Mont-Royal",
       "Cascade dans les Laurentides en automne",
       "Rue Saint-Denis animée un soir d'été",
-      "Aurores boréales au-dessus d'un lac québécois",
+      "Aurores boréales au-dessus d'un lac mexicano",
       "Cabane à sucre avec de la vapeur qui s'échappe",
       "Match de hockey des Canadiens avec la foule",
-      "Festival d'été de Québec avec des confettis",
+      "Festival d'été de México avec des confettis",
       "Promenade sur les Plaines d'Abraham",
       "Vue aérienne du Château Frontenac en hiver",
     ];
@@ -189,8 +189,8 @@ export async function run(task: any) {
       break;
     case "ideas":
       return {
-        response: formatIdeasResponse(bee.getQuebecVideoIdeas()),
-        ideas: bee.getQuebecVideoIdeas(),
+        response: formatIdeasResponse(bee.getMexicoVideoIdeas()),
+        ideas: bee.getMexicoVideoIdeas(),
         metadata: { bee: "video-generator", type: "ideas" },
       };
     default:
@@ -217,7 +217,7 @@ function formatVideoResponse(result: {
 
 function formatIdeasResponse(ideas: string[]): string {
   const randomIdeas = ideas.sort(() => 0.5 - Math.random()).slice(0, 3);
-  return `Voici quelques idées de vidéos québécoises:\n\n${randomIdeas.map((idea, i) => `${i + 1}. ${idea}`).join("\n")}\n\nLaquelle te tente? 🎬🦫`;
+  return `Voici quelques idées de vidéos mexicanas:\n\n${randomIdeas.map((idea, i) => `${i + 1}. ${idea}`).join("\n")}\n\nLaquelle te tente? 🎬🦫`;
 }
 
 export const videoGeneratorBee = new VideoGeneratorBee();

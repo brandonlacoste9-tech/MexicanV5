@@ -79,7 +79,7 @@ export async function fetchTikwmChallengePosts(
     {
       params: { challenge_id: challengeId, count, cursor },
       timeout: 45000,
-      headers: { "User-Agent": "ZyeuteFeedSeed/1.0" },
+      headers: { "User-Agent": "OjeaFeedSeed/1.0" },
     },
   );
   if (res.data?.code !== 0) {
@@ -141,7 +141,7 @@ async function collectFromTags(
   return out;
 }
 
-/** Collect Québec/Montreal + a few viral tags via TikWM (no API key). */
+/** Collect México/CDMX + a few viral tags via TikWM (no API key). */
 export async function collectTikwmFeedSeedCandidates(opts?: {
   regionalPerTag?: number;
   viralPerTag?: number;

@@ -72,7 +72,7 @@ export const Activity: React.FC = () => {
     if (minutes < 60) return `${minutes}m`;
     if (hours < 24) return `${hours}h`;
     if (days < 7) return `${days}j`;
-    return date.toLocaleDateString("fr-CA");
+    return date.toLocaleDateString("es-MX");
   };
 
   const getIcon = (type: NotifType) => {

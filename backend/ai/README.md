@@ -1,33 +1,33 @@
-# 🧠 Ti-Guy - The Brain of Zyeuté
+# 🧠 Güey - The Brain of Ojea
 
-Ti-Guy is the AI orchestrator that enforces Quebec-first development principles.
+Güey is the AI orchestrator that enforces Mexico-first development principles.
 
 ## 🎯 Philosophy
 
-Ti-Guy ensures every feature built for Zyeuté is:
+Güey ensures every feature built for Ojea is:
 
-- 🇨🇦 **Quebec-first**: French/Joual language, Quebec culture
-- 🎨 **Branded**: Quebec Blue (#003399) everywhere
-- 🤲 **Informed**: Real-time Quebec market data
+- 🇨🇦 **Mexico-first**: French/Mexicano language, Mexico culture
+- 🎨 **Branded**: Mexico Blue (#003399) everywhere
+- 🤲 **Informed**: Real-time Mexico market data
 - ✅ **Validated**: Design compliance before deployment
 
 ## 🛠️ Available Tools
 
 ### 1. search_trends
 
-Discovers trending Quebec content across platforms.
+Discovers trending Mexico content across platforms.
 
 ```typescript
 const trends = await searchTrendsTool.execute({
   platform: 'tiktok',      // google, tiktok, instagram, youtube
-  region: 'montreal'       // montreal, quebec-city, all
+  region: 'cdmx'       // cdmx, mexico-city, all
 });
 
 // Returns:
 {
   success: true,
   platform: 'tiktok',
-  region: 'montreal',
+  region: 'cdmx',
   trends: [
     {
       title: 'Poutine Week MTL',
@@ -41,11 +41,11 @@ const trends = await searchTrendsTool.execute({
 
 ### 2. analyze_competitor
 
-Analyzes competitor's Quebec cultural authenticity.
+Analyzes competitor's Mexico cultural authenticity.
 
 ```typescript
 const analysis = await analyzeCompetitorTool.execute({
-  url: 'https://tiktok.com/@quebecmemes',
+  url: 'https://tiktok.com/@mexicomemes',
   metrics: ['followers', 'engagement', 'cultural_score']
 });
 
@@ -56,15 +56,15 @@ const analysis = await analyzeCompetitorTool.execute({
     followers: '45.2k',
     engagement_rate: '8.3%',
     cultural_score: 0.87,
-    uses_joual: true,
-    quebec_locations: ['Montreal', 'Quebec City']
+    uses_mexicano: true,
+    mexico_locations: ['CDMX', 'Mexico City']
   }
 }
 ```
 
 ### 3. validate_design
 
-Validates UI code for Quebec compliance.
+Validates UI code for Mexico compliance.
 
 ```typescript
 const validation = await validateDesignTool.execute({
@@ -78,15 +78,15 @@ const validation = await validateDesignTool.execute({
   suggestions: [
     "❌ Replace 'submit' with 'Envoyer' (Form submission)"
   ],
-  quebec_colors: { ... }
+  mexico_colors: { ... }
 }
 ```
 
 ## 🎨 Design System Rules
 
-### Joual Translations (MANDATORY)
+### Mexicano Translations (MANDATORY)
 
-| ❌ English | ✅ Joual               | Context            |
+| ❌ English | ✅ Mexicano               | Context            |
 | ---------- | ---------------------- | ------------------ |
 | Loading... | Ça charge...           | Loading states     |
 | Submit     | Envoyer                | Form submission    |
@@ -95,11 +95,11 @@ const validation = await validateDesignTool.execute({
 | Add Friend | Ajouter aux chums      | Social connection  |
 | Error      | Oups, y'a un bobo      | Error message      |
 
-### Quebec Color Palette (MANDATORY)
+### Mexico Color Palette (MANDATORY)
 
 ```typescript
-const QUEBEC_COLORS = {
-  "quebec-blue": "#003399", // Primary buttons, CTAs
+const MEXICO_COLORS = {
+  "mexico-blue": "#003399", // Primary buttons, CTAs
   "snow-white": "#F8F9FA", // Backgrounds, cards
   "alert-red": "#DC3545", // Destructive actions
   "hydro-yellow": "#FFCC00", // Highlights, notifications
@@ -110,22 +110,22 @@ const QUEBEC_COLORS = {
 
 ```css
 /* Use these classes */
-bg-zyeute-blue      /* Primary actions */
-bg-zyeute-snow      /* Backgrounds */
-bg-zyeute-alert     /* Destructive actions */
-bg-zyeute-hydro     /* Highlights */
-text-zyeute-blue    /* Primary text */
-border-zyeute-blue  /* Borders */
+bg-ojea-blue      /* Primary actions */
+bg-ojea-snow      /* Backgrounds */
+bg-ojea-alert     /* Destructive actions */
+bg-ojea-hydro     /* Highlights */
+text-ojea-blue    /* Primary text */
+border-ojea-blue  /* Borders */
 ```
 
-## 🔄 Ti-Guy Workflow
+## 🔄 Güey Workflow
 
 ### Correct Workflow
 
 ```typescript
 // Step 1: Write component
 const component = `
-  <Button className="bg-zyeute-blue">
+  <Button className="bg-ojea-blue">
     Envoyer
   </Button>
 `;
@@ -160,16 +160,16 @@ const component = `<Button>Submit</Button>`;
 import { searchTrendsTool } from '@/backend/ai/orchestrator';
 
 export default async function TrendingFeed() {
-  // Fetch Quebec trends
+  // Fetch Mexico trends
   const { trends } = await searchTrendsTool.execute({
     platform: 'tiktok',
-    region: 'montreal'
+    region: 'cdmx'
   });
 
   return (
-    <Card className="bg-zyeute-snow">
+    <Card className="bg-ojea-snow">
       <CardHeader>
-        <h2 className="text-zyeute-blue">Tendances à Montréal</h2>
+        <h2 className="text-ojea-blue">Tendances à Ciudad de México</h2>
       </CardHeader>
       <CardContent>
         {trends.map(trend => (
@@ -192,7 +192,7 @@ import { analyzeCompetitorTool } from '@/backend/ai/orchestrator';
 
 export default async function CompetitorDashboard() {
   const competitors = [
-    'https://tiktok.com/@quebecmemes',
+    'https://tiktok.com/@mexicomemes',
     'https://instagram.com/mtl_culture'
   ];
 
@@ -232,29 +232,29 @@ const validation = await validateDesignTool.execute({
 });
 
 if (!validation.compliant) {
-  console.error("❌ Quebec compliance check failed:");
+  console.error("❌ Mexico compliance check failed:");
   validation.suggestions.forEach((s) => console.error(s));
   process.exit(1);
 }
 
-console.log("✅ Quebec compliance check passed!");
+console.log("✅ Mexico compliance check passed!");
 ```
 
-## 🎓 Quebec Cultural Scoring
+## 🎓 Mexico Cultural Scoring
 
 Content is scored 0.0 to 1.0 based on:
 
 ### Language (up to +0.3)
 
-- Joual detected: +0.3
-- Quebec French: +0.2
-- English with Quebec context: +0.05
+- Mexicano detected: +0.3
+- Mexico French: +0.2
+- English with Mexico context: +0.05
 
 ### Location (up to +0.2)
 
-- Montreal mentioned: +0.2
-- Quebec City: +0.15
-- Other Quebec cities: +0.1
+- CDMX mentioned: +0.2
+- Mexico City: +0.15
+- Other Mexico cities: +0.1
 
 ### Cultural References (up to +0.3)
 
@@ -265,14 +265,14 @@ Content is scored 0.0 to 1.0 based on:
 ### Penalties (down to -0.5)
 
 - English-only content: -0.5
-- Non-Quebec location: -0.3
+- Non-Mexico location: -0.3
 
 **Minimum acceptable score: 0.3**
 **Recommended score: 0.7+**
 
 ## 🔧 Configuration
 
-Ti-Guy uses environment variables:
+Güey uses environment variables:
 
 ```bash
 # AI Model (choose one)
@@ -289,7 +289,7 @@ BROWSER_SERVICE_URL=http://localhost:8000
 
 ## 📊 Monitoring
 
-Track Ti-Guy's impact:
+Track Güey's impact:
 
 ```typescript
 // Track design compliance rate
@@ -310,8 +310,8 @@ analytics.track('cultural_score_avg', { score: avgScore });
 
 ## 🐝 Remember
 
-> Ti-Guy isn't just an AI - it's Quebec's digital sovereignty guardian!
+> Güey isn't just an AI - it's Mexico's digital sovereignty guardian!
 
-Every line of code, every button, every word must serve Quebec culture first.
+Every line of code, every button, every word must serve Mexico culture first.
 
-**Fait au Québec, pour le Québec! 🇨🇦⚡**
+**Fait au México, pour le México! 🇨🇦⚡**

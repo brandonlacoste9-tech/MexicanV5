@@ -41,7 +41,7 @@ interface BackupResult {
  */
 export async function createBackup(): Promise<BackupResult> {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const filename = `zyeutev5-backup-${timestamp}.sql.gz`;
+  const filename = `ojeav5-backup-${timestamp}.sql.gz`;
   const filepath = path.join(BACKUP_DIR, filename);
 
   try {
@@ -89,7 +89,7 @@ export async function createBackup(): Promise<BackupResult> {
 export async function cleanupOldBackups(): Promise<number> {
   try {
     const files = await fs.readdir(BACKUP_DIR);
-    const backupFiles = files.filter((f) => f.startsWith('zyeutev5-backup-'));
+    const backupFiles = files.filter((f) => f.startsWith('ojeav5-backup-'));
 
     const now = Date.now();
     const retentionMs = RETENTION_DAYS * 24 * 60 * 60 * 1000;
@@ -122,7 +122,7 @@ export async function cleanupOldBackups(): Promise<number> {
 export async function listBackups(): Promise<Array<{ filename: string; size: number; created: Date }>> {
   try {
     const files = await fs.readdir(BACKUP_DIR);
-    const backupFiles = files.filter((f) => f.startsWith('zyeutev5-backup-'));
+    const backupFiles = files.filter((f) => f.startsWith('ojeav5-backup-'));
 
     const backups = await Promise.all(
       backupFiles.map(async (file) => {
@@ -182,7 +182,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('🦫 ZyeuteV5 Database Backup Utility');
+  console.log('🦫 OjeaV5 Database Backup Utility');
   console.log('====================================');
   console.log(`Retention Policy: ${RETENTION_DAYS} days`);
   console.log(`Backup Directory: ${BACKUP_DIR}\n`);

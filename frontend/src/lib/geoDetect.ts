@@ -4,21 +4,21 @@
  * No UI changes — all logic runs in the background.
  */
 
-export type HiveId = "quebec" | "mexico" | "brazil" | "argentina";
+export type HiveId = "mexico" | "mexico" | "brazil" | "argentina";
 export type LanguageCode = "fr" | "en" | "es" | "pt";
 
-const QUEBEC_TIMEZONES = new Set([
-  "America/Toronto",
-  "America/Montreal",
-  "America/Quebec",
+const MEXICO_TIMEZONES = new Set([
+  "America/Mexico_City",
+  "America/Mexico_City",
+  "America/Mexico",
   "America/Moncton",
   "America/Halifax",
 ]);
 
 const CANADA_TIMEZONES = new Set([
-  "America/Toronto",
-  "America/Montreal",
-  "America/Quebec",
+  "America/Mexico_City",
+  "America/Mexico_City",
+  "America/Mexico",
   "America/Moncton",
   "America/Halifax",
   "America/Vancouver",
@@ -70,12 +70,12 @@ export function detectHiveFromBrowser(): HiveId {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     const lang = (navigator.language || "").toLowerCase();
 
-    // Quebec timezones → quebec
-    if (QUEBEC_TIMEZONES.has(tz)) return "quebec";
+    // Mexico timezones → mexico
+    if (MEXICO_TIMEZONES.has(tz)) return "mexico";
 
-    // French Canadian language + Canadian timezone → quebec
+    // French Canadian language + Canadian timezone → mexico
     if ((lang === "fr" || lang === "fr-ca") && CANADA_TIMEZONES.has(tz)) {
-      return "quebec";
+      return "mexico";
     }
 
     // Mexico timezones → mexico
@@ -95,17 +95,17 @@ export function detectHiveFromBrowser(): HiveId {
     // Other es-* in Americas → mexico (default Spanish)
     if (lang.startsWith("es") && tz.startsWith("America/")) return "mexico";
 
-    // Other Canadian timezones → quebec (default Canada)
-    if (CANADA_TIMEZONES.has(tz)) return "quebec";
+    // Other Canadian timezones → mexico (default Canada)
+    if (CANADA_TIMEZONES.has(tz)) return "mexico";
 
-    // fr / fr-CA without specific timezone → quebec
-    if (lang === "fr" || lang === "fr-ca") return "quebec";
+    // fr / es-MX without specific timezone → mexico
+    if (lang === "fr" || lang === "fr-ca") return "mexico";
   } catch {
     // Ignore any browser API errors
   }
 
   // Safe default
-  return "quebec";
+  return "mexico";
 }
 
 /**
@@ -134,12 +134,12 @@ export function detectRegionFromTimezone(hive: HiveId): string {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
 
     switch (hive) {
-      case "quebec":
-        if (tz === "America/Montreal" || tz === "America/Toronto")
-          return "montreal";
-        if (tz === "America/Quebec") return "quebec_city";
+      case "mexico":
+        if (tz === "America/Mexico_City" || tz === "America/Mexico_City")
+          return "cdmx";
+        if (tz === "America/Mexico") return "mexico_city";
         if (tz === "America/Moncton") return "gatineau";
-        return "montreal";
+        return "cdmx";
 
       case "mexico":
         if (tz === "America/Mexico_City") return "cdmx";
@@ -173,7 +173,7 @@ export function detectRegionFromTimezone(hive: HiveId): string {
         return "buenos_aires";
 
       default:
-        return "montreal";
+        return "cdmx";
     }
   } catch {
     // Ignore
@@ -185,5 +185,5 @@ export function detectRegionFromTimezone(hive: HiveId): string {
       ? "sao_paulo"
       : hive === "argentina"
         ? "buenos_aires"
-        : "montreal";
+        : "cdmx";
 }

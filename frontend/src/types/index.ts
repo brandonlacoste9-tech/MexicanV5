@@ -1,5 +1,5 @@
 /**
- * TypeScript types for Zyeuté
+ * TypeScript types for Ojea
  * Includes types inferred from centralized Zod schemas
  */
 

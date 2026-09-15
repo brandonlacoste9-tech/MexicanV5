@@ -3,7 +3,7 @@ import { traceExternalAPI } from "./tracer.js";
 
 // Simple direct API key approach - no Replit Connectors needed
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.FROM_EMAIL || "Zyeute <noreply@zyeute.com>";
+const FROM_EMAIL = process.env.FROM_EMAIL || "Ojea <noreply@ojea-mexico.netlify.app>";
 
 if (!RESEND_API_KEY) {
   console.warn(

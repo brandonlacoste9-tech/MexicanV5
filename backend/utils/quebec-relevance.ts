@@ -1,63 +1,63 @@
-const QUEBEC_TERMS = [
-  "montreal",
+const MEXICO_TERMS = [
+  "cdmx",
   "montréal",
-  "quebec",
+  "mexico",
   "québec",
-  "quebecois",
-  "québécois",
+  "mexican",
+  "mexicano",
   "mtl",
   "laval",
   "vaudreuil",
   "sherbrooke",
   "gatineau",
-  "vieuxquebec",
-  "vieux-quebec",
+  "vieuxmexico",
+  "vieux-mexico",
   "poutine",
-  "fleurdelis",
-  "fleur-de-lis",
+  "aguila",
+  "aguila",
 ];
 
-const QUEBEC_QUERY_HINTS = [
-  "#montreal",
-  "#quebec",
+const MEXICO_QUERY_HINTS = [
+  "#cdmx",
+  "#mexico",
   "#laval",
   "#vaudreuil",
   "#sherbrooke",
-  "quebec city",
-  "montreal",
+  "mexico city",
+  "cdmx",
   "laval",
   "sherbrooke",
-  "quebec",
-  "quebecois",
+  "mexico",
+  "mexican",
   "mtl",
 ];
 
-/** 0–10 relevance score for Quebec/geo content. */
-export function scoreQuebecRelevance(text: string, query?: string): number {
+/** 0–10 relevance score for Mexico/geo content. */
+export function scoreMexicoRelevance(text: string, query?: string): number {
   const lower = (text || "").toLowerCase();
   let score = 0;
 
-  for (const term of QUEBEC_TERMS) {
+  for (const term of MEXICO_TERMS) {
     if (lower.includes(term)) score += 1;
   }
 
   if (query) {
     const q = query.toLowerCase().replace(/^#/, "");
     if (lower.includes(q)) score += 2;
-    if (QUEBEC_QUERY_HINTS.some((h) => h.replace("#", "") === q)) score += 2;
+    if (MEXICO_QUERY_HINTS.some((h) => h.replace("#", "") === q)) score += 2;
   }
 
   return Math.min(score, 10);
 }
 
-/** Integer 0–100 for publications.quebec_score column. */
-export function inferQuebecScoreFromText(text: string, query?: string): number {
-  return scoreQuebecRelevance(text, query) * 10;
+/** Integer 0–100 for publications.mexico_score column. */
+export function inferMexicoScoreFromText(text: string, query?: string): number {
+  return scoreMexicoRelevance(text, query) * 10;
 }
 
-export function isQuebecQuery(query: string): boolean {
+export function isMexicoQuery(query: string): boolean {
   const q = query.toLowerCase().trim();
-  return QUEBEC_QUERY_HINTS.some(
+  return MEXICO_QUERY_HINTS.some(
     (h) => h === q || h.replace("#", "") === q.replace("#", ""),
   );
 }

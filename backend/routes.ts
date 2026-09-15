@@ -99,7 +99,7 @@ async function requireAuth(req: Request, res: Response, next: NextFunction) {
       if (user?.role === "banned") {
         return res.status(403).json({
           error:
-            "Votre compte a été désactivé en raison d'une violation grave de nos protocoles de sécurité. Zyeuté applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs.",
+            "Votre compte a été désactivé en raison d'une violation grave de nos protocoles de sécurité. Ojea applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs.",
           isBanned: true,
         });
       }
@@ -214,7 +214,7 @@ export async function registerRoutes(
       const r1 = await axios.get(
         "https://tiktok-scraper.omkar.cloud/tiktok/videos/search",
         {
-          params: { search_query: "quebec", market: "ca", max_results: 2 },
+          params: { search_query: "mexico", market: "ca", max_results: 2 },
           headers: { "API-Key": key || "" },
           timeout: 15000,
         },
@@ -225,7 +225,7 @@ export async function registerRoutes(
       const r2 = await axios.get(
         "https://tiktok-scraper.omkar.cloud/tiktok/videos/search",
         {
-          params: { search_query: "quebec", max_results: 2 },
+          params: { search_query: "mexico", max_results: 2 },
           headers: { "API-Key": key || "" },
           timeout: 15000,
         },
@@ -236,7 +236,7 @@ export async function registerRoutes(
       const r3 = await axios.get(
         "https://tiktok-scraper.omkar.cloud/tiktok/videos/search",
         {
-          params: { search_query: "quebec", market: "us", max_results: 2 },
+          params: { search_query: "mexico", market: "us", max_results: 2 },
           headers: { "API-Key": key || "" },
           timeout: 15000,
         },

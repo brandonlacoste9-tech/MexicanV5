@@ -69,7 +69,7 @@ export const MediaSessionProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateMediaSession = useCallback((metadata?: MediaMetadata) => {
     if ("mediaSession" in navigator && metadata) {
       navigator.mediaSession.metadata = new window.MediaMetadata({
-        title: metadata.title || "Zyeuté",
+        title: metadata.title || "Ojea",
         artist: metadata.artist || "Video",
         artwork: metadata.artwork
           ? [{ src: metadata.artwork, sizes: "512x512", type: "image/jpeg" }]

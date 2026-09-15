@@ -25,7 +25,7 @@ export const PLACEHOLDER_THUMB =
   encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
       <rect fill="#1A0F0A" width="720" height="1280"/>
-      <text x="50%" y="50%" fill="#C9A227" font-family="system-ui,sans-serif" font-size="28" text-anchor="middle" opacity="0.5">Zyeuté</text>
+      <text x="50%" y="50%" fill="#C9A227" font-family="system-ui,sans-serif" font-size="28" text-anchor="middle" opacity="0.5">Ojea</text>
     </svg>`,
   );
 

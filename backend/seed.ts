@@ -16,35 +16,35 @@ async function seed() {
     const demoUsers = [
       {
         id: crypto.randomUUID(),
-        username: "ti_guy",
-        email: "tiguy@zyeute.qc.ca",
-        displayName: "Ti-Guy Tremblay",
-        bio: "Fier Québécois, amant du plein air et de la poutine!",
+        username: "guey",
+        email: "tiguy@ojea.qc.ca",
+        displayName: "Güey Tremblay",
+        bio: "Fier Mexicano, amant du plein air et de la poutine!",
         avatarUrl:
           "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400",
-        region: "montreal" as const,
+        region: "cdmx" as const,
         isVerified: true,
       },
       {
         id: crypto.randomUUID(),
-        username: "marie_quebec",
+        username: "marie_mexico",
         email: "marie@laval.qc.ca",
         displayName: "Marie-Soleil Gagnon",
-        bio: "Exploratrice urbaine à Montréal 🌆 Passionnée de photo.",
+        bio: "Exploratrice urbaine à Ciudad de México 🌆 Passionnée de photo.",
         avatarUrl:
           "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400",
-        region: "montreal" as const,
+        region: "cdmx" as const,
         isVerified: true,
       },
       {
         id: crypto.randomUUID(),
         username: "jase_laval",
-        email: "jason@quebec.qc.ca",
+        email: "jason@mexico.qc.ca",
         displayName: "Jason Bolduc",
         bio: "Gars de char et de hockey 🏎️🏒 Nordiques forever!",
         avatarUrl:
           "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
-        region: "quebec" as const,
+        region: "mexico" as const,
         isVerified: false,
       },
       {
@@ -61,12 +61,12 @@ async function seed() {
       {
         id: crypto.randomUUID(),
         username: "demo",
-        email: "demo@zyeute.ca",
+        email: "demo@ojea.ca",
         password: hashedPassword,
         displayName: "Demo User",
-        bio: "Compte demo pour tester Zyeuté",
+        bio: "Compte demo pour tester Ojea",
         avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=demo",
-        region: "montreal" as const,
+        region: "cdmx" as const,
         isVerified: false,
       },
     ];
@@ -74,7 +74,7 @@ async function seed() {
     const createdUsers = await db.insert(users).values(demoUsers).returning();
     console.log(`✅ Created ${createdUsers.length} users`);
 
-    // Create sample posts - 25+ Quebec-themed posts for rich content
+    // Create sample posts - 25+ Mexico-themed posts for rich content
     const samplePosts = [
       {
         id: crypto.randomUUID(),
@@ -83,11 +83,11 @@ async function seed() {
         mediaUrl:
           "https://images.unsplash.com/photo-1519181245277-cffeb31da2e3?w=800",
         content:
-          "Bienvenue sur Zyeuté! L'app sociale du Québec 🔥⚜️ Rejoins la communauté!",
+          "Bienvenue sur Ojea! L'app sociale du México 🔥⚜️ Rejoins la communauté!",
         caption:
-          "Bienvenue sur Zyeuté! L'app sociale du Québec 🔥⚜️ Rejoins la communauté!",
-        hashtags: ["zyeute", "quebec", "bienvenue"],
-        region: "montreal" as const,
+          "Bienvenue sur Ojea! L'app sociale du México 🔥⚜️ Rejoins la communauté!",
+        hashtags: ["ojea", "mexico", "bienvenue"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 156,
       },
@@ -98,11 +98,11 @@ async function seed() {
         mediaUrl:
           "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
         content:
-          "Le vieux port de Montréal au coucher du soleil 🌅 C'est tellement beau!",
+          "Le vieux port de Ciudad de México au coucher du soleil 🌅 C'est tellement beau!",
         caption:
-          "Le vieux port de Montréal au coucher du soleil 🌅 C'est tellement beau!",
-        hashtags: ["montreal", "vieuxport", "sunset"],
-        region: "montreal" as const,
+          "Le vieux port de Ciudad de México au coucher du soleil 🌅 C'est tellement beau!",
+        hashtags: ["cdmx", "vieuxport", "sunset"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 89,
       },
@@ -116,8 +116,8 @@ async function seed() {
           "Le Château Frontenac, toujours aussi majestueux! 🏰 #patrimoine",
         caption:
           "Le Château Frontenac, toujours aussi majestueux! 🏰 #patrimoine",
-        hashtags: ["quebec", "frontenac", "histoire"],
-        region: "quebec" as const,
+        hashtags: ["mexico", "frontenac", "histoire"],
+        region: "mexico" as const,
         visibility: "public" as const,
         fireCount: 234,
       },
@@ -144,8 +144,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800",
         content: "Randonnée au Mont-Royal avec une vue incroyable! 🏔️",
         caption: "Randonnée au Mont-Royal avec une vue incroyable! 🏔️",
-        hashtags: ["montreal", "montroyal", "hiking"],
-        region: "montreal" as const,
+        hashtags: ["cdmx", "montroyal", "hiking"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 67,
       },
@@ -157,8 +157,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
         content: "Une bonne poutine pour commencer la journée! 🍟🧀 Miam!",
         caption: "Une bonne poutine pour commencer la journée! 🍟🧀 Miam!",
-        hashtags: ["poutine", "quebec", "foodie"],
-        region: "montreal" as const,
+        hashtags: ["poutine", "mexico", "foodie"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 445,
       },
@@ -168,10 +168,10 @@ async function seed() {
         type: "photo",
         mediaUrl:
           "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800",
-        content: "Les lumières de la ville de Québec la nuit ✨ Magique!",
-        caption: "Les lumières de la ville de Québec la nuit ✨ Magique!",
-        hashtags: ["quebec", "nightlife", "cityscape"],
-        region: "quebec" as const,
+        content: "Les lumières de la ville de México la nuit ✨ Magique!",
+        caption: "Les lumières de la ville de México la nuit ✨ Magique!",
+        hashtags: ["mexico", "nightlife", "cityscape"],
+        region: "mexico" as const,
         visibility: "public" as const,
         fireCount: 178,
       },
@@ -185,7 +185,7 @@ async function seed() {
           "La forêt boréale en automne 🍂 Les couleurs sont folles cette année!",
         caption:
           "La forêt boréale en automne 🍂 Les couleurs sont folles cette année!",
-        hashtags: ["automne", "nature", "quebec"],
+        hashtags: ["automne", "nature", "mexico"],
         region: "gaspesie" as const,
         visibility: "public" as const,
         fireCount: 523,
@@ -198,8 +198,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
         content: "Vue sur le centre-ville depuis le belvédère 🌆",
         caption: "Vue sur le centre-ville depuis le belvédère 🌆",
-        hashtags: ["montreal", "skyline", "view"],
-        region: "montreal" as const,
+        hashtags: ["cdmx", "skyline", "view"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 134,
       },
@@ -211,8 +211,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800",
         content: "Brunch du dimanche dans le Plateau! ☕🥐",
         caption: "Brunch du dimanche dans le Plateau! ☕🥐",
-        hashtags: ["brunch", "plateau", "montreal"],
-        region: "montreal" as const,
+        hashtags: ["brunch", "plateau", "cdmx"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 289,
       },
@@ -224,8 +224,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
         content: "Le fleuve St-Laurent au petit matin 🌊 Tellement paisible",
         caption: "Le fleuve St-Laurent au petit matin 🌊 Tellement paisible",
-        hashtags: ["stlaurent", "fleuve", "quebec"],
-        region: "quebec" as const,
+        hashtags: ["stlaurent", "fleuve", "mexico"],
+        region: "mexico" as const,
         visibility: "public" as const,
         fireCount: 201,
       },
@@ -249,11 +249,11 @@ async function seed() {
         mediaUrl:
           "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=800",
         content:
-          "Street art dans le Mile End 🎨 Montréal a tellement de talent!",
+          "Street art dans le Mile End 🎨 Ciudad de México a tellement de talent!",
         caption:
-          "Street art dans le Mile End 🎨 Montréal a tellement de talent!",
+          "Street art dans le Mile End 🎨 Ciudad de México a tellement de talent!",
         hashtags: ["streetart", "mileend", "art"],
-        region: "montreal" as const,
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 156,
       },
@@ -264,11 +264,11 @@ async function seed() {
         mediaUrl:
           "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800",
         content:
-          "Souper gastronomique québécois 🍽️ Du terroir dans l'assiette!",
+          "Souper gastronomique mexicano 🍽️ Du terroir dans l'assiette!",
         caption:
-          "Souper gastronomique québécois 🍽️ Du terroir dans l'assiette!",
-        hashtags: ["gastronomie", "terroir", "quebec"],
-        region: "montreal" as const,
+          "Souper gastronomique mexicano 🍽️ Du terroir dans l'assiette!",
+        hashtags: ["gastronomie", "terroir", "mexico"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 267,
       },
@@ -306,8 +306,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800",
         content: "Festival de Jazz 🎷🎺 L'ambiance est malade!",
         caption: "Festival de Jazz 🎷🎺 L'ambiance est malade!",
-        hashtags: ["jazz", "festival", "montreal"],
-        region: "montreal" as const,
+        hashtags: ["jazz", "festival", "cdmx"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 445,
       },
@@ -322,7 +322,7 @@ async function seed() {
         caption:
           "Cabane à sucre! 🍁 Le temps des sucres c'est le meilleur temps!",
         hashtags: ["cabane", "siroperable", "tradition"],
-        region: "montreal" as const,
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 534,
       },
@@ -335,7 +335,7 @@ async function seed() {
         content: "Hockey au Centre Bell 🏒🔥 Go Habs Go!",
         caption: "Hockey au Centre Bell 🏒🔥 Go Habs Go!",
         hashtags: ["hockey", "habs", "centrebell"],
-        region: "montreal" as const,
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 723,
       },
@@ -345,10 +345,10 @@ async function seed() {
         type: "photo",
         mediaUrl:
           "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800",
-        content: "Kayak sur le Saguenay 🛶 La nature sauvage du Québec!",
-        caption: "Kayak sur le Saguenay 🛶 La nature sauvage du Québec!",
+        content: "Kayak sur le Saguenay 🛶 La nature sauvage du México!",
+        caption: "Kayak sur le Saguenay 🛶 La nature sauvage du México!",
         hashtags: ["kayak", "saguenay", "aventure"],
-        region: "quebec" as const,
+        region: "mexico" as const,
         visibility: "public" as const,
         fireCount: 356,
       },
@@ -360,8 +360,8 @@ async function seed() {
           "https://images.unsplash.com/photo-1485872299829-c673f5194813?w=800",
         content: "La Fête Nationale! 🎆⚜️ Bonne St-Jean à tous!",
         caption: "La Fête Nationale! 🎆⚜️ Bonne St-Jean à tous!",
-        hashtags: ["stjean", "fetenationale", "quebec"],
-        region: "montreal" as const,
+        hashtags: ["stjean", "fetenationale", "mexico"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 892,
       },
@@ -376,7 +376,7 @@ async function seed() {
         caption:
           "Route panoramique en Charlevoix 🚗 Chaque virage est une carte postale!",
         hashtags: ["charlevoix", "roadtrip", "paysage"],
-        region: "quebec" as const,
+        region: "mexico" as const,
         visibility: "public" as const,
         fireCount: 278,
       },
@@ -386,10 +386,10 @@ async function seed() {
         type: "photo",
         mediaUrl:
           "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
-        content: "Coworking à Montréal 💻 La scène tech québécoise est en feu!",
-        caption: "Coworking à Montréal 💻 La scène tech québécoise est en feu!",
-        hashtags: ["tech", "startup", "montreal"],
-        region: "montreal" as const,
+        content: "Coworking à Ciudad de México 💻 La scène tech mexicana est en feu!",
+        caption: "Coworking à Ciudad de México 💻 La scène tech mexicana est en feu!",
+        hashtags: ["tech", "startup", "cdmx"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 145,
       },
@@ -399,10 +399,10 @@ async function seed() {
         type: "photo",
         mediaUrl:
           "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=800",
-        content: "Tempête de neige à Québec ❄️ On est faits forts icitte!",
-        caption: "Tempête de neige à Québec ❄️ On est faits forts icitte!",
-        hashtags: ["hiver", "neige", "quebec"],
-        region: "quebec" as const,
+        content: "Tempête de neige à México ❄️ On est faits forts icitte!",
+        caption: "Tempête de neige à México ❄️ On est faits forts icitte!",
+        hashtags: ["hiver", "neige", "mexico"],
+        region: "mexico" as const,
         visibility: "public" as const,
         fireCount: 234,
       },
@@ -412,10 +412,10 @@ async function seed() {
         type: "photo",
         mediaUrl:
           "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
-        content: "Portrait dans le Vieux-Montréal 📸 Cette lumière!",
-        caption: "Portrait dans le Vieux-Montréal 📸 Cette lumière!",
-        hashtags: ["portrait", "vieuxmontreal", "photo"],
-        region: "montreal" as const,
+        content: "Portrait dans le Vieux-Ciudad de México 📸 Cette lumière!",
+        caption: "Portrait dans le Vieux-Ciudad de México 📸 Cette lumière!",
+        hashtags: ["portrait", "vieuxcdmx", "photo"],
+        region: "cdmx" as const,
         visibility: "public" as const,
         fireCount: 189,
       },
@@ -448,7 +448,7 @@ async function seed() {
         mediaUrl:
           "https://images.unsplash.com/photo-1519181245277-cffeb31da2e3?w=800",
         mediaType: "photo",
-        caption: "Nouvelle journée sur Zyeuté!",
+        caption: "Nouvelle journée sur Ojea!",
         expiresAt,
       },
       {
@@ -469,7 +469,7 @@ async function seed() {
 
     console.log("\n🎉 Seeding complete!");
     console.log("\n📝 Demo login credentials:");
-    console.log("   Email: demo@zyeute.ca");
+    console.log("   Email: demo@ojea.ca");
     console.log("   Password: demo123");
     console.log(
       "\n   Or use any of the created accounts with password: demo123",

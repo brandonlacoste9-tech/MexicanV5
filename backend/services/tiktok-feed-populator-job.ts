@@ -1,8 +1,8 @@
 /**
- * Periodic Québec TikTok feed imports via Apify (TIKTOK_FEED_JOB_ENABLED=true).
+ * Periodic México TikTok feed imports via Apify (TIKTOK_FEED_JOB_ENABLED=true).
  */
 import { logger } from "../utils/logger.js";
-import { replenishQuebecFeedPool } from "./feed-seed-providers.js";
+import { replenishMexicoFeedPool } from "./feed-seed-providers.js";
 
 const log = logger.withContext("TikTokFeedJob");
 
@@ -33,7 +33,7 @@ export async function runTikTokFeedPopulatorOnce(overrideForce: boolean = false)
 
   const force = overrideForce || process.env.TIKTOK_FEED_JOB_FORCE === "true";
 
-  const result = await replenishQuebecFeedPool({
+  const result = await replenishMexicoFeedPool({
     supabaseUrl,
     supabaseServiceKey,
     maxApify: maxPerRun,

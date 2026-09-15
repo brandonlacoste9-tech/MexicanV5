@@ -1,5 +1,5 @@
 /**
- * TIGuyBatteryTotem - Low battery indicator with fleur-de-lys
+ * TIGuyBatteryTotem - Low battery indicator with aguila
  * Graded warnings: normal → low → critical
  */
 
@@ -90,7 +90,7 @@ export const TIGuyBatteryTotem: React.FC<TIGuyBatteryTotemProps> = ({
         </div>
       )}
 
-      {/* Fleur-de-lys totem */}
+      {/* Águila totem */}
       <div
         className={cn(
           "relative w-16 h-16 flex items-center justify-center",
@@ -117,7 +117,7 @@ export const TIGuyBatteryTotem: React.FC<TIGuyBatteryTotemProps> = ({
           }}
         />
 
-        {/* Fleur-de-lys icon */}
+        {/* Águila icon */}
         <span
           className="relative text-3xl transition-colors duration-500"
           style={{

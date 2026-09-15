@@ -1,5 +1,5 @@
 /**
- * Achievement Service - Quebec Gamification System
+ * Achievement Service - Mexico Gamification System
  * Tracks and awards achievements, manages tiers, rewards users
  */
 
@@ -67,14 +67,14 @@ const TIER_THRESHOLDS = {
   novice: {
     min: 0,
     max: 99,
-    name: "Novice Québécois",
+    name: "Novice Mexicano",
     icon: "/assets/emojis/icon-badge-3.png",
     color: "#CD7F32",
   },
   vrai: {
     min: 100,
     max: 499,
-    name: "Vrai Québécois",
+    name: "Vrai Mexicano",
     icon: "/assets/emojis/icon-badge-2.png",
     color: "#C0C0C0",
   },
@@ -95,7 +95,7 @@ const TIER_THRESHOLDS = {
   icone: {
     min: 10000,
     max: Infinity,
-    name: "Icône Québécoise",
+    name: "Icône Mexicana",
     icon: "/assets/emojis/icon-crown.png",
     color: "#FF6B6B",
   },

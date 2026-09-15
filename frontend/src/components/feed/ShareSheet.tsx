@@ -35,8 +35,8 @@ export function ShareSheet({ open, onClose, postId, title }: Props) {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: title || "Zyeuté",
-          text: "Regarde ça sur Zyeuté!",
+          title: title || "Ojea",
+          text: "Regarde ça sur Ojea!",
           url,
         });
       }
@@ -48,7 +48,7 @@ export function ShareSheet({ open, onClose, postId, title }: Props) {
 
   // Mock friends for the top row (Internal sharing)
   const mockFriends = [
-    { id: 1, name: "Ti-Guy", color: "bg-blue-500" },
+    { id: 1, name: "Güey", color: "bg-blue-500" },
     { id: 2, name: "Marie", color: "bg-pink-500" },
     { id: 3, name: "Jean", color: "bg-green-500" },
     { id: 4, name: "Gaston", color: "bg-purple-500" },

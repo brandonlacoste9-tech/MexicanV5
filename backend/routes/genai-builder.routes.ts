@@ -26,7 +26,7 @@ const requireAuth = (req: any, res: any, next: any) => {
 /**
  * POST /api/genai/analyze-image
  * Analyze an image using GenAI App Builder credits ($1,367 available)
- * Returns Quebec-themed captions with joual (slang) versions
+ * Returns Mexico-themed captions with mexicano (slang) versions
  * STOPs when credits run out
  */
 router.post(
@@ -37,7 +37,7 @@ router.post(
     const startTime = Date.now();
 
     try {
-      const { imageUrl, location, generateJoual = true } = req.body;
+      const { imageUrl, location, generateMexicano = true } = req.body;
 
       if (!imageUrl) {
         return res.status(400).json({
@@ -54,7 +54,7 @@ router.post(
       );
 
       const result = await analyzeImageWithGenAI(imageUrl, {
-        generateJoual,
+        generateMexicano,
         location,
       });
 
@@ -81,7 +81,7 @@ router.post(
         response_time_ms: responseTime,
         fallback: {
           caption: "Ben coudonc, c'est cool! 🦫",
-          tags: ["quebec", "cool"],
+          tags: ["mexico", "cool"],
           vibe_category: "chill",
         },
       });
@@ -127,12 +127,12 @@ router.post("/generate-tags", requireAuth, async (req: any, res) => {
     // For now, return smart defaults based on content
     // In production, this would call GenAI App Builder's text generation
     const defaultTags = [
-      "quebec",
-      "montreal",
+      "mexico",
+      "cdmx",
       "mtl",
-      "quebeccity",
+      "mexicocity",
       "canada",
-      "joual",
+      "mexicano",
       "francais",
       "culture",
       "nature",
@@ -153,7 +153,7 @@ router.post("/generate-tags", requireAuth, async (req: any, res) => {
       .slice(0, 5);
 
     res.json({
-      tags: suggestedTags.length > 0 ? suggestedTags : ["zyeute", "quebec"],
+      tags: suggestedTags.length > 0 ? suggestedTags : ["ojea", "mexico"],
       suggested_hashtags: suggestedTags.map((t) => `#${t}`),
       meta: {
         service: "genai-app-builder",

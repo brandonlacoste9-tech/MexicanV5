@@ -10,19 +10,19 @@ export function useOpenGraph(post: Post | null) {
     if (!post) return;
 
     const title = post.caption
-      ? `${post.caption.slice(0, 60)} — Zyeuté`
-      : "Zyeuté — La plateforme québécoise";
+      ? `${post.caption.slice(0, 60)} — Ojea`
+      : "Ojea — La plateforme mexicana";
     const description =
       post.caption ||
-      "Découvrez ce contenu sur Zyeuté, la plateforme vidéo québécoise.";
-    const DEFAULT_OG_IMAGE = "https://www.zyeute.com/zyeute_og_image.png";
+      "Découvrez ce contenu sur Ojea, la plateforme vidéo mexicana.";
+    const DEFAULT_OG_IMAGE = "https://ojea-mexico.netlify.app/ojea_og_image.png";
     const image =
       post.thumbnail_url ||
       (post.mux_playback_id
         ? `https://image.mux.com/${post.mux_playback_id}/thumbnail.jpg?width=600&height=338&fit_mode=smartcrop`
         : DEFAULT_OG_IMAGE);
     // Canonical post path is /p/:id (see AppRoutes)
-    const url = `https://www.zyeute.com/p/${post.id}`;
+    const url = `https://ojea-mexico.netlify.app/p/${post.id}`;
 
     // Helper to set or create meta tag
     const setMeta = (property: string, content: string, attr = "property") => {
@@ -43,7 +43,7 @@ export function useOpenGraph(post: Post | null) {
     setMeta("og:image", image);
     setMeta("og:url", url);
     setMeta("og:type", "video.other");
-    setMeta("og:site_name", "Zyeuté");
+    setMeta("og:site_name", "Ojea");
 
     // Twitter Card
     setMeta("twitter:card", "summary_large_image", "name");
@@ -56,7 +56,7 @@ export function useOpenGraph(post: Post | null) {
     document.title = title;
 
     // ── VideoObject JSON-LD for Google & AI search ────────────────────────
-    const JSON_LD_ID = "zyeute-post-jsonld";
+    const JSON_LD_ID = "ojea-post-jsonld";
     let ldScript = document.getElementById(
       JSON_LD_ID,
     ) as HTMLScriptElement | null;
@@ -76,7 +76,7 @@ export function useOpenGraph(post: Post | null) {
       url: url,
       embedUrl: url,
       uploadDate: post.created_at ?? new Date().toISOString(),
-      inLanguage: "fr-CA",
+      inLanguage: "es-MX",
     };
 
     if (post.mux_playback_id) {
@@ -88,7 +88,7 @@ export function useOpenGraph(post: Post | null) {
       videoLd["author"] = {
         "@type": "Person",
         name: post.user.display_name || post.user.username,
-        url: `https://www.zyeute.com/profile/${post.user.username}`,
+        url: `https://ojea-mexico.netlify.app/profile/${post.user.username}`,
       };
     }
 

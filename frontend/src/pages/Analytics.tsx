@@ -603,7 +603,7 @@ export const Analytics: React.FC = () => {
             <li className="flex gap-3">
               <span className="text-gold-400 font-bold">2.</span>
               <span>
-                Utilise des hashtags locaux québécois (#quebec #montreal #514
+                Utilise des hashtags locaux mexicano (#mexico #cdmx #514
                 #450)
               </span>
             </li>
@@ -619,7 +619,7 @@ export const Analytics: React.FC = () => {
             </li>
             <li className="flex gap-3">
               <span className="text-gold-400 font-bold">5.</span>
-              <span>Collabore avec d&apos;autres créateurs québécois</span>
+              <span>Collabore avec d&apos;autres créateurs mexicano</span>
             </li>
           </ul>
         </div>

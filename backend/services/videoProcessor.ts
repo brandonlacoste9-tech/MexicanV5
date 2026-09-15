@@ -34,7 +34,7 @@ interface TranscodeOptions {
   bitrate: string;
 }
 
-const TEMP_DIR = path.join(os.tmpdir(), "zyeute_processing");
+const TEMP_DIR = path.join(os.tmpdir(), "ojea_processing");
 
 // Ensure temp dir exists
 if (!fs.existsSync(TEMP_DIR)) {
@@ -155,7 +155,7 @@ async function applyFilter(
       videoFilters.push("colorbalance=bs=.3");
       break;
     // QC filters
-    case "quebecois":
+    case "mexican":
       videoFilters.push("colorbalance=bs=.4:gs=.1");
       break;
     default:

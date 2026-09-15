@@ -33,7 +33,7 @@ export class HiveTapService {
     this.secretKey =
       process.env.SUPABASE_SERVICE_ROLE_KEY ||
       process.env.SESSION_SECRET ||
-      "zyeute_dev_hive_tap_key";
+      "ojea_dev_hive_tap_key";
   }
 
   /**

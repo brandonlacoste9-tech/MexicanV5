@@ -122,7 +122,7 @@ router.post("/:postId", requireAuth, async (req, res) => {
       originalPostId,
       remixType,
       visibility: "public",
-      hiveId: originalPost.hiveId || "quebec",
+      hiveId: originalPost.hiveId || "mexico",
     } as any);
 
     // Increment remix count on original post

@@ -146,7 +146,7 @@ export const ChatMediaUploader: React.FC<ChatMediaUploaderProps> = ({
       setFiles((prev) =>
         prev.map((f) =>
           f.id === file.id
-            ? { ...f, status: "done", url: `https://cdn.zyeute.com/${f.id}` }
+            ? { ...f, status: "done", url: `https://cdn.ojea-mexico.netlify.app/${f.id}` }
             : f
         )
       );

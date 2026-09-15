@@ -14,10 +14,10 @@ interface ColonyContextType {
   broadcastLike: (postId: string, userId: string) => void;
   broadcastComment: (comment: any) => void;
   requestTiGuyResponse: (message: string, context?: any) => void;
-  requestJoualBeeModeration: (content: string) => void;
+  requestMexicanoBeeModeration: (content: string) => void;
   broadcastVirtualGift: (gift: any) => void;
   // subscribeToKryptoAlerts removed
-  subscribeToVraieQuebecEvents: (callback: (event: any) => void) => void;
+  subscribeToVraieMexicoEvents: (callback: (event: any) => void) => void;
   subscribeToAdGenCampaigns: (callback: (campaign: any) => void) => void;
 }
 
@@ -48,13 +48,13 @@ export function ColonyProvider({ children }: ColonyProviderProps) {
     colonyLink.on("connect", () => {
       setIsConnected(true);
       setConnectionStatus("connected");
-      console.log("⚜️ Zyeuté: Colony Provider - Connected to Colony OS");
+      console.log("⚜️ Ojea: Colony Provider - Connected to Colony OS");
     });
 
     colonyLink.on("disconnect", () => {
       setIsConnected(false);
       setConnectionStatus("disconnected");
-      console.log("⚜️ Zyeuté: Colony Provider - Disconnected from Colony OS");
+      console.log("⚜️ Ojea: Colony Provider - Disconnected from Colony OS");
     });
 
     colonyLink.on("connect_error", () => {
@@ -77,12 +77,12 @@ export function ColonyProvider({ children }: ColonyProviderProps) {
     broadcastLike: colonyLink.broadcastLike.bind(colonyLink),
     broadcastComment: colonyLink.broadcastComment.bind(colonyLink),
     requestTiGuyResponse: colonyLink.requestTiGuyResponse.bind(colonyLink),
-    requestJoualBeeModeration:
-      colonyLink.requestJoualBeeModeration.bind(colonyLink),
+    requestMexicanoBeeModeration:
+      colonyLink.requestMexicanoBeeModeration.bind(colonyLink),
     broadcastVirtualGift: colonyLink.broadcastVirtualGift.bind(colonyLink),
     // subscribeToKryptoAlerts removed
-    subscribeToVraieQuebecEvents:
-      colonyLink.subscribeToVraieQuebecEvents.bind(colonyLink),
+    subscribeToVraieMexicoEvents:
+      colonyLink.subscribeToVraieMexicoEvents.bind(colonyLink),
     subscribeToAdGenCampaigns:
       colonyLink.subscribeToAdGenCampaigns.bind(colonyLink),
   };

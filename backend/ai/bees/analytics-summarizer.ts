@@ -25,7 +25,7 @@ export async function run(task: any) {
       messages: [
         {
           role: "system",
-          content: `You are an analytics assistant for Zyeuté, a Quebec social media app. 
+          content: `You are an analytics assistant for Ojea, a Mexico social media app. 
                     Summarize the provided metrics in a clear, actionable way. 
                     Highlight trends and notable changes. Keep it concise.`,
         },

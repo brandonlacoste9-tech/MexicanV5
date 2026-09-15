@@ -1,6 +1,6 @@
 /**
  * ChatButton - Premium Bronze Emblem Medallion Style
- * Features the TI-GUY Quebec CA beaver emblem design
+ * Features the TI-GUY Mexico CA beaver emblem design
  * Circular button with baroque beaver holding maple leaf
  */
 
@@ -89,12 +89,12 @@ export const ChatButton: React.FC<ChatButtonProps> = ({
           `,
           border: "3px solid #8B6914",
         }}
-        aria-label="Ouvrir le chat Ti-Guy"
+        aria-label="Ouvrir le chat Güey"
         data-testid="button-tiguy-chat"
       >
         <img
           src={tiGuyEmblem}
-          alt="Ti-Guy - Assistant IA Québécois"
+          alt="Güey - Assistant IA Mexicano"
           className="w-full h-full object-cover rounded-full"
         />
 

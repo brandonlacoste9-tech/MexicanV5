@@ -1,6 +1,6 @@
 /**
  * VideoCard - Feed component for displaying video content in a grid
- * Optimized for Zyeuté V5 with advanced prefetching and unified playback
+ * Optimized for Ojea V5 with advanced prefetching and unified playback
  */
 
 import React, { useMemo, useState } from "react";
@@ -43,8 +43,8 @@ export function VideoCard({
     try {
       if (navigator.share) {
         await navigator.share({
-          title: (post as any).caption?.substring(0, 60) || "Vidéo sur Zyeute",
-          text: `@${post.user?.username || "zyeute"} — ${(post as any).caption?.substring(0, 80) || ""}`,
+          title: (post as any).caption?.substring(0, 60) || "Vidéo sur Ojea",
+          text: `@${post.user?.username || "ojea"} — ${(post as any).caption?.substring(0, 80) || ""}`,
           url,
         });
       } else {

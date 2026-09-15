@@ -7,7 +7,7 @@ import { generateVideo } from "../media/video-engine.js";
 
 export async function run(task: any) {
   const payload = task.payload || {};
-  const prompt = payload.prompt || "A cinematic drone shot of Montreal";
+  const prompt = payload.prompt || "A cinematic drone shot of CDMX";
   const imageUrl = payload.imageUrl;
   const duration = payload.duration || 5;
 

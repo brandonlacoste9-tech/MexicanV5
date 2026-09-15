@@ -6,7 +6,7 @@ export type DraftPost = {
   note?: string;
 };
 
-const KEY = "zyeute_upload_drafts";
+const KEY = "ojea_upload_drafts";
 
 export function loadDrafts(): DraftPost[] {
   try {

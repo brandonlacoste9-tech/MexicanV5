@@ -1,5 +1,5 @@
 /**
- * useWebSocket - Real-time messaging hook for Zyeuté
+ * useWebSocket - Real-time messaging hook for Ojea
  * Connects to WebSocket gateway for live events
  */
 

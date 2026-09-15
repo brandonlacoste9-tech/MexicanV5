@@ -5,13 +5,13 @@
 import { logger } from "../utils/logger.js";
 import { withCronLock } from "../utils/cron-lock.js";
 import { filterUnseenTikTokVideos } from "../utils/tiktok-seed-dedup.js";
-import { getQuebecTikTokQueries } from "./feed-seed-providers.js";
+import { getMexicoTikTokQueries } from "./feed-seed-providers.js";
 import {
   countPlayableFeedPosts,
   countPublicFeedPosts,
 } from "./feed-replenish-tikapi.js";
 import { importTikTokVideoToFeed } from "./tiktok-feed-import.js";
-import { scoreQuebecRelevance } from "../utils/quebec-relevance.js";
+import { scoreMexicoRelevance } from "../utils/mexico-relevance.js";
 import {
   isOmkarConfigured,
   TikTokScraperService,
@@ -52,7 +52,7 @@ async function collectOmkarCandidates(options: {
   const queryByVideo = new Map<string, string>();
   let omkarCalls = 0;
 
-  const queries = getQuebecTikTokQueries();
+  const queries = getMexicoTikTokQueries();
   const slot = Math.floor(Date.now() / (6 * 60 * 60 * 1000));
   const includeTrending =
     options.force === true ||
@@ -98,7 +98,7 @@ async function collectOmkarCandidates(options: {
   }
 
   const rank = (v: TikTokVideo) => {
-    const qScore = scoreQuebecRelevance(
+    const qScore = scoreMexicoRelevance(
       v.caption || "",
       queryByVideo.get(v.video_id),
     );
@@ -149,7 +149,7 @@ async function replenishFeedOmkarIfLowInner(options?: {
   maxImport?: number;
   hiveId?: string;
 }): Promise<OmkarReplenishResult> {
-  const hiveId = options?.hiveId ?? "quebec";
+  const hiveId = options?.hiveId ?? "mexico";
   const force = options?.force === true;
   const minPosts = envInt("FEED_MIN_PLAYABLE_POSTS", 150);
   const defaultBatch = envInt("FEED_REPLENISH_BATCH", 15);

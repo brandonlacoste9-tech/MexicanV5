@@ -27,7 +27,7 @@ const AuthCallback: React.FC = () => {
     redirectedRef.current = true;
     
     // Check for bounty claim
-    const refCode = localStorage.getItem("zyeute_bounty_ref");
+    const refCode = localStorage.getItem("ojea_bounty_ref");
     if (refCode) {
       try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -42,7 +42,7 @@ const AuthCallback: React.FC = () => {
             body: JSON.stringify({ referralCode: refCode }),
           });
           if (res.ok) {
-            localStorage.removeItem("zyeute_bounty_ref");
+            localStorage.removeItem("ojea_bounty_ref");
           }
         }
       } catch (e) {

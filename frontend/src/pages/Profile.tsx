@@ -1,5 +1,5 @@
 /**
- * Profile Page - Premium Quebec Heritage Design
+ * Profile Page - Premium Mexico Heritage Design
  * Luxury leather profile with gold stats and stitched sections
  */
 
@@ -35,7 +35,7 @@ import {
 import type { User, Post } from "@/types";
 import { logger } from "@/lib/logger";
 import { useSEO } from "@/hooks/useSEO";
-import { QuebecEmptyState } from "@/components/ui/QuebecEmptyState";
+import { MexicoEmptyState } from "@/components/ui/MexicoEmptyState";
 import { ProfileSkeleton } from "@/components/ui/Skeleton";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
@@ -273,8 +273,8 @@ export const Profile: React.FC = () => {
       ? {
           title: `${user.display_name || user.username} (@${user.username})`,
           description: user.bio
-            ? `${user.bio} — Créateur sur Zyeute, la plateforme vidéo québécoise.`
-            : `Découvre les vidéos de @${user.username} sur Zyeute, la plateforme vidéo 100% québécoise.`,
+            ? `${user.bio} — Créateur sur Ojea, la plateforme vidéo mexicana.`
+            : `Découvre les vidéos de @${user.username} sur Ojea, la plateforme vidéo 100% mexicana.`,
           image: user.avatar_url || undefined,
           url: `/profile/${user.username}`,
           type: "profile",
@@ -283,13 +283,13 @@ export const Profile: React.FC = () => {
             "@type": "Person",
             name: user.display_name || user.username,
             alternateName: `@${user.username}`,
-            url: `https://www.zyeute.com/profile/${user.username}`,
+            url: `https://ojea-mexico.netlify.app/profile/${user.username}`,
             image: user.avatar_url || undefined,
-            description: user.bio || `Créateur sur Zyeute`,
+            description: user.bio || `Créateur sur Ojea`,
             memberOf: {
               "@type": "Organization",
-              name: "Zyeute",
-              url: "https://www.zyeute.com",
+              name: "Ojea",
+              url: "https://ojea-mexico.netlify.app",
             },
           },
         }
@@ -610,9 +610,9 @@ export const Profile: React.FC = () => {
     <div className="min-h-screen bg-black leather-overlay pb-20">
       <Header title={user.username} showBack={true} showSearch={false} />
 
-      {/* Profile Top Section — dark banner with fleur-de-lis motif */}
+      {/* Profile Top Section — dark banner with aguila motif */}
       <div className="relative">
-        {/* Banner background — dark charcoal with subtle fleur-de-lis texture */}
+        {/* Banner background — dark charcoal with subtle aguila texture */}
         <div
           className="absolute top-0 left-0 w-full h-52"
           style={{
@@ -621,7 +621,7 @@ export const Profile: React.FC = () => {
             borderBottom: "1px solid rgba(212,175,55,0.15)",
           }}
         >
-          {/* Subtle fleur-de-lis watermark pattern */}
+          {/* Subtle aguila watermark pattern */}
           <div
             className="absolute inset-0 opacity-[0.07]"
             style={{
@@ -660,8 +660,8 @@ export const Profile: React.FC = () => {
                 try {
                   if (navigator.share) {
                     await navigator.share({
-                      title: `Profil de ${user.display_name || user.username} sur Zyeuté`,
-                      text: `Regarde le profil de @${user.username} sur Zyeuté! ⚜️`,
+                      title: `Profil de ${user.display_name || user.username} sur Ojea`,
+                      text: `Regarde le profil de @${user.username} sur Ojea! ⚜️`,
                       url: profileUrl,
                     });
                   } else {
@@ -1032,15 +1032,15 @@ export const Profile: React.FC = () => {
                           }}
                         >
                           {subTier === "gold"
-                            ? "Ti-Guy VIP · Boost x5 · 500 cennes/mois"
+                            ? "Güey VIP · Boost x5 · 500 cennes/mois"
                             : subTier === "silver"
-                              ? "Ti-Guy · Analytics · Boost x3 · 100 cennes/mois"
-                              : "Ti-Guy · Pas de pub · Boost x2"}
+                              ? "Güey · Analytics · Boost x3 · 100 cennes/mois"
+                              : "Güey · Pas de pub · Boost x2"}
                         </p>
                       )}
                       {!isPremium && (
                         <p className="text-xs text-white/40 mt-0.5">
-                          Ti-Guy verrouillé · Aucun boost
+                          Güey verrouillé · Aucun boost
                         </p>
                       )}
                     </div>
@@ -1175,10 +1175,10 @@ export const Profile: React.FC = () => {
                 : activeTab === "saved"
                   ? "Sauvegarde des posts pour les retrouver ici."
                   : isOwnProfile
-                    ? "Commence à partager ton contenu québécois!"
+                    ? "Commence à partager ton contenu mexicano!"
                     : `${user.display_name || user.username} n'a pas encore posté.`;
             return gridPosts.length === 0 ? (
-              <QuebecEmptyState
+              <MexicoEmptyState
                 type="profile"
                 title={emptyTitle}
                 description={emptyDesc}
@@ -1313,11 +1313,11 @@ export const Profile: React.FC = () => {
         </div>
       </div>
 
-      {/* Quebec Pride Footer */}
+      {/* Mexico Pride Footer */}
       <div className="text-center py-8 text-leather-400 text-sm">
         <p className="flex items-center justify-center gap-2">
           <span className="text-gold-500">⚜️</span>
-          <span>Créateur québécois</span>
+          <span>Créateur mexicano</span>
           <span className="text-gold-500">⚜️</span>
         </p>
       </div>

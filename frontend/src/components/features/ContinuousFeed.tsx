@@ -80,9 +80,9 @@ const FEED_PAGE_SIZE = 15;
 
 function getHiveId(): string {
   try {
-    return localStorage.getItem("zyeute_hive_id") || "quebec";
+    return localStorage.getItem("ojea_hive_id") || "mexico";
   } catch {
-    return "quebec";
+    return "mexico";
   }
 }
 
@@ -483,7 +483,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       id: "demo-1",
       user_id: "demo-user-1",
       type: "video" as const,
-      caption: "Welcome to Zyeuté! 🍁 Bienvenue au Québec!",
+      caption: "Welcome to Ojea! 🍁 Bienvenue au México!",
       media_url:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
       mediaUrl:
@@ -492,8 +492,8 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       thumbnailUrl: "/demo/branding.png",
       user: {
         id: "demo-user-1",
-        username: "zyeute",
-        display_name: "Zyeuté Officiel",
+        username: "ojea",
+        display_name: "Ojea Officiel",
         avatar_url: null,
         is_verified: true,
         created_at: new Date().toISOString(),
@@ -511,7 +511,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       comment_count: 42,
       created_at: new Date().toISOString(),
       visibility: "public",
-      hive_id: "quebec",
+      hive_id: "mexico",
       is_moderated: false,
       moderation_approved: true,
       is_hidden: false,
@@ -523,17 +523,17 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       id: "demo-2",
       user_id: "demo-user-2",
       type: "video" as const,
-      caption: "Montreal vibes 🏙️⚜️ #Montreal #Quebec",
+      caption: "CDMX vibes 🏙️⚜️ #CDMX #Mexico",
       media_url:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
       mediaUrl:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-      thumbnail_url: "/demo/montreal.png",
-      thumbnailUrl: "/demo/montreal.png",
+      thumbnail_url: "/demo/cdmx.png",
+      thumbnailUrl: "/demo/cdmx.png",
       user: {
         id: "demo-user-2",
-        username: "montreal",
-        display_name: "Montréal",
+        username: "cdmx",
+        display_name: "Ciudad de México",
         avatar_url: null,
         is_verified: true,
         created_at: new Date().toISOString(),
@@ -551,7 +551,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       comment_count: 23,
       created_at: new Date(Date.now() - 3600000).toISOString(),
       visibility: "public",
-      hive_id: "quebec",
+      hive_id: "mexico",
       is_moderated: false,
       moderation_approved: true,
       is_hidden: false,
@@ -563,7 +563,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       id: "demo-3",
       user_id: "demo-user-3",
       type: "video" as const,
-      caption: "Beautiful Quebec nature 🍁🌲",
+      caption: "Beautiful Mexico nature 🍁🌲",
       media_url:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
       mediaUrl:
@@ -572,8 +572,8 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       thumbnailUrl: "/demo/nature.png",
       user: {
         id: "demo-user-3",
-        username: "quebec_nature",
-        display_name: "Nature Québec",
+        username: "mexico_nature",
+        display_name: "Nature México",
         avatar_url: null,
         is_verified: false,
         created_at: new Date().toISOString(),
@@ -591,7 +591,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       comment_count: 15,
       created_at: new Date(Date.now() - 7200000).toISOString(),
       visibility: "public",
-      hive_id: "quebec",
+      hive_id: "mexico",
       is_moderated: false,
       moderation_approved: true,
       is_hidden: false,
@@ -603,7 +603,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       id: "demo-4",
       user_id: "demo-user-4",
       type: "video" as const,
-      caption: "Winter in Quebec ❄️❄️❄️",
+      caption: "Winter in Mexico ❄️❄️❄️",
       media_url:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
       mediaUrl:
@@ -612,8 +612,8 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       thumbnailUrl: "/demo/winter.png",
       user: {
         id: "demo-user-4",
-        username: "quebec_winter",
-        display_name: "Hiver Québécois",
+        username: "mexico_winter",
+        display_name: "Hiver Mexicano",
         avatar_url: null,
         is_verified: false,
         created_at: new Date().toISOString(),
@@ -631,7 +631,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       comment_count: 31,
       created_at: new Date(Date.now() - 10800000).toISOString(),
       visibility: "public",
-      hive_id: "quebec",
+      hive_id: "mexico",
       is_moderated: false,
       moderation_approved: true,
       is_hidden: false,
@@ -643,17 +643,17 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       id: "demo-5",
       user_id: "demo-user-5",
       type: "video" as const,
-      caption: "Quebec City old town 🏰⚜️",
+      caption: "Mexico City old town 🏰⚜️",
       media_url:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
       mediaUrl:
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-      thumbnail_url: "/demo/quebec_city.png",
-      thumbnailUrl: "/demo/quebec_city.png",
+      thumbnail_url: "/demo/mexico_city.png",
+      thumbnailUrl: "/demo/mexico_city.png",
       user: {
         id: "demo-user-5",
-        username: "vieux_quebec",
-        display_name: "Vieux Québec",
+        username: "vieux_mexico",
+        display_name: "Vieux México",
         avatar_url: null,
         is_verified: true,
         created_at: new Date().toISOString(),
@@ -671,7 +671,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
       comment_count: 56,
       created_at: new Date(Date.now() - 14400000).toISOString(),
       visibility: "public",
-      hive_id: "quebec",
+      hive_id: "mexico",
       is_moderated: false,
       moderation_approved: true,
       is_hidden: false,
@@ -1248,7 +1248,7 @@ export const ContinuousFeed: React.FC<ContinuousFeedProps> = ({
   const handleShare = useCallback(async (postId: string) => {
     const url = `${window.location.origin}/p/${postId}`;
     if (navigator.share) {
-      await navigator.share({ title: "Zyeuté", url });
+      await navigator.share({ title: "Ojea", url });
     } else {
       await navigator.clipboard.writeText(url);
     }

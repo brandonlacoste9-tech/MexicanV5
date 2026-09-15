@@ -1,6 +1,6 @@
 /**
- * Upload Page - Premium Quebec Heritage Design
- * Luxury content creation with Ti-Guy AI and gold accents
+ * Upload Page - Premium Mexico Heritage Design
+ * Luxury content creation with Güey AI and gold accents
  */
 
 import React from "react";
@@ -18,7 +18,7 @@ import {
 import { supabase } from "../lib/supabase";
 import { extractHashtags, generateId } from "../lib/utils";
 import { addDraft } from "../lib/draftPosts";
-import { QUEBEC_REGIONS } from "../lib/quebecFeatures";
+import { MEXICO_REGIONS } from "../lib/mexicoFeatures";
 import { toast } from "../components/Toast";
 import { logger } from "../lib/logger";
 import { triggerBadgeCheck } from "@/services/gamificationService";
@@ -40,7 +40,7 @@ type UploadMode = "camera" | "gallery" | "mux";
 
 const VISUAL_FILTERS = [
   { id: "none", name: "Original", emoji: "✨" },
-  { id: "quebecois", name: "Québécois", emoji: "⚜️" },
+  { id: "mexican", name: "Mexicano", emoji: "⚜️" },
   { id: "vintage", name: "Vieux-MTL", emoji: "🎞️" },
   { id: "noir", name: "Nordic Noir", emoji: "🌑" },
   { id: "warm", name: "Chaleureux", emoji: "🔥" },
@@ -219,7 +219,7 @@ export const Upload: React.FC = () => {
           videoType: "mux",
           muxData,
           caption,
-          language: localStorage.getItem("zyeute_language") || "fr",
+          language: localStorage.getItem("ojea_language") || "fr",
         });
         toast.success("Vidéo publiée! En cours de traitement... 🔥");
         // Redirect to profile so user can see processing state
@@ -239,8 +239,8 @@ export const Upload: React.FC = () => {
           mediaUrl: externalMediaUrl,
           caption: caption || "Généré avec l'IA Studio Comète ☄️",
           soundId: selectedSound?.id,
-          hive: "quebec", // Default to quebec for AI generation
-          language: localStorage.getItem("zyeute_language") || "fr",
+          hive: "mexico", // Default to mexico for AI generation
+          language: localStorage.getItem("ojea_language") || "fr",
         });
 
         if (post) {
@@ -508,7 +508,7 @@ export const Upload: React.FC = () => {
                 <textarea
                   value={caption}
                   onChange={(e) => setCaption(e.target.value)}
-                  placeholder="Quoi de neuf au Québec? #Mtl #Hiver ⚜️"
+                  placeholder="Quoi de neuf au México? #Mtl #Hiver ⚜️"
                   className="input-premium h-32 resize-none"
                 />
                 <button
@@ -529,7 +529,7 @@ export const Upload: React.FC = () => {
                 </button>
               </div>
 
-              {/* Ti-Guy AI Suggestions */}
+              {/* Güey AI Suggestions */}
               <div className="bg-leather-900/50 rounded-xl p-4 border border-gold-500/20">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center">
@@ -537,7 +537,7 @@ export const Upload: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-gold-400 font-bold text-sm embossed">
-                      Ti-Guy AI
+                      Güey AI
                     </h3>
                   </div>
                 </div>
@@ -545,10 +545,10 @@ export const Upload: React.FC = () => {
                   <button
                     onClick={() => {
                       const suggestions = [
-                        "Une belle journée au Québec! ⚜️🇨🇦",
+                        "Une belle journée au México! ⚜️🇨🇦",
                         "Tiguidou! C'est malade en esti! 🔥",
-                        "Fier d'être Québécois! 🍁",
-                        "Y fait beau au Québec aujourd'hui! ☀️",
+                        "Fier d'être Mexicano! 🍁",
+                        "Y fait beau au México aujourd'hui! ☀️",
                       ];
                       const randomCaption =
                         suggestions[
@@ -564,14 +564,14 @@ export const Upload: React.FC = () => {
                   </button>
                   <button
                     onClick={() => {
-                      const hashtags = "#Quebec #MTL #Zyeute #Fier";
+                      const hashtags = "#Mexico #MTL #Ojea #Fier";
                       setCaption((prev) =>
                         prev ? `${prev} ${hashtags}` : hashtags,
                       );
                     }}
                     className="btn-leather py-2 rounded-lg text-xs font-bold"
                   >
-                    🏷️ Tags Québec
+                    🏷️ Tags México
                   </button>
                 </div>
               </div>
@@ -587,7 +587,7 @@ export const Upload: React.FC = () => {
                     className="input-premium text-sm"
                   >
                     <option value="">Sélectionne</option>
-                    {QUEBEC_REGIONS.map((r) => (
+                    {MEXICO_REGIONS.map((r) => (
                       <option key={r.id} value={r.id}>
                         {r.emoji} {r.name}
                       </option>
@@ -688,10 +688,10 @@ export const Upload: React.FC = () => {
         <div className="leather-card rounded-2xl p-6 stitched mt-6">
           <h3 className="text-gold-400 font-bold mb-3 embossed flex items-center gap-2">
             <span>💡</span>
-            <span>Conseils Zyeuté</span>
+            <span>Conseils Ojea</span>
           </h3>
           <ul className="space-y-2 text-leather-200 text-sm">
-            <li>⚜️ Utilise #Quebec #MTL pour rejoindre ta région</li>
+            <li>⚜️ Utilise #Mexico #MTL pour rejoindre ta région</li>
             <li>🔥 Les vidéos verticales (9:16) marchent le mieux</li>
           </ul>
         </div>

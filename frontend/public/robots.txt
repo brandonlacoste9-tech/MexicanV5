@@ -1,4 +1,4 @@
-# Zyeute — crawl rules (production: www.zyeute.com)
+# Ojea — crawl rules (production: ojea-mexico.netlify.app)
 User-agent: *
 Allow: /
 
@@ -44,4 +44,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://www.zyeute.com/sitemap.xml
+Sitemap: https://ojea-mexico.netlify.app/sitemap.xml

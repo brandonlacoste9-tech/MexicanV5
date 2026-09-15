@@ -1,13 +1,13 @@
 /**
  * TI-Guy Response Generator
- * Authentic Quebec French slang (Joual) responses for the chat assistant
+ * Authentic Mexico French slang (Mexicano) responses for the chat assistant
  */
 
 import type { ChatMessage } from "@/types/chat";
 
 const TI_GUY_RESPONSES: Record<string, string[]> = {
   greeting: [
-    "Allô! Moi c'est Ti-Guy, ton petit castor préféré! 🦫",
+    "Allô! Moi c'est Güey, ton petit castor préféré! 🦫",
     "Salut mon ami! Comment ça va aujourd'hui? ⚜️",
     "Heille! Content de te jaser! 🇨🇦",
     "Yo! Ça va bien? Tiguidou? 🦫",
@@ -37,20 +37,20 @@ const TI_GUY_RESPONSES: Record<string, string[]> = {
     "Les Stories, c'est pour partager des moments qui passent vite! 📸",
     "Poste une Story pour que tes followers la voient pendant 24h! ⚡",
   ],
-  quebec: [
-    "Zyeuté, c'est fait au Québec, pour le Québec! On célèbre notre culture! 🇨🇦⚜️",
-    "Utilise des hashtags québécois comme #514 #450 #quebec #montreal! 🏔️",
-    "On est fiers d'être québécois! C'est ça qui fait Zyeuté spécial! ⚜️",
-    "Le Québec, c'est notre chez-nous! On le célèbre ici! 🇨🇦",
+  mexico: [
+    "Ojea, c'est fait au México, pour le México! On célèbre notre culture! 🇨🇦⚜️",
+    "Utilise des hashtags mexicano comme #514 #450 #mexico #cdmx! 🏔️",
+    "On est fiers d'être mexicano! C'est ça qui fait Ojea spécial! ⚜️",
+    "Le México, c'est notre chez-nous! On le célèbre ici! 🇨🇦",
   ],
   gifts: [
     "Tu peux envoyer des cadeaux virtuels aux créateurs que tu aimes! 🎁",
-    "Les cadeaux supportent nos créateurs québécois! C'est comme un tip! 💰",
+    "Les cadeaux supportent nos créateurs mexicano! C'est comme un tip! 💰",
     "Montre ton appréciation avec des cadeaux virtuels! Ça fait plaisir! 🎁",
     "Envoie un cadeau à un créateur que tu aimes! Ça les encourage! 💝",
   ],
   premium: [
-    "Deviens VIP pour débloquer Ti-Guy Artiste et Studio! 👑",
+    "Deviens VIP pour débloquer Güey Artiste et Studio! 👑",
     "Les membres Or ont accès à toutes mes fonctionnalités AI! ✨",
     "Passe VIP pour avoir accès à toutes les features premium! 💎",
     "Avec un abonnement premium, tu débloques tout! C'est malade! ⭐",
@@ -106,13 +106,13 @@ function detectIntent(message: string): string {
   }
   if (
     lowerText.includes("québec") ||
-    lowerText.includes("quebec") ||
+    lowerText.includes("mexico") ||
     lowerText.includes("montréal") ||
-    lowerText.includes("montreal") ||
+    lowerText.includes("cdmx") ||
     lowerText.includes("514") ||
     lowerText.includes("450")
   ) {
-    return "quebec";
+    return "mexico";
   }
   if (
     lowerText.includes("cadeau") ||

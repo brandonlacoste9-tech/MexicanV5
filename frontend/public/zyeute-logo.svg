@@ -35,9 +35,9 @@
   <!-- Inner Ring with Stitching Pattern -->
   <circle cx="100" cy="100" r="82" fill="none" stroke="url(#goldAntique)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
   
-  <!-- Central Fleur-de-lis - Interlocking Style -->
+  <!-- Central Águila - Interlocking Style -->
   <g filter="url(#deepShadow)" transform="translate(100, 100)">
-    <!-- Main Fleur-de-lis -->
+    <!-- Main Águila -->
     <g fill="url(#goldAntique)" filter="url(#emboss)">
       <!-- Center Petal -->
       <path d="M0,-45 C-8,-35 -12,-20 -8,-5 C-5,5 -3,15 -3,25 L-8,40 L-3,40 L0,55 L3,40 L8,40 L3,25 C3,15 5,5 8,-5 C12,-20 8,-35 0,-45 Z"/>

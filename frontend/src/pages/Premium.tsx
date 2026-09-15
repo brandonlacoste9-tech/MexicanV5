@@ -23,14 +23,14 @@ export default function Premium() {
   useSEO({
     title: "Abonnements VIP — Bronze, Argent et Or",
     description:
-      "Débloque des fonctionnalités exclusives sur Zyeute. Abonnements Bronze (4,99$/mois), Argent (9,99$/mois) et Or (19,99$/mois). Badges exclusifs, filtres premium, cennes mensuels et plus.",
+      "Débloque des fonctionnalités exclusives sur Ojea. Abonnements Bronze (4,99$/mois), Argent (9,99$/mois) et Or (19,99$/mois). Badges exclusifs, filtres premium, cennes mensuels et plus.",
     url: "/premium",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "Product",
-      name: "Zyeute Premium",
-      description: "Abonnements VIP pour la plateforme vidéo québécoise Zyeute",
-      brand: { "@type": "Brand", name: "Zyeute" },
+      name: "Ojea Premium",
+      description: "Abonnements VIP pour la plateforme vidéo mexicana Ojea",
+      brand: { "@type": "Brand", name: "Ojea" },
       offers: [
         {
           "@type": "Offer",
@@ -75,7 +75,7 @@ export default function Premium() {
     const canceled = params.get("canceled");
 
     if (success === "true") {
-      toast.success("🎉 Abonnement activé! Bienvenue dans le VIP Zyeuté!");
+      toast.success("🎉 Abonnement activé! Bienvenue dans le VIP Ojea!");
       // Refresh subscription status to reflect new tier
       refresh();
       // Clean URL
@@ -119,7 +119,7 @@ export default function Premium() {
             : [
                 "⚜️ Badge Bronze vérifié",
                 "🚫 Pas de publicités",
-                "🦫 Accès Ti-Guy chat",
+                "🦫 Accès Güey chat",
                 "💬 Support prioritaire",
                 "🔥 Boost de visibilité x2",
               ],
@@ -220,7 +220,7 @@ export default function Premium() {
                 "🔥 Boost visibilité x5",
                 "🎁 500 cennes/mois",
                 "💼 Outils créateurs PRO",
-                "🦫 Ti-Guy VIP exclusif",
+                "🦫 Güey VIP exclusif",
                 "🎯 Statistiques complètes",
               ],
       gradient: "from-yellow-500 via-yellow-400 to-yellow-600",
@@ -256,10 +256,10 @@ export default function Premium() {
             <span className="text-4xl">👑</span>
           </div>
           <h1 className="text-4xl font-black text-gold-400 mb-2 embossed tracking-tight">
-            Zyeuté VIP
+            Ojea VIP
           </h1>
           <p className="text-leather-200 text-lg embossed">
-            L&apos;expérience premium québécoise
+            L&apos;expérience premium mexicana
           </p>
         </div>
         {/* Gold accent lines */}
@@ -282,7 +282,7 @@ export default function Premium() {
               </span>
             </div>
             <p className="text-leather-300 mt-4">
-              Merci de supporter Zyeuté! ⚜️
+              Merci de supporter Ojea! ⚜️
             </p>
           </div>
         )}
@@ -419,7 +419,7 @@ export default function Premium() {
               <div>
                 <h3 className="text-white font-bold mb-1">Zéro publicités</h3>
                 <p className="text-leather-300 text-sm">
-                  Profite du feed sans interruptions — pure expérience Zyeute
+                  Profite du feed sans interruptions — pure expérience Ojea
                 </p>
               </div>
             </div>
@@ -482,7 +482,7 @@ export default function Premium() {
                 <span className="text-2xl">🦫</span>
               </div>
               <div>
-                <h3 className="text-white font-bold mb-1">Ti-Guy VIP</h3>
+                <h3 className="text-white font-bold mb-1">Güey VIP</h3>
                 <p className="text-leather-300 text-sm">
                   Accès exclusif aux nouvelles fonctionnalités AI
                 </p>
@@ -571,11 +571,11 @@ export default function Premium() {
         </div>
       </div>
 
-      {/* Quebec Pride Footer */}
+      {/* Mexico Pride Footer */}
       <div className="text-center py-8 text-leather-400 text-sm">
         <p className="flex items-center justify-center gap-2">
           <span className="text-gold-500">⚜️</span>
-          <span>Supporte les créateurs québécois</span>
+          <span>Supporte les créateurs mexicano</span>
           <span className="text-gold-500">⚜️</span>
         </p>
       </div>

@@ -36,24 +36,24 @@ function serializeErrorDetail(error: unknown): string {
   return String(error);
 }
 
-// Sample Pexels video URLs for Quebec-themed content
+// Sample Pexels video URLs for Mexico-themed content
 const SAMPLE_VIDEOS = [
   {
-    caption: "🎬 Bienvenue sur Zyeuté! #Quebec #Video",
+    caption: "🎬 Bienvenue sur Ojeá! #Mexico #Video",
     media_url:
       "https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4",
     thumbnail:
       "https://images.pexels.com/videos/857251/pexels-photo-857251.jpeg",
   },
   {
-    caption: "🌆 La ville de Montréal la nuit #Montreal #Night",
+    caption: "🌆 La ville de Montréal la nuit #CDMX #Night",
     media_url:
       "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
     thumbnail:
       "https://images.pexels.com/videos/3214448/pexels-photo-3214448.jpeg",
   },
   {
-    caption: "🍁 Beauté du Québec #Nature #Quebec",
+    caption: "🍁 Beauté du Québec #Nature #Mexico",
     media_url:
       "https://videos.pexels.com/video-files/4824363/4824363-uhd_2560_1440_30fps.mp4",
     thumbnail:
@@ -74,7 +74,7 @@ const SAMPLE_VIDEOS = [
       "https://images.pexels.com/videos/4763824/pexels-photo-4763824.jpeg",
   },
   {
-    caption: "🎵 Musique québécoise #Musique #Quebec",
+    caption: "🎵 Musique québécoise #Musique #Mexico",
     media_url:
       "https://videos.pexels.com/video-files/2278095/2278095-uhd_2560_1440_30fps.mp4",
     thumbnail:
@@ -88,7 +88,7 @@ const SAMPLE_VIDEOS = [
       "https://images.pexels.com/videos/1448735/pexels-photo-1448735.jpeg",
   },
   {
-    caption: "🍺 Microbrasserie québécoise #Bière #Quebec",
+    caption: "🍺 Microbrasserie québécoise #Bière #Mexico",
     media_url:
       "https://videos.pexels.com/video-files/3066561/3066561-uhd_2560_1440_30fps.mp4",
     thumbnail:
@@ -102,7 +102,7 @@ const SAMPLE_VIDEOS = [
       "https://images.pexels.com/videos/2611709/pexels-photo-2611709.jpeg",
   },
   {
-    caption: "🎨 Art de rue Montréal #StreetArt #Montreal",
+    caption: "🎨 Art de rue Montréal #StreetArt #CDMX",
     media_url:
       "https://videos.pexels.com/video-files/4761395/4761395-uhd_2560_1440_25fps.mp4",
     thumbnail:
@@ -163,8 +163,8 @@ router.post("/feed", async (req, res) => {
           thumbnail_url: video.thumbnail,
           type: "video",
           visibility: "public",
-          hive_id: "quebec",
-          region_id: "montreal",
+          hive_id: "mexico",
+          region_id: "cdmx",
           city: "Montréal",
           reactions_count: Math.floor(Math.random() * 50) + 5,
           comments_count: Math.floor(Math.random() * 10),
@@ -364,7 +364,7 @@ router.post("/mexico", async (req, res) => {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Use Brandon's account as the seed author (same as Quebec)
+    // Use Brandon's account as the seed author (same as Mexico)
     const BRANDON_ID = "46db6dc0-060d-4ffd-ba5e-0dfe46878855";
 
     const insertedPosts = [];
@@ -447,11 +447,11 @@ router.post("/providers", async (req, res) => {
       flag("pexels") || flag("pixabay") || flag("apify") || flag("apify_only");
     const force =
       q.force === "1" || q.force === "true" || req.body?.force === true;
-    const { replenishQuebecFeedPool, seedFeedProviders } =
+    const { replenishMexicoFeedPool, seedFeedProviders } =
       await import("../services/feed-seed-providers.js");
 
     if (force || q.target) {
-      const result = await replenishQuebecFeedPool({
+      const result = await replenishMexicoFeedPool({
         supabaseUrl,
         supabaseServiceKey: supabaseKey,
         force: true,
@@ -472,8 +472,8 @@ router.post("/providers", async (req, res) => {
       supabaseUrl,
       supabaseServiceKey: supabaseKey,
       limitPerProvider: limit,
-      hiveId: (q.hive as string) || "quebec",
-      regionId: (q.region as string) || "montreal",
+      hiveId: (q.hive as string) || "mexico",
+      regionId: (q.region as string) || "cdmx",
       pexels: flag("pexels"),
       pixabay: flag("pixabay"),
       apify: flag("apify") || flag("apify_only") || !anySet,
@@ -565,7 +565,7 @@ router.post("/tikapi", async (req, res) => {
       force,
       maxImport:
         Number.isFinite(maxImport) && maxImport! > 0 ? maxImport : undefined,
-      hiveId: (req.query.hive as string) || "quebec",
+      hiveId: (req.query.hive as string) || "mexico",
     });
 
     if (!result.triggered && result.imported === 0) {
@@ -613,7 +613,7 @@ router.post("/omkar", async (req, res) => {
       force,
       maxImport:
         Number.isFinite(maxImport) && maxImport! > 0 ? maxImport : undefined,
-      hiveId: (req.query.hive as string) || "quebec",
+      hiveId: (req.query.hive as string) || "mexico",
     });
 
     if (!result.triggered && result.imported === 0) {
@@ -666,7 +666,7 @@ router.post("/mux-backfill", async (req, res) => {
       supabaseUrl,
       supabaseServiceKey: supabaseKey,
       limit: Number.isFinite(limit) && limit > 0 ? limit : 10,
-      hiveId: (req.query.hive as string) || "quebec",
+      hiveId: (req.query.hive as string) || "mexico",
     });
 
     res.json({
@@ -720,7 +720,7 @@ router.post("/seedance", async (req, res) => {
       supabaseUrl,
       supabaseServiceKey: supabaseKey,
       limit: Number.isFinite(limit) && limit > 0 ? limit : 1,
-      hiveId: (req.query.hive as string) || "quebec",
+      hiveId: (req.query.hive as string) || "mexico",
       prompts: customPrompt ? [customPrompt] : undefined,
     });
 

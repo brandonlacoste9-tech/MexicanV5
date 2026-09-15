@@ -25,11 +25,11 @@ export const DesktopHeader: React.FC = () => {
             </div>
           </div>
           <span className="text-xl font-black tracking-tighter uppercase text-white">
-            ZYEUTÉ
+            OJEA
           </span>
         </Link>
         <a
-          href="https://hublife.ca/?from=network&via=zyeute&utm_source=north_network&utm_medium=cross_app&utm_campaign=zyeute_home"
+          href="https://hublife.ca/?from=network&via=ojea&utm_source=north_network&utm_medium=cross_app&utm_campaign=ojea_home"
           className="ml-2 text-[11px] font-semibold tracking-wide text-amber-200/90 hover:text-amber-50 border border-amber-500/35 bg-amber-500/10 px-2.5 py-1 rounded-full transition-colors"
           title="North Network home"
         >
@@ -62,7 +62,7 @@ export const DesktopHeader: React.FC = () => {
         <Link
           to="/arcade"
           className="p-2 rounded-full bg-[#1a0f2e] border border-cyan-500/50 hover:bg-cyan-900/40 hover:scale-110 transition-all group flex items-center justify-center shadow-[0_0_10px_rgba(6,182,212,0.3)] hover:shadow-[0_0_15px_rgba(6,182,212,0.6)]"
-          title="Zyeuté Arcade"
+          title="Ojea Arcade"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

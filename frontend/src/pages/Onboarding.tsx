@@ -1,6 +1,6 @@
 /**
  * Onboarding Page — 5-step walkthrough for new users
- * Shown once on first login. Skipped if localStorage("zyeute_onboarded") is set.
+ * Shown once on first login. Skipped if localStorage("ojea_onboarded") is set.
  */
 
 import React, { useState, useEffect } from "react";
@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 
 const API_BASE =
-  import.meta.env.VITE_API_URL || "https://zyeutev5-1.onrender.com";
+  import.meta.env.VITE_API_URL || "https://ojea-api.onrender.com";
 
 // ─────────────────────────────── DATA ────────────────────────────────
 
 const REGIONS = [
-  "Montréal",
-  "Québec",
+  "Ciudad de México",
+  "México",
   "Laval",
   "Gatineau",
   "Sherbrooke",
@@ -35,7 +35,7 @@ const INTERESTS = [
   { emoji: "🎨", label: "Art" },
   { emoji: "🎮", label: "Gaming" },
   { emoji: "🎭", label: "Arts & spectacles" },
-  { emoji: "🎬", label: "Cinéma québécois" },
+  { emoji: "🎬", label: "Cinéma mexicano" },
 ];
 
 const GOLD = "#DAA520";
@@ -181,7 +181,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
 
   // Guard: skip if already onboarded (page mode only)
   useEffect(() => {
-    if (!overlay && localStorage.getItem("zyeute_onboarded")) {
+    if (!overlay && localStorage.getItem("ojea_onboarded")) {
       navigate("/feed", { replace: true });
     }
   }, [navigate, overlay]);
@@ -195,8 +195,8 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
   const completeOnboarding = () => {
     // Persist the completion flag under both keys so neither onboarding surface
     // (this 5-step page and the feed overlay) re-triggers after completion.
-    localStorage.setItem("zyeute_onboarded", "true");
-    localStorage.setItem("zyeute_onboarding_complete", "true");
+    localStorage.setItem("ojea_onboarded", "true");
+    localStorage.setItem("ojea_onboarding_complete", "true");
     // Always land on the feed. In overlay mode also close the sheet.
     if (overlay && onClose) {
       onClose();
@@ -317,7 +317,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
                   viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  aria-label="Zyeute logo"
+                  aria-label="Ojea logo"
                 >
                   <path
                     d="M8 12 L24 12 L8 28 L24 28"
@@ -345,7 +345,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
                   letterSpacing: "-0.02em",
                 }}
               >
-                Bienvenue sur Zyeute! 🎉⚜️
+                Bienvenue sur Ojea! 🎉⚜️
               </h1>
               <p
                 style={{
@@ -356,7 +356,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
                   margin: "0 auto 8px",
                 }}
               >
-                L&apos;app sociale 100% québécoise
+                L&apos;app sociale 100% mexicana
               </p>
               <p
                 style={{
@@ -384,8 +384,8 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
               {[
                 {
                   icon: "🍁",
-                  title: "Fait au Québec",
-                  desc: "Pour les Québécois, par les Québécois",
+                  title: "Fait au México",
+                  desc: "Pour les Mexicano, par les Mexicano",
                 },
                 {
                   icon: "🎥",
@@ -555,7 +555,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Où es-tu au Québec?
+                Où es-tu au México?
               </h1>
               <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 14 }}>
                 On va personnaliser ton fil selon ta région.
@@ -835,7 +835,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
                   margin: "0 auto 8px",
                 }}
               >
-                Ton profil est configuré. Explore le contenu québécois qui
+                Ton profil est configuré. Explore le contenu mexicano qui
                 t&apos;attend!
               </p>
 
@@ -883,7 +883,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ overlay, onClose }) => {
                 onClick={handleFinish}
                 disabled={isSaving}
               >
-                {isSaving ? "Enregistrement..." : "Explorer Zyeute 🍁"}
+                {isSaving ? "Enregistrement..." : "Explorer Ojea 🍁"}
               </button>
             </div>
           </div>

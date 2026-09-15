@@ -153,10 +153,10 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </Link>
 
-          {/* Québec Or emblem — top right, small */}
+          {/* México Or emblem — top right, small */}
           <img
-            src="/quebec-emblem.png"
-            alt="Québec Or"
+            src="/mexico-emblem.png"
+            alt="México Or"
             className="h-7 w-auto object-contain ml-1 shrink-0 opacity-90 hover:opacity-100 transition-opacity"
             width={28}
             height={28}

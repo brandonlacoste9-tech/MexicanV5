@@ -17,9 +17,9 @@ export function calculateCulturalMomentum(
   },
   hoursSincePosted: number,
 ): number {
-  // 1. The Static Baseline (Ti-Guy's Analysis)
+  // 1. The Static Baseline (Güey's Analysis)
   const baseScore =
-    (post as unknown as { quebecScore: number }).quebecScore || 0;
+    (post as unknown as { mexicoScore: number }).mexicoScore || 0;
 
   // 2. The Soul Signal (The Hive's Reaction)
   // Weighted engagement

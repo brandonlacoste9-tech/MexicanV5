@@ -2,7 +2,7 @@
  * Evaluation Framework for Agent and Service Testing
  *
  * This module provides utilities for evaluating AI agents, services,
- * and other components in the Zyeuté application.
+ * and other components in the Ojea application.
  */
 
 export interface EvaluationResult {

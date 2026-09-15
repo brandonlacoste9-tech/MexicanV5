@@ -1,5 +1,5 @@
 /**
- * ChatZyeute - Complete messaging component with all features wired
+ * ChatOjea - Complete messaging component with all features wired
  * TI-GUY AI + Real User Messaging + Voice + File Sharing
  */
 
@@ -111,12 +111,12 @@ function useVoiceRecorder() {
   };
 }
 
-interface ChatZyeuteProps {
+interface ChatOjeaProps {
   conversation?: Conversation;
   onBack?: () => void;
 }
 
-export const ChatZyeute: React.FC<ChatZyeuteProps> = ({
+export const ChatOjea: React.FC<ChatOjeaProps> = ({
   conversation: initialConversation,
   onBack,
 }) => {
@@ -262,7 +262,7 @@ export const ChatZyeute: React.FC<ChatZyeuteProps> = ({
 
   // Format time
   const formatTime = (date: string) => {
-    return new Date(date).toLocaleTimeString("fr-CA", {
+    return new Date(date).toLocaleTimeString("es-MX", {
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -510,7 +510,7 @@ export const ChatZyeute: React.FC<ChatZyeuteProps> = ({
         onUpload={handleFileUpload}
       />
 
-      {/* OVH Cloud Montréal Badge */}
+      {/* OVH Cloud Ciudad de México Badge */}
       <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20">
         <OVHCloudBadge variant="minimal" />
       </div>
@@ -518,4 +518,4 @@ export const ChatZyeute: React.FC<ChatZyeuteProps> = ({
   );
 };
 
-export default ChatZyeute;
+export default ChatOjea;

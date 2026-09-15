@@ -265,7 +265,7 @@ router.get("/explore/supabase", async (req, res) => {
       50,
       Math.max(1, parseInt(req.query.limit as string, 10) || 20),
     );
-    const hiveId = (req.query.hive as string) || "quebec";
+    const hiveId = (req.query.hive as string) || "mexico";
     const region = req.query.region as string | undefined;
 
     const selectFields = `

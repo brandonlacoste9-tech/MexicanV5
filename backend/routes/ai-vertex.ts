@@ -88,7 +88,7 @@ router.post("/chat", aiRateLimiter, requireAuth, async (req, res) => {
     res
       .status(500)
       .json({
-        error: error.message || "Ti-Guy est fatigué, réessaie plus tard!",
+        error: error.message || "Güey est fatigué, réessaie plus tard!",
       });
   }
 });
@@ -164,14 +164,14 @@ router.post("/generate-image", aiRateLimiter, requireAuth, async (req, res) => {
 // French Audio Transcription
 router.post("/transcribe", aiRateLimiter, requireAuth, async (req, res) => {
   try {
-    const { audioData, language = "fr-CA" } = req.body;
+    const { audioData, language = "es-MX" } = req.body;
     if (!audioData)
       return res.status(400).json({ error: "Audio data is required" });
 
     const audioBuffer = Buffer.from(audioData, "base64");
     const result: TranscriptionResult = await transcribeAudio(
       audioBuffer,
-      language as "fr-CA" | "fr-FR" | "en-US",
+      language as "es-MX" | "fr-FR" | "en-US",
     );
     res.json(result);
   } catch (error: any) {
@@ -204,7 +204,7 @@ router.post("/transcribe-video", aiRateLimiter, requireAuth, upload.single("vide
     const audioBuffer = await fs.readFile(audioPath);
 
     // Transcribe
-    const result: TranscriptionResult = await transcribeAudio(audioBuffer, "fr-CA");
+    const result: TranscriptionResult = await transcribeAudio(audioBuffer, "es-MX");
 
     // Cleanup
     await fs.unlink(videoPath).catch(() => {});

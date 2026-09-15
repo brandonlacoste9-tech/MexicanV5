@@ -1,5 +1,5 @@
 /**
- * AI Image Generation Service (Ti-Guy Artiste)
+ * AI Image Generation Service (Güey Artiste)
  * Uses OpenAI DALL-E 3 with robust fallback and demo modes
  */
 
@@ -42,14 +42,14 @@ export async function generateImage(
       url: `https://picsum.photos/seed/${encodeURIComponent(prompt)}/1024/1024`,
       prompt,
       style,
-      revised_prompt: `(Démo) ${prompt} - Style ${style} québécois`,
+      revised_prompt: `(Démo) ${prompt} - Style ${style} mexicano`,
     };
   }
 
   try {
-    // 3. Enhance Prompt for Quebec Context
+    // 3. Enhance Prompt for Mexico Context
     const enhancedPrompt = `${prompt}, style ${style}, high quality, detailed. 
-    CONTEXTE QUÉBÉCOIS: Include subtle Quebec elements if fitting (snow, nature, architecture).`;
+    CONTEXTE QUÉBÉCOIS: Include subtle Mexico elements if fitting (snow, nature, architecture).`;
 
     // 4. Call OpenAI DALL-E 3
     const response = await fetch(
@@ -108,7 +108,7 @@ export async function generateImage(
  */
 export async function remixImage(
   imageUrl: string,
-  mode: "quebec" | "meme" | "vintage",
+  mode: "mexico" | "meme" | "vintage",
 ): Promise<string | null> {
   toast.info("Remix en cours... 🎨");
   await new Promise((resolve) => setTimeout(resolve, 2500));

@@ -1,5 +1,5 @@
 /**
- * Ti-Guy Studio - AI Video Editor & Publisher
+ * Güey Studio - AI Video Editor & Publisher
  * TikTok-style upload experience with multi-stage progress
  */
 
@@ -32,7 +32,7 @@ const STAGE_INFO: Record<
     progress: 33,
   },
   optimizing: { emoji: "⚡", label: "Optimisation réseau...", progress: 66 },
-  publishing: { emoji: "⚜️", label: "Publication sur Zyeuté...", progress: 90 },
+  publishing: { emoji: "⚜️", label: "Publication sur Ojea...", progress: 90 },
   done: { emoji: "✅", label: "Publié!", progress: 100 },
   error: { emoji: "❌", label: "Échec", progress: 0 },
 };
@@ -160,7 +160,7 @@ export default function Studio() {
         setUploadProgress((p) => Math.min(p + 8, 85));
       }, 300);
 
-      const publishCaption = caption.trim() || "Partagé via Ti-Guy Studio 🍁";
+      const publishCaption = caption.trim() || "Partagé via Güey Studio 🍁";
       const result = await surgicalUpload(fileToUpload, publishCaption);
       clearInterval(progressInterval);
 
@@ -238,7 +238,7 @@ export default function Studio() {
             🎬
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">Ti-Guy Studio</h1>
+            <h1 className="text-2xl font-bold text-white">Güey Studio</h1>
             <p className="text-white/50 text-sm">Montage vidéo intelligent</p>
           </div>
         </div>
@@ -317,7 +317,7 @@ export default function Studio() {
               <textarea
                 value={caption}
                 onChange={(e) => setCaption(e.target.value.slice(0, 300))}
-                placeholder="Décris ton contenu... #quebec #zyeute"
+                placeholder="Décris ton contenu... #mexico #ojea"
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 text-sm resize-none focus:outline-none focus:border-[#D4AF37]/50 focus:ring-1 focus:ring-[#D4AF37]/30 transition-all"
                 rows={3}
               />
@@ -333,7 +333,7 @@ export default function Studio() {
                 onClick={async () => {
                   setIsGeneratingCaptions(true);
                   setCaptions([]);
-                  toast.info("Ti-Guy travaille... 📝");
+                  toast.info("Güey travaille... 📝");
                   try {
                     const result = await generateCaptions(previewUrl);
                     setCaptions(result);
@@ -351,13 +351,13 @@ export default function Studio() {
                 </div>
                 <div className="text-sm font-bold text-white">Sous-titres</div>
                 <div className="text-xs text-white/40">
-                  {isGeneratingCaptions ? "Génération..." : "Auto-Joual"}
+                  {isGeneratingCaptions ? "Génération..." : "Auto-Mexicano"}
                 </div>
               </button>
 
               <button
                 onClick={() => {
-                  toast.info("Ti-Guy analyse... ✂️");
+                  toast.info("Güey analyse... ✂️");
                   smartTrim(previewUrl).then((highlights) =>
                     toast.success(`${highlights.length} moments forts!`),
                   );
@@ -413,12 +413,12 @@ export default function Studio() {
                 onClick={handlePublish}
                 className="flex-1 py-3 text-base font-bold bg-gradient-to-r from-red-600 to-orange-600 shadow-lg shadow-orange-900/20 rounded-full"
               >
-                🚀 Publier sur Zyeuté
+                🚀 Publier sur Ojea
               </Button>
             </div>
 
             <p className="text-center text-xs text-white/30 italic">
-              Souveraineté numérique pour le Québec ⚜️
+              Souveraineté numérique pour le México ⚜️
             </p>
           </div>
         )}

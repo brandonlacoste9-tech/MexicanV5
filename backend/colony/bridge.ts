@@ -1,5 +1,5 @@
 /**
- * Zyeuté -> Colony OS Bridge
+ * Ojea -> Colony OS Bridge
  * Sends metrics to the Colony OS Architect View
  * Silently no-ops when Colony OS is not available
  */
@@ -24,14 +24,14 @@ export async function sendMetricsToColony(metrics: Record<string, any>) {
     return false;
   }
 
-  const ENDPOINT = `${COLONY_URL}/api/zyeute-metrics`;
+  const ENDPOINT = `${COLONY_URL}/api/ojea-metrics`;
 
   try {
     const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-source": "zyeute-v3",
+        "x-source": "ojea-v3",
       },
       body: JSON.stringify({
         timestamp: new Date().toISOString(),

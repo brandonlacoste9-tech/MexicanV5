@@ -65,7 +65,7 @@ export function ReportPostSheet({
           Signaler ou bloquer
         </p>
         <p className="text-xs text-zinc-400 mb-3 text-center">
-          Aide-nous à garder Zyeuté sécuritaire.
+          Aide-nous à garder Ojea sécuritaire.
         </p>
         <div className="space-y-2">
           {REASONS.map((r) => (

@@ -31,7 +31,7 @@ ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "moderation_approved" boolea
 ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "moderation_score" integer DEFAULT 0;
 ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "moderated_at" timestamp;
 
-ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "hive_id" text DEFAULT 'quebec';
+ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "hive_id" text DEFAULT 'mexico';
 ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "is_ephemeral" boolean DEFAULT false;
 ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "view_count" integer DEFAULT 0;
 ALTER TABLE "publications" ADD COLUMN IF NOT EXISTS "max_views" integer;
@@ -61,8 +61,8 @@ ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "subscription_tier" text DE
 ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "location" geography(Point, 4326);
 ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "city" text;
 ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "region_id" text;
-ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "ti_guy_comments_enabled" boolean DEFAULT true;
-ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "hive_id" text DEFAULT 'quebec';
+ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "guey_comments_enabled" boolean DEFAULT true;
+ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "hive_id" text DEFAULT 'mexico';
 ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "karma_credits" integer DEFAULT 0;
 ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "cash_credits" integer DEFAULT 0;
 ALTER TABLE "user_profiles" ADD COLUMN IF NOT EXISTS "total_gifts_sent" integer DEFAULT 0;

@@ -1,6 +1,6 @@
 /**
  * MuxVideoPlayer - MUX streaming player with French UI
- * Zyeuté V5 - Quebec social media
+ * Ojea V5 - Mexico social media
  *
  * FIXED: Added explicit HLS buffer configuration to prevent mid-play freezes
  * - Increased maxBufferLength for better quality switching
@@ -234,7 +234,7 @@ export function MuxVideoPlayer({
           video_id: playbackId,
           video_title: videoTitle || `Post ${playbackId}`,
           viewer_user_id: viewerUserId || "anonymous",
-          player_name: "Zyeuté Player",
+          player_name: "Ojea Player",
           player_version: "5.0.0",
         }}
         maxResolution="1080p"

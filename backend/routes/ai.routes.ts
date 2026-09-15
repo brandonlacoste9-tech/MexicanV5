@@ -30,7 +30,7 @@ router.post(
 
       // Use GenAI App Builder for image analysis (separate credit pool from Dialogflow CX)
       const result = await analyzeImageWithGenAI(imageUrl, {
-        generateJoual: true,
+        generateMexicano: true,
         location,
       });
 
@@ -67,7 +67,7 @@ router.post(
         return res.status(400).json({ error: "Image URL required" });
 
       const result = await analyzeImageWithGenAI(imageUrl, {
-        generateJoual: true,
+        generateMexicano: true,
         location,
       });
 
@@ -113,7 +113,7 @@ router.post("/generate-caption", requireAuth, async (req, res) => {
     const { context, mood } = req.body;
     const swarm = getSwarmBridge();
     const captions = await swarm.generateCaption(
-      context || "Montreal vibe",
+      context || "CDMX vibe",
       mood || "Cool",
     );
     res.json({ captions });
@@ -139,13 +139,13 @@ router.get("/filters", async (req, res) => {
   res.json({
     filters: [
       {
-        id: "montreal-winter",
-        name: "Montreal Winter",
+        id: "cdmx-winter",
+        name: "CDMX Winter",
         description: "Golden hour, snowy urban, warm tones",
       },
       {
-        id: "old-quebec",
-        name: "Old Quebec",
+        id: "old-mexico",
+        name: "Old Mexico",
         description: "Vintage film, sepia, European charm",
       },
       {

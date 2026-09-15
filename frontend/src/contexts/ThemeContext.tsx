@@ -34,7 +34,7 @@ export const PRESET_THEMES: Record<string, ThemeColors> = {
     edgeLighting: "#b48ad4",
   },
   blue: {
-    name: "Bleu Québec",
+    name: "Bleu México",
     edgeLighting: "#0066CC",
   },
   red: {
@@ -54,7 +54,7 @@ export const PRESET_THEMES: Record<string, ThemeColors> = {
     edgeLighting: "#FF6B35",
   },
   pink: {
-    name: "Rose Fleur-de-lys",
+    name: "Rose Águila",
     edgeLighting: "#F72585",
   },
   cyan: {
@@ -66,7 +66,7 @@ export const PRESET_THEMES: Record<string, ThemeColors> = {
 function readInitialAccent(): string {
   if (typeof window === "undefined") return PRESET_THEMES.gold.edgeLighting;
   return (
-    localStorage.getItem("zyeute_edge_color") ||
+    localStorage.getItem("ojea_edge_color") ||
     localStorage.getItem("appBorderColor") ||
     PRESET_THEMES.gold.edgeLighting
   );
@@ -95,16 +95,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [currentTheme, setCurrentThemeState] = useState<string>(() => {
     if (typeof window === "undefined") return "gold";
-    return localStorage.getItem("zyeute_theme") || "gold";
+    return localStorage.getItem("ojea_theme") || "gold";
   });
 
   const [isAnimated, setIsAnimatedState] = useState<boolean>(() => {
-    const saved = localStorage.getItem("zyeute_edge_animated");
+    const saved = localStorage.getItem("ojea_edge_animated");
     return saved ? JSON.parse(saved) : true;
   });
 
   const [glowIntensity, setGlowIntensityState] = useState<number>(() => {
-    const saved = localStorage.getItem("zyeute_glow_intensity");
+    const saved = localStorage.getItem("ojea_glow_intensity");
     return saved ? parseInt(saved, 10) : 0;
   });
 
@@ -112,9 +112,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     const normalized = applyAccentPalette(color);
     setEdgeLightingState(normalized);
     setCurrentThemeState(themeName);
-    localStorage.setItem("zyeute_edge_color", normalized);
+    localStorage.setItem("ojea_edge_color", normalized);
     localStorage.setItem("appBorderColor", normalized);
-    localStorage.setItem("zyeute_theme", themeName);
+    localStorage.setItem("ojea_theme", themeName);
     return normalized;
   }, []);
 
@@ -153,7 +153,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
         persistAccent(preset.edgeLighting, themeName);
       } else {
         setCurrentThemeState(themeName);
-        localStorage.setItem("zyeute_theme", themeName);
+        localStorage.setItem("ojea_theme", themeName);
       }
     },
     [persistAccent],
@@ -161,12 +161,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const setIsAnimated = (animated: boolean) => {
     setIsAnimatedState(animated);
-    localStorage.setItem("zyeute_edge_animated", JSON.stringify(animated));
+    localStorage.setItem("ojea_edge_animated", JSON.stringify(animated));
   };
 
   const setGlowIntensity = (intensity: number) => {
     setGlowIntensityState(intensity);
-    localStorage.setItem("zyeute_glow_intensity", intensity.toString());
+    localStorage.setItem("ojea_glow_intensity", intensity.toString());
   };
 
   const value = React.useMemo(

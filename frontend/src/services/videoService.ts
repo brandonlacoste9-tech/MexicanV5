@@ -1,6 +1,6 @@
 /**
  * 🎬 VIDEO SERVICE - AI Video Editing
- * Ti-Guy Studio - Smart video processing
+ * Güey Studio - Smart video processing
  *
  * Real implementations:
  * - extractThumbnail(): canvas-based frame grab (real)
@@ -227,7 +227,7 @@ export async function smartTrim(
  */
 export async function addBackgroundMusic(
   videoFile: File,
-  musicTrack: "upbeat" | "chill" | "epic" | "quebec",
+  musicTrack: "upbeat" | "chill" | "epic" | "mexico",
 ): Promise<string> {
   videoServiceLogger.debug(
     `addBackgroundMusic: server-side mixing required for "${musicTrack}" — returning original`,

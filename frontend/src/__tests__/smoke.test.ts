@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-describe("🧪 Zyeuté Smoke Tests", () => {
+describe("🧪 Ojea Smoke Tests", () => {
   it("vitest is configured correctly", () => {
     expect(true).toBe(true);
   });

@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Button } from "./button";
 
-interface QuebecEmptyStateProps {
+interface MexicoEmptyStateProps {
   type: "feed" | "profile" | "search" | "media";
   action?: () => void;
   label?: string;
@@ -18,7 +18,7 @@ interface QuebecEmptyStateProps {
   onAction?: () => void;
 }
 
-export function QuebecEmptyState({
+export function MexicoEmptyState({
   type,
   action,
   label,
@@ -26,7 +26,7 @@ export function QuebecEmptyState({
   description,
   actionText,
   onAction,
-}: QuebecEmptyStateProps) {
+}: MexicoEmptyStateProps) {
   const content = {
     feed: {
       title: "C'est tranquille icitte...",
@@ -43,7 +43,7 @@ export function QuebecEmptyState({
     search: {
       title: "Rien trouvé / Nothing found",
       description:
-        "Essayez avec des mots-clés comme #Quebec, #Poutine ou #Hiver.",
+        "Essayez avec des mots-clés comme #Mexico, #Poutine ou #Hiver.",
       button: "Effacer les filtres",
       icon: SearchIcon,
     },

@@ -1,5 +1,5 @@
 /**
- * ZYEUTÉ — root shell: providers, routing, Ti-Guy.
+ * OJEA — root shell: providers, routing, Güey.
  * Feature pages live under `src/pages` and are wired in `src/routes/AppRoutes.tsx`.\
  */
 
@@ -59,11 +59,11 @@ function AppShell() {
   // Show onboarding overlay for new users after 3s on the feed
   const [showOnboarding, setShowOnboarding] = useState(false);
   useEffect(() => {
-    if (!user || localStorage.getItem("zyeute_onboarded")) return;
+    if (!user || localStorage.getItem("ojea_onboarded")) return;
     const createdAt = user.created_at ? new Date(user.created_at).getTime() : 0;
     const isNewUser = Date.now() - createdAt < 30 * 60 * 1000; // 30 min window
     if (!isNewUser) {
-      localStorage.setItem("zyeute_onboarded", "true");
+      localStorage.setItem("ojea_onboarded", "true");
       return;
     }
     const t = setTimeout(() => setShowOnboarding(true), 3000);

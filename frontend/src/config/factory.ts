@@ -1,5 +1,5 @@
 /**
- * Zyeute Factory - Application Configuration Schema
+ * Ojea Factory - Application Configuration Schema
  * This file defines the identity of a specific app clone.
  */
 import { HIVE_CONFIG } from "./hive.js";
@@ -46,18 +46,18 @@ export interface AppConfig {
   };
 }
 
-// 1. Zyeuté Québec (The Original)
-const QUEBEC_CONFIG: AppConfig = {
+// 1. Ojea México (The Original)
+const MEXICO_CONFIG: AppConfig = {
   identity: {
-    hiveId: "quebec",
-    name: "Zyeuté",
-    tagline: "Le Swarm Québécois ⚜️",
+    hiveId: "mexico",
+    name: "Ojea",
+    tagline: "Le Swarm Mexicano ⚜️",
     region: "QC",
-    locale: "fr-CA",
+    locale: "es-MX",
     iconEmoji: "⚜️",
     giftEmoji: "⚜️",
     landingTitle: "Bienvenue dans le Swarm",
-    landingSubtitle: "La plateforme sociale premium du Québec.",
+    landingSubtitle: "La plateforme sociale premium du México.",
     onboardingSteps: [
       {
         title: "Découvrez",
@@ -173,7 +173,7 @@ const ARGENTINA_CONFIG: AppConfig = {
 const MEXICO_CONFIG: AppConfig = {
   identity: {
     hiveId: "mexico",
-    name: "Zyeuté México",
+    name: "Ojea México",
     tagline: "El Swarm Mexicano 🇲🇽",
     region: "MX",
     locale: "es-MX",
@@ -208,10 +208,10 @@ const MEXICO_CONFIG: AppConfig = {
   },
 };
 
-// DOMAIN-BASED CONFIG DETECTION (The Chameleon Protocol - DISABLED for Quebec Bootstrap)
+// DOMAIN-BASED CONFIG DETECTION (The Chameleon Protocol - DISABLED for Mexico Bootstrap)
 const detectConfig = (): AppConfig => {
-  // Hardcoded to Quebec for Phase 2
-  return QUEBEC_CONFIG;
+  // Hardcoded to Mexico for Phase 2
+  return MEXICO_CONFIG;
 };
 
 export const AppConfig = detectConfig();

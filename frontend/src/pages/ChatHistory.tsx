@@ -1,6 +1,6 @@
 /**
  * 📜 Chat History Page
- * View history of Ti-Guy conversations and AI interactions
+ * View history of Güey conversations and AI interactions
  */
 
 import React, { useState } from "react";
@@ -13,7 +13,7 @@ interface ChatSession {
   preview: string;
   timestamp: Date;
   messageCount: number;
-  type: "ti-guy" | "ai-studio" | "support";
+  type: "guey" | "ai-studio" | "support";
 }
 
 // Mock data
@@ -22,10 +22,10 @@ const mockChatHistory: ChatSession[] = [
     id: "1",
     title: "Recommandations poutine",
     preview:
-      "J'ai demandé à Ti-Guy les meilleurs spots de poutine à Montréal...",
+      "J'ai demandé à Güey les meilleurs spots de poutine à Ciudad de México...",
     timestamp: new Date(Date.now() - 1000 * 60 * 30),
     messageCount: 12,
-    type: "ti-guy",
+    type: "guey",
   },
   {
     id: "2",
@@ -41,7 +41,7 @@ const mockChatHistory: ChatSession[] = [
     preview: "Discussion sur les stats des Habs cette saison",
     timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
     messageCount: 8,
-    type: "ti-guy",
+    type: "guey",
   },
   {
     id: "4",
@@ -54,7 +54,7 @@ const mockChatHistory: ChatSession[] = [
   {
     id: "5",
     title: "Création de vidéo",
-    preview: "Vidéo des aurores boréales au Québec",
+    preview: "Vidéo des aurores boréales au México",
     timestamp: new Date(Date.now() - 1000 * 60 * 60 * 72),
     messageCount: 7,
     type: "ai-studio",
@@ -63,7 +63,7 @@ const mockChatHistory: ChatSession[] = [
 
 export const ChatHistory: React.FC = () => {
   const [filter, setFilter] = useState<
-    "all" | "ti-guy" | "ai-studio" | "support"
+    "all" | "guey" | "ai-studio" | "support"
   >("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -85,12 +85,12 @@ export const ChatHistory: React.FC = () => {
     if (days === 0) return "Aujourd'hui";
     if (days === 1) return "Hier";
     if (days < 7) return `Il y a ${days} jours`;
-    return date.toLocaleDateString("fr-CA", { day: "numeric", month: "long" });
+    return date.toLocaleDateString("es-MX", { day: "numeric", month: "long" });
   };
 
   const getTypeIcon = (type: ChatSession["type"]) => {
     switch (type) {
-      case "ti-guy":
+      case "guey":
         return "🦫";
       case "ai-studio":
         return "🎨";
@@ -101,8 +101,8 @@ export const ChatHistory: React.FC = () => {
 
   const getTypeLabel = (type: ChatSession["type"]) => {
     switch (type) {
-      case "ti-guy":
-        return "Ti-Guy";
+      case "guey":
+        return "Güey";
       case "ai-studio":
         return "AI Studio";
       case "support":
@@ -141,7 +141,7 @@ export const ChatHistory: React.FC = () => {
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-2">
-            {(["all", "ti-guy", "ai-studio", "support"] as const).map(
+            {(["all", "guey", "ai-studio", "support"] as const).map(
               (type) => (
                 <button
                   key={type}
@@ -233,7 +233,7 @@ export const ChatHistory: React.FC = () => {
         {/* Quick Actions */}
         <div className="mt-8 p-4 bg-gradient-to-r from-gold-400/10 to-gold-600/10 rounded-xl border border-gold-400/20">
           <h3 className="font-semibold mb-3 flex items-center gap-2">
-            <span>🦫</span> Parler à Ti-Guy
+            <span>🦫</span> Parler à Güey
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
             Continue une conversation ou commence-en une nouvelle!

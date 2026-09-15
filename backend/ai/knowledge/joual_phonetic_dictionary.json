@@ -1,12 +1,12 @@
 {
-  "joual_glossary": [
-    { "term": "money", "joual": "piasses", "phonetic": "pyass" },
-    { "term": "shoveling", "joual": "déneiger", "phonetic": "d'dé-né-ger" },
-    { "term": "friend", "joual": "chum", "phonetic": "tchum" },
-    { "term": "great", "joual": "sick", "phonetic": "sik" },
-    { "term": "reached", "joual": "pogner", "phonetic": "po-nyé" },
-    { "term": "beaver", "joual": "castor", "phonetic": "kas-tor" },
-    { "term": "banish", "joual": "expulser", "phonetic": "èks-pul-sé" }
+  "mexicano_glossary": [
+    { "term": "money", "mexicano": "piasses", "phonetic": "pyass" },
+    { "term": "shoveling", "mexicano": "déneiger", "phonetic": "d'dé-né-ger" },
+    { "term": "friend", "mexicano": "chum", "phonetic": "tchum" },
+    { "term": "great", "mexicano": "sick", "phonetic": "sik" },
+    { "term": "reached", "mexicano": "pogner", "phonetic": "po-nyé" },
+    { "term": "beaver", "mexicano": "castor", "phonetic": "kas-tor" },
+    { "term": "banish", "mexicano": "expulser", "phonetic": "èks-pul-sé" }
   ],
   "pronunciation_rules": [
     "Always contract 'de' followed by a consonant into 'd'' in vocal output",

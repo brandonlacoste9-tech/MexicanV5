@@ -1,6 +1,6 @@
 /**
- * Ti-Guy Chat Bee
- * Uses the unified Ti-Guy system for authentic Quebec joual chat
+ * Güey Chat Bee
+ * Uses the unified Güey system for authentic Mexico mexicano chat
  */
 
 import { v3TiGuyChat } from "../../v3-swarm.js";
@@ -13,7 +13,7 @@ export async function run(task: any) {
   const userId = task.userId;
 
   console.log(
-    "[Ti-Guy Chat] Processing message:",
+    "[Güey Chat] Processing message:",
     message.substring(0, 50),
     image ? "(with image)" : "",
   );
@@ -22,6 +22,6 @@ export async function run(task: any) {
 
   return {
     response,
-    metadata: { model: "deepseek", bee: "ti-guy-chat" },
+    metadata: { model: "deepseek", bee: "guey-chat" },
   };
 }

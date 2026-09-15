@@ -1,5 +1,5 @@
 /**
- * Centralized API Service for Zyeuté
+ * Centralized API Service for Ojea
  * All data fetching functions call the Express backend
  */
 
@@ -342,9 +342,9 @@ export async function getInfiniteFeedPosts(
   let hive = hiveId;
   if (!hive) {
     try {
-      hive = localStorage.getItem("zyeute_hive_id") || "quebec";
+      hive = localStorage.getItem("ojea_hive_id") || "mexico";
     } catch {
-      hive = "quebec";
+      hive = "mexico";
     }
   }
 
@@ -1117,16 +1117,16 @@ export async function surgicalUpload(
     const formData = new FormData();
     formData.append("video", file);
     if (caption) formData.append("caption", caption);
-    const hiveId = localStorage.getItem("zyeute_hive_id") || "quebec";
+    const hiveId = localStorage.getItem("ojea_hive_id") || "mexico";
     formData.append("hiveId", hiveId);
     const langMap: Record<string, string> = {
-      quebec: "fr",
+      mexico: "fr",
       mexico: "es",
       argentina: "es",
       brazil: "pt",
     };
     const language =
-      localStorage.getItem("zyeute_language") || langMap[hiveId] || "fr";
+      localStorage.getItem("ojea_language") || langMap[hiveId] || "fr";
     formData.append("language", language);
 
     // Get auth token for the upload
@@ -1195,12 +1195,12 @@ function mapBackendUser(user: Record<string, any>): User {
     role: user.role || "citoyen",
     isAdmin: user.isAdmin || user.is_admin || false,
     custom_permissions: user.custom_permissions || {},
-    // Ti-Guy Preferences
+    // Güey Preferences
     tiGuyCommentsEnabled:
       user.tiGuyCommentsEnabled !== undefined
         ? user.tiGuyCommentsEnabled
-        : user.ti_guy_comments_enabled !== undefined
-          ? user.ti_guy_comments_enabled
+        : user.guey_comments_enabled !== undefined
+          ? user.guey_comments_enabled
           : true,
 
     // Gamification
@@ -1270,7 +1270,7 @@ export function postLooksLikeTestInject(p: Post): boolean {
 }
 
 /**
- * Derive Mux playback id from any stored URL so La Zyeute uses MuxVideoPlayer (not Hls.js on stream.mux.com).
+ * Derive Mux playback id from any stored URL so La Ojea uses MuxVideoPlayer (not Hls.js on stream.mux.com).
  * Covers stream manifests, image.mux.com thumbnails when mux_playback_id column is empty, etc.
  */
 function extractMuxPlaybackIdFromUrl(

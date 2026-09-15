@@ -26,7 +26,7 @@ type DbGiftType =
 const router = Router();
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
-const FRONTEND_URL = process.env.FRONTEND_URL || "https://zyeute.com";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://ojea-mexico.netlify.app";
 
 let stripe: Stripe | null = null;
 if (STRIPE_SECRET_KEY) {
@@ -57,7 +57,7 @@ const requireAuth = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // ─── Cenne pack catalog ────────────────────────────────────────────────────────
-// Zyeuté keeps 30% — creators receive 70% of gifted cennes as real CAD
+// Ojea keeps 30% — creators receive 70% of gifted cennes as real CAD
 // 1 cenne = $0.01 CAD face value. Packs sold at slight premium for margin.
 export const CENNE_PACKS = [
   {
@@ -110,7 +110,7 @@ export const GIFT_ITEMS = [
   { id: "bravo", emoji: "👏", name: "Bravo", cost: 15 },
   { id: "cafe", emoji: "☕", name: "Café", cost: 25 },
   { id: "coeur", emoji: "💛", name: "Coeur d'or", cost: 50 },
-  { id: "tiguy", emoji: "🤖", name: "Ti-Guy", cost: 75 },
+  { id: "tiguy", emoji: "🤖", name: "Güey", cost: 75 },
   { id: "feu", emoji: "🔥", name: "Feu", cost: 100 },
   { id: "poutine", emoji: "🍟", name: "Poutine", cost: 125 },
   { id: "erable", emoji: "🍁", name: "Érable", cost: 150 },
@@ -191,9 +191,9 @@ router.post("/buy-pack", requireAuth, async (req, res) => {
             currency: "cad",
             unit_amount: pack.priceCents,
             product_data: {
-              name: `${pack.cennes} Cennes Zyeuté — Pack ${pack.name}`,
+              name: `${pack.cennes} Cennes Ojea — Pack ${pack.name}`,
               description: `Ajoute ${pack.cennes}¢ à ton solde pour gifter tes créateurs préférés`,
-              images: ["https://zyeute.com/zyeute_app_icon.png"],
+              images: ["https://ojea-mexico.netlify.app/ojea_app_icon.png"],
             },
           },
         },

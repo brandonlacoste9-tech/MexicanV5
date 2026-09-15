@@ -5,7 +5,7 @@ import { Post } from "@/types";
 
 /**
  * 🦫 LES CHOIX DU GRAND CASTOR
- * Composant de luxe affichant les vidéos promues par Ti-Guy.
+ * Composant de luxe affichant les vidéos promues par Güey.
  * Esthétique Souverain : Cuir, Or, Bordures Impériales.
  */
 
@@ -89,7 +89,7 @@ const ChoixDuGrandCastor: React.FC = () => {
                         {/* Infos du Citoyen */}
                         <div className="absolute bottom-6 left-6 right-6 z-20 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                             <h3 className="text-gold-200 font-bold text-lg drop-shadow-lg truncate">
-                                {(post as any).titre || "Haut Fait Québécois"}
+                                {(post as any).titre || "Haut Fait Mexicano"}
                             </h3>
                             <p className="text-gold-400/80 text-xs font-medium">
                                 par {post.user?.username || "Un Citoyen"}

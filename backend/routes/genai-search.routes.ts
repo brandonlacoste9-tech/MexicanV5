@@ -35,11 +35,11 @@ const optionalAuth = (req: any, res: any, next: any) => {
 
 /**
  * POST /api/genai/search
- * Smart semantic search with Quebec context awareness
+ * Smart semantic search with Mexico context awareness
  *
  * Body: {
- *   query: "poutine reviews in Montreal",
- *   filters?: { type: ["video"], location: "montreal", vibe: "chill" },
+ *   query: "poutine reviews in CDMX",
+ *   filters?: { type: ["video"], location: "cdmx", vibe: "chill" },
  *   limit?: 20
  * }
  */
@@ -56,7 +56,7 @@ router.post(
       if (!query || typeof query !== "string") {
         return res.status(400).json({
           error: "Search query is required",
-          example: { query: "poutine reviews in Montreal" },
+          example: { query: "poutine reviews in CDMX" },
         });
       }
 
@@ -83,7 +83,7 @@ router.post(
           credits_used: "genai-text-generation",
           credits_pool: "$1,367.95",
           search_type: "semantic",
-          language: "quebec-aware",
+          language: "mexico-aware",
         },
       });
     } catch (error: any) {
@@ -274,7 +274,7 @@ router.get(
  */
 router.get("/trending", async (req: any, res) => {
   try {
-    const { limit = 20, region = "quebec" } = req.query;
+    const { limit = 20, region = "mexico" } = req.query;
 
     // Import trending function
     const { getTrendingContent } = await import("../ai/genai-search.js");
@@ -310,21 +310,21 @@ router.get("/suggestions", async (req: any, res) => {
   try {
     const { q = "" } = req.query;
 
-    // Popular Quebec-themed searches
+    // Popular Mexico-themed searches
     const suggestions = [
       "poutine reviews",
       "hockey moments",
-      "Montreal nightlife",
-      "Quebec winter",
+      "CDMX nightlife",
+      "Mexico winter",
       "festival vibes",
-      "joual expressions",
+      "mexicano expressions",
       "Plateau street art",
-      "Old Quebec",
+      "Old Mexico",
       "St-Lawrence river",
       "maple syrup",
-      "chill spots Montreal",
+      "chill spots CDMX",
       "party MTL",
-      "nature Quebec",
+      "nature Mexico",
       "ski trips",
       "food tour",
     ]

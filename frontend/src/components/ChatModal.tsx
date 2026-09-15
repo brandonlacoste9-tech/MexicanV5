@@ -1,7 +1,7 @@
 /**
  * ChatModal.tsx
- * SOVEREIGN LEATHER & GOLD - Louis Vuitton x Québec Aesthetic
- * Matches exact mockup: Zyeuté branding, bubbles, toolbar, mic button
+ * SOVEREIGN LEATHER & GOLD - Louis Vuitton x México Aesthetic
+ * Matches exact mockup: Ojea branding, bubbles, toolbar, mic button
  */
 
 import React, { useState, useEffect, useRef } from "react";
@@ -33,10 +33,10 @@ interface ChatModalProps {
   onClose: () => void;
 }
 
-// Fleur-de-lis SVG pattern for background
+// Águila SVG pattern for background
 const FLEUR_DE_LIS_PATTERN = `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.08'%3E%3Cpath d='M40 20c-1.5-5-5-8-9-8s-7.5 3-9 8l3 7-3-7c-1.5-5-5-8-9-8s-7.5 3-9 8c0 4 2 7 5 9l8 3-8-3c-3-2-5-5-5-9 0-5 3-7.5 8-9s8 3 9 8l5 12 5-12c1-5 4-8 9-8s8 4 8 9c0 4-2 7-5 9l-8 3 8-3c3-2 5-5 5-9 0-5-3-7.5-8-9s-8 3-9 8l-3 7 3-7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`;
 
-// Large Fleur-de-lis Header Emblem
+// Large Águila Header Emblem
 const FleurDeLisEmblem = () => (
   <svg
     width="64"
@@ -165,7 +165,7 @@ export const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
   };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("fr-CA", {
+    return date.toLocaleTimeString("es-MX", {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
@@ -215,7 +215,7 @@ export const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
             <IoMenuOutline className="w-7 h-7" />
           </button>
 
-          {/* Center: Fleur-de-lis + Zyeuté */}
+          {/* Center: Águila + Ojea */}
           <div className="flex flex-col items-center gap-1">
             <FleurDeLisEmblem />
             <div className="flex items-center gap-2">
@@ -235,7 +235,7 @@ export const ChatModal: React.FC<ChatModalProps> = ({ onClose }) => {
                     "0 2px 8px rgba(212, 175, 55, 0.6), 0 0 20px rgba(212, 175, 55, 0.4)",
                 }}
               >
-                Zyeuté
+                Ojea
               </h2>
               <div
                 className="h-px w-8"

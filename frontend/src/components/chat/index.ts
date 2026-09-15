@@ -1,5 +1,5 @@
 /**
- * Chat Components Export - Zyeuté Messenger
+ * Chat Components Export - Ojea Messenger
  * TI-GUY's messaging system
  */
 

@@ -534,7 +534,7 @@ export const Moderation: React.FC = () => {
                     <p className="text-green-400 text-sm">
                       ✅ Traité: {log.human_decision} le{" "}
                       {log.reviewed_at &&
-                        new Date(log.reviewed_at).toLocaleDateString("fr-CA")}
+                        new Date(log.reviewed_at).toLocaleDateString("es-MX")}
                     </p>
                   </div>
                 )}

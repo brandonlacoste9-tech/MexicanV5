@@ -36,7 +36,7 @@ export class ColonyClient {
         .from("colony_tasks")
         .insert({
           command: task.description,
-          origin: task.origin || "Ti-Guy Swarm",
+          origin: task.origin || "Güey Swarm",
           priority: task.priority || "normal",
           status: "pending",
           metadata: {

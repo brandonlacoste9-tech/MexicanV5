@@ -132,7 +132,7 @@ export const DesktopSidebar: React.FC = () => {
           <Link to="/terms" className="hover:underline">Conditions</Link>
           <Link to="/privacy" className="hover:underline">Confidentialité</Link>
         </div>
-        <p>© 2026 Zyeuté - L'app vidéo du Québec</p>
+        <p>© 2026 Ojea - L'app vidéo du México</p>
       </div>
     </aside>
   );

@@ -1,11 +1,11 @@
 /**
  * Colony OS Worker Bee Trigger Button
  *
- * Admin-only component that allows triggering Colony OS tasks from Zyeuté UI
+ * Admin-only component that allows triggering Colony OS tasks from Ojea UI
  */
 
 import React, { useState } from "react";
-// import { createColonyTask, getColonyTaskStatus, getRecentColonyTasks, type ColonyTask } from '@/integrations/colony/zyeute-trigger';
+// import { createColonyTask, getColonyTaskStatus, getRecentColonyTasks, type ColonyTask } from '@/integrations/colony/ojea-trigger';
 // import { isAdmin } from '@/lib/admin';
 import { toast } from "./Toast";
 
@@ -45,7 +45,7 @@ export const ColonyTriggerButton: React.FC = () => {
       toast.info("Colony bientôt disponible");
       // const task = await createColonyTask({
       //   command: command.trim(),
-      //   origin: 'Zyeute',
+      //   origin: 'Ojea',
       //   priority,
       //   metadata: {
       //     triggered_by: 'admin_ui',

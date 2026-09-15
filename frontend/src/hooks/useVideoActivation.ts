@@ -29,7 +29,7 @@ export function useVideoActivation(
   const engagementTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const visibilityRatio = entry?.intersectionRatio || 0;
-  // 30% viewability: trigger play earlier for slow connections in rural Quebec
+  // 30% viewability: trigger play earlier for slow connections in rural Mexico
   const VIEWABILITY_PLAY_THRESHOLD = 0.3;
   const isFocused = visibilityRatio >= VIEWABILITY_PLAY_THRESHOLD;
 

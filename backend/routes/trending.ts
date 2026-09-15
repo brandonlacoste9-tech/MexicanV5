@@ -12,7 +12,7 @@ router.get("/hashtags", async (req: any, res) => {
     return res.status(503).json({ error: "Service indisponible" });
   try {
     const region = req.query.region as string | undefined;
-    const hive = (req.query.hive as string) || "quebec";
+    const hive = (req.query.hive as string) || "mexico";
 
     let query = supabaseAdmin
       .from("publications")

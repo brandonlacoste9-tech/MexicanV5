@@ -1,9 +1,9 @@
 /**
  * Colony OS Metrics Bridge
- * Sends Zyeute metrics to Colony OS for monitoring and analysis
+ * Sends Ojea metrics to Colony OS for monitoring and analysis
  */
 
-export interface ZyeuteMetrics {
+export interface OjeaMetrics {
   timestamp: Date;
   tasksExecuted: number;
   imagesGenerated: number;
@@ -18,7 +18,7 @@ export interface ZyeuteMetrics {
 }
 
 // Metrics accumulator
-let metrics: ZyeuteMetrics = {
+let metrics: OjeaMetrics = {
   timestamp: new Date(),
   tasksExecuted: 0,
   imagesGenerated: 0,
@@ -93,7 +93,7 @@ export async function sendMetricsToColony(): Promise<void> {
   }
 
   try {
-    const response = await fetch(`${colonyOsUrl}/api/zyeute-metrics`, {
+    const response = await fetch(`${colonyOsUrl}/api/ojea-metrics`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -159,6 +159,6 @@ export function startMetricsReporting() {
 /**
  * Get current metrics snapshot
  */
-export function getMetricsSnapshot(): ZyeuteMetrics {
+export function getMetricsSnapshot(): OjeaMetrics {
   return { ...metrics };
 }

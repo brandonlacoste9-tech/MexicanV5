@@ -15,20 +15,20 @@ export function isReliablePlaybackMedia(
   return false;
 }
 
-/** Ti-Guy / Grand Castor / AI Studio clips — distinct from bulk Pexels/TikTok seed. */
+/** Güey / Grand Castor / AI Studio clips — distinct from bulk Pexels/TikTok seed. */
 export function isTiGuyCuratedPost(p: Record<string, unknown>): boolean {
   if (p.ai_generated === true || p.choix_du_castor === true) return true;
   const user = p.user as Record<string, unknown> | undefined;
   const username = String(user?.username ?? "").toLowerCase();
   if (
-    username === "ti_guy_bot" ||
-    username === "ti_guy" ||
+    username === "guey_bot" ||
+    username === "guey" ||
     username.includes("tiguy")
   ) {
     return true;
   }
   const hay = `${p.caption ?? ""} ${p.content ?? ""}`;
-  if (/généré par ti-guy|ti-guy ia|ti-guy ai|studio comète/i.test(hay))
+  if (/généré par guey|guey ia|guey ai|studio comète/i.test(hay))
     return true;
   const src = String(p.video_source ?? "");
   if (/seedance|studio|fal|ai/i.test(src) && p.mux_playback_id) return true;

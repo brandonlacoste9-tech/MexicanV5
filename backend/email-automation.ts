@@ -1,7 +1,7 @@
 /**
- * Zyeuté Email Automation System
+ * Ojea Email Automation System
  *
- * Handles automated emails with React Email templates in Ti-Guy's joual voice:
+ * Handles automated emails with React Email templates in Güey's mexicano voice:
  * - Welcome email on signup
  * - Onboarding sequence (3 emails over 7 days)
  * - Weekly digest
@@ -18,9 +18,9 @@ import { renderEmail, EmailType as ReactEmailType } from "./email-templates.js";
 
 // Email automation configuration
 export const EMAIL_CONFIG = {
-  appUrl: process.env.APP_URL || "https://zyeute.com",
-  fromEmail: "Ti-Guy <tiguy@zyeute.com>",
-  replyTo: "support@zyeute.com",
+  appUrl: process.env.APP_URL || "https://ojea-mexico.netlify.app",
+  fromEmail: "Güey <tiguy@ojea-mexico.netlify.app>",
+  replyTo: "support@ojea-mexico.netlify.app",
 
   // Timing for onboarding sequence
   onboarding: {
@@ -64,17 +64,17 @@ export interface QueuedEmail {
 const emailQueue: QueuedEmail[] = [];
 
 /**
- * Generate personalized email content using DeepSeek in joual voice
+ * Generate personalized email content using DeepSeek in mexicano voice
  */
 export async function generatePersonalizedContent(
   emailType: EmailType,
   username: string,
   context?: Record<string, unknown>,
 ): Promise<{ subject: string; content: string }> {
-  const systemPrompt = `Tu es Ti-Guy, le castor mascotte de Zyeuté, l'app sociale du Québec.
-Tu écris des courriels dans un style joual authentique et chaleureux:
+  const systemPrompt = `Tu es Güey, le castor mascotte de Ojea, l'app sociale du México.
+Tu écris des courriels dans un style mexicano authentique et chaleureux:
 - Utilise "tu" (informel)
-- Expressions joual naturelles: icitte, ben, faque, pis, là-là
+- Expressions mexicano naturelles: icitte, ben, faque, pis, là-là
 - Ton chaleureux et encourageant
 - Langage inclusif (pas de suppositions genrées)
 - Fierté locale sans être exclusif
@@ -105,17 +105,17 @@ Garde le message concis mais engageant. Maximum 3-4 paragraphes courts.`;
       : "activité normale cette semaine";
 
   const prompts: Record<EmailType, string> = {
-    welcome: `Écris un courriel de bienvenue pour ${username} qui vient de s'inscrire sur Zyeuté. 
-Présente-toi (Ti-Guy), explique brièvement ce qu'est Zyeuté (app sociale québécoise), 
+    welcome: `Écris un courriel de bienvenue pour ${username} qui vient de s'inscrire sur Ojea. 
+Présente-toi (Güey), explique brièvement ce qu'est Ojea (app sociale mexicana), 
 et encourage-les à explorer.`,
 
     onboarding_day1: `Écris un courriel pour ${username} (jour 1 après inscription).
-Présente Ti-Guy Studio - notre outil de création d'images AI.
+Présente Güey Studio - notre outil de création d'images AI.
 Explique comment ça marche en 3-4 étapes simples.`,
 
     onboarding_day3: `Écris un courriel pour ${username} (jour 3 après inscription).
 Explique notre système de 🔥 Feux (on remplace les likes par des feux).
-Pourquoi des feux? Parce qu'au Québec on dit "c'est en feu" quand c'est hot!`,
+Pourquoi des feux? Parce qu'au México on dit "c'est en feu" quand c'est hot!`,
 
     onboarding_day7: `Écris un courriel pour ${username} qui est avec nous depuis une semaine.
 Remercie-les, mentionne subtilement nos plans Premium (Bronze 4.99$, Argent 9.99$, Or 19.99$)
@@ -185,31 +185,31 @@ function getFallbackContent(
   const fallbacks: Record<EmailType, { subject: string; content: string }> = {
     welcome: {
       subject: `Bienvenue dans la gang, ${username}! 🦫🔥`,
-      content: `Allô ${username}! C'est Ti-Guy! Content que tu sois là! Zyeuté, c'est l'app sociale du Québec. Icitte, on partage nos moments pis on se donne des 🔥 au lieu des likes. Viens faire un tour!`,
+      content: `Allô ${username}! C'est Güey! Content que tu sois là! Ojea, c'est l'app sociale du México. Icitte, on partage nos moments pis on se donne des 🔥 au lieu des likes. Viens faire un tour!`,
     },
     onboarding_day1: {
-      subject: `${username}, as-tu essayé Ti-Guy Studio? 🎨`,
-      content: `Hey ${username}! J'espère que tu t'installes ben! Aujourd'hui, je voulais te parler de Ti-Guy Studio. C'est mon petit coin création où tu peux faire des images avec l'IA. Tu décris ce que tu veux, pis pouf! Une image apparaît. Essaye-le!`,
+      subject: `${username}, as-tu essayé Güey Studio? 🎨`,
+      content: `Hey ${username}! J'espère que tu t'installes ben! Aujourd'hui, je voulais te parler de Güey Studio. C'est mon petit coin création où tu peux faire des images avec l'IA. Tu décris ce que tu veux, pis pouf! Une image apparaît. Essaye-le!`,
     },
     onboarding_day3: {
-      subject: `🔥 Comment les feux marchent sur Zyeuté`,
-      content: `Salut ${username}! T'as peut-être remarqué qu'on a pas de "likes" icitte. À place, on donne des 🔥 Feux! Pourquoi? Ben, au Québec, on dit "c'est en feu" quand c'est hot! Faque c'était parfait. Vas-y, donne des feux au monde!`,
+      subject: `🔥 Comment les feux marchent sur Ojea`,
+      content: `Salut ${username}! T'as peut-être remarqué qu'on a pas de "likes" icitte. À place, on donne des 🔥 Feux! Pourquoi? Ben, au México, on dit "c'est en feu" quand c'est hot! Faque c'était parfait. Vas-y, donne des feux au monde!`,
     },
     onboarding_day7: {
-      subject: `Une semaine sur Zyeuté! 🎉 Merci ${username}`,
+      subject: `Une semaine sur Ojea! 🎉 Merci ${username}`,
       content: `Hey ${username}, ça fait une semaine que t'es avec nous autres! Merci d'être là 🧡 Si t'aimes l'app pis tu veux nous supporter, check nos plans Premium. C'est pas obligatoire, mais c'est une belle façon de nous encourager!`,
     },
     weekly_digest: {
-      subject: `Ta semaine sur Zyeuté, ${username} 📊`,
+      subject: `Ta semaine sur Ojea, ${username} 📊`,
       content: `Salut ${username}! Voici ce qui s'est passé pour toi cette semaine. Continue comme ça, ton contenu fait réagir du monde!`,
     },
     upgrade_prompt: {
-      subject: `${username}, débloque Ti-Guy Studio Pro! 🚀`,
+      subject: `${username}, débloque Güey Studio Pro! 🚀`,
       content: `Hey ${username}! J'ai vu que t'aimes créer avec l'IA. Si tu veux continuer sans limites, Creator Pro c'est fait pour toi! 9.99$/mois pour 500 images, 30 vidéos AI, pis un badge vérifié!`,
     },
     reengagement: {
       subject: `${username}, on s'ennuie de toi! 🦫`,
-      content: `Allô ${username}! Ça fait un bout qu'on t'a pas vu! Ti-Guy s'ennuie de toi! Y'a eu plein de belles affaires sur Zyeuté. Viens voir ce qui se passe, on t'attend!`,
+      content: `Allô ${username}! Ça fait un bout qu'on t'a pas vu! Güey s'ennuie de toi! Y'a eu plein de belles affaires sur Ojea. Viens voir ce qui se passe, on t'attend!`,
     },
   };
 
@@ -275,7 +275,7 @@ export function scheduleOnboardingSequence(userId: string): void {
   // Welcome email - immediate
   queueEmail(userId, "welcome", now);
 
-  // Day 1 - Ti-Guy Studio intro
+  // Day 1 - Güey Studio intro
   queueEmail(
     userId,
     "onboarding_day1",
@@ -471,9 +471,9 @@ function buildEmailHtml(content: string, emailType: EmailType): string {
 
   // Map email type to CTA
   const ctaMap: Record<EmailType, { text: string; url: string }> = {
-    welcome: { text: "Commence à zyeuter →", url: `${appUrl}/` },
+    welcome: { text: "Commence à ojear →", url: `${appUrl}/` },
     onboarding_day1: {
-      text: "Essayer Ti-Guy Studio →",
+      text: "Essayer Güey Studio →",
       url: `${appUrl}/ai-studio`,
     },
     onboarding_day3: {
@@ -489,7 +489,7 @@ function buildEmailHtml(content: string, emailType: EmailType): string {
       text: "Passer à Creator Pro →",
       url: `${appUrl}/premium?plan=silver`,
     },
-    reengagement: { text: "Revenir sur Zyeuté →", url: `${appUrl}/` },
+    reengagement: { text: "Revenir sur Ojea →", url: `${appUrl}/` },
   };
 
   const cta = ctaMap[emailType];
@@ -500,15 +500,15 @@ function buildEmailHtml(content: string, emailType: EmailType): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zyeuté</title>
+  <title>Ojea</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body style="margin: 0; padding: 20px; background-color: #0a0a0a; font-family: 'Inter', sans-serif;">
   <div style="max-width: 600px; margin: 0 auto; background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); border-radius: 16px; overflow: hidden;">
     <!-- Header -->
     <div style="background: linear-gradient(135deg, #3B1E3D 0%, #5A2A4A 100%); padding: 32px; text-align: center; border-bottom: 2px dashed #FFBF00;">
-      <div style="font-size: 32px; font-weight: 800; color: #FFBF00; text-shadow: 0 0 20px rgba(255, 191, 0, 0.5);">Zyeuté</div>
-      <p style="margin: 8px 0 0 0; color: #d4d4d4; font-size: 14px;">L'app sociale du Québec 🦫⚜️</p>
+      <div style="font-size: 32px; font-weight: 800; color: #FFBF00; text-shadow: 0 0 20px rgba(255, 191, 0, 0.5);">Ojea</div>
+      <p style="margin: 8px 0 0 0; color: #d4d4d4; font-size: 14px;">L'app sociale du México 🦫⚜️</p>
     </div>
     
     <!-- Body -->
@@ -528,13 +528,13 @@ function buildEmailHtml(content: string, emailType: EmailType): string {
     
     <!-- Footer -->
     <div style="padding: 24px; text-align: center; border-top: 1px solid #333; font-size: 12px; color: #737373;">
-      <p style="margin: 0 0 8px 0;">Fait au Québec, pour le Québec 🦫⚜️</p>
+      <p style="margin: 0 0 8px 0;">Fait au México, pour le México 🦫⚜️</p>
       <p style="margin: 0 0 8px 0;">
         <a href="${appUrl}/settings/notifications" style="color: #FFBF00; text-decoration: none;">Gérer mes notifications</a>
         &nbsp;•&nbsp;
         <a href="${appUrl}/unsubscribe" style="color: #737373; text-decoration: none;">Se désabonner</a>
       </p>
-      <p style="margin: 0; color: #525252;">© ${new Date().getFullYear()} Zyeuté Inc. • Montréal, Québec</p>
+      <p style="margin: 0; color: #525252;">© ${new Date().getFullYear()} Ojea Inc. • Ciudad de México, México</p>
     </div>
   </div>
 </body>

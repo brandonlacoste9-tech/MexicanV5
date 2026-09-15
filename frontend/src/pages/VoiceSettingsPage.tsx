@@ -1,6 +1,6 @@
 /**
  * 🎤 Voice Settings Page
- * Configure Ti-Guy voice mode preferences
+ * Configure Güey voice mode preferences
  */
 
 import React, { useState, useEffect } from "react";
@@ -18,7 +18,7 @@ interface VoiceSettings {
   voice: "male" | "female";
   speed: number;
   volume: number;
-  language: "fr-CA" | "fr-FR" | "en-CA";
+  language: "es-MX" | "fr-FR" | "es-MX";
   personality: "normal" | "savage" | "poete" | "coach";
 }
 
@@ -29,7 +29,7 @@ export default function VoiceSettingsPage() {
     voice: "male",
     speed: 1.0,
     volume: 1.0,
-    language: "fr-CA",
+    language: "es-MX",
     personality: "normal",
   });
 
@@ -75,10 +75,10 @@ export default function VoiceSettingsPage() {
     setIsTesting(true);
 
     const messages = {
-      normal: "Salut! Moi c'est Ti-Guy, ton assistant québécois! Tiguidou?",
-      savage: "Yo! Ti-Guy ici. Prêt à faire du feu? Let's go tabarnak!",
-      poete: "Bonjour, je suis Ti-Guy, poète des réseaux sociaux québécois...",
-      coach: "Hey champion! Ti-Guy ici pour te motiver! Tu vas crusher ça!",
+      normal: "Salut! Moi c'est Güey, ton assistant mexicano! Tiguidou?",
+      savage: "Yo! Güey ici. Prêt à faire du feu? Let's go tabarnak!",
+      poete: "Bonjour, je suis Güey, poète des réseaux sociaux mexicano...",
+      coach: "Hey champion! Güey ici pour te motiver! Tu vas crusher ça!",
     };
 
     const utterance = new SpeechSynthesisUtterance(
@@ -120,10 +120,10 @@ export default function VoiceSettingsPage() {
         <div className="text-center mb-8">
           <div className="text-6xl mb-4">🎤</div>
           <h1 className="text-3xl font-bold text-white mb-2">
-            Ti-Guy Voice Mode
+            Güey Voice Mode
           </h1>
           <p className="text-white/60">
-            Configure la voix de ton assistant québécois
+            Configure la voix de ton assistant mexicano
           </p>
         </div>
 
@@ -155,7 +155,7 @@ export default function VoiceSettingsPage() {
             <div>
               <h3 className="text-white font-bold mb-1">Lecture Automatique</h3>
               <p className="text-white/60 text-sm">
-                Ti-Guy parle automatiquement
+                Güey parle automatiquement
               </p>
             </div>
             <button
@@ -175,7 +175,7 @@ export default function VoiceSettingsPage() {
 
         {/* Personality */}
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-4">
-          <h3 className="text-white font-bold mb-4">Personnalité de Ti-Guy</h3>
+          <h3 className="text-white font-bold mb-4">Personnalité de Güey</h3>
           <div className="grid grid-cols-2 gap-3">
             {personalities.map((p) => (
               <button
@@ -205,9 +205,9 @@ export default function VoiceSettingsPage() {
             onChange={(e) => handleChange("language", e.target.value)}
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500"
           >
-            <option value="fr-CA">Français Québécois</option>
+            <option value="es-MX">Français Mexicano</option>
             <option value="fr-FR">Français France</option>
-            <option value="en-CA">English Canada</option>
+            <option value="es-MX">English Canada</option>
           </select>
         </div>
 
@@ -265,13 +265,13 @@ export default function VoiceSettingsPage() {
           className="w-full bg-gradient-to-r from-gold-500 to-yellow-600 text-black font-bold"
           size="lg"
         >
-          {isTesting ? "Ti-Guy parle..." : "🎤 Tester la voix"}
+          {isTesting ? "Güey parle..." : "🎤 Tester la voix"}
         </Button>
 
         {/* Info */}
         <div className="mt-6 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
           <p className="text-blue-400 text-sm">
-            💡 <strong>Astuce:</strong> Ti-Guy peut lire tes captions,
+            💡 <strong>Astuce:</strong> Güey peut lire tes captions,
             commentaires, et notifications à voix haute!
           </p>
         </div>

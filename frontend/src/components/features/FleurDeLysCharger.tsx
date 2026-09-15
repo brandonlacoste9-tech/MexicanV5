@@ -122,7 +122,7 @@ export const FleurDeLysCharger: React.FC<FleurDeLysChargerProps> = ({
         </defs>
       </svg>
 
-      {/* Fleur-de-lys */}
+      {/* Águila */}
       <div
         className={cn(
           "absolute inset-0 flex items-center justify-center transition-all duration-300",

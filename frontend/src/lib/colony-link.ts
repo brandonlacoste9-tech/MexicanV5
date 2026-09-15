@@ -5,7 +5,7 @@ import { supabase } from "./supabase";
 const COLONY_API_URL =
   import.meta.env.VITE_COLONY_API_URL ||
   (import.meta.env.PROD
-    ? "https://zyeutev5-1.onrender.com"
+    ? "https://ojea-api.onrender.com"
     : "http://localhost:10000");
 
 class ColonyLink {
@@ -16,13 +16,13 @@ class ColonyLink {
   constructor() {
     if (typeof window !== "undefined") {
       this.connect();
-      console.log("🌱 Zyeuté: Colony Socket Initialized");
+      console.log("🌱 Ojea: Colony Socket Initialized");
     }
   }
 
   private async connect() {
-    // ⚔️ FOCUS MODE: Temporarily disabling Colony to focus on Zyeuté Core
-    console.log("🌱 Zyeuté: Colony Link disabled (Focus Mode active)");
+    // ⚔️ FOCUS MODE: Temporarily disabling Colony to focus on Ojea Core
+    console.log("🌱 Ojea: Colony Link disabled (Focus Mode active)");
     return;
 
     try {
@@ -33,7 +33,7 @@ class ColonyLink {
 
       // Guest users don't get a socket connection
       if (!token) {
-        console.log("🌱 Zyeuté: Guest mode (No Socket)");
+        console.log("🌱 Ojea: Guest mode (No Socket)");
         return;
       }
 
@@ -48,41 +48,41 @@ class ColonyLink {
       });
 
       this.socket?.on("connect", () => {
-        console.log("⚜️ Zyeuté: Connected to Colony OS Core.");
+        console.log("⚜️ Ojea: Connected to Colony OS Core.");
         this.reconnectAttempts = 0;
-        // Join Quebec social channels
-        this.socket?.emit("join_channel", "quebec_social");
+        // Join Mexico social channels
+        this.socket?.emit("join_channel", "mexico_social");
         this.socket?.emit("join_channel", "global_feed");
       });
 
       this.socket?.on("disconnect", (reason: string) => {
-        console.log("⚜️ Zyeuté: Disconnected from Colony OS:", reason);
+        console.log("⚜️ Ojea: Disconnected from Colony OS:", reason);
       });
 
       this.socket?.on("connect_error", (error: Error) => {
-        console.log("⚜️ Zyeuté: Connection error:", error.message);
+        console.log("⚜️ Ojea: Connection error:", error.message);
         this.reconnectAttempts++;
 
         if (this.reconnectAttempts >= this.maxReconnectAttempts) {
           console.log(
-            "⚜️ Zyeuté: Max reconnection attempts reached. Operating in standalone mode.",
+            "⚜️ Ojea: Max reconnection attempts reached. Operating in standalone mode.",
           );
         }
       });
 
       this.socket?.on("reconnect", () => {
-        console.log("⚜️ Zyeuté: Reconnected to Colony OS.");
+        console.log("⚜️ Ojea: Reconnected to Colony OS.");
         this.reconnectAttempts = 0;
       });
     } catch (error) {
-      console.error("⚜️ Zyeuté: Failed to establish Colony connection:", error);
+      console.error("⚜️ Ojea: Failed to establish Colony connection:", error);
     }
   }
 
   // Social Media Events
   public broadcastPost(post: any) {
     this.socket?.emit("social_post", {
-      platform: "zyeute",
+      platform: "ojea",
       type: "new_post",
       data: post,
       timestamp: new Date().toISOString(),
@@ -91,7 +91,7 @@ class ColonyLink {
 
   public broadcastLike(postId: string, userId: string) {
     this.socket?.emit("social_interaction", {
-      platform: "zyeute",
+      platform: "ojea",
       type: "like",
       postId,
       userId,
@@ -101,7 +101,7 @@ class ColonyLink {
 
   public broadcastComment(comment: any) {
     this.socket?.emit("social_interaction", {
-      platform: "zyeute",
+      platform: "ojea",
       type: "comment",
       data: comment,
       timestamp: new Date().toISOString(),
@@ -111,18 +111,18 @@ class ColonyLink {
   // AI Agent Communication
   public requestTiGuyResponse(message: string, context?: any) {
     this.socket?.emit("ai_request", {
-      agent: "ti-guy",
-      platform: "zyeute",
+      agent: "guey",
+      platform: "ojea",
       message,
       context,
       timestamp: new Date().toISOString(),
     });
   }
 
-  public requestJoualBeeModeration(content: string) {
+  public requestMexicanoBeeModeration(content: string) {
     this.socket?.emit("ai_request", {
-      agent: "joualbee",
-      platform: "zyeute",
+      agent: "mexicanobee",
+      platform: "ojea",
       type: "moderation",
       content,
       timestamp: new Date().toISOString(),
@@ -132,7 +132,7 @@ class ColonyLink {
   // Commerce Events
   public broadcastVirtualGift(gift: any) {
     this.socket?.emit("commerce_event", {
-      platform: "zyeute",
+      platform: "ojea",
       type: "virtual_gift",
       data: gift,
       timestamp: new Date().toISOString(),
@@ -141,7 +141,7 @@ class ColonyLink {
 
   public broadcastSubscription(subscription: any) {
     this.socket?.emit("commerce_event", {
-      platform: "zyeute",
+      platform: "ojea",
       type: "subscription",
       data: subscription,
       timestamp: new Date().toISOString(),
@@ -150,8 +150,8 @@ class ColonyLink {
 
   // Cross-Organ Synergies
 
-  public subscribeToVraieQuebecEvents(callback: (event: any) => void) {
-    this.socket?.on("vraie_quebec_event", callback);
+  public subscribeToVraieMexicoEvents(callback: (event: any) => void) {
+    this.socket?.on("vraie_mexico_event", callback);
   }
 
   public subscribeToAdGenCampaigns(callback: (campaign: any) => void) {

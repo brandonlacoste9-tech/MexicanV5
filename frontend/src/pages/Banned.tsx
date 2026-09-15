@@ -29,7 +29,7 @@ const BannedPage: React.FC = () => {
 
           <div className="space-y-4 text-stone-400 text-sm leading-relaxed mb-8">
             <p className="font-semibold text-red-400/90 text-base">
-              Zyeuté applique une politique de{" "}
+              Ojea applique une politique de{" "}
               <span className="uppercase tracking-widest">tolérance zéro</span>.
             </p>
 
@@ -41,7 +41,7 @@ const BannedPage: React.FC = () => {
 
             <div className="bg-black/30 rounded-xl p-4 border border-white/5 text-xs italic">
               "Les utilisateurs sont entièrement responsables du contenu qu’ils
-              créent et partagent. Zyeuté se réserve le droit de retirer tout
+              créent et partagent. Ojea se réserve le droit de retirer tout
               contenu ou de suspendre tout compte contrevenant à ces standards."
             </div>
           </div>
@@ -56,7 +56,7 @@ const BannedPage: React.FC = () => {
         </div>
 
         <p className="mt-8 text-stone-600 text-[10px] uppercase tracking-[3px]">
-          Sécurité Zyeuté • Québec
+          Sécurité Ojea • México
         </p>
       </div>
     </div>

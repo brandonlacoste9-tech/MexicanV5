@@ -50,7 +50,7 @@ try {
     throw new Error("Redis connection not configured");
   }
   videoWorker = new Worker<VideoProcessingJob>(
-    "zyeute-video-enhance",
+    "ojea-video-enhance",
     async (job) => {
       console.log(`[Worker] Received job for post ${job.data.postId}`);
       return await VideoOrchestrator.process(job.data);
@@ -101,7 +101,7 @@ try {
     throw new Error("Redis connection not configured");
   }
   memoryWorker = new Worker(
-    "zyeute-memory-miner",
+    "ojea-memory-miner",
     async (job) => {
       const { userId } = job.data;
       const taskId = job.id || `mininator-${Date.now()}`;
@@ -176,7 +176,7 @@ try {
     throw new Error("Redis connection not configured");
   }
   privacyWorker = new Worker(
-    "zyeute-privacy-auditor",
+    "ojea-privacy-auditor",
     async (job) => {
       console.log(`[PrivacyWorker] 🔒 Starting Privacy Audit...`);
       try {
@@ -233,7 +233,7 @@ try {
     throw new Error("Redis connection not configured");
   }
   moderationWorker = new Worker<ModerationJob>(
-    "zyeute-content-moderation",
+    "ojea-content-moderation",
     async (job) => {
       const {
         contentType,

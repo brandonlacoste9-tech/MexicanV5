@@ -1,6 +1,6 @@
 /**
- * ChatZyeute - Messagerie Zyeuté
- * Sécurisé, simple, 100% Québécois
+ * ChatOjea - Messagerie Ojea
+ * Sécurisé, simple, 100% Mexicano
  * Thème Cuir & Or avec surpiqures
  * 
  * Now with REAL backend integration! 🚀
@@ -48,7 +48,7 @@ import {
   IoArrowBack,
 } from "react-icons/io5";
 
-// Motifs Fleur-de-lis
+// Motifs Águila
 const FLEUR_PATTERN = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M30 10c-1-4-4-6-7-6s-6 2-7 6l2 5-2-5c-1-4-4-6-7-6s-6 2-7 6c0 3 2 5 4 7l6 2-6-2c-2-2-4-4-4-7 0-4 2-6 6-7s6 2 7 6l4 9 4-9c1-4 4-6 7-6s6 2 7 6c0 3-2 5-4 7l-6 2 6-2c2-2 4-4 4-7 0-4-2-6-6-7s-6 2-7 6l-2 5 2-5z'/%3E%3C/g%3E%3C/svg%3E")`;
 
 // Emojis organisés
@@ -56,7 +56,7 @@ const EMOJIS = {
   recents: ["👍", "❤️", "😂", "😮", "🎉", "🔥", "👏", "🦫"],
   smileys: ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "😉", "😊", "🥰", "😍", "🤩", "😘", "😗"],
   coeurs: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❣️", "💕", "💞", "💓", "💗", "💖"],
-  quebec: ["⚜️", "🥞", "🏒", "🍺", "🧈", "🍟", "❄️", "⛷️", "🏔️", "🌲", "🦫", "🦆", "🦌"],
+  mexico: ["⚜️", "🥞", "🏒", "🍺", "🧈", "🍟", "❄️", "⛷️", "🏔️", "🌲", "🦫", "🦆", "🦌"],
 };
 
 const REACTIONS = ["❤️", "👍", "😂", "😮", "🎉", "🔥", "👏", "🦫", "⚜️"];
@@ -93,7 +93,7 @@ interface Props {
 
 type Onglet = "historique" | "messages" | "groupes" | "fichiers";
 
-export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
+export const ChatOjea: React.FC<Props> = ({ onClose }) => {
   const { tap, impact } = useHaptics();
   const { user: currentUser } = useAuth();
 
@@ -138,12 +138,12 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
   // Load messages when conversation changes
   useEffect(() => {
     if (conversationActive === "tiguy") {
-      // Ti-Guy welcome message
+      // Güey welcome message
       setMessages([
         {
           id: "bienvenue",
           sender_id: "tiguy",
-          content: "Ayoye! Bienvenue sur Zyeuté Messenger! 🦫⚜️\n\nChu Ti-Guy, ton assistant québécois. Ici, tes messages peuvent être:\n\n🔒 Chiffrés (sécurisés)\n⏱️ Éphémères (auto-destruction)\n\nAppuie sur les boutons en haut pour essayer!",
+          content: "Ayoye! Bienvenue sur Ojea Messenger! 🦫⚜️\n\nChu Güey, ton assistant mexicano. Ici, tes messages peuvent être:\n\n🔒 Chiffrés (sécurisés)\n⏱️ Éphémères (auto-destruction)\n\nAppuie sur les boutons en haut pour essayer!",
           type: "text",
           created_at: new Date().toISOString(),
           is_edited: false,
@@ -217,7 +217,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
 
   const formaterHeure = (date: string | Date) => {
     const d = typeof date === 'string' ? new Date(date) : date;
-    return d.toLocaleTimeString("fr-CA", { hour: "numeric", minute: "2-digit", hour12: true });
+    return d.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
   };
 
   // Envoyer message
@@ -227,7 +227,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
 
     tap();
 
-    // Ti-Guy conversation
+    // Güey conversation
     if (conversationActive === "tiguy") {
       let texteFinal = texte;
       let estChiffre = false;
@@ -319,7 +319,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
   // Ajouter réaction
   const ajouterReaction = async (idMessage: string, emoji: string) => {
     if (conversationActive === "tiguy") {
-      // Mock for Ti-Guy
+      // Mock for Güey
       setReactionsMessages(prev => {
         const actuelles = prev[idMessage] || [];
         const existante = actuelles.find(r => r.emoji === emoji);
@@ -370,7 +370,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
 
   // Get display name for active conversation
   const getActiveConversationName = () => {
-    if (conversationActive === "tiguy") return "Ti-Guy";
+    if (conversationActive === "tiguy") return "Güey";
     return activeConversationData?.other_user?.display_name ||
       activeConversationData?.name ||
       "Conversation";
@@ -420,7 +420,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
             <div className="flex items-center gap-2 mb-4">
               <span className="text-2xl">⚜️</span>
               <span className="text-xl font-bold tracking-widest text-[#d4af37]" style={{ fontFamily: "'Playfair Display', serif" }}>
-                ZYEUTÉ
+                OJEA
               </span>
             </div>
 
@@ -457,7 +457,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
               </div>
             ) : (
               <>
-                {/* Ti-Guy always first */}
+                {/* Güey always first */}
                 <button
                   onClick={() => { setConversationActive("tiguy"); tap(); }}
                   className={cn(
@@ -472,7 +472,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
                   </div>
                   <div className="flex-1 text-left">
                     <span className={cn("text-sm font-medium", conversationActive === "tiguy" ? "text-[#d4af37]" : "text-[#e8dcc8]")}>
-                      Ti-Guy
+                      Güey
                     </span>
                     <p className="text-xs text-[#8b7355] truncate">Salut mon ami!</p>
                   </div>
@@ -757,7 +757,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
                   </div>
                 ))}
 
-                {/* Ti-Guy écrit */}
+                {/* Güey écrit */}
                 {tiguyEcrit && (
                   <div className="flex gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-700 border-2 border-[#d4af37] flex items-center justify-center text-lg">🦫</div>
@@ -787,7 +787,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
                       onClick={() => { }}
                       className="px-3 py-2 rounded-lg text-xs uppercase text-[#8b7355] hover:bg-[#d4af37]/10 whitespace-nowrap"
                     >
-                      {cat === "recents" ? "Récents" : cat === "smileys" ? "Smileys" : cat === "coeurs" ? "Cœurs" : cat === "quebec" ? "Québec" : cat}
+                      {cat === "recents" ? "Récents" : cat === "smileys" ? "Smileys" : cat === "coeurs" ? "Cœurs" : cat === "mexico" ? "México" : cat}
                     </button>
                   ))}
                 </div>
@@ -848,7 +848,7 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
                   value={texteSaisi}
                   onChange={(e) => setTexteSaisi(e.target.value)}
                   placeholder={conversationActive === "tiguy"
-                    ? (modeChiffre ? "🔒 Message sécurisé..." : "Écris à Ti-Guy...")
+                    ? (modeChiffre ? "🔒 Message sécurisé..." : "Écris à Güey...")
                     : (modeChiffre ? "🔒 Message sécurisé..." : "Écris ton message...")
                   }
                   className="w-full px-5 py-4 rounded-2xl bg-[#3a2820]/80 border-2 border-[#d4af37]/30 text-[#e8dcc8] placeholder-[#8b7355] outline-none focus:border-[#d4af37]/60 transition-all text-[15px]"
@@ -880,4 +880,4 @@ export const ChatZyeute: React.FC<Props> = ({ onClose }) => {
   );
 };
 
-export default ChatZyeute;
+export default ChatOjea;

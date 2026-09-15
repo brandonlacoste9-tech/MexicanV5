@@ -1,4 +1,4 @@
-const KEY = "zyeute_referral_code";
+const KEY = "ojea_referral_code";
 
 /** Call once on app boot; stores ?ref= for signup / analytics. */
 export function captureReferralFromUrl(): void {

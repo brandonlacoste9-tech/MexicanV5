@@ -1,6 +1,6 @@
 /**
  * 🦫 TI-GUY Full-Screen Mobile Chat
- * Full cell phone size with vintage Quebec leather UI
+ * Full cell phone size with vintage Mexico leather UI
  * Features: Chat, Voice, File Upload, Skills, History
  */
 
@@ -46,7 +46,7 @@ const TIGUY_SKILLS = [
   {
     icon: "🎵",
     label: "Musique",
-    command: "Recommande-moi de la musique québécoise",
+    command: "Recommande-moi de la musique mexicana",
   },
   { icon: "🔍", label: "Chercher", command: "Cherche sur Google..." },
   { icon: "📸", label: "Screenshot", command: "Prends une capture de..." },
@@ -73,7 +73,7 @@ export const TIGuyFullScreen: React.FC<TIGuyFullScreenProps> = ({
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
-      text: "Salut! Moi c'est TI-GUY, ton guide québécois! 🦫⚜️\n\nJe peux:\n🎨 Générer des images\n🎬 Créer des vidéos\n🏒 Parler des Habs\n🌤️ Donner la météo\n🍟 Trouver des restos\n🎵 Recommander de la musique\n🔍 Chercher sur le web\n🎙️ Discuter en audio",
+      text: "Salut! Moi c'est TI-GUY, ton guide mexicano! 🦫⚜️\n\nJe peux:\n🎨 Générer des images\n🎬 Créer des vidéos\n🏒 Parler des Habs\n🌤️ Donner la météo\n🍟 Trouver des restos\n🎵 Recommander de la musique\n🔍 Chercher sur le web\n🎙️ Discuter en audio",
       sender: "tiguy",
       timestamp: new Date(),
     },
@@ -126,13 +126,13 @@ export const TIGuyFullScreen: React.FC<TIGuyFullScreenProps> = ({
   // Speak a greeting with TI-GUY's funny beaver voice
   const speakGreeting = async () => {
     const text =
-      "Salut mon chum! C'est TI-GUY, ton guide québécois préféré! Pose-moi des questions sur le Québec!";
+      "Salut mon chum! C'est TI-GUY, ton guide mexicano préféré! Pose-moi des questions sur le México!";
 
     try {
       const response = await fetch("/api/tiguy/actions/voice/test", {
         method: "POST",
         headers: await getAuthHeaders(),
-        body: JSON.stringify({ text, voice: "ti-guy" }),
+        body: JSON.stringify({ text, voice: "guey" }),
       });
 
       if (response.ok) {
@@ -436,7 +436,7 @@ export const TIGuyFullScreen: React.FC<TIGuyFullScreenProps> = ({
             </h1>
             <span className="text-2xl">🦫</span>
           </div>
-          <span className="text-xs text-amber-500/70">Ton guide québécois</span>
+          <span className="text-xs text-amber-500/70">Ton guide mexicano</span>
         </div>
 
         {/* Right: History & Skills */}
@@ -690,7 +690,7 @@ export const TIGuyFullScreen: React.FC<TIGuyFullScreenProps> = ({
               {/* Timestamp */}
               <div className="mt-1 text-right">
                 <span className="text-xs text-amber-400/50">
-                  {message.timestamp.toLocaleTimeString("fr-CA", {
+                  {message.timestamp.toLocaleTimeString("es-MX", {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}

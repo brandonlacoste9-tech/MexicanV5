@@ -649,8 +649,8 @@ app.use((req, res, next) => {
     const { default: leaderboardRouter } = await import("./routes/leaderboard.js");
     app.use("/api/leaderboard", leaderboardRouter);
 
-    // Initialize Ti-Guy Discord Bot
-    const { initTiGuy } = await import("./bot/ti-guy.js");
+    // Initialize Güey Discord Bot
+    const { initTiGuy } = await import("./bot/guey.js");
     initTiGuy();
 
     // Guarded Sentry verification endpoint (404 unless ?secret matches env).
@@ -690,7 +690,7 @@ app.use((req, res, next) => {
 
     // 3. Mark System Ready
     isSystemReady = true;
-    console.log("🚀 ZYEUTÉ IS FULLY ARMED AND OPERATIONAL! (Traffic Allowed)");
+    console.log("🚀 OJEA IS FULLY ARMED AND OPERATIONAL! (Traffic Allowed)");
     console.log(`   → Open app: http://127.0.0.1:${port}`);
 
     try {

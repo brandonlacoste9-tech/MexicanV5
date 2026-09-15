@@ -1,5 +1,5 @@
 /**
- * VerifiedBadge - "Vérifié par Zyeuté" stamp for media cards
+ * VerifiedBadge - "Vérifié par Ojea" stamp for media cards
  * Modern Voyageur aesthetic: Gold, Smoked Glass, subtle glow
  * CSS-only, GPU-accelerated
  */
@@ -31,7 +31,7 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
           className,
         )}
         style={{ willChange: "transform" }}
-        title="Vérifié par Zyeuté"
+        title="Vérifié par Ojea"
       >
         <svg
           className="w-3.5 h-3.5 text-black"
@@ -73,7 +73,7 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
     );
   }
 
-  // Default: Full badge with "Vérifié par Zyeuté"
+  // Default: Full badge with "Vérifié par Ojea"
   return (
     <div
       className={cn(
@@ -108,7 +108,7 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
           Vérifié
         </span>
         <span className="text-stone-400 text-[8px] tracking-wide">
-          par Zyeuté
+          par Ojea
         </span>
       </div>
     </div>

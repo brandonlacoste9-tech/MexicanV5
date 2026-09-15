@@ -20,7 +20,7 @@ export async function generateCaption(
   tone: string = "fun",
 ): Promise<string> {
   try {
-    const prompt = `Génère une courte légende Instagram amusante en français québécois (joual léger) sur le sujet: "${topic}". Ton: ${tone}. Ajoute 2-3 emojis.`;
+    const prompt = `Génère une courte légende Instagram amusante en français mexicano (mexicano léger) sur le sujet: "${topic}". Ton: ${tone}. Ajoute 2-3 emojis.`;
 
     const res = await fetch(`${BACKEND_URL}/api/ai/proxy/gemini`, {
       method: "POST",
@@ -33,7 +33,7 @@ export async function generateCaption(
     const result = await res.json();
     return (
       result.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Wow! C'est vraiment malade! 🔥 #Quebec #Fun"
+      "Wow! C'est vraiment malade! 🔥 #Mexico #Fun"
     );
   } catch (error) {
     geminiServiceLogger.error("Caption generation error:", error);
@@ -46,7 +46,7 @@ export async function generateCaption(
  */
 export async function generateHashtags(topic: string): Promise<string[]> {
   try {
-    const prompt = `Génère 5 hashtags populaires pour Instagram liés à "${topic}" dans un contexte québécois. Réponds SEULEMENT avec les hashtags séparés par des espaces.`;
+    const prompt = `Génère 5 hashtags populaires pour Instagram liés à "${topic}" dans un contexte mexicano. Réponds SEULEMENT avec les hashtags séparés par des espaces.`;
 
     const res = await fetch(`${BACKEND_URL}/api/ai/proxy/gemini`, {
       method: "POST",
@@ -60,13 +60,13 @@ export async function generateHashtags(topic: string): Promise<string[]> {
     const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "";
     return (
       text.split(" ").filter((tag: string) => tag.startsWith("#")) || [
-        "#Quebec",
-        "#Zyeute",
+        "#Mexico",
+        "#Ojea",
       ]
     );
   } catch (error) {
     geminiServiceLogger.error("Hashtag generation error:", error);
-    return ["#Quebec", "#Zyeute"];
+    return ["#Mexico", "#Ojea"];
   }
 }
 

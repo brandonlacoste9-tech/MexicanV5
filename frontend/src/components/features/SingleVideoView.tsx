@@ -1,6 +1,6 @@
 /**
  * SingleVideoView - High-performance vertical video view (TikTok-style)
- * Optimized for Zyeuté V5 with advanced prefetching and hardware acceleration
+ * Optimized for Ojea V5 with advanced prefetching and hardware acceleration
  */
 
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
@@ -192,8 +192,8 @@ export function SingleVideoView({
       try {
         if (navigator.share) {
           await navigator.share({
-            title: (post as any).caption || "Vidéo Zyeuté",
-            text: `@${post.user?.username || "anonyme"} sur Zyeuté ⚜️`,
+            title: (post as any).caption || "Vidéo Ojea",
+            text: `@${post.user?.username || "anonyme"} sur Ojea ⚜️`,
             url,
           });
         } else {
@@ -511,7 +511,7 @@ export function SingleVideoView({
               >
                 @{post.user?.username || "anonyme"}
               </span>
-              {/* Region fleur-de-lis tag */}
+              {/* Region aguila tag */}
               {post.region && (
                 <span
                   className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full"

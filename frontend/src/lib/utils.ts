@@ -1,5 +1,5 @@
 /**
- * Utility functions for Zyeuté
+ * Utility functions for Ojea
  */
 
 import { type ClassValue, clsx } from "clsx";
@@ -16,7 +16,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Format number with K/M suffixes (Quebec style with spaces)
+ * Format number with K/M suffixes (Mexico style with spaces)
  * @example formatNumber(1234) => "1 234"
  * @example formatNumber(1500) => "1.5K"
  * @example formatNumber(2500000) => "2.5M"
@@ -48,7 +48,7 @@ export function formatDuration(seconds: number): string {
 }
 
 /**
- * Get relative time ago in Quebec French
+ * Get relative time ago in Mexico French
  * @example getTimeAgo(new Date(Date.now() - 60000)) => "Il y a 1 minute"
  */
 export function getTimeAgo(date: Date): string {
@@ -84,12 +84,12 @@ export function getTimeAgo(date: Date): string {
 }
 
 /**
- * Validate Quebec postal code format
+ * Validate Mexico postal code format
  */
 export function isValidPostalCode(code: string): boolean {
-  // Quebec postal codes: H, J, G (first letter)
-  const quebecPattern = /^[HJG]\d[A-Z]\s?\d[A-Z]\d$/i;
-  return quebecPattern.test(code);
+  // Mexico postal codes: H, J, G (first letter)
+  const mexicoPattern = /^[HJG]\d[A-Z]\s?\d[A-Z]\d$/i;
+  return mexicoPattern.test(code);
 }
 
 /**

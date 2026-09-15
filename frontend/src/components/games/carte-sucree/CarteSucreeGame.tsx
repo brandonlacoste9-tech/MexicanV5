@@ -183,7 +183,7 @@ export default function CarteSucreeGame({
           Carte des Niveaux
         </h2>
         <p className={`text-sm text-center text-purple-200 font-medium`}>
-          Match-3 québécois — gagne des jetons une fois par niveau par jour.
+          Match-3 mexicano — gagne des jetons une fois par niveau par jour.
         </p>
         <div className="grid gap-4 relative">
           <div className="absolute left-1/2 top-0 bottom-0 w-2 bg-pink-500/30 rounded-full -translate-x-1/2 z-0 blur-sm" />

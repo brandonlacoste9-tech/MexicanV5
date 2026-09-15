@@ -87,12 +87,12 @@ export class MemoryMinerBee {
           messages: [
             {
               role: "system",
-              content: `You are an expert Data Analyst for Zyeuté.
+              content: `You are an expert Data Analyst for Ojea.
                           Your goal is to extract permanent, high-value "Facts" from a raw user-AI interaction memory.
                           
                           Categories: 
                           - 'preference' (e.g., likes hockey, vegan, night owl)
-                          - 'bio' (e.g., lives in Montreal, age 25, works in IT)
+                          - 'bio' (e.g., lives in CDMX, age 25, works in IT)
                           - 'history' (e.g., asked about poutine places previously)
                           - 'relationship' (e.g., mentions brother Pierre)
   

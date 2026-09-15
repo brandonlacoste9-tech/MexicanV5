@@ -54,7 +54,7 @@ const TIER_COLOURS: Record<string, string> = {
 const WS_URL =
   import.meta.env.VITE_WS_URL ||
   import.meta.env.VITE_API_URL ||
-  "https://zyeutev5-1.onrender.com";
+  "https://ojea-api.onrender.com";
 
 export function LiveChat({ streamId, compact = false }: LiveChatProps) {
   const { user } = useAuth();
@@ -142,7 +142,7 @@ export function LiveChat({ streamId, compact = false }: LiveChatProps) {
           {
             id: `join-${Date.now()}`,
             userId: "",
-            username: "Zyeuté",
+            username: "Ojea",
             text: `${username} a rejoint le live 👋`,
             tier: "free",
             timestamp: Date.now(),

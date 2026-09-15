@@ -4,7 +4,7 @@
  */
 import React from "react";
 import {
-  Avatar as ZyeuteAvatar,
+  Avatar as OjeaAvatar,
   AvatarGroup,
 } from "./Avatar";
 import type { AvatarProps } from "./Avatar";
@@ -45,7 +45,7 @@ export function Avatar({
   });
 
   return (
-    <ZyeuteAvatar
+    <OjeaAvatar
       src={src}
       alt={fallbackLabel}
       size="sm"

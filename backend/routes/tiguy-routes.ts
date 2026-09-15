@@ -106,7 +106,7 @@ router.post(
   creditCheckMiddleware("dialogflow-cx", "dialogflow-cx-text"),
   async (req: any, res) => {
     try {
-      const { sessionId, queryInput, languageCode = "fr-CA" } = req.body;
+      const { sessionId, queryInput, languageCode = "es-MX" } = req.body;
 
       if (!sessionId || !queryInput) {
         return res.status(400).json({
@@ -193,7 +193,7 @@ router.get("/status", async (req, res) => {
   res.json({
     online: dialogflowCredits?.status !== "DEPLETED",
     persona: "TI-GUY",
-    mood: "joual",
+    mood: "mexicano",
     credits:
       dialogflowCredits?.status === "HEALTHY"
         ? "available"
@@ -218,7 +218,7 @@ router.post(
   creditCheckMiddleware("dialogflow-cx", "dialogflow-cx-text"),
   async (req: any, res) => {
     try {
-      const { region = "quebec" } = req.body;
+      const { region = "mexico" } = req.body;
 
       const result = await chatWithTIGuy(`Qu'est-ce qui tend au ${region}?`, {
         userId: req.userId,

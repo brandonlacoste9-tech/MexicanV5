@@ -48,7 +48,7 @@ const EPHEMERAL_OPTIONS = [
 
 const THEMES = [
   { id: "cuir-or", name: "Cuir & Or", primary: "#D4AF37", bg: "#1A1A1A" },
-  { id: "quebec", name: "Québec", primary: "#0078D4", bg: "#0D0D0D" },
+  { id: "mexico", name: "México", primary: "#0078D4", bg: "#0D0D0D" },
   { id: "midnight", name: "Minuit", primary: "#6366F1", bg: "#000000" },
 ];
 

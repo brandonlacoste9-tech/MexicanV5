@@ -223,7 +223,7 @@ export const ChatInput: React.FC<Props> = ({ onSend, isTyping, chatType }) => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={chatType === 'tiguy' ? "Écris à Ti-Guy..." : "Écris ton message..."}
+            placeholder={chatType === 'tiguy' ? "Écris à Güey..." : "Écris ton message..."}
             className="text-input"
             disabled={isRecording}
           />

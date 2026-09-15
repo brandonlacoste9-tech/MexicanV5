@@ -1,7 +1,7 @@
 /**
- * 🦫 Ti-Guy Actions Service
- * Frontend service for Ti-Guy's AMAZING enhanced capabilities
- * Browser control, image/video generation, Quebec specialists, voice, and smart actions
+ * 🦫 Güey Actions Service
+ * Frontend service for Güey's AMAZING enhanced capabilities
+ * Browser control, image/video generation, Mexico specialists, voice, and smart actions
  */
 
 const API_BASE = "/api/tiguy";
@@ -35,9 +35,9 @@ export interface ImageGenerationRequest {
     | "realistic"
     | "artistic"
     | "cartoon"
-    | "quebec-heritage"
+    | "mexico-heritage"
     | "winter-scene"
-    | "urban-montreal"
+    | "urban-cdmx"
     | "nature-laurentides";
   size?: "square" | "portrait" | "landscape";
   enhancePrompt?: boolean;
@@ -81,15 +81,15 @@ export interface SmartActionResponse {
   error?: string;
 }
 
-export interface QuebecInfoResponse {
+export interface MexicoInfoResponse {
   success: boolean;
   response: string;
   data?: any;
 }
 
 /**
- * Ti-Guy Actions Service
- * Provides access to all Ti-Guy enhanced capabilities
+ * Güey Actions Service
+ * Provides access to all Güey enhanced capabilities
  */
 export const tiguyActionsService = {
   // ═══════════════════════════════════════════════════════════════
@@ -198,15 +198,15 @@ export const tiguyActionsService = {
   // 🏒 HOCKEY (CANADIENS DE MONTRÉAL)
   // ═══════════════════════════════════════════════════════════════
 
-  async getHockeyStandings(): Promise<QuebecInfoResponse> {
+  async getHockeyStandings(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/hockey/standings");
   },
 
-  async getNextHabsGame(): Promise<QuebecInfoResponse> {
+  async getNextHabsGame(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/hockey/next-game");
   },
 
-  async getHabsFact(): Promise<QuebecInfoResponse> {
+  async getHabsFact(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/hockey/facts");
   },
 
@@ -214,7 +214,7 @@ export const tiguyActionsService = {
   // 🌤️ WEATHER
   // ═══════════════════════════════════════════════════════════════
 
-  async getWeather(city: string = "Montreal"): Promise<QuebecInfoResponse> {
+  async getWeather(city: string = "CDMX"): Promise<MexicoInfoResponse> {
     return tiguyFetch(`/weather/${encodeURIComponent(city)}`);
   },
 
@@ -222,19 +222,19 @@ export const tiguyActionsService = {
   // 🍟 FOOD RECOMMENDATIONS
   // ═══════════════════════════════════════════════════════════════
 
-  async getPoutineSpots(): Promise<QuebecInfoResponse> {
+  async getPoutineSpots(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/food/poutine");
   },
 
-  async getSmokedMeatSpots(): Promise<QuebecInfoResponse> {
+  async getSmokedMeatSpots(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/food/smoked-meat");
   },
 
-  async getBagelSpots(): Promise<QuebecInfoResponse> {
+  async getBagelSpots(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/food/bagels");
   },
 
-  async getFoodRecommendation(craving: string): Promise<QuebecInfoResponse> {
+  async getFoodRecommendation(craving: string): Promise<MexicoInfoResponse> {
     return tiguyFetch("/food/recommend", {
       method: "POST",
       body: JSON.stringify({ craving }),
@@ -245,15 +245,15 @@ export const tiguyActionsService = {
   // 🎵 CULTURE & MUSIC
   // ═══════════════════════════════════════════════════════════════
 
-  async getFestivals(): Promise<QuebecInfoResponse> {
+  async getFestivals(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/culture/festivals");
   },
 
-  async getQuebecMusic(): Promise<QuebecInfoResponse> {
+  async getMexicoMusic(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/culture/music");
   },
 
-  async getQuebecExpressions(): Promise<QuebecInfoResponse> {
+  async getMexicoExpressions(): Promise<MexicoInfoResponse> {
     return tiguyFetch("/culture/expressions");
   },
 
@@ -263,7 +263,7 @@ export const tiguyActionsService = {
 
   async speak(
     text: string,
-    voice: "quebec-male" | "quebec-female" | "ti-guy" = "ti-guy",
+    voice: "mexico-male" | "mexico-female" | "guey" = "guey",
   ): Promise<{ success: boolean; audioBase64?: string; response: string }> {
     return tiguyFetch("/voice/speak", {
       method: "POST",
@@ -271,7 +271,7 @@ export const tiguyActionsService = {
     });
   },
 
-  async getPronunciation(word?: string): Promise<QuebecInfoResponse> {
+  async getPronunciation(word?: string): Promise<MexicoInfoResponse> {
     const endpoint = word
       ? `/voice/pronunciation/${encodeURIComponent(word)}`
       : "/voice/pronunciation";

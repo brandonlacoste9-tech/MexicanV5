@@ -10,7 +10,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { supabase } from "@/lib/supabase";
 
 const API_BASE =
-  import.meta.env.VITE_API_URL || "https://zyeutev5-1.onrender.com";
+  import.meta.env.VITE_API_URL || "https://ojea-api.onrender.com";
 
 const GOLD = "#DAA520";
 const DARK = "#0D0A06";
@@ -96,7 +96,7 @@ function StatCard({
 }
 
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("fr-CA", {
+  return new Date(dateStr).toLocaleDateString("es-MX", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -354,23 +354,23 @@ export const CreatorRevenue: React.FC = () => {
           <StatCard
             icon="🎁"
             label="Total Cennés reçus"
-            value={d.totalCenneReceived.toLocaleString("fr-CA")}
+            value={d.totalCenneReceived.toLocaleString("es-MX")}
             sub="Via cadeaux"
           />
           <StatCard
             icon="👥"
             label="Abonnés"
-            value={d.followerCount.toLocaleString("fr-CA")}
+            value={d.followerCount.toLocaleString("es-MX")}
           />
           <StatCard
             icon="👁️"
             label="Vues totales"
-            value={d.totalViews.toLocaleString("fr-CA")}
+            value={d.totalViews.toLocaleString("es-MX")}
           />
           <StatCard
             icon="❤️"
             label="J'aimes"
-            value={d.totalLikes.toLocaleString("fr-CA")}
+            value={d.totalLikes.toLocaleString("es-MX")}
           />
         </div>
 
@@ -744,7 +744,7 @@ export const CreatorRevenue: React.FC = () => {
                           }}
                         >
                           {new Date(p.arrival_date * 1000).toLocaleDateString(
-                            "fr-CA",
+                            "es-MX",
                             {
                               day: "numeric",
                               month: "short",
@@ -813,7 +813,7 @@ function GiftRow({ gift }: { gift: GiftEntry }) {
       </div>
       <div style={{ textAlign: "right", flexShrink: 0 }}>
         <p style={{ color: GOLD, fontWeight: 800, fontSize: 16 }}>
-          +{amount.toLocaleString("fr-CA")}
+          +{amount.toLocaleString("es-MX")}
         </p>
         <p style={{ color: "rgba(218,165,32,0.5)", fontSize: 11 }}>Cennés</p>
       </div>

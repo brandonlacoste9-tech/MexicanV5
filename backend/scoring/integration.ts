@@ -47,7 +47,7 @@ export async function recordReactionWithMomentum(
 
 export async function getSmartRecommendationsV3(
   db: any,
-  hiveId: string = "quebec",
+  hiveId: string = "mexico",
   limit: number = 20,
 ): Promise<any[]> {
   const result = await db.execute(sql`
@@ -58,7 +58,7 @@ export async function getSmartRecommendationsV3(
       u.avatar_url,
       u.region as creator_region,
       (
-        ((p.quebec_score + 1) * (LN(COALESCE(p.reactions_count, 0) * 1 + COALESCE(p.shares_count, 0) * 3 + COALESCE(p.piasse_count, 0) * 5 + 1) + 1))
+        ((p.mexico_score + 1) * (LN(COALESCE(p.reactions_count, 0) * 1 + COALESCE(p.shares_count, 0) * 3 + COALESCE(p.piasse_count, 0) * 5 + 1) + 1))
         / 
         POWER(EXTRACT(EPOCH FROM (NOW() - p.created_at))/3600 + 2, 1.8)
       ) as momentum_score,
@@ -95,7 +95,7 @@ export async function batchUpdateViralScores(db: any): Promise<number> {
   const result = await db.execute(sql`
     UPDATE publications
     SET viral_score = ROUND(
-      ((quebec_score + 1) * (LN(COALESCE(reactions_count, 0) * 1 + COALESCE(shares_count, 0) * 3 + COALESCE(piasse_count, 0) * 5 + 1) + 1))
+      ((mexico_score + 1) * (LN(COALESCE(reactions_count, 0) * 1 + COALESCE(shares_count, 0) * 3 + COALESCE(piasse_count, 0) * 5 + 1) + 1))
       / 
       POWER(EXTRACT(EPOCH FROM (NOW() - created_at))/3600 + 2, 1.8) * 1000
     )
@@ -108,7 +108,7 @@ export async function batchUpdateViralScores(db: any): Promise<number> {
 export function createExploreRouteV2(app: any, db: any): void {
   app.get("/api/explore/v2", async (req: any, res: any) => {
     try {
-      const hiveId = (req.query.hive as string) || "quebec";
+      const hiveId = (req.query.hive as string) || "mexico";
       const limit = Math.min(parseInt(req.query.limit as string) || 20, 50);
 
       const posts = await getSmartRecommendationsV3(db, hiveId, limit);

@@ -1,6 +1,6 @@
 /**
- * 🦫 TI-GUY Chat - Vintage Quebec Leather UI
- * Inspired by classic Quebec craftsmanship with fleur-de-lis
+ * 🦫 TI-GUY Chat - Vintage Mexico Leather UI
+ * Inspired by classic Mexico craftsmanship with aguila
  * Uses Dialogflow CX credits ($813.16)
  */
 
@@ -31,7 +31,7 @@ export const TIGuyChat: React.FC<TIGuyChatProps> = ({
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
-      text: "Salut! Moi c'est TI-GUY, ton guide québécois! 🦫",
+      text: "Salut! Moi c'est TI-GUY, ton guide mexicano! 🦫",
       sender: "tiguy",
       timestamp: new Date(),
     },

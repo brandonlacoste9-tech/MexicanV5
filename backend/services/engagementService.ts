@@ -5,7 +5,7 @@ import { getGeminiModel } from "../ai/google.js";
 import { getVertexGeminiModel } from "../ai/vertex-gemini.js";
 
 /**
- * Engagement Service - Ti-Guy's automated community interactions.
+ * Engagement Service - Güey's automated community interactions.
  * Generates and posts the "First Comment" on high-potential videos.
  */
 export async function postTiGuyFirstComment(
@@ -19,7 +19,7 @@ export async function postTiGuyFirstComment(
   if (!model) return;
 
   try {
-    // 1. Get Ti-Guy user ID
+    // 1. Get Güey user ID
     const results = await db
       .select()
       .from(users)
@@ -34,14 +34,14 @@ export async function postTiGuyFirstComment(
       return;
     }
 
-    // 2. Generate a personalized Joual comment based on the scout result
+    // 2. Generate a personalized Mexicano comment based on the scout result
     const prompt = `
-      Tu es Ti-Guy (@TiGuyScouter), l'assistant mascotte de Zyeuté.
+      Tu es Güey (@TiGuyScouter), l'assistant mascotte de Ojea.
       Tu viens de "Scouter" une vidéo avec ce résultat:
       Résumé: ${videoInfo.summary}
       Tags: ${videoInfo.tags.join(", ")}
 
-      Écris un premier commentaire ultra-enthousiaste, court (max 15 mots), et 100% Joual (Québec).
+      Écris un premier commentaire ultra-enthousiaste, court (max 15 mots), et 100% Mexicano (México).
       Utilise des emojis comme 🦫, 🍁, 🔥.
       Parle de ce que tu as vu dans la vidéo de façon naturelle.
       
@@ -59,11 +59,11 @@ export async function postTiGuyFirstComment(
     });
 
     console.log(
-      `💬 [Engagement] Ti-Guy a commenté sur le post ${postId}: "${commentText}"`,
+      `💬 [Engagement] Güey a commenté sur le post ${postId}: "${commentText}"`,
     );
   } catch (error: any) {
     console.error(
-      `❌ [Engagement] Erreur lors du commentaire de Ti-Guy:`,
+      `❌ [Engagement] Erreur lors du commentaire de Güey:`,
       error.message,
     );
   }

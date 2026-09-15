@@ -4,10 +4,10 @@ import { DialogflowBridge } from "../ai/dialogflow-bridge.js";
 const router = express.Router();
 
 /**
- * Ti-Guy Voice Route via Dialogflow CX
+ * Güey Voice Route via Dialogflow CX
  *
  * Uses Dialogflow CX credits ($813.16) for voice/text sessions
- * This is separate from the standard Ti-Guy chat route which uses DeepSeek
+ * This is separate from the standard Güey chat route which uses DeepSeek
  *
  * POST /api/dialogflow/tiguy
  * Body: { message: string, userId: string, context?: object }
@@ -29,7 +29,7 @@ router.post("/tiguy", async (req, res) => {
       });
     }
 
-    // Get Ti-Guy voice response via Dialogflow CX
+    // Get Güey voice response via Dialogflow CX
     // This uses Dialogflow CX credits, NOT standard Gemini API credits
     const result = await DialogflowBridge.getTiGuyVoiceResponse(
       userId,
@@ -50,7 +50,7 @@ router.post("/tiguy", async (req, res) => {
       },
     });
   } catch (error: any) {
-    console.error("Dialogflow Ti-Guy error:", error);
+    console.error("Dialogflow Güey error:", error);
 
     res.status(500).json({
       error: "Dialogflow CX request failed",
@@ -69,7 +69,7 @@ router.post("/tiguy", async (req, res) => {
  */
 router.post("/detect-intent", async (req, res) => {
   try {
-    const { sessionId, queryInput, languageCode = "fr-CA" } = req.body;
+    const { sessionId, queryInput, languageCode = "es-MX" } = req.body;
 
     if (!sessionId || !queryInput) {
       return res.status(400).json({

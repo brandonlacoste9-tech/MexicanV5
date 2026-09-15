@@ -66,7 +66,7 @@ router.get("/feed", async (req: Request, res: Response) => {
   try {
     const { storage } = await import("../storage.js");
     const posts = await Promise.race([
-      storage.getExplorePosts(0, 1, "quebec"),
+      storage.getExplorePosts(0, 1, "mexico"),
       new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error("pool_health_timeout_3s")), 3000),
       ),
@@ -130,7 +130,7 @@ router.get("/upload", async (_req: Request, res: Response) => {
 
   let storageOk = false;
   let storageError: string | null = null;
-  const storageBucket = "zyeute-videos";
+  const storageBucket = "ojea-videos";
 
   if (supabaseUrl && serviceKey) {
     try {

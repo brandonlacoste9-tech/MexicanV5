@@ -153,7 +153,7 @@ export async function signUp(
     email,
     password,
     options: {
-      data: { username, hive_id: hiveId ?? "quebec", display_name: username },
+      data: { username, hive_id: hiveId ?? "mexico", display_name: username },
       emailRedirectTo: redirectUrl,
     },
   });

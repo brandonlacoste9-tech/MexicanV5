@@ -453,9 +453,9 @@ function simulateTimePassed(hours: number) {
  * Test Configuration
  *
  * Constants:
- * - GUEST_MODE_KEY = 'zyeute_guest_mode'
- * - GUEST_TIMESTAMP_KEY = 'zyeute_guest_timestamp'
- * - GUEST_VIEWS_KEY = 'zyeute_guest_views'
+ * - GUEST_MODE_KEY = 'ojea_guest_mode'
+ * - GUEST_TIMESTAMP_KEY = 'ojea_guest_timestamp'
+ * - GUEST_VIEWS_KEY = 'ojea_guest_views'
  * - GUEST_SESSION_DURATION = 24 hours (86400000 ms)
  * - GUEST_VIEW_LIMIT = 10 (configurable)
  *

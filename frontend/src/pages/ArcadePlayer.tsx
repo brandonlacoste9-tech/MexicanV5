@@ -17,7 +17,7 @@ export default function ArcadePlayer() {
   const { user } = useAuth();
   const [claimed, setClaimed] = useState(false);
   const [playtime, setPlaytime] = useState(() => {
-    return parseInt(localStorage.getItem("zyeute_arcade_playtime") || "0", 10);
+    return parseInt(localStorage.getItem("ojea_arcade_playtime") || "0", 10);
   });
   const [accumulatedLocalSeconds, setAccumulatedLocalSeconds] = useState(0);
 
@@ -36,12 +36,12 @@ export default function ArcadePlayer() {
         if (response.data && typeof response.data.playtime === "number") {
           const dbTime = response.data.playtime;
           const localTime = parseInt(
-            localStorage.getItem("zyeute_arcade_playtime") || "0",
+            localStorage.getItem("ojea_arcade_playtime") || "0",
             10,
           );
           const finalTime = Math.max(dbTime, localTime);
           setPlaytime(finalTime);
-          localStorage.setItem("zyeute_arcade_playtime", finalTime.toString());
+          localStorage.setItem("ojea_arcade_playtime", finalTime.toString());
         }
       })
       .catch((err) => console.error("Error loading playtime:", err));
@@ -54,7 +54,7 @@ export default function ArcadePlayer() {
     const timer = setInterval(() => {
       setPlaytime((prev) => {
         const newTime = prev + 1;
-        localStorage.setItem("zyeute_arcade_playtime", newTime.toString());
+        localStorage.setItem("ojea_arcade_playtime", newTime.toString());
         return newTime;
       });
       setAccumulatedLocalSeconds((prev) => prev + 1);
@@ -83,13 +83,13 @@ export default function ArcadePlayer() {
           ) {
             const dbTime = response.data.playtime;
             const localTime = parseInt(
-              localStorage.getItem("zyeute_arcade_playtime") || "0",
+              localStorage.getItem("ojea_arcade_playtime") || "0",
               10,
             );
             const finalTime = Math.max(dbTime, localTime);
             setPlaytime(finalTime);
             localStorage.setItem(
-              "zyeute_arcade_playtime",
+              "ojea_arcade_playtime",
               finalTime.toString(),
             );
           }
@@ -129,7 +129,7 @@ export default function ArcadePlayer() {
     const currentHost =
       typeof window !== "undefined"
         ? window.location.href
-        : "https://zyeute.com";
+        : "https://ojea-mexico.netlify.app";
     url = `https://embed.gamedistribution.com/?url=${encodeURIComponent(
       url,
     )}&width=100%25&height=100%25&language=fr&gdpr-tracking=1&gdpr-targeting=1&gd_sdk_referrer_url=${encodeURIComponent(
@@ -219,7 +219,7 @@ export default function ArcadePlayer() {
             <p className="text-gray-300 mb-8 leading-relaxed">
               Votre essai gratuit d'une heure est terminé. Pour continuer à
               jouer en illimité et accéder à tout notre catalogue de jeux
-              premium, passez à l'abonnement Zyeuté.
+              premium, passez à l'abonnement Ojea.
             </p>
             <button
               onClick={() => navigate("/premium")}

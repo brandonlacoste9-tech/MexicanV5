@@ -1,5 +1,5 @@
 /**
- * Achievements Page - View all Quebec-themed achievements
+ * Achievements Page - View all Mexico-themed achievements
  * Track progress, tier, and unlock rewards
  */
 
@@ -257,7 +257,7 @@ export const Achievements: React.FC = () => {
                   : "bg-white/5 text-white hover:bg-white/10",
               )}
             >
-              🤖 Ti-Guy
+              🤖 Güey
             </button>
             <button
               onClick={() => setFilter("elite")}

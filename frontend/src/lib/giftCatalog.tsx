@@ -13,7 +13,7 @@ import {
 
 export type GiftTier = "common" | "rare" | "legendary";
 
-/** Lucide icons where they fit; Quebec-specific ids fall back to emoji in UI. */
+/** Lucide icons where they fit; Mexico-specific ids fall back to emoji in UI. */
 export const GIFT_ICON_MAP: Partial<Record<string, LucideIcon>> = {
   fleur: Flower2,
   bravo: ThumbsUp,
@@ -29,8 +29,8 @@ export const GIFT_ICON_MAP: Partial<Record<string, LucideIcon>> = {
 export const GIFT_ASSET_MAP: Partial<Record<string, string>> = {
   poutine: "/assets/emojis/poutine.png",
   caribou: "/assets/emojis/caribou.png",
-  "fleur-de-lys": "/assets/emojis/fleur-de-lys.png",
-  fleur_de_lys: "/assets/emojis/fleur-de-lys.png",
+  "aguila": "/assets/emojis/aguila.png",
+  fleur_de_lys: "/assets/emojis/aguila.png",
   "cone-orange": "/assets/emojis/cone-orange.png",
   erable: "/assets/emojis/sirop-erable.png",
   "sirop-erable": "/assets/emojis/sirop-erable.png",

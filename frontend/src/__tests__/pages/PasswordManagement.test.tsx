@@ -92,9 +92,9 @@ vi.mock("../../lib/copy", () => ({
 
 // Mock constants
 vi.mock("../../lib/constants", () => ({
-  GUEST_MODE_KEY: "zyeute_guest_mode",
-  GUEST_TIMESTAMP_KEY: "zyeute_guest_timestamp",
-  GUEST_VIEWS_KEY: "zyeute_guest_views_count",
+  GUEST_MODE_KEY: "ojea_guest_mode",
+  GUEST_TIMESTAMP_KEY: "ojea_guest_timestamp",
+  GUEST_VIEWS_KEY: "ojea_guest_views_count",
 }));
 
 // Helper function to render components with providers

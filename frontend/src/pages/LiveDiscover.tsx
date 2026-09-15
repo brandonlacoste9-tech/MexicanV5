@@ -10,7 +10,7 @@ import { BottomNav } from "../components/BottomNav";
 import { Button } from "../components/Button";
 
 const API_BASE =
-  (import.meta as any).env?.VITE_API_URL || "https://zyeutev5-1.onrender.com";
+  (import.meta as any).env?.VITE_API_URL || "https://ojea-api.onrender.com";
 
 /**
  * Interface for a live stream
@@ -51,9 +51,9 @@ const CATEGORIES = [
  * Regions matching the Explore page
  */
 const REGIONS = [
-  { id: "all", name: "Tout le Québec", icon: "🍁" },
-  { id: "montreal", name: "Montréal", icon: "🏙️" },
-  { id: "quebec", name: "Québec", icon: "🏰" },
+  { id: "all", name: "Tout le México", icon: "🍁" },
+  { id: "cdmx", name: "Ciudad de México", icon: "🏙️" },
+  { id: "mexico", name: "México", icon: "🏰" },
   { id: "laval", name: "Laval", icon: "🌆" },
   { id: "longueuil", name: "Longueuil", icon: "🌉" },
   { id: "sherbrooke", name: "Sherbrooke", icon: "🌲" },
@@ -107,7 +107,7 @@ const LiveDiscover: React.FC = () => {
             : "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=450&fit=crop",
           viewer_count: row.viewer_count || 0,
           category: row.category || "général",
-          region: row.region || "montreal",
+          region: row.region || "cdmx",
           tags: [],
           is_trending: (row.viewer_count || 0) > 100,
           is_featured: row.user?.subscription_tier === "or",
@@ -284,7 +284,7 @@ const LiveDiscover: React.FC = () => {
               selectedCategory !== "all" ||
               selectedRegion !== "all"
                 ? "Essaye une autre recherche, catégorie ou région"
-                : "Lance ton live et connecte avec ta communauté québécoise"}
+                : "Lance ton live et connecte avec ta communauté mexicana"}
             </p>
             <Button
               onClick={handleGoLive}
@@ -361,7 +361,7 @@ const LiveDiscover: React.FC = () => {
                                     {stream.category}
                                   </span>
                                   {stream.region &&
-                                    stream.region !== "montreal" && (
+                                    stream.region !== "cdmx" && (
                                       <span className="text-xs bg-gold-500/20 text-gold-400 px-2 py-1 rounded">
                                         {REGIONS.find(
                                           (r) => r.id === stream.region,

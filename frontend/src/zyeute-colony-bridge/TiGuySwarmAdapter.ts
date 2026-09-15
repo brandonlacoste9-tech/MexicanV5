@@ -2,25 +2,25 @@ import { colonyClient } from "./ColonyClient";
 import { BeeType, SwarmResponse } from "./types";
 import { deepSeekCircuit, swarmCircuit } from "./CircuitBreaker";
 import {
-  processJoualTask,
-  generateJoualResponse,
-  joualify,
-} from "@/services/bees/JoualBee";
+  processMexicanoTask,
+  generateMexicanoResponse,
+  mexicanoify,
+} from "@/services/bees/MexicanoBee";
 import type { DeepSeekResponse } from "@/types/deepseek";
 
 // ═══════════════════════════════════════════════════════════════
 // COMPREHENSIVE JOUAL SYSTEM PROMPT
 // ═══════════════════════════════════════════════════════════════
 
-const TI_GUY_SYSTEM_PROMPT = `# Identité: Ti-Guy, l'assistant IA de Zyeuté
+const TI_GUY_SYSTEM_PROMPT = `# Identité: Güey, l'assistant IA de Ojea
 
-Tu es **Ti-Guy**, l'assistant IA officiel de **Zyeuté**, le premier réseau social 100% québécois.
+Tu es **Güey**, l'assistant IA officiel de **Ojea**, le premier réseau social 100% mexicano.
 
 ## Ta personnalité:
 - Tu parles **JOUAL AUTHENTIQUE** - PAS du français de France
-- Tu es fier québécois, friendly, drôle, et down-to-earth
-- Tu connais TOUTE la culture québécoise: musique, lieux, événements, slang, nourriture
-- Tu es comme un ami québécois qui aide sur les médias sociaux
+- Tu es fier mexicano, friendly, drôle, et down-to-earth
+- Tu connais TOUTE la culture mexicana: musique, lieux, événements, slang, nourriture
+- Tu es comme un ami mexicano qui aide sur les médias sociaux
 
 ## Ton langage (CRITIQUE):
 - **Approbation**: "Tiguidou!", "Nice en criss!", "Malade!", "Solide!"
@@ -33,16 +33,16 @@ Tu es **Ti-Guy**, l'assistant IA officiel de **Zyeuté**, le premier réseau soc
 - ❌ Parler français de France
 - ❌ Être trop formel
 - ❌ Utiliser "vous" (toujours tutoyer)
-- ❌ Ignorer le contexte québécois
+- ❌ Ignorer le contexte mexicano
 
-Tu représentes la fierté québécoise! ⚜️🔥`;
+Tu représentes la fierté mexicana! ⚜️🔥`;
 
 // ═══════════════════════════════════════════════════════════════
 // FALLBACK RESPONSES (When circuit is open)
 // ═══════════════════════════════════════════════════════════════
 
 const FALLBACK_RESPONSES = [
-  "Heille! Ti-Guy est un peu occupé là, mais j'te reviens vite! 🐝",
+  "Heille! Güey est un peu occupé là, mais j'te reviens vite! 🐝",
   "Ouin, mes circuits sont un peu gelés. Réessaie dans une minute!",
   "Coudonc, y'a du traffic dans la ruche! Un instant... 🐝⚜️",
   "Tiguidou, j'ai besoin d'une p'tite pause. Reviens-moé tantôt!",
@@ -61,7 +61,7 @@ function getRandomFallback(): string {
 
 export class TiGuySwarmAdapter {
   constructor() {
-    console.log("🐝 Ti-Guy Swarm initialized (via backend proxy)");
+    console.log("🐝 Güey Swarm initialized (via backend proxy)");
   }
 
   /**
@@ -86,12 +86,12 @@ export class TiGuySwarmAdapter {
     )
       return "security";
     if (
-      p.includes("joual") ||
+      p.includes("mexicano") ||
       p.includes("traduction") ||
       p.includes("expression") ||
-      p.includes("québécois")
+      p.includes("mexicano")
     )
-      return "joual";
+      return "mexicano";
     if (
       p.includes("poutine") ||
       p.includes("recette") ||
@@ -107,14 +107,14 @@ export class TiGuySwarmAdapter {
     )
       return "hockey";
     if (
-      p.includes("montreal") ||
+      p.includes("cdmx") ||
       p.includes("région") ||
       p.includes("514") ||
       p.includes("418")
     )
       return "region";
 
-    return null; // No special bee needed, Ti-Guy handles it
+    return null; // No special bee needed, Güey handles it
   }
 
   /**
@@ -132,7 +132,7 @@ export class TiGuySwarmAdapter {
     // ═══════════════════════════════════════════════════════════
     if (targetBee) {
       if (onProgress)
-        onProgress(`🐝 Ti-Guy appelle l'agent ${targetBee.toUpperCase()}...`);
+        onProgress(`🐝 Güey appelle l'agent ${targetBee.toUpperCase()}...`);
 
       // Use circuit breaker for swarm operations
       try {
@@ -187,28 +187,28 @@ export class TiGuySwarmAdapter {
               );
             });
           },
-          // Fallback: Use local JoualBee if swarm is unavailable
+          // Fallback: Use local MexicanoBee if swarm is unavailable
           async () => {
             console.log(
-              "⚡ Swarm circuit open/failed - using local JoualBee fallback",
+              "⚡ Swarm circuit open/failed - using local MexicanoBee fallback",
             );
             if (onProgress) onProgress("🐝 Mode local activé...");
 
-            // JoualBee can handle joual requests locally
-            if (targetBee === "joual") {
-              return processJoualTask(prompt);
+            // MexicanoBee can handle mexicano requests locally
+            if (targetBee === "mexicano") {
+              return processMexicanoTask(prompt);
             }
 
             // For other bees, return a helpful message
             return {
               bee: {
-                id: "ti-guy-fallback",
-                type: "joual" as BeeType,
-                name: "Ti-Guy (Fallback)",
+                id: "guey-fallback",
+                type: "mexicano" as BeeType,
+                name: "Güey (Fallback)",
                 status: "working" as const,
                 specialty: "Emergency Response",
               },
-              content: `${generateJoualResponse("encouragement")} J'peux pas rejoindre l'agent ${targetBee} là, mais j'suis là pour t'aider! 🐝`,
+              content: `${generateMexicanoResponse("encouragement")} J'peux pas rejoindre l'agent ${targetBee} là, mais j'suis là pour t'aider! 🐝`,
               confidence: 0.7,
             };
           },
@@ -222,24 +222,24 @@ export class TiGuySwarmAdapter {
     }
 
     // ═══════════════════════════════════════════════════════════
-    // 2. STANDARD MODE: Ti-Guy handles directly
+    // 2. STANDARD MODE: Güey handles directly
     // ═══════════════════════════════════════════════════════════
 
     // Use circuit breaker for DeepSeek API
     const response = await deepSeekCircuit.executeWithFallback(
       async () => this.callDeepSeek(prompt, history),
       () => {
-        // Fallback: Generate local Joual response
-        const joualified = joualify(prompt);
-        return `${generateJoualResponse("approval")} ${joualified ? `J'ai compris: "${joualified}"` : "J'suis là pour t'aider!"} 🐝⚜️`;
+        // Fallback: Generate local Mexicano response
+        const mexicanoified = mexicanoify(prompt);
+        return `${generateMexicanoResponse("approval")} ${mexicanoified ? `J'ai compris: "${mexicanoified}"` : "J'suis là pour t'aider!"} 🐝⚜️`;
       },
     );
 
     return {
       bee: {
-        id: "ti-guy-main",
-        type: "joual",
-        name: "Ti-Guy",
+        id: "guey-main",
+        type: "mexicano",
+        name: "Güey",
         status: "idle",
         specialty: "General Assistant",
       },
@@ -271,7 +271,7 @@ export class TiGuySwarmAdapter {
       body: JSON.stringify({
         messages: messages,
         model: "deepseek-chat", // DeepSeek V3
-        temperature: 0.9, // Balanced for natural Joual
+        temperature: 0.9, // Balanced for natural Mexicano
         max_tokens: 1024,
       }),
     });

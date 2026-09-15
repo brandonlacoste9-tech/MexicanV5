@@ -92,7 +92,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
           </div>
 
           <h2 className="text-gold-400 font-black text-2xl tracking-tight mb-2 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
-            Zyeute
+            Ojea
           </h2>
           <div className="flex items-center justify-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-bounce [animation-delay:-0.3s]" />

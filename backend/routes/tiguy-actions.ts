@@ -1,7 +1,7 @@
 /**
- * 🦫 Ti-Guy Actions API
- * Extended capabilities for Ti-Guy including browser control, image/video generation,
- * Quebec specialists (hockey, weather, food, culture), and voice features
+ * 🦫 Güey Actions API
+ * Extended capabilities for Güey including browser control, image/video generation,
+ * Mexico specialists (hockey, weather, food, culture), and voice features
  */
 
 import express from "express";
@@ -28,7 +28,7 @@ import {
   runWeather,
   runFood,
   runCulture,
-} from "../ai/bees/quebec-specialists.js";
+} from "../ai/bees/mexico-specialists.js";
 
 import { storage } from "../storage.js";
 import { v3Mod } from "../v3-swarm.js";
@@ -37,7 +37,7 @@ import { createOpenAI } from "@ai-sdk/openai";
 import { tool } from "ai";
 import { generateText, setAiConversationId } from "../lib/ai-generate.js";
 import {
-  zyeuteBrainTools,
+  ojeaBrainTools,
   ajusterMomentumTool,
   expulserTrollTool,
 } from "../ai/orchestrator.js";
@@ -75,7 +75,7 @@ router.get("/voices", async (req, res) => {
   res.json({
     success: true,
     voices,
-    message: "Choisis ta voix québécoise préférée! 🎤",
+    message: "Choisis ta voix mexicana préférée! 🎤",
   });
 });
 
@@ -91,13 +91,13 @@ router.get("/voices", async (req, res) => {
 router.post("/chat", async (req, res) => {
   try {
     const { message, skill, conversationId } = req.body;
-    // Group multi-turn Ti-Guy chats in Sentry Conversations
+    // Group multi-turn Güey chats in Sentry Conversations
     const uid = (req as { userId?: string }).userId;
     setAiConversationId(conversationId || (uid ? `tiguy:${uid}` : undefined));
 
     // 1. TRENDS SKILL
     if (skill === "trends" || message.toLowerCase().includes("tendance")) {
-      const trendingPosts = await storage.getRegionalTrendingPosts("quebec", 5);
+      const trendingPosts = await storage.getRegionalTrendingPosts("mexico", 5);
       const trendsContext = trendingPosts
         .map(
           (p) =>
@@ -105,11 +105,11 @@ router.post("/chat", async (req, res) => {
         )
         .join("\n");
 
-      const prompt = `L'utilisateur veut savoir les tendances du Québec. 
-      Voici les top posts actuels sur Zyeuté:
+      const prompt = `L'utilisateur veut savoir les tendances du México. 
+      Voici les top posts actuels sur Ojea:
       ${trendsContext}
       
-      Résume ça en joual québécois excité. Mentionne des hashtags.`;
+      Résume ça en mexicano mexicano excité. Mentionne des hashtags.`;
 
       const { text } = await generateText({
         model: getTIGuyModel(),
@@ -139,7 +139,7 @@ router.post("/chat", async (req, res) => {
       - Approuvé: ${modResult.status === "approved" ? "OUI" : "NON"}
       - Raison: ${modResult.reason || "Aucune"}
       
-      Fais un rapport formel mais avec ta personnalité de Ti-Guy.`;
+      Fais un rapport formel mais avec ta personnalité de Güey.`;
 
       const { text } = await generateText({
         model: getTIGuyModel(),
@@ -167,7 +167,7 @@ router.post("/chat", async (req, res) => {
       const prompt = `L'utilisateur pose une question de connaissance. 
       Résumé des docs Vertex AI Search: "${searchResult.summary}"
       
-      Réponds à l'utilisateur avec ces infos en joual. Dis que ça vient de tes "archives secrètes".`;
+      Réponds à l'utilisateur avec ces infos en mexicano. Dis que ça vient de tes "archives secrètes".`;
 
       const { text } = await generateText({
         model: getTIGuyModel(),
@@ -237,12 +237,12 @@ router.post("/chat", async (req, res) => {
 
     // 5. VOICE SKILL (Hearing & Speaking) 🎤
     if (skill === "voice" || req.path === "/voice") {
-      const { audio, voice = "ti-guy" } = req.body;
+      const { audio, voice = "guey" } = req.body;
       if (!audio) return res.status(400).json({ error: "Audio requis" });
 
       // Validate voice choice
       const validVoices = [
-        "ti-guy",
+        "guey",
         "celine",
         "ginette",
         "denis",
@@ -251,7 +251,7 @@ router.post("/chat", async (req, res) => {
         "mike",
         "mario",
       ];
-      const selectedVoice = validVoices.includes(voice) ? voice : "ti-guy";
+      const selectedVoice = validVoices.includes(voice) ? voice : "guey";
 
       // Écoute (STT)
       const stt = await voiceBee.speechToText(audio);
@@ -270,7 +270,7 @@ router.post("/chat", async (req, res) => {
           TIGUY_SYSTEM_PROMPT +
           "\nRéponds brièvement et avec autorité. Tu peux utiliser tes outils si l'utilisateur le demande (momentum, ban, etc.).",
         prompt: transcription,
-        tools: getToolsAsObject(zyeuteBrainTools),
+        tools: getToolsAsObject(ojeaBrainTools),
         maxSteps: 5, // Permet l'exécution séquentielle d'outils
       } as any);
 
@@ -297,7 +297,7 @@ router.post("/chat", async (req, res) => {
 
     // 5.5 VOICE TEST (Direct TTS without STT) 🎤
     if (skill === "voice-test" || req.path === "/voice/test") {
-      const { text, voice = "ti-guy" } = req.body;
+      const { text, voice = "guey" } = req.body;
 
       if (!text) {
         return res
@@ -307,7 +307,7 @@ router.post("/chat", async (req, res) => {
 
       // Validate voice
       const validVoices = [
-        "ti-guy",
+        "guey",
         "celine",
         "ginette",
         "denis",
@@ -316,7 +316,7 @@ router.post("/chat", async (req, res) => {
         "mike",
         "mario",
       ];
-      const selectedVoice = validVoices.includes(voice) ? voice : "ti-guy";
+      const selectedVoice = validVoices.includes(voice) ? voice : "guey";
 
       // Générer l'audio TTS directement
       const tts = await voiceBee.textToSpeech({
@@ -357,7 +357,7 @@ router.post("/chat", async (req, res) => {
       timestamp: new Date().toISOString(),
     });
   } catch (error: any) {
-    console.error("Ti-Guy Chat Error:", error);
+    console.error("Güey Chat Error:", error);
     res.status(500).json({
       response:
         "Osti, mon cerveau a planté! Réessaie plus tard! 🦫 (Error: " +
@@ -622,26 +622,26 @@ router.post("/image/thumbnail", async (req, res) => {
 
 /**
  * GET /api/tiguy/image/ideas
- * Get Quebec-themed image ideas
+ * Get Mexico-themed image ideas
  */
 router.get("/image/ideas", (req, res) => {
-  const ideas = imageGeneratorBee.getQuebecImageIdeas();
+  const ideas = imageGeneratorBee.getMexicoImageIdeas();
   const randomIdeas = ideas.sort(() => 0.5 - Math.random()).slice(0, 5);
 
   res.json({
     success: true,
-    response: "Voici quelques idées d'images québécoises! 🎨🍁",
+    response: "Voici quelques idées d'images mexicanas! 🎨🍁",
     ideas: randomIdeas,
   });
 });
 
 // ═══════════════════════════════════════════════════════════════
-// 🧠 COMBINED ACTIONS (Ti-Guy decides what to do)
+// 🧠 COMBINED ACTIONS (Güey decides what to do)
 // ═══════════════════════════════════════════════════════════════
 
 /**
  * POST /api/tiguy/action
- * Smart action router - Ti-Guy analyzes request and picks the right tool
+ * Smart action router - Güey analyzes request and picks the right tool
  */
 router.post("/action", async (req, res) => {
   try {
@@ -867,7 +867,7 @@ router.post("/action", async (req, res) => {
 
       case "weather": {
         const weatherResult = await runWeather({
-          payload: { city: "Montreal" },
+          payload: { city: "CDMX" },
         });
         return res.json({
           action: "weather",
@@ -923,14 +923,14 @@ router.post("/action", async (req, res) => {
             "- Créer un vidéo 🎬\n" +
             "- Chercher sur le web 🔍\n" +
             "- Stats des Habs 🏒\n" +
-            "- Météo au Québec 🌤️\n" +
+            "- Météo au México 🌤️\n" +
             "- Recommandations bouffe 🍟\n" +
-            "- Musique québécoise 🎵\n" +
+            "- Musique mexicana 🎵\n" +
             "- Festivals & culture ⚜️",
         });
     }
   } catch (error: any) {
-    console.error("Ti-Guy action error:", error);
+    console.error("Güey action error:", error);
     res.status(500).json({
       error: error.message,
       response: "Oups, y'a eu un problème! Réessaie! 🦫",
@@ -985,15 +985,15 @@ router.post("/video/generate", async (req, res) => {
 
 /**
  * GET /api/tiguy/video/ideas
- * Get Quebec-themed video ideas
+ * Get Mexico-themed video ideas
  */
 router.get("/video/ideas", (req, res) => {
-  const ideas = videoGeneratorBee.getQuebecVideoIdeas();
+  const ideas = videoGeneratorBee.getMexicoVideoIdeas();
   const randomIdeas = ideas.sort(() => 0.5 - Math.random()).slice(0, 5);
 
   res.json({
     success: true,
-    response: "Voici quelques idées de vidéos québécoises! 🎬🍁",
+    response: "Voici quelques idées de vidéos mexicanas! 🎬🍁",
     ideas: randomIdeas,
   });
 });
@@ -1040,10 +1040,10 @@ router.get("/hockey/facts", (req, res) => {
 
 /**
  * GET /api/tiguy/weather or /api/tiguy/weather/:city
- * Get weather for a Quebec city (default: Montreal)
+ * Get weather for a Mexico city (default: CDMX)
  */
 router.get("/weather", async (req, res) => {
-  const result = await weatherBee.getWeather("Montreal");
+  const result = await weatherBee.getWeather("CDMX");
   res.json(result);
 });
 router.get("/weather/:city", async (req, res) => {
@@ -1102,7 +1102,7 @@ router.get("/food/bagels", (req, res) => {
   res.json({
     success: true,
     response:
-      "🥯 **Les meilleurs bagels de Montréal:**\n\n" +
+      "🥯 **Les meilleurs bagels de Ciudad de México:**\n\n" +
       spots
         .map((s) => `**${s.name}** (${s.location})\n→ ${s.specialty}`)
         .join("\n\n"),
@@ -1129,7 +1129,7 @@ router.post("/food/recommend", (req, res) => {
 
 /**
  * GET /api/tiguy/culture/festivals
- * Get Quebec festivals
+ * Get Mexico festivals
  */
 router.get("/culture/festivals", (req, res) => {
   const festivals = cultureBee.getFestivals();
@@ -1137,7 +1137,7 @@ router.get("/culture/festivals", (req, res) => {
   res.json({
     success: true,
     response:
-      "🎉 **Festivals québécois:**\n\n" +
+      "🎉 **Festivals mexicano:**\n\n" +
       randomFests
         .map(
           (f) =>
@@ -1150,15 +1150,15 @@ router.get("/culture/festivals", (req, res) => {
 
 /**
  * GET /api/tiguy/culture/music
- * Get Quebec music recommendations
+ * Get Mexico music recommendations
  */
 router.get("/culture/music", (req, res) => {
-  const music = cultureBee.getQuebecMusic();
+  const music = cultureBee.getMexicoMusic();
   const randomArtists = music.sort(() => 0.5 - Math.random()).slice(0, 5);
   res.json({
     success: true,
     response:
-      "🎵 **Artistes québécois à écouter:**\n\n" +
+      "🎵 **Artistes mexicano à écouter:**\n\n" +
       randomArtists
         .map((a) => `**${a.artist}** (${a.genre})\n→ "${a.topSong}"`)
         .join("\n\n"),
@@ -1168,7 +1168,7 @@ router.get("/culture/music", (req, res) => {
 
 /**
  * GET /api/tiguy/culture/expressions
- * Get Quebec expressions
+ * Get Mexico expressions
  */
 router.get("/culture/expressions", (req, res) => {
   const expressions = cultureBee.getExpressions();
@@ -1176,7 +1176,7 @@ router.get("/culture/expressions", (req, res) => {
   res.json({
     success: true,
     response:
-      "📚 **Expressions québécoises:**\n\n" +
+      "📚 **Expressions mexicanas:**\n\n" +
       randomExpr
         .map((e) => `**${e.expression}**\n→ ${e.meaning}\n→ Ex: "${e.example}"`)
         .join("\n\n"),
@@ -1194,7 +1194,7 @@ router.get("/culture/expressions", (req, res) => {
  */
 router.post("/voice/speak", async (req, res) => {
   try {
-    const { text, voice = "ti-guy", speed = 1.0, emotion = "happy" } = req.body;
+    const { text, voice = "guey", speed = 1.0, emotion = "happy" } = req.body;
 
     if (!text) {
       return res.status(400).json({
@@ -1230,7 +1230,7 @@ router.get("/voice/pronunciation", (req, res) => {
   res.json({
     success: true,
     response:
-      "📖 **Guide de prononciation québécoise:**\n\n" +
+      "📖 **Guide de prononciation mexicana:**\n\n" +
       Object.entries(guide)
         .map(([w, p]) => `- **${w}**: ${p}`)
         .join("\n"),
@@ -1251,7 +1251,7 @@ router.get("/voice/pronunciation/:word", (req, res) => {
     res.json({
       success: true,
       response:
-        "📖 **Guide de prononciation québécoise:**\n\n" +
+        "📖 **Guide de prononciation mexicana:**\n\n" +
         Object.entries(guide)
           .map(([w, p]) => `- **${w}**: ${p}`)
           .join("\n"),
@@ -1262,7 +1262,7 @@ router.get("/voice/pronunciation/:word", (req, res) => {
 
 /**
  * GET /api/tiguy/capabilities
- * List all Ti-Guy capabilities
+ * List all Güey capabilities
  */
 router.get("/capabilities", (req, res) => {
   res.json({
@@ -1310,7 +1310,7 @@ router.get("/capabilities", (req, res) => {
       },
       {
         name: "Weather",
-        description: "Météo des villes québécoises",
+        description: "Météo des villes mexicanas",
         commands: ["météo à montréal", "quel temps fait-il"],
         icon: "🌤️",
       },
@@ -1321,15 +1321,15 @@ router.get("/capabilities", (req, res) => {
         icon: "🍟",
       },
       {
-        name: "Quebec Music",
-        description: "Artistes et musique québécoise",
-        commands: ["musique québécoise", "artistes à écouter"],
+        name: "Mexico Music",
+        description: "Artistes et musique mexicana",
+        commands: ["musique mexicana", "artistes à écouter"],
         icon: "🎵",
       },
       {
         name: "Festivals & Culture",
         description: "Festivals, événements, expressions",
-        commands: ["festivals à montréal", "expressions québécoises"],
+        commands: ["festivals à montréal", "expressions mexicanas"],
         icon: "🎉",
       },
       {
@@ -1339,8 +1339,8 @@ router.get("/capabilities", (req, res) => {
         icon: "🎤",
       },
       {
-        name: "Quebec Culture",
-        description: "Expertise culturelle québécoise",
+        name: "Mexico Culture",
+        description: "Expertise culturelle mexicana",
         commands: ["c'est quoi...", "recommande-moi...", "parle-moi de..."],
         icon: "⚜️",
       },
@@ -1377,14 +1377,14 @@ router.post("/voice", async (req, res) => {
         TIGUY_SYSTEM_PROMPT +
         "\nRéponds brièvement pour une interaction vocale. Tu peux utiliser tes outils si l'utilisateur le demande (momentum, ban, etc.).",
       prompt: transcription,
-      tools: getToolsAsObject(zyeuteBrainTools),
+      tools: getToolsAsObject(ojeaBrainTools),
       maxSteps: 5,
     } as any);
 
     // Parole (TTS)
     const tts = await voiceBee.textToSpeech({
       text,
-      voice: "ti-guy",
+      voice: "guey",
       speed: 1.0,
       emotion: "happy",
     });
@@ -1397,7 +1397,7 @@ router.post("/voice", async (req, res) => {
       type: "voice",
     });
   } catch (error: any) {
-    console.error("❌ Erreur Voix Ti-Guy:", error);
+    console.error("❌ Erreur Voix Güey:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -1410,7 +1410,7 @@ router.post("/tts", async (req, res) => {
 
     const tts = await voiceBee.textToSpeech({
       text,
-      voice: "ti-guy",
+      voice: "guey",
       speed: 1.0,
       emotion: "happy",
     });
@@ -1428,7 +1428,7 @@ import { feedAutoGenerator } from "../services/feed-auto-generator.js";
 
 /**
  * POST /api/tiguy/admin/populate-feed
- * Manually trigger feed population with Quebec videos
+ * Manually trigger feed population with Mexico videos
  * Requires admin role
  */
 router.post("/admin/populate-feed", async (req: any, res) => {

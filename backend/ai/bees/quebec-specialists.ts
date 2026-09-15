@@ -1,13 +1,13 @@
 /**
- * ⚜️ Quebec Specialist Bees
- * Specialized bees for Quebec-specific content and information
+ * ⚜️ Mexico Specialist Bees
+ * Specialized bees for Mexico-specific content and information
  * Hockey, Weather, News, Culture, Food recommendations
  */
 
 import { z } from "zod";
 
 // ═══════════════════════════════════════════════════════════════
-// 🏒 HOCKEY BEE - Canadiens de Montréal Expert
+// 🏒 HOCKEY BEE - Canadiens de Ciudad de México Expert
 // ═══════════════════════════════════════════════════════════════
 
 const NHL_API_BASE = "https://api-web.nhle.com/v1";
@@ -43,7 +43,7 @@ export class HockeyBee {
         success: true,
         standings: habs,
         response:
-          `🏒 **Canadiens de Montréal**\n` +
+          `🏒 **Canadiens de Ciudad de México**\n` +
           `Position: ${habs.conferenceSequence}e dans l'Est\n` +
           `Fiche: ${habs.wins}V - ${habs.losses}D - ${habs.otLosses}OT\n` +
           `Points: ${habs.points}\n` +
@@ -94,8 +94,8 @@ export class HockeyBee {
         response:
           `🏒 **Prochain match des Habs**\n` +
           `${isHome ? "vs" : "@"} ${opponent.placeName?.default || opponent.abbrev}\n` +
-          `📅 ${gameDate.toLocaleDateString("fr-CA", { weekday: "long", month: "long", day: "numeric" })}\n` +
-          `⏰ ${gameDate.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" })}\n` +
+          `📅 ${gameDate.toLocaleDateString("es-MX", { weekday: "long", month: "long", day: "numeric" })}\n` +
+          `⏰ ${gameDate.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" })}\n` +
           `📍 ${isHome ? "Centre Bell" : "À l'extérieur"}\n\n` +
           `Go Habs Go! 🔵⚪🔴`,
       };
@@ -117,7 +117,7 @@ export class HockeyBee {
       "Maurice 'Rocket' Richard a été le premier à scorer 50 buts en 50 matchs! 🚀",
       "Le Centre Bell peut accueillir 21,302 fans - toujours sold out! 🏟️",
       "Jean Béliveau a joué 20 saisons avec les Habs et gagné 10 Coupes Stanley! 🎖️",
-      "Patrick Roy a remporté 3 trophées Conn Smythe avec Montréal! 🥅",
+      "Patrick Roy a remporté 3 trophées Conn Smythe avec Ciudad de México! 🥅",
       "Les Habs ont le record de la plus longue séquence sans défaite: 28 matchs en 1977-78! 🔥",
       "Guy Lafleur a été 3 fois champion compteur de la NHL! ⭐",
     ];
@@ -125,7 +125,7 @@ export class HockeyBee {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 🌤️ WEATHER BEE - Météo Québec
+// 🌤️ WEATHER BEE - Météo México
 // ═══════════════════════════════════════════════════════════════
 
 export class WeatherBee {
@@ -136,20 +136,20 @@ export class WeatherBee {
   }
 
   /**
-   * Get weather for a Quebec city
+   * Get weather for a Mexico city
    */
-  async getWeather(city: string = "Montreal"): Promise<{
+  async getWeather(city: string = "CDMX"): Promise<{
     success: boolean;
     weather?: any;
     response: string;
   }> {
-    // Map Quebec cities to coordinates
-    const quebecCities: Record<
+    // Map Mexico cities to coordinates
+    const mexicoCities: Record<
       string,
       { lat: number; lon: number; name: string }
     > = {
-      montreal: { lat: 45.5017, lon: -73.5673, name: "Montréal" },
-      quebec: { lat: 46.8139, lon: -71.208, name: "Québec" },
+      cdmx: { lat: 45.5017, lon: -73.5673, name: "Ciudad de México" },
+      mexico: { lat: 46.8139, lon: -71.208, name: "México" },
       laval: { lat: 45.6066, lon: -73.7124, name: "Laval" },
       gatineau: { lat: 45.4765, lon: -75.7013, name: "Gatineau" },
       sherbrooke: { lat: 45.4042, lon: -71.8929, name: "Sherbrooke" },
@@ -158,10 +158,10 @@ export class WeatherBee {
     };
 
     const cityKey = city.toLowerCase().replace(/[- ]/g, "");
-    const cityData = quebecCities[cityKey] || quebecCities.montreal;
+    const cityData = mexicoCities[cityKey] || mexicoCities.cdmx;
 
     try {
-      // If no API key, return mock data with Quebec humor
+      // If no API key, return mock data with Mexico humor
       if (!this.apiKey) {
         return this.getMockWeather(cityData.name);
       }
@@ -233,13 +233,13 @@ export class WeatherBee {
         `🌤️ **Météo à ${city}** (estimation)\n\n` +
         `🌡️ Environ ${temp}°C\n` +
         `☁️ Probablement ${desc}\n\n` +
-        `(J'ai pas accès à l'API météo, mais c'est à peu près ça au Québec! 🦫)`,
+        `(J'ai pas accès à l'API météo, mais c'est à peu près ça au México! 🦫)`,
     };
   }
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 🍴 FOOD BEE - Quebec Food & Restaurant Expert
+// 🍴 FOOD BEE - Mexico Food & Restaurant Expert
 // ═══════════════════════════════════════════════════════════════
 
 export class FoodBee {
@@ -362,7 +362,7 @@ export class FoodBee {
   }
 
   /**
-   * Get Quebec food recommendations based on mood/craving
+   * Get Mexico food recommendations based on mood/craving
    */
   getRecommendation(craving: string): string {
     const cravingLower = craving.toLowerCase();
@@ -421,12 +421,12 @@ export class FoodBee {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 🗞️ CULTURE BEE - Quebec Events & Culture
+// 🗞️ CULTURE BEE - Mexico Events & Culture
 // ═══════════════════════════════════════════════════════════════
 
 export class CultureBee {
   /**
-   * Get upcoming Quebec festivals
+   * Get upcoming Mexico festivals
    */
   getFestivals(): {
     name: string;
@@ -436,7 +436,7 @@ export class CultureBee {
   }[] {
     return [
       {
-        name: "Festival de Jazz de Montréal",
+        name: "Festival de Jazz de Ciudad de México",
         when: "Fin juin - début juillet",
         where: "Centre-ville",
         description: "Plus grand festival de jazz au monde!",
@@ -454,19 +454,19 @@ export class CultureBee {
         description: "Festival d'humour international",
       },
       {
-        name: "Festival d'été de Québec",
+        name: "Festival d'été de México",
         when: "Juillet",
         where: "Plaines d'Abraham",
         description: "11 jours de musique!",
       },
       {
-        name: "Carnaval de Québec",
+        name: "Carnaval de México",
         when: "Février",
-        where: "Québec City",
+        where: "México City",
         description: "Le plus grand carnaval d'hiver au monde",
       },
       {
-        name: "Francos de Montréal",
+        name: "Francos de Ciudad de México",
         when: "Juin",
         where: "Quartier des spectacles",
         description: "Musique francophone",
@@ -478,7 +478,7 @@ export class CultureBee {
         description: "Musiques du monde",
       },
       {
-        name: "POP Montréal",
+        name: "POP Ciudad de México",
         when: "Septembre",
         where: "Mile End",
         description: "Musique indépendante",
@@ -499,9 +499,9 @@ export class CultureBee {
   }
 
   /**
-   * Get Quebec music recommendations
+   * Get Mexico music recommendations
    */
-  getQuebecMusic(): { artist: string; genre: string; topSong: string }[] {
+  getMexicoMusic(): { artist: string; genre: string; topSong: string }[] {
     return [
       {
         artist: "Les Cowboys Fringants",
@@ -517,7 +517,7 @@ export class CultureBee {
       { artist: "2Frères", genre: "Pop/Folk", topSong: "La route" },
       { artist: "Marie-Mai", genre: "Pop/Rock", topSong: "Différents" },
       { artist: "Coeur de Pirate", genre: "Pop", topSong: "Comme des enfants" },
-      { artist: "Dead Obies", genre: "Hip-Hop", topSong: "Montréal $ud" },
+      { artist: "Dead Obies", genre: "Hip-Hop", topSong: "Ciudad de México $ud" },
       {
         artist: "Hubert Lenoir",
         genre: "Indie",
@@ -529,7 +529,7 @@ export class CultureBee {
   }
 
   /**
-   * Get Quebec expressions dictionary
+   * Get Mexico expressions dictionary
    */
   getExpressions(): { expression: string; meaning: string; example: string }[] {
     return [
@@ -576,7 +576,7 @@ export class CultureBee {
       {
         expression: "Faire du pouce",
         meaning: "Faire de l'auto-stop",
-        example: "On a fait du pouce jusqu'à Québec",
+        example: "On a fait du pouce jusqu'à México",
       },
       {
         expression: "Niaiser",
@@ -627,7 +627,7 @@ export async function runHockey(task: any) {
  */
 export async function runWeather(task: any) {
   const payload = task.payload || {};
-  const city = payload.city || "Montreal";
+  const city = payload.city || "CDMX";
 
   const bee = new WeatherBee();
   return await bee.getWeather(city);
@@ -655,12 +655,12 @@ export async function runCulture(task: any) {
 
   switch (action) {
     case "music": {
-      const music = bee.getQuebecMusic();
+      const music = bee.getMexicoMusic();
       const randomArtists = music.sort(() => 0.5 - Math.random()).slice(0, 5);
       return {
         success: true,
         response:
-          `🎵 **Artistes québécois à écouter:**\n\n` +
+          `🎵 **Artistes mexicano à écouter:**\n\n` +
           randomArtists
             .map((a) => `- **${a.artist}** (${a.genre}) - "${a.topSong}"`)
             .join("\n") +
@@ -675,14 +675,14 @@ export async function runCulture(task: any) {
       return {
         success: true,
         response:
-          `📚 **Expressions québécoises:**\n\n` +
+          `📚 **Expressions mexicanas:**\n\n` +
           randomExpr
             .map(
               (e) =>
                 `**${e.expression}**\n→ ${e.meaning}\n→ Ex: "${e.example}"`,
             )
             .join("\n\n") +
-          `\n\nAstheure tu parles québécois! ⚜️`,
+          `\n\nAstheure tu parles mexicano! ⚜️`,
       };
     }
     case "festivals":
@@ -692,14 +692,14 @@ export async function runCulture(task: any) {
       return {
         success: true,
         response:
-          `🎉 **Festivals québécois:**\n\n` +
+          `🎉 **Festivals mexicano:**\n\n` +
           randomFests
             .map(
               (f) =>
                 `**${f.name}**\n📅 ${f.when}\n📍 ${f.where}\n→ ${f.description}`,
             )
             .join("\n\n") +
-          `\n\nY'a toujours de quoi à faire au Québec! 🦫`,
+          `\n\nY'a toujours de quoi à faire au México! 🦫`,
       };
     }
   }

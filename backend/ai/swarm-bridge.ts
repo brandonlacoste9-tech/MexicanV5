@@ -18,7 +18,7 @@ export interface UserContext {
 
 export interface MediaAnalysis {
   suggestedFilter: string;
-  quebecVibes: number; // 0-100
+  mexicoVibes: number; // 0-100
   luxuryFactor: number; // 0-100
   cost: number;
 }
@@ -29,7 +29,7 @@ export interface FilterApplication {
   filterUsed: string;
 }
 
-export interface QuebecFilter {
+export interface MexicoFilter {
   id: string;
   name: string;
   falPrompt: string; // The prompt for the creative upscaler
@@ -37,7 +37,7 @@ export interface QuebecFilter {
 }
 
 // Regional Filter Registry
-const REGIONAL_FILTERS: Record<string, Record<string, QuebecFilter>> = {
+const REGIONAL_FILTERS: Record<string, Record<string, MexicoFilter>> = {
   BR: {
     "rio-sunset": {
       id: "rio-sunset",
@@ -228,7 +228,7 @@ class ColonySwarmBridge {
 
       return {
         suggestedFilter,
-        quebecVibes: regionalVibes, // Repurposed field
+        mexicoVibes: regionalVibes, // Repurposed field
         luxuryFactor,
         cost,
       };
@@ -242,7 +242,7 @@ class ColonySwarmBridge {
 
       return {
         suggestedFilter: fallbackFilter,
-        quebecVibes: 50,
+        mexicoVibes: 50,
         luxuryFactor: 50,
         cost: 0,
       };

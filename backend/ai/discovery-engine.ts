@@ -15,7 +15,7 @@ const PROJECT_ID =
   process.env.GOOGLE_CLOUD_PROJECT || "unique-spirit-482300-s4";
 const LOCATION = "global";
 const DATA_STORE_ID =
-  process.env.VERTEX_SEARCH_DATA_STORE_ID || "zyeute-knowledge-base";
+  process.env.VERTEX_SEARCH_DATA_STORE_ID || "ojea-knowledge-base";
 
 let client: SearchServiceClient | null = null;
 
@@ -26,7 +26,7 @@ async function getClient() {
     client = new SearchServiceClient({
       // Use the same credential path logic as DialogflowBridge
       keyFilename:
-        process.env.GOOGLE_APPLICATION_CREDENTIALS || "./zyeute-ai-key.json",
+        process.env.GOOGLE_APPLICATION_CREDENTIALS || "./ojea-ai-key.json",
     });
     return client;
   } catch (error) {

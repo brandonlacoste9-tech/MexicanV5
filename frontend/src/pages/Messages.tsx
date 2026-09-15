@@ -1,7 +1,7 @@
 /**
  * 💬 Messages / DMs Page - Leather Wallet Design
- * Direct messaging interface for Zyeuté users
- * ⚜️ Fleur-de-lis navigation hub
+ * Direct messaging interface for Ojea users
+ * ⚜️ Águila navigation hub
  */
 
 import React from "react";

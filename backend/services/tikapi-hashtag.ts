@@ -1,5 +1,5 @@
 /**
- * TikAPI hashtag discovery — regional (Québec/Montreal) + viral/trending fill.
+ * TikAPI hashtag discovery — regional (México/CDMX) + viral/trending fill.
  */
 import TikAPI from "tikapi";
 import { TikApiService } from "./tikapi-service.js";
@@ -20,37 +20,37 @@ export type HashtagSeed = {
   region: string;
 };
 
-/** Keep existing Québec/Montreal content — smaller pulls per tag. */
+/** Keep existing México/CDMX content — smaller pulls per tag. */
 export const REGIONAL_HASHTAG_SEEDS: HashtagSeed[] = [
-  { name: "montreal", id: "36966", region: "montreal" },
-  { name: "quebec", id: "13725", region: "quebec_city" },
-  { name: "quebecois", id: "4764129", region: "quebec_city" },
-  { name: "mtl", id: "84124", region: "montreal" },
-  { name: "poutine", id: "1874324", region: "montreal" },
-  { name: "vieuxquebec", region: "quebec_city" },
-  { name: "laval", id: "5012099", region: "montreal" },
+  { name: "cdmx", id: "36966", region: "cdmx" },
+  { name: "mexico", id: "13725", region: "mexico_city" },
+  { name: "mexican", id: "4764129", region: "mexico_city" },
+  { name: "mtl", id: "84124", region: "cdmx" },
+  { name: "poutine", id: "1874324", region: "cdmx" },
+  { name: "vieuxmexico", region: "mexico_city" },
+  { name: "laval", id: "5012099", region: "cdmx" },
   { name: "gatineau", id: "1545799", region: "gatineau" },
   { name: "sherbrooke", id: "14732515", region: "sherbrooke" },
-  { name: "quebeccity", id: "4032418", region: "quebec_city" },
-  { name: "montrealtiktok", id: "1642342885160965", region: "montreal" },
-  { name: "tiktokcanada", id: "1592696115752962", region: "montreal" },
+  { name: "mexicocity", id: "4032418", region: "mexico_city" },
+  { name: "cdmxtiktok", id: "1642342885160965", region: "cdmx" },
+  { name: "tiktokcanada", id: "1592696115752962", region: "cdmx" },
 ];
 
 /** High-volume tags — fill the feed when regional pool is thin. */
 export const VIRAL_HASHTAG_SEEDS: HashtagSeed[] = [
-  { name: "fyp", id: "229207", region: "montreal" },
-  { name: "viral", id: "20884", region: "montreal" },
-  { name: "comedy", id: "1606334392378370", region: "montreal" },
-  { name: "dance", id: "5054", region: "montreal" },
-  { name: "funny", id: "5424", region: "montreal" },
-  { name: "canada", id: "14848", region: "montreal" },
-  { name: "hockey", id: "18560", region: "montreal" },
-  { name: "timhortons", id: "245457", region: "montreal" },
-  { name: "foodtok", id: "1617319982244870", region: "montreal" },
-  { name: "trending", region: "montreal" },
-  { name: "foryou", region: "montreal" },
-  { name: "foryoupage", region: "montreal" },
-  { name: "foodtiktok", region: "montreal" },
+  { name: "fyp", id: "229207", region: "cdmx" },
+  { name: "viral", id: "20884", region: "cdmx" },
+  { name: "comedy", id: "1606334392378370", region: "cdmx" },
+  { name: "dance", id: "5054", region: "cdmx" },
+  { name: "funny", id: "5424", region: "cdmx" },
+  { name: "canada", id: "14848", region: "cdmx" },
+  { name: "hockey", id: "18560", region: "cdmx" },
+  { name: "timhortons", id: "245457", region: "cdmx" },
+  { name: "foodtok", id: "1617319982244870", region: "cdmx" },
+  { name: "trending", region: "cdmx" },
+  { name: "foryou", region: "cdmx" },
+  { name: "foryoupage", region: "cdmx" },
+  { name: "foodtiktok", region: "cdmx" },
 ];
 
 export type FeedSeedCandidate = {
@@ -193,7 +193,7 @@ export async function collectTrendingCandidates(
     seen.add(mapped.video_id);
     out.push({
       video: mapped,
-      region: "montreal",
+      region: "cdmx",
       source: "tikapi:trending",
     });
   }
@@ -209,7 +209,7 @@ export type CollectFeedSeedOptions = {
 };
 
 /**
- * Regional first (keep Québec/Montreal), then viral hashtags + trending to top up the pool.
+ * Regional first (keep México/CDMX), then viral hashtags + trending to top up the pool.
  */
 export async function collectFeedSeedCandidates(
   opts: CollectFeedSeedOptions = {},
@@ -252,7 +252,7 @@ export async function collectFeedSeedCandidates(
 }
 
 /** @deprecated Use collectFeedSeedCandidates */
-export async function collectQuebecHashtagVideos(
+export async function collectMexicoHashtagVideos(
   perTag = 15,
   minPlays = 0,
 ): Promise<{ item: Record<string, unknown>; tag: HashtagSeed }[]> {

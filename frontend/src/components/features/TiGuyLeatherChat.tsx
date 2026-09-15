@@ -1,13 +1,13 @@
 /**
- * 🧳 TiGuyLeatherChat — Leather Wallet Chat UI for Ti-Guy
+ * 🧳 TiGuyLeatherChat — Leather Wallet Chat UI for Güey
  *
  * Premium hand-stitched leather UI with gold accents, belt buckle input,
- * and purple Ti-Guy AI bubbles. Inspired by Quebec craftsmanship.
+ * and purple Güey AI bubbles. Inspired by Mexico craftsmanship.
  *
  * Features:
  * - Leather texture background with gold stitching
  * - Belt buckle send button
- * - Purple Ti-Guy bot bubbles
+ * - Purple Güey bot bubbles
  * - Dropdown mode switcher (DM / Group / Hive)
  * - 2K likes milestone trigger for mode unlock
  */
@@ -17,7 +17,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 // ── Types ──────────────────────────────────────────────────
 interface ChatMessage {
     id: number;
-    type: "user" | "ti-guy" | "system";
+    type: "user" | "guey" | "system";
     text: string;
     timestamp: string;
     skill?: string;
@@ -38,8 +38,8 @@ interface TiGuyLeatherChatProps {
 
 // ── Constants ──────────────────────────────────────────────
 const TIGUY_GREETINGS = [
-    "Ayoye! Chus Ti-Guy, ton chum d'IA! 🦫⚜️",
-    "Salut là! Ti-Guy est dans place! Qu'est-ce tu veux? 🔥",
+    "Ayoye! Chus Güey, ton chum d'IA! 🦫⚜️",
+    "Salut là! Güey est dans place! Qu'est-ce tu veux? 🔥",
     "Eille! Le Grand Castor est prêt à t'aider! 🐿️",
 ];
 
@@ -59,9 +59,9 @@ export function TiGuyLeatherChat({
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
             id: 1,
-            type: "ti-guy",
+            type: "guey",
             text: TIGUY_GREETINGS[Math.floor(Math.random() * TIGUY_GREETINGS.length)],
-            timestamp: new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" }),
+            timestamp: new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }),
         },
     ]);
     const [input, setInput] = useState("");
@@ -91,7 +91,7 @@ export function TiGuyLeatherChat({
             id: Date.now(),
             type: "user",
             text,
-            timestamp: new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" }),
+            timestamp: new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }),
         };
 
         setMessages((prev) => [...prev, userMsg]);
@@ -103,7 +103,7 @@ export function TiGuyLeatherChat({
             if (onSendMessage) {
                 response = await onSendMessage(text, chatMode);
             } else {
-                // Fallback: call the Ti-Guy API directly
+                // Fallback: call the Güey API directly
                 const res = await fetch("/api/tiguy/chat", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -117,9 +117,9 @@ export function TiGuyLeatherChat({
                 ...prev,
                 {
                     id: Date.now() + 1,
-                    type: "ti-guy",
+                    type: "guey",
                     text: response,
-                    timestamp: new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" }),
+                    timestamp: new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }),
                 },
             ]);
         } catch {
@@ -129,7 +129,7 @@ export function TiGuyLeatherChat({
                     id: Date.now() + 1,
                     type: "system",
                     text: "Oups! Problème de connexion. Réessaye! 🔧",
-                    timestamp: new Date().toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" }),
+                    timestamp: new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }),
                 },
             ]);
         } finally {
@@ -153,7 +153,7 @@ export function TiGuyLeatherChat({
                 <button
                     className="leather-coin"
                     onClick={onToggle}
-                    aria-label="Ouvrir Ti-Guy"
+                    aria-label="Ouvrir Güey"
                 >
                     <span className="leather-coin-emoji">🦫</span>
                     <span className="leather-coin-label">TI-GUY</span>
@@ -227,9 +227,9 @@ export function TiGuyLeatherChat({
                         <div className="leather-chat-area">
                             {messages.map((msg) => (
                                 <div key={msg.id} className={`leather-msg leather-msg-${msg.type}`}>
-                                    {msg.type === "ti-guy" && <span className="leather-msg-beaver">🦫</span>}
+                                    {msg.type === "guey" && <span className="leather-msg-beaver">🦫</span>}
                                     <div className="leather-msg-content">
-                                        {msg.type === "ti-guy" && (
+                                        {msg.type === "guey" && (
                                             <span className="leather-msg-name">TI-GUY</span>
                                         )}
                                         <span className="leather-msg-text">{msg.text}</span>
@@ -239,7 +239,7 @@ export function TiGuyLeatherChat({
                             ))}
 
                             {isLoading && (
-                                <div className="leather-msg leather-msg-ti-guy">
+                                <div className="leather-msg leather-msg-guey">
                                     <span className="leather-msg-beaver">🦫</span>
                                     <div className="leather-msg-content">
                                         <span className="leather-typing">
@@ -548,7 +548,7 @@ const leatherStyles = `
     align-self: flex-end;
     flex-direction: row-reverse;
   }
-  .leather-msg-ti-guy {
+  .leather-msg-guey {
     align-self: flex-start;
   }
   .leather-msg-system {
@@ -572,8 +572,8 @@ const leatherStyles = `
     color: var(--lw-gold-metal);
   }
 
-  /* Ti-Guy bubble — royal purple leather */
-  .leather-msg-ti-guy .leather-msg-content {
+  /* Güey bubble — royal purple leather */
+  .leather-msg-guey .leather-msg-content {
     background: linear-gradient(135deg, var(--lw-purple), var(--lw-purple-dark));
     border-color: rgba(184,134,11,0.3);
     border-bottom-left-radius: 4px;

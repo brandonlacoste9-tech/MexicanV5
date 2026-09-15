@@ -138,7 +138,7 @@ export function TikTokCuration() {
         title: "Vidéo importée !",
         description: data?.post?.id
           ? `Publication ${data.post.id.slice(0, 8)}…`
-          : "La vidéo est dans le fil Zyeuté.",
+          : "La vidéo est dans le fil Ojea.",
       });
       setPasteUrl("");
     } catch {
@@ -176,7 +176,7 @@ export function TikTokCuration() {
       setImportedIds((prev) => new Set(prev).add(video.video_id));
       toast({
         title: "Vidéo importée !",
-        description: "La vidéo est maintenant disponible dans le fil Zyeuté.",
+        description: "La vidéo est maintenant disponible dans le fil Ojea.",
       });
     } catch {
       toast({
@@ -232,7 +232,7 @@ export function TikTokCuration() {
           </div>
           <form onSubmit={handleSearch} className="flex gap-3">
             <Input
-              placeholder="Mot-clé ou hashtag (ex: #quebec, poutine...)"
+              placeholder="Mot-clé ou hashtag (ex: #mexico, poutine...)"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="h-12 border-zinc-700 bg-zinc-800 text-white placeholder:text-zinc-500"
@@ -354,11 +354,11 @@ export function TikTokCuration() {
                     </>
                   ) : importedIds.has(video.video_id) ? (
                     <>
-                      <CheckCircle2 className="mr-2 h-4 w-4" /> DÉJÀ SUR ZYEUTÉ
+                      <CheckCircle2 className="mr-2 h-4 w-4" /> DÉJÀ SUR OJEA
                     </>
                   ) : (
                     <>
-                      <Download className="mr-2 h-4 w-4" /> IMPORTER SUR ZYEUTÉ
+                      <Download className="mr-2 h-4 w-4" /> IMPORTER SUR OJEA
                     </>
                   )}
                 </Button>

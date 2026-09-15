@@ -58,7 +58,7 @@ router.post("/onboard", requireAuth, async (req, res) => {
           transfers: { requested: true },
         },
         business_profile: {
-          product_description: "Créateur de contenu sur Zyeuté",
+          product_description: "Créateur de contenu sur Ojea",
         },
         metadata: { userId },
       });
@@ -72,7 +72,7 @@ router.post("/onboard", requireAuth, async (req, res) => {
     }
 
     // Generate onboarding link
-    const origin = process.env.FRONTEND_URL || "https://zyeute.com";
+    const origin = process.env.FRONTEND_URL || "https://ojea-mexico.netlify.app";
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
       refresh_url: `${origin}/wallet?connect=refresh`,
@@ -181,7 +181,7 @@ router.post("/withdraw", requireAuth, async (req, res) => {
       amount: amountCAD,
       currency: "cad",
       destination: profile.stripe_connect_id,
-      description: `Retrait Zyeuté — ${cennes}¢ cennes`,
+      description: `Retrait Ojea — ${cennes}¢ cennes`,
       metadata: { userId, cennes: String(cennes) },
     });
 

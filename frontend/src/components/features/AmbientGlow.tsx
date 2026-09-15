@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 
 export type AmbientMode = 
   | "default"
-  | "ti-guy-thinking"
-  | "ti-guy-charging"
-  | "ti-guy-royal"
+  | "guey-thinking"
+  | "guey-charging"
+  | "guey-royal"
   | "night"
   | "warning";
 
@@ -29,17 +29,17 @@ const MODE_COLORS: Record<AmbientMode, { start: string; end: string; accent: str
     end: "rgba(20, 40, 60, 0.05)",      // Muted teal
     accent: "rgba(212, 175, 55, 0.1)",  // Gold hint
   },
-  "ti-guy-thinking": {
+  "guey-thinking": {
     start: "rgba(124, 58, 237, 0.2)",   // Purple
     end: "rgba(91, 33, 182, 0.08)",     // Deep purple
     accent: "rgba(167, 139, 250, 0.15)", // Light purple
   },
-  "ti-guy-charging": {
+  "guey-charging": {
     start: "rgba(212, 175, 55, 0.25)",  // Gold
     end: "rgba(139, 115, 85, 0.1)",     // Warm brown
     accent: "rgba(244, 208, 63, 0.2)",  // Bright gold
   },
-  "ti-guy-royal": {
+  "guey-royal": {
     start: "rgba(30, 58, 95, 0.2)",     // Royal blue
     end: "rgba(20, 30, 50, 0.1)",       // Deep navy
     accent: "rgba(212, 175, 55, 0.25)", // Gold edge
@@ -100,7 +100,7 @@ export const AmbientGlow: React.FC<AmbientGlowProps> = ({
 
   // Calculate charge-shifted colors for charging mode
   const getChargingColors = () => {
-    if (mode !== "ti-guy-charging") return colors;
+    if (mode !== "guey-charging") return colors;
 
     // Shift toward gold as charge increases
     const goldIntensity = charge;
@@ -133,13 +133,13 @@ export const AmbientGlow: React.FC<AmbientGlowProps> = ({
       <div
         className={cn(
           "fixed inset-0 pointer-events-none transition-all duration-1000",
-          mode === "ti-guy-thinking" && "animate-pulse"
+          mode === "guey-thinking" && "animate-pulse"
         )}
         style={{
           background:
-            mode === "ti-guy-thinking"
+            mode === "guey-thinking"
               ? `radial-gradient(circle at 20% 80%, ${colors.accent} 0%, transparent 40%)`
-              : mode === "ti-guy-royal"
+              : mode === "guey-royal"
               ? `linear-gradient(135deg, transparent 0%, ${colors.accent} 50%, transparent 100%)`
               : "none",
           opacity: 0.3 * multiplier,
@@ -177,9 +177,9 @@ export function useAmbientLighting(
   if (isNightMode) {
     mode = "night";
   } else if (isCharging) {
-    mode = "ti-guy-charging";
+    mode = "guey-charging";
   } else if (isThinking) {
-    mode = "ti-guy-thinking";
+    mode = "guey-thinking";
   }
 
   return { mode, charge: chargeLevel };

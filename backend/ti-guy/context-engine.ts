@@ -1,6 +1,6 @@
 import { SLANG_LEVELS, TOPIC_KEYWORDS, CULTURAL_REFS } from "./knowledge.js";
 
-export interface QuebecContext {
+export interface MexicoContext {
   slangLevel: "jeune" | "adulte" | "formel";
   topics: string[];
   needsCulture: boolean;
@@ -8,8 +8,8 @@ export interface QuebecContext {
   detectedKeywords: string[];
 }
 
-export class QuebecContextEngine {
-  analyze(message: string): QuebecContext {
+export class MexicoContextEngine {
+  analyze(message: string): MexicoContext {
     const lowerMsg = message.toLowerCase();
 
     // 1. Detect Topics
@@ -62,8 +62,8 @@ export class QuebecContextEngine {
       lowerMsg.includes("monsieur") ||
       lowerMsg.includes("madame")
     ) {
-      // Very basic heuristic, "vous" is common but usually Ti-Guy uses "tu".
-      // If user vouvoie, Ti-Guy might stay polite but still Tu.
+      // Very basic heuristic, "vous" is common but usually Güey uses "tu".
+      // If user vouvoie, Güey might stay polite but still Tu.
       // Let's default to Adulte unless very stiff.
       slangLevel = "formel";
     }

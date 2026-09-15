@@ -1,5 +1,5 @@
 /**
- * Zyeuté Store — Buy cennes to gift your favourite creators
+ * Ojea Store — Buy cennes to gift your favourite creators
  */
 
 import React, { useEffect, useState, useCallback } from "react";
@@ -274,7 +274,7 @@ export default function Store() {
                 >
                   Centre Créateur
                 </button>
-                . Zyeuté garde 30% pour maintenir la plateforme.
+                . Ojea garde 30% pour maintenir la plateforme.
               </p>
             </div>
           </div>

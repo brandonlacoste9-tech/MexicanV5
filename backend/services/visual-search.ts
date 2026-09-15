@@ -1,12 +1,12 @@
 import { VertexAI } from "@google-cloud/vertexai";
 
 // Initialize Vertex AI
-const project = process.env.GOOGLE_CLOUD_PROJECT || "zyeute-v5";
+const project = process.env.GOOGLE_CLOUD_PROJECT || "ojea-v5";
 const location = "us-central1";
 const vertex_ai = new VertexAI({ project, location });
 
 /**
- * Visual Search Service for Zyeuté V5
+ * Visual Search Service for Ojea V5
  *
  * This service implements visual search capabilities using Vertex AI.
  * It uses Multimodal Embeddings to represent both text and images in the same vector space,

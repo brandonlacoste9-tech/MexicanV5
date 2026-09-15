@@ -123,13 +123,13 @@ export function WelcomeEmail({ username, previewText }: WelcomeEmailProps) {
       <Head />
       <Preview>
         {previewText ||
-          `Bienvenue sur Zyeuté, ${username}! Ti-Guy t'accueille!`}
+          `Bienvenue sur Ojea, ${username}! Güey t'accueille!`}
       </Preview>
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>🦫</Text>
@@ -139,13 +139,13 @@ export function WelcomeEmail({ username, previewText }: WelcomeEmailProps) {
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            C'est Ti-Guy, ton castor préféré! 🦫 J'suis tellement content que
+            C'est Güey, ton castor préféré! 🦫 J'suis tellement content que
             t'aies décidé d'embarquer avec nous autres sur{" "}
-            <span style={baseStyles.highlight}>Zyeuté</span>!
+            <span style={baseStyles.highlight}>Ojea</span>!
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            Ici, c'est l'app sociale faite au Québec, pour le Québec. On célèbre
+            Ici, c'est l'app sociale faite au México, pour le México. On célèbre
             notre belle province pis toute ce qui la rend unique - de la poutine
             aux baleines du Saint-Laurent, en passant par les couchers de soleil
             sur le Mont-Royal!
@@ -162,20 +162,20 @@ export function WelcomeEmail({ username, previewText }: WelcomeEmailProps) {
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            🎨 <span style={baseStyles.highlight}>Ti-Guy Studio</span> - Crée
+            🎨 <span style={baseStyles.highlight}>Güey Studio</span> - Crée
             des images avec l'intelligence artificielle! J'peux t'aider à créer
             du contenu malade.
           </Text>
 
           <Text style={baseStyles.paragraph}>
             📍 <span style={baseStyles.highlight}>Les régions</span> - Montre de
-            quelle région tu viens! Montréal, Québec, Gaspésie, Gatineau... on
+            quelle région tu viens! Ciudad de México, México, Gaspésie, Gatineau... on
             est fiers de nos racines!
           </Text>
 
           <Section style={{ textAlign: "center" }}>
-            <Button style={baseStyles.button} href="https://zyeute.com/feed">
-              Découvrir Zyeuté
+            <Button style={baseStyles.button} href="https://ojea-mexico.netlify.app/feed">
+              Découvrir Ojea
             </Button>
           </Section>
 
@@ -189,16 +189,16 @@ export function WelcomeEmail({ username, previewText }: WelcomeEmailProps) {
           <Text style={baseStyles.paragraph}>
             À bientôt!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Hr style={baseStyles.divider} />
 
           <Text style={baseStyles.footer}>
-            Zyeuté - L'app sociale du Québec
+            Ojea - L'app sociale du México
             <br />
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>
           </Text>
         </Container>
@@ -216,12 +216,12 @@ export function OnboardingDay1Email({
   return (
     <Html>
       <Head />
-      <Preview>{previewText || `${username}, découvre Ti-Guy Studio!`}</Preview>
+      <Preview>{previewText || `${username}, découvre Güey Studio!`}</Preview>
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>🎨</Text>
@@ -231,9 +231,9 @@ export function OnboardingDay1Email({
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            C'est Ti-Guy! J'espère que tu t'amuses ben sur Zyeuté! Aujourd'hui,
+            C'est Güey! J'espère que tu t'amuses ben sur Ojea! Aujourd'hui,
             j'voulais te parler d'une affaire vraiment cool:{" "}
-            <span style={baseStyles.highlight}>Ti-Guy Studio</span>!
+            <span style={baseStyles.highlight}>Güey Studio</span>!
           </Text>
 
           <Text style={baseStyles.paragraph}>
@@ -248,7 +248,7 @@ export function OnboardingDay1Email({
 
           <Section style={baseStyles.statsBox}>
             <Text style={baseStyles.statItem}>
-              <span style={baseStyles.statValue}>1.</span> Va sur Ti-Guy Studio
+              <span style={baseStyles.statValue}>1.</span> Va sur Güey Studio
               dans l'app
             </Text>
             <Text style={baseStyles.statItem}>
@@ -266,16 +266,16 @@ export function OnboardingDay1Email({
           </Section>
 
           <Text style={baseStyles.paragraph}>
-            Essaye avec des trucs québécois! "Un castor qui mange de la poutine
+            Essaye avec des trucs mexicano! "Un castor qui mange de la poutine
             au coucher du soleil sur le Mont-Royal" - j'adore ça! 🍟🧀
           </Text>
 
           <Section style={{ textAlign: "center" }}>
             <Button
               style={baseStyles.button}
-              href="https://zyeute.com/ai-studio"
+              href="https://ojea-mexico.netlify.app/ai-studio"
             >
-              Essayer Ti-Guy Studio
+              Essayer Güey Studio
             </Button>
           </Section>
 
@@ -284,12 +284,12 @@ export function OnboardingDay1Email({
           <Text style={baseStyles.paragraph}>
             À demain pour d'autres trucs cool!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Text style={baseStyles.footer}>
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>
           </Text>
         </Container>
@@ -311,8 +311,8 @@ export function OnboardingDay3Email({
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>🔥</Text>
@@ -320,13 +320,13 @@ export function OnboardingDay3Email({
           <Text style={baseStyles.heading}>{username}, parlons des Feux!</Text>
 
           <Text style={baseStyles.paragraph}>
-            Yo {username}! C'est Ti-Guy! T'as sûrement remarqué qu'on n'a pas de
-            "likes" sur Zyeuté. Nous autres, on donne des{" "}
+            Yo {username}! C'est Güey! T'as sûrement remarqué qu'on n'a pas de
+            "likes" sur Ojea. Nous autres, on donne des{" "}
             <span style={baseStyles.highlight}>FEUX</span>! 🔥
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            Pourquoi? Ben, au Québec, quand quelque chose est vraiment bon, on
+            Pourquoi? Ben, au México, quand quelque chose est vraiment bon, on
             dit "c'est en FEU!" ou "c'est hot en tabarnouche!". Faque c'était
             naturel de remplacer les likes par des feux!
           </Text>
@@ -340,7 +340,7 @@ export function OnboardingDay3Email({
               🔥 Tu montres que tu trouves ça hot!
             </Text>
             <Text style={baseStyles.statItem}>
-              🔥 Tu encourages les créateurs québécois
+              🔥 Tu encourages les créateurs mexicano
             </Text>
             <Text style={baseStyles.statItem}>🔥 Tu bâtis ta communauté</Text>
             <Text style={baseStyles.statItem}>
@@ -350,11 +350,11 @@ export function OnboardingDay3Email({
 
           <Text style={baseStyles.paragraph}>
             Plus tu donnes de feux, plus t'en reçois! C'est comme une grande
-            famille québécoise qui s'encourage mutuellement. Ben beau, non? 🍁
+            famille mexicana qui s'encourage mutuellement. Ben beau, non? 🍁
           </Text>
 
           <Section style={{ textAlign: "center" }}>
-            <Button style={baseStyles.button} href="https://zyeute.com/feed">
+            <Button style={baseStyles.button} href="https://ojea-mexico.netlify.app/feed">
               Donner mes premiers feux! 🔥
             </Button>
           </Section>
@@ -364,12 +364,12 @@ export function OnboardingDay3Email({
           <Text style={baseStyles.paragraph}>
             Continue comme ça!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Text style={baseStyles.footer}>
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>
           </Text>
         </Container>
@@ -393,8 +393,8 @@ export function OnboardingDay7Email({
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>🎉</Text>
@@ -407,8 +407,8 @@ export function OnboardingDay7Email({
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            T'as exploré le feed, découvert Ti-Guy Studio, donné des feux... Tu
-            commences vraiment à être un pro de Zyeuté!
+            T'as exploré le feed, découvert Güey Studio, donné des feux... Tu
+            commences vraiment à être un pro de Ojea!
           </Text>
 
           <Text style={baseStyles.paragraph}>
@@ -440,7 +440,7 @@ export function OnboardingDay7Email({
           </Text>
 
           <Section style={{ textAlign: "center" }}>
-            <Button style={baseStyles.button} href="https://zyeute.com/premium">
+            <Button style={baseStyles.button} href="https://ojea-mexico.netlify.app/premium">
               Voir les plans Premium
             </Button>
           </Section>
@@ -450,12 +450,12 @@ export function OnboardingDay7Email({
           <Text style={baseStyles.paragraph}>
             Merci d'être là!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Text style={baseStyles.footer}>
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>
           </Text>
         </Container>
@@ -488,12 +488,12 @@ export function WeeklyDigestEmail({
   return (
     <Html>
       <Head />
-      <Preview>{previewText || `${username}, ta semaine sur Zyeuté!`}</Preview>
+      <Preview>{previewText || `${username}, ta semaine sur Ojea!`}</Preview>
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>📊</Text>
@@ -503,8 +503,8 @@ export function WeeklyDigestEmail({
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            Salut {username}! C'est Ti-Guy avec ton résumé hebdomadaire! Voici
-            ce qui s'est passé pour toi cette semaine sur Zyeuté:
+            Salut {username}! C'est Güey avec ton résumé hebdomadaire! Voici
+            ce qui s'est passé pour toi cette semaine sur Ojea:
           </Text>
 
           <Section style={baseStyles.statsBox}>
@@ -540,7 +540,7 @@ export function WeeklyDigestEmail({
           )}
 
           <Section style={{ textAlign: "center" }}>
-            <Button style={baseStyles.button} href="https://zyeute.com/feed">
+            <Button style={baseStyles.button} href="https://ojea-mexico.netlify.app/feed">
               Voir le feed
             </Button>
           </Section>
@@ -550,12 +550,12 @@ export function WeeklyDigestEmail({
           <Text style={baseStyles.paragraph}>
             Bonne semaine!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Text style={baseStyles.footer}>
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>
           </Text>
         </Container>
@@ -580,8 +580,8 @@ export function ReengagementEmail({
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>😢</Text>
@@ -589,24 +589,24 @@ export function ReengagementEmail({
           <Text style={baseStyles.heading}>{username}, tu nous manques!</Text>
 
           <Text style={baseStyles.paragraph}>
-            Allô {username}! C'est Ti-Guy... Ça fait {daysSinceLastVisit} jours
-            qu'on t'a pas vu sur Zyeuté pis j'm'ennuie de toi! 🦫💔
+            Allô {username}! C'est Güey... Ça fait {daysSinceLastVisit} jours
+            qu'on t'a pas vu sur Ojea pis j'm'ennuie de toi! 🦫💔
           </Text>
 
           <Text style={baseStyles.paragraph}>
             Pendant que t'étais parti, y'a eu plein de belles affaires sur
-            l'app! Du nouveau contenu de partout au Québec, des discussions le
+            l'app! Du nouveau contenu de partout au México, des discussions le
             fun, pis la communauté qui grandit!
           </Text>
 
           <Text style={baseStyles.paragraph}>
-            J'ai même amélioré Ti-Guy Studio avec de nouveaux styles! Tu
+            J'ai même amélioré Güey Studio avec de nouveaux styles! Tu
             pourrais créer:
           </Text>
 
           <Section style={baseStyles.statsBox}>
             <Text style={baseStyles.statItem}>
-              🏔️ Des paysages québécois en style peinture
+              🏔️ Des paysages mexicano en style peinture
             </Text>
             <Text style={baseStyles.statItem}>
               🎨 Des portraits artistiques uniques
@@ -615,7 +615,7 @@ export function ReengagementEmail({
               🦫 Des castors dans toutes les situations imaginables
             </Text>
             <Text style={baseStyles.statItem}>
-              🍁 Du contenu 100% québécois!
+              🍁 Du contenu 100% mexicano!
             </Text>
           </Section>
 
@@ -625,8 +625,8 @@ export function ReengagementEmail({
           </Text>
 
           <Section style={{ textAlign: "center" }}>
-            <Button style={baseStyles.button} href="https://zyeute.com/feed">
-              Revenir sur Zyeuté
+            <Button style={baseStyles.button} href="https://ojea-mexico.netlify.app/feed">
+              Revenir sur Ojea
             </Button>
           </Section>
 
@@ -635,16 +635,16 @@ export function ReengagementEmail({
           <Text style={baseStyles.paragraph}>
             J'espère te revoir bientôt!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Text style={baseStyles.footer}>
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>{" "}
             |
             <Link
-              href="https://zyeute.com/settings/notifications"
+              href="https://ojea-mexico.netlify.app/settings/notifications"
               style={baseStyles.footerLink}
             >
               {" "}
@@ -681,8 +681,8 @@ export function UpgradePromptEmail({
       <Body style={baseStyles.body}>
         <Container style={baseStyles.container}>
           <Section style={baseStyles.header}>
-            <Text style={baseStyles.logo}>Zyeuté</Text>
-            <Text style={baseStyles.tagline}>L'app sociale du Québec</Text>
+            <Text style={baseStyles.logo}>Ojea</Text>
+            <Text style={baseStyles.tagline}>L'app sociale du México</Text>
           </Section>
 
           <Text style={baseStyles.beaver}>🚀</Text>
@@ -690,7 +690,7 @@ export function UpgradePromptEmail({
           <Text style={baseStyles.heading}>T'aimes créer, {username}!</Text>
 
           <Text style={baseStyles.paragraph}>
-            Hey {username}! C'est Ti-Guy! J'ai remarqué que t'as utilisé
+            Hey {username}! C'est Güey! J'ai remarqué que t'as utilisé
             <span style={baseStyles.highlight}>
               {" "}
               {aiGenerationsUsed} de tes {maxFreeGenerations}{" "}
@@ -721,13 +721,13 @@ export function UpgradePromptEmail({
           </Section>
 
           <Text style={baseStyles.paragraph}>
-            C'est pas mal, non? Pis tu supportes une app québécoise en même
+            C'est pas mal, non? Pis tu supportes une app mexicana en même
             temps! Pas d'pression, hein - c'est juste une option si tu veux plus
             de fun! 🦫
           </Text>
 
           <Section style={{ textAlign: "center" }}>
-            <Button style={baseStyles.button} href="https://zyeute.com/premium">
+            <Button style={baseStyles.button} href="https://ojea-mexico.netlify.app/premium">
               Voir Creator Pro
             </Button>
           </Section>
@@ -737,12 +737,12 @@ export function UpgradePromptEmail({
           <Text style={baseStyles.paragraph}>
             Continue de créer!
             <br />
-            <span style={baseStyles.highlight}>Ti-Guy</span> 🦫
+            <span style={baseStyles.highlight}>Güey</span> 🦫
           </Text>
 
           <Text style={baseStyles.footer}>
-            <Link href="https://zyeute.com" style={baseStyles.footerLink}>
-              zyeute.com
+            <Link href="https://ojea-mexico.netlify.app" style={baseStyles.footerLink}>
+              ojea-mexico.netlify.app
             </Link>
           </Text>
         </Container>
@@ -799,12 +799,12 @@ export async function renderEmail({
   switch (emailType) {
     case "welcome":
       element = <WelcomeEmail username={safeUsername} />;
-      subject = `Bienvenue sur Zyeuté, ${safeUsername}! 🦫`;
+      subject = `Bienvenue sur Ojea, ${safeUsername}! 🦫`;
       break;
 
     case "onboarding_day1":
       element = <OnboardingDay1Email username={safeUsername} />;
-      subject = `${safeUsername}, découvre Ti-Guy Studio! 🎨`;
+      subject = `${safeUsername}, découvre Güey Studio! 🎨`;
       break;
 
     case "onboarding_day3":
@@ -821,7 +821,7 @@ export async function renderEmail({
       element = (
         <WeeklyDigestEmail username={safeUsername} stats={context?.stats} />
       );
-      subject = `Ta semaine sur Zyeuté, ${safeUsername}! 📊`;
+      subject = `Ta semaine sur Ojea, ${safeUsername}! 📊`;
       break;
 
     case "reengagement":
@@ -847,7 +847,7 @@ export async function renderEmail({
 
     default:
       element = <WelcomeEmail username={safeUsername} />;
-      subject = `Bienvenue sur Zyeuté, ${safeUsername}! 🦫`;
+      subject = `Bienvenue sur Ojea, ${safeUsername}! 🦫`;
   }
 
   const html = await render(element);

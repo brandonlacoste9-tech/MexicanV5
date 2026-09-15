@@ -310,8 +310,8 @@ function mapSupabaseUser(data: any): User {
     regionId: data.region_id || null,
     createdAt: data.created_at ? new Date(data.created_at) : new Date(),
     updatedAt: data.updated_at ? new Date(data.updated_at) : null,
-    tiGuyCommentsEnabled: data.ti_guy_comments_enabled !== false,
-    hiveId: data.hive_id || "quebec",
+    tiGuyCommentsEnabled: data.guey_comments_enabled !== false,
+    hiveId: data.hive_id || "mexico",
     karmaCredits: data.karma_credits || 0,
     cashCredits: data.cash_credits || 0,
     totalGiftsSent: data.total_gifts_sent || 0,
@@ -325,7 +325,7 @@ function mapSupabaseUser(data: any): User {
     lastDailyBonus: data.last_daily_bonus
       ? new Date(data.last_daily_bonus)
       : null,
-    unlockedHives: data.unlocked_hives || ["quebec"],
+    unlockedHives: data.unlocked_hives || ["mexico"],
     raisonBannissement: data.raison_bannissement || null,
     parentId: data.parent_id || null,
     arcadePlaytime: data.arcade_playtime || 0,
@@ -461,7 +461,7 @@ export class DatabaseStorage implements IStorage {
     if (updates.username !== undefined)
       snakeUpdates.username = updates.username;
     if (updates.tiGuyCommentsEnabled !== undefined)
-      snakeUpdates.ti_guy_comments_enabled = updates.tiGuyCommentsEnabled;
+      snakeUpdates.guey_comments_enabled = updates.tiGuyCommentsEnabled;
     if (updates.hiveId !== undefined) snakeUpdates.hive_id = updates.hiveId;
     if (updates.regionId !== undefined)
       snakeUpdates.region_id = updates.regionId;
@@ -532,7 +532,7 @@ export class DatabaseStorage implements IStorage {
 
   async getUserHive(userId: string): Promise<string> {
     const user = await this.getUser(userId);
-    return user?.hiveId || "quebec";
+    return user?.hiveId || "mexico";
   }
 
   // Posts
@@ -617,7 +617,7 @@ export class DatabaseStorage implements IStorage {
     userId: string,
     page: number,
     limit: number,
-    hiveId: string = "quebec",
+    hiveId: string = "mexico",
   ): Promise<(Post & { user: User; isFired: boolean })[]> {
     const offset = page * limit;
 
@@ -765,7 +765,7 @@ export class DatabaseStorage implements IStorage {
   async getSmartRecommendations(
     _embedding: number[],
     limit: number = 20,
-    hiveId: string = "quebec",
+    hiveId: string = "mexico",
   ): Promise<(Post & { user: User })[]> {
     return traceDatabase("SELECT", "smart_recommendations", async (span) => {
       span.setAttributes({ "db.limit": limit });
@@ -824,7 +824,7 @@ export class DatabaseStorage implements IStorage {
   ): Promise<(Post & { user: User })[]> {
     return traceDatabase("EXPLORE", "posts", async () => {
       const startTime = Date.now();
-      const targetHive = hiveId || "quebec";
+      const targetHive = hiveId || "mexico";
       const pageNum = Math.max(0, page);
       // Fetch enough rows to rank and slice the requested page (ranking is in-memory)
       const fetchSize = Math.min(200, (pageNum + 1) * limit + 50);
@@ -942,7 +942,7 @@ export class DatabaseStorage implements IStorage {
               detectedThemes: [],
               detectedItems: [],
               aiGenerated: false,
-              quebecScore: 0,
+              mexicoScore: 0,
               viralScore: 0,
               safetyFlags: {},
               isModerated: false,
@@ -972,7 +972,7 @@ export class DatabaseStorage implements IStorage {
                   avatar_url: row.avatar_url,
                   email: row.email,
                   region: row.region,
-                  hiveId: row.u_hive_id || "quebec",
+                  hiveId: row.u_hive_id || "mexico",
                   isAdmin: row.is_admin || false,
                   isPremium: row.is_premium || false,
                   plan: row.plan || "free",
@@ -1002,7 +1002,7 @@ export class DatabaseStorage implements IStorage {
                   beeAlias: null,
                   maxStreak: 0,
                   lastDailyBonus: null,
-                  unlockedHives: ["quebec"],
+                  unlockedHives: ["mexico"],
                   parentId: null,
                   totalDocumentsProcessed: 0,
                   stripeCustomerId: null,
@@ -1892,7 +1892,7 @@ export class DatabaseStorage implements IStorage {
     const systemUser = await db
       .select()
       .from(users)
-      .where(eq(users.username, "zyeute_ai"))
+      .where(eq(users.username, "ojea_ai"))
       .limit(1);
 
     if (systemUser[0]) {

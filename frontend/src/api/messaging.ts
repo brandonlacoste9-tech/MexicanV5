@@ -1,6 +1,6 @@
 /**
  * Messaging API Client
- * Real user-to-user chat for ChatZyeute.tsx
+ * Real user-to-user chat for ChatOjea.tsx
  */
 
 import { apiClient } from "./client";

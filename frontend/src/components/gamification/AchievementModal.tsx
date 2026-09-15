@@ -273,10 +273,10 @@ export const AchievementListener: React.FC = () => {
 
   const handleShare = () => {
     if (achievement) {
-      const text = `🏆 J'ai débloqué "${achievement.name_fr}" sur Zyeuté! ${achievement.icon}`;
+      const text = `🏆 J'ai débloqué "${achievement.name_fr}" sur Ojea! ${achievement.icon}`;
       if (navigator.share) {
         navigator.share({
-          title: "Accomplissement Zyeuté",
+          title: "Accomplissement Ojea",
           text,
           url: window.location.href,
         });

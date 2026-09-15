@@ -35,7 +35,7 @@ export const createProductionPool = () => {
     },
 
     // Application name for monitoring in pg_stat_activity
-    application_name: "zyeute-v5-api",
+    application_name: "ojea-v5-api",
   });
 };
 

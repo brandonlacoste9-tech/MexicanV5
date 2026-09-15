@@ -42,7 +42,7 @@ function tracesSampler(samplingContext: {
   if (
     blob.includes("gen_ai") ||
     blob.includes("deepseek") ||
-    blob.includes("ti-guy") ||
+    blob.includes("guey") ||
     blob.includes("tiguy") ||
     blob.includes("vertex") ||
     blob.includes("openai") ||

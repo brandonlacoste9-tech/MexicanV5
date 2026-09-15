@@ -1,6 +1,6 @@
 /**
  * MUX Video API - Direct upload, status polling, webhooks
- * Zyeuté V5 - Quebec social media platform
+ * Ojea V5 - Mexico social media platform
  */
 
 import { Router, Request, Response } from "express";
@@ -288,7 +288,7 @@ router.post(
     }
 
     try {
-      const { title = "Live Zyeuté", category = "général" } = req.body;
+      const { title = "Live Ojea", category = "général" } = req.body;
       const userId = (req as any).userId as string;
 
       const liveStream = await mux.video.liveStreams.create({
@@ -690,7 +690,7 @@ router.post(
     }
 
     try {
-      const { title = "Live Zyeuté", category = "général" } = req.body;
+      const { title = "Live Ojea", category = "général" } = req.body;
       const userId = (req as any).userId as string;
 
       // Create a low-latency live stream with WHIP enabled

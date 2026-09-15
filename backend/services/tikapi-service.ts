@@ -1,6 +1,6 @@
 /**
  * TikAPI & Pollo AI Service Integration
- * Zyeuté V5 - Quebec Social Media Platform
+ * Ojea V5 - Mexico Social Media Platform
  *
  * This service handles fetching real TikTok content (TikAPI)
  * and generating AI videos (Pollo AI).
@@ -88,7 +88,7 @@ export const TikApiService = {
   },
 
   /**
-   * Search videos by hashtag (e.g., #quebec, #montreal)
+   * Search videos by hashtag (e.g., #mexico, #cdmx)
    */
   async searchByHashtag(hashtag: string, count: number = 10) {
     try {

@@ -1,5 +1,5 @@
 /**
- * Zyeuté — Soft Onboarding Overlay
+ * Ojea — Soft Onboarding Overlay
  *
  * Appears AFTER the user has scrolled past 3 videos (dopamine first).
  * Renders as a blurred overlay so the feed is still visible underneath —
@@ -33,7 +33,7 @@ const LANGUAGES = [
 // ─── Step 0: FOMO Splash ─────────────────────────────────────────────────────
 
 const FOMO_IMAGES: Record<string, string> = {
-  quebec: "/ad_story_fomo.jpg",
+  mexico: "/ad_story_fomo.jpg",
   mexico: "/ad_story_fomo_mexico.png",
   brazil: "/ad_story_fomo_brazil.png",
   argentina: "/ad_story_fomo_argentina.png",
@@ -43,7 +43,7 @@ const FOMOSplash: React.FC<{ hive: string | null; onNext: () => void }> = ({
   hive,
   onNext,
 }) => {
-  const imgSrc = FOMO_IMAGES[hive ?? "quebec"] ?? FOMO_IMAGES.quebec;
+  const imgSrc = FOMO_IMAGES[hive ?? "mexico"] ?? FOMO_IMAGES.mexico;
   const [visible, setVisible] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -320,7 +320,7 @@ const WelcomeStep: React.FC<{
   onGuest: () => void;
   onBack: () => void;
 }> = ({ hive, onSignUp, onGuest, onBack }) => {
-  const hiveConfig = hive ? HIVES[hive] : HIVES.quebec;
+  const hiveConfig = hive ? HIVES[hive] : HIVES.mexico;
   return (
     <div className="animate-fade-in-up text-center">
       <p className="text-white/50 text-xs uppercase tracking-widest mb-4">
@@ -392,20 +392,20 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>("fomo");
   const [selectedHive, setSelectedHive] = useState<HiveId | null>(() => {
-    const stored = localStorage.getItem("zyeute_hive_id") as HiveId | null;
+    const stored = localStorage.getItem("ojea_hive_id") as HiveId | null;
     return stored && Object.keys(HIVES).includes(stored) ? stored : null;
   });
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(() =>
-    localStorage.getItem("zyeute_preferred_language"),
+    localStorage.getItem("ojea_preferred_language"),
   );
 
   const handleComplete = useCallback(
     (goToSignup = false) => {
       // Persist selections
-      if (selectedHive) localStorage.setItem("zyeute_hive_id", selectedHive);
+      if (selectedHive) localStorage.setItem("ojea_hive_id", selectedHive);
       if (selectedLanguage)
-        localStorage.setItem("zyeute_preferred_language", selectedLanguage);
-      localStorage.setItem("zyeute_onboarding_complete", "true");
+        localStorage.setItem("ojea_preferred_language", selectedLanguage);
+      localStorage.setItem("ojea_onboarding_complete", "true");
 
       onComplete(selectedHive ?? undefined, selectedLanguage ?? undefined);
 
@@ -463,7 +463,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
 export function useOnboarding() {
   const videoCountRef = React.useRef(0);
   const alreadyDone =
-    localStorage.getItem("zyeute_onboarding_complete") === "true";
+    localStorage.getItem("ojea_onboarding_complete") === "true";
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [isChecked] = useState(true); // always ready immediately
 
@@ -481,7 +481,7 @@ export function useOnboarding() {
   }, []);
 
   const resetOnboarding = useCallback(() => {
-    localStorage.removeItem("zyeute_onboarding_complete");
+    localStorage.removeItem("ojea_onboarding_complete");
     videoCountRef.current = 0;
     setShowOnboarding(true);
   }, []);

@@ -10,10 +10,10 @@ interface SwarmVisualizerProps {
 
 // Color mapping for the "Three Rings" aesthetic
 const BEE_COLORS: Record<BeeType | "default", string> = {
-  default: "#F5C842", // Ti-Guy Gold
+  default: "#F5C842", // Güey Gold
   finance: "#FFD700", // Gold
   security: "#FF4444", // Red Alert
-  joual: "#4287f5", // Quebec Blue
+  mexicano: "#4287f5", // Mexico Blue
   poutine: "#8B4513", // Gravy Brown
   hockey: "#FFFFFF", // Ice White
   region: "#228B22", // Forest Green
@@ -28,10 +28,10 @@ export const SwarmVisualizer: React.FC<SwarmVisualizerProps> = ({
 
   return (
     <div className="relative flex flex-col items-center justify-center p-4">
-      {/* The Core Agent (Ti-Guy) */}
+      {/* The Core Agent (Güey) */}
       <div className="relative z-10 w-24 h-24 rounded-full bg-neutral-900 border-4 border-neutral-800 flex items-center justify-center overflow-hidden shadow-xl">
         <div className="w-full h-full bg-neutral-800 flex items-center justify-center text-2xl">
-          {/* Placeholder for Ti-Guy Avatar */}
+          {/* Placeholder for Güey Avatar */}
           🤖
         </div>
 

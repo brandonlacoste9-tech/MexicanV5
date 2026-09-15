@@ -1,16 +1,16 @@
 /**
- * Zyeuté V5 - Quebec Bootstrap Config
+ * Ojea V5 - Mexico Bootstrap Config
  * Hardcoded for the initial production launch.
  */
 export const HIVE_CONFIG = {
-  id: "quebec",
-  name: "Zyeuté",
+  id: "mexico",
+  name: "Ojea",
   theme: "maple",
-  locale: "fr-CA",
+  locale: "es-MX",
   identity: {
-    name: "Zyeuté",
+    name: "Ojea",
     slogan: "Le radar de ton quartier",
     giftEmoji: "⚜️",
-    primaryColor: "#E12127", // Quebec Red
+    primaryColor: "#E12127", // Mexico Red
   },
 } as const;

@@ -1,4 +1,4 @@
-name: Import ZyeuteV5 frontend and backend
+name: Import OjeaV5 frontend and backend
 
 on:
   workflow_dispatch:
@@ -11,22 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Sparse-clone ZyeuteV5
+      - name: Sparse-clone OjeaV5
         run: |
-          git clone --depth 1 --filter=blob:none --sparse https://github.com/brandonlacoste9-tech/ZyeuteV5.git /tmp/zyeute
-          cd /tmp/zyeute
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/brandonlacoste9-tech/OjeaV5.git /tmp/ojea
+          cd /tmp/ojea
           git sparse-checkout set frontend backend
       - name: Copy trees
         run: |
           rm -rf frontend backend
           mkdir -p frontend backend
-          cp -a /tmp/zyeute/frontend/. frontend/
-          cp -a /tmp/zyeute/backend/. backend/
+          cp -a /tmp/ojea/frontend/. frontend/
+          cp -a /tmp/ojea/backend/. backend/
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add frontend backend
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "Copy frontend/ and backend/ from ZyeuteV5"
+          git commit -m "Copy frontend/ and backend/ from OjeaV5"
           git push

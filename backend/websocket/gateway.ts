@@ -1,5 +1,5 @@
 /**
- * WebSocket Gateway for Zyeuté Messaging
+ * WebSocket Gateway for Ojea Messaging
  * Real-time events: messages, presence, typing, TI-GUY responses
  */
 

@@ -255,7 +255,7 @@ export class CircuitBreakerOpenError extends Error {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// PRE-CONFIGURED CIRCUIT BREAKERS FOR ZYEUTÉ
+// PRE-CONFIGURED CIRCUIT BREAKERS FOR OJEA
 // ═══════════════════════════════════════════════════════════════
 
 /**

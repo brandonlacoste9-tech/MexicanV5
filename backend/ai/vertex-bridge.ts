@@ -2,11 +2,11 @@ import { logger } from "../utils/logger";
 
 // --- Configuration ---
 // These should eventually come from env vars, populated by the Terraform output
-const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT || "zyeute-production";
+const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT || "ojea-production";
 const REGION = process.env.GOOGLE_CLOUD_REGION || "global";
 // This ID comes from the Terraform output: docs_index_id or data_store_id
 const DATA_STORE_ID =
-  process.env.VERTEX_DATA_STORE_ID || "zyeute-knowledge-base";
+  process.env.VERTEX_DATA_STORE_ID || "ojea-knowledge-base";
 const COLLECTION_ID = "default_collection";
 
 // Optional import - only load if package is available
@@ -40,7 +40,7 @@ initializeClient().catch(() => {
 export const VertexBridge = {
   /**
    * Search the Swarm Memory (Vertex AI / Discovery Engine)
-   * @param query The natural language query (e.g., "What is the vibe of Quebec?")
+   * @param query The natural language query (e.g., "What is the vibe of Mexico?")
    */
   async searchMemory(query: string) {
     // Try to initialize client if not already done
@@ -102,8 +102,8 @@ function mockSearchResponse(query: string) {
       document: {
         name: "mock-doc-1",
         derivedStructData: {
-          title: "The Ritual of Quebec",
-          link: "/p/quebec-ritual-1",
+          title: "The Ritual of Mexico",
+          link: "/p/mexico-ritual-1",
         },
         snippets: [
           {

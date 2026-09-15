@@ -54,7 +54,7 @@ export const useNetworkQueue = () => {
 };
 
 const MAX_RETRIES = 3;
-const STORAGE_KEY = "zyeute_offline_queue";
+const STORAGE_KEY = "ojea_offline_queue";
 
 export const NetworkQueueProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

@@ -1,12 +1,12 @@
 /**
- * Region Settings Page - Select Quebec Region
+ * Region Settings Page - Select Mexico Region
  */
 
 import React from "react";
 import { Header } from "@/components/Header";
 import { BottomNav } from "@/components/BottomNav";
 import { useSettingsPreferences } from "@/hooks/useSettingsPreferences";
-import { QUEBEC_REGIONS } from "@/lib/quebecFeatures";
+import { MEXICO_REGIONS } from "@/lib/mexicoFeatures";
 import { supabase } from "@/lib/supabase";
 import { toast } from "@/components/Toast";
 import { useHaptics } from "@/hooks/useHaptics";
@@ -28,7 +28,7 @@ export const RegionSettings: React.FC = () => {
         data: { user },
       } = await supabase.auth.getUser();
       if (user) {
-        const region = QUEBEC_REGIONS.find((r) => r.id === regionId);
+        const region = MEXICO_REGIONS.find((r) => r.id === regionId);
         await supabase
           .from("user_profiles")
           .update({ region: regionId })
@@ -44,14 +44,14 @@ export const RegionSettings: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black leather-overlay pb-20">
-      <Header title="Région du Québec" showBack={true} showSearch={false} />
+      <Header title="Région du México" showBack={true} showSearch={false} />
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
         {/* Info */}
         <div className="leather-card rounded-xl p-4 stitched bg-gold-500/10 border border-gold-500/30">
           <p className="text-white text-sm">
             Sélectionne ta région pour voir du contenu local et connecter avec
-            d&apos;autres Québécois de ta région! ⚜️
+            d&apos;autres Mexicano de ta région! ⚜️
           </p>
         </div>
 
@@ -59,7 +59,7 @@ export const RegionSettings: React.FC = () => {
         <div className="leather-card rounded-xl p-4 stitched">
           <h3 className="text-white font-semibold mb-4">Choisis ta région</h3>
           <div className="grid grid-cols-1 gap-2">
-            {QUEBEC_REGIONS.map((region) => {
+            {MEXICO_REGIONS.map((region) => {
               const isSelected = preferences.region === region.id;
 
               return (

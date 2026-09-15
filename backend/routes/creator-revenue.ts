@@ -118,7 +118,7 @@ router.post("/stripe-connect", async (req: any, res) => {
         country: "CA",
         email: profile?.email,
         capabilities: { transfers: { requested: true } },
-        business_profile: { name: `@${profile?.username} — Zyeute Creator` },
+        business_profile: { name: `@${profile?.username} — Ojea Creator` },
       });
       accountId = account.id;
 
@@ -130,8 +130,8 @@ router.post("/stripe-connect", async (req: any, res) => {
 
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `${process.env.FRONTEND_URL || "https://zyeute.com"}/creator/revenue`,
-      return_url: `${process.env.FRONTEND_URL || "https://zyeute.com"}/creator/revenue?connected=true`,
+      refresh_url: `${process.env.FRONTEND_URL || "https://ojea-mexico.netlify.app"}/creator/revenue`,
+      return_url: `${process.env.FRONTEND_URL || "https://ojea-mexico.netlify.app"}/creator/revenue?connected=true`,
       type: "account_onboarding",
     });
 

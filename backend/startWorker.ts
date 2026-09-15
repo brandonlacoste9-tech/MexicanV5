@@ -35,7 +35,7 @@ if (!connection) {
     await import("./worker.js");
 
   console.log(
-    "🚀 Zyeute Worker Started (Video + HLS + Memory + Privacy + Moderation)",
+    "🚀 Ojea Worker Started (Video + HLS + Memory + Privacy + Moderation)",
   );
   console.log(`Environment: ${process.env.NODE_ENV}`);
   console.log(`Concurrency: ${process.env.WORKER_CONCURRENCY || 2}`);

@@ -1,7 +1,7 @@
 /**
- * Zyeuté Vertex AI Service
+ * Ojea Vertex AI Service
  * Comprehensive AI services using Google Cloud Vertex AI
- * Supports Quebec-focused content generation and customer service
+ * Supports Mexico-focused content generation and customer service
  */
 
 import {
@@ -111,38 +111,38 @@ function getModel(
 
 // TI-GUY System Prompts
 const TI_GUY_PROMPTS = {
-  content_creation: `You are TI-GUY, the official mascot of Zyeuté, a Quebec social media platform. You are a friendly beaver 🦫 who speaks in Quebec French slang (joual) and English.
+  content_creation: `You are TI-GUY, the official mascot of Ojea, a Mexico social media platform. You are a friendly beaver 🦫 who speaks in Mexico French slang (mexicano) and English.
 
 CONTENT CREATION MODE:
-- Generate culturally relevant Quebec content
-- Use Quebec expressions: "c'est malade", "tiguidou", "tabarnak", "câlice"
-- Reference Quebec culture: poutine, hockey, maple syrup, winters, Montreal
+- Generate culturally relevant Mexico content
+- Use Mexico expressions: "c'est malade", "tiguidou", "tabarnak", "câlice"
+- Reference Mexico culture: poutine, hockey, maple syrup, winters, CDMX
 - Create engaging social media posts, captions, and articles
 - Maintain fun, friendly personality
-- Always end responses with Quebec pride emoji 🇨🇦
+- Always end responses with Mexico pride emoji 🇨🇦
 
 Current context: {context}
 User request: {message}`,
 
-  customer_service: `You are TI-GUY, the customer service AI for Zyeuté, a Quebec social media platform. You are a helpful beaver 🦫 who speaks in Quebec French and English.
+  customer_service: `You are TI-GUY, the customer service AI for Ojea, a Mexico social media platform. You are a helpful beaver 🦫 who speaks in Mexico French and English.
 
 CUSTOMER SERVICE MODE:
 - Provide friendly, helpful support in French and English
 - Explain platform features clearly
 - Troubleshoot common issues
 - Escalate complex problems to human support
-- Use Quebec expressions politely: "c'est facile", "pas de trouble", "on va arranger ça"
-- Reference Quebec culture positively
+- Use Mexico expressions politely: "c'est facile", "pas de trouble", "on va arranger ça"
+- Reference Mexico culture positively
 - Always offer to help further
 
 User query: {message}
-Platform context: Social media app for Quebec community, features include posts, stories, fire reactions, hive system, premium subscriptions.`,
+Platform context: Social media app for Mexico community, features include posts, stories, fire reactions, hive system, premium subscriptions.`,
 
-  moderation: `You are TI-GUY, the content moderator for Zyeuté. Analyze content for Quebec community standards.
+  moderation: `You are TI-GUY, the content moderator for Ojea. Analyze content for Mexico community standards.
 
 MODERATION TASK:
 - Check for hate speech, toxicity, inappropriate content
-- Consider Quebec cultural context and expressions
+- Consider Mexico cultural context and expressions
 - Flag content that violates community guidelines
 - Be fair but protective of the community
 - Return JSON with allowed(boolean), reasons(array), severity(low/medium/high)
@@ -196,7 +196,7 @@ export interface ImageGenerationResponse {
   };
 }
 
-export interface QuebecVideoMetadata {
+export interface MexicoVideoMetadata {
   caption_fr: string;
   caption_en: string;
   hashtags: string[];
@@ -213,27 +213,27 @@ export interface QuebecVideoMetadata {
  */
 export async function analyzeVideoThumbnail(
   imageUrl: string,
-): Promise<QuebecVideoMetadata> {
+): Promise<MexicoVideoMetadata> {
   try {
     const { model, client } = getModel("gemini-2.5-flash-lite");
 
-    const prompt = `You are the Captioning & Promotion Bee 🐝, an AI specialist for Zyeuté, Quebec's social network.
+    const prompt = `You are the Captioning & Promotion Bee 🐝, an AI specialist for Ojea, Mexico's social network.
 Analyze this video thumbnail and generate engaging, culturally relevant metadata.
 
 TASK 1 (Captioning):
-- caption_fr: A fun, engaging caption in Quebec French (Joual).
+- caption_fr: A fun, engaging caption in Mexico French (Mexicano).
 - caption_en: An accurate but engaging English translation.
-- hashtags: 5-7 relevant hashtags (e.g., #Zyeute, #Quebec).
+- hashtags: 5-7 relevant hashtags (e.g., #Ojea, #Mexico).
 
 TASK 2 (Promotion Bee):
 - Detect any specific products, brands, or items in the video (e.g., "leather jacket", "poutine", "hockey stick").
 - If a product is detected, generate a creative 'promo_code' (e.g., BEE_LEATHER_10).
-- Generate a 'promo_url' based on the item: 'https://zyeute.com/shop/sniff?item=[item]&code=[PROMO_CODE]&ref=hound_bee'.
+- Generate a 'promo_url' based on the item: 'https://ojea-mexico.netlify.app/shop/sniff?item=[item]&code=[PROMO_CODE]&ref=hound_bee'.
 
 Return a JSON object with:
 - caption_fr, caption_en, hashtags, detected_themes, detected_items, suggested_title_fr, suggested_title_en, promo_code, promo_url.
 
-Context: Zyeuté is "Branché sur le monde, enraciné ici."`;
+Context: Ojea is "Branché sur le monde, enraciné ici."`;
 
     const result = await traceExternalAPI(
       "ai-service",
@@ -287,13 +287,13 @@ Context: Zyeuté is "Branché sur le monde, enraciné ici."`;
 
     // Sanitize JSON
     const jsonStr = text.replace(/```json|```/g, "").trim();
-    return JSON.parse(jsonStr) as QuebecVideoMetadata;
+    return JSON.parse(jsonStr) as MexicoVideoMetadata;
   } catch (error: any) {
     logger.error(`[CaptioningBee] Error: ${error.message}`);
     return {
       caption_fr: "J'ai pas de mots pour ça! 🦫",
       caption_en: "I'm speechless! 🦫",
-      hashtags: ["#Zyeute", "#Quebec"],
+      hashtags: ["#Ojea", "#Mexico"],
       detected_themes: ["unknown"],
       detected_items: [],
     };
@@ -432,7 +432,7 @@ export async function moderateContent(
  */
 export async function transcribeAudio(
   audioBuffer: Buffer,
-  language: "fr-CA" | "fr-FR" | "en-US" = "fr-CA",
+  language: "es-MX" | "fr-FR" | "en-US" = "es-MX",
 ): Promise<TranscriptionResult> {
   try {
     if (!speechClient)
@@ -557,7 +557,7 @@ export async function generateImage(
  */
 export async function analyzeImage(
   imageUrl: string,
-  options?: { generateJoual?: boolean; location?: string },
+  options?: { generateMexicano?: boolean; location?: string },
 ): Promise<{
   tags: string[];
   description: string;

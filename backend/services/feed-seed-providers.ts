@@ -31,17 +31,18 @@ export type SeedProviderOptions = {
 };
 
 const PEXELS_QUERIES = [
-  "montreal city",
-  "quebec winter",
-  "canada nature",
-  "street food canada",
-  "hockey canada",
-  "quebec festival",
-  "old port montreal",
+  "mexico city",
+  "cdmx street",
+  "guadalajara mexico",
+  "cancun beach",
+  "oaxaca mexico",
+  "tacos mexico",
+  "lucha libre",
+  "monterrey mexico",
 ];
 
-/** TikTok search terms — from TIKTOK_FEED_JOB_QUERIES or Québec defaults. */
-export function getQuebecTikTokQueries(): string[] {
+/** TikTok search terms — from TIKTOK_FEED_JOB_QUERIES or México defaults. */
+export function getMexicoTikTokQueries(): string[] {
   const raw = process.env.TIKTOK_FEED_JOB_QUERIES?.trim();
   const fromEnv = raw
     ? raw
@@ -50,23 +51,20 @@ export function getQuebecTikTokQueries(): string[] {
         .filter(Boolean)
     : [];
   const defaults = [
-    "#montreal",
-    "#laval",
-    "#vaudreuil",
-    "#sherbrooke",
-    "quebec city",
-    "#quebec",
-    "montreal",
-    "laval",
-    "vaudreuil",
-    "sherbrooke",
-    "quebec",
-    "quebecois",
-    "mtl",
-    "vieuxquebec",
-    "gatineau",
-    "quebec viral",
-    "montreal nightlife",
+    "#cdmx",
+    "#mexico",
+    "#parati",
+    "#guadalajara",
+    "#monterrey",
+    "#tacos",
+    "ciudad de mexico",
+    "mexico viral",
+    "cdmx nightlife",
+    "cancun",
+    "oaxaca",
+    "tijuana",
+    "puebla",
+    "merida",
   ];
   return [...new Set([...fromEnv, ...defaults])];
 }
@@ -82,10 +80,10 @@ function bestPexelsFile(
 
 async function resolveAuthorId(supabase: SupabaseClient): Promise<string> {
   for (const username of [
-    "ti_guy_bot",
-    "zyeute_scout",
-    "zyeute_ai",
-    "zyeute_seed",
+    "guey_bot",
+    "ojea_scout",
+    "ojea_ai",
+    "ojea_seed",
   ]) {
     const { data } = await supabase
       .from("user_profiles")
@@ -132,7 +130,7 @@ export async function seedFromPexels(
       const mediaUrl = bestPexelsFile(v.video_files ?? []);
       if (!mediaUrl || seen.has(mediaUrl)) continue;
       seen.add(mediaUrl);
-      const caption = `${query} — Québec ⚜️ #Quebec #Zyeuté`.slice(0, 500);
+      const caption = `${query} — México ⚜️ #Mexico #Ojea`.slice(0, 500);
       const status = await insertPublication(supabase, {
         id: randomUUID(),
         user_id: userId,
@@ -178,7 +176,7 @@ export async function seedFromPixabay(
       if (!mediaUrl || seen.has(mediaUrl)) continue;
       seen.add(mediaUrl);
       const caption =
-        `${hit.tags.split(",")[0]?.trim() || query} — Québec 🍁 #Quebec`.slice(
+        `${hit.tags.split(",")[0]?.trim() || query} — México 🍁 #Mexico`.slice(
           0,
           500,
         );
@@ -247,10 +245,10 @@ function extractMetadataFromDesc(desc: string) {
   let regionId: string | null = null;
   let region: string | null = null;
 
-  if (d.includes("montreal") || d.includes("mtl") || d.includes("514")) {
-    city = "Montréal"; region = "Montréal"; regionId = "montreal";
-  } else if (d.includes("quebec city") || d.includes("ville de quebec") || d.includes("vieuxquebec")) {
-    city = "Québec"; region = "Capitale-Nationale"; regionId = "quebec";
+  if (d.includes("cdmx") || d.includes("mtl") || d.includes("514")) {
+    city = "Ciudad de México"; region = "Ciudad de México"; regionId = "cdmx";
+  } else if (d.includes("mexico city") || d.includes("ville de mexico") || d.includes("vieuxmexico")) {
+    city = "México"; region = "Capitale-Nationale"; regionId = "mexico";
   } else if (d.includes("laval") || d.includes("450")) {
     city = "Laval"; region = "Laval"; regionId = "laval";
   } else if (d.includes("gatineau") || d.includes("819")) {
@@ -270,7 +268,7 @@ export async function seedFromApify(
   const apiKey = process.env.APIFY_API_KEY?.trim();
   if (!apiKey) throw new Error("APIFY_API_KEY missing");
 
-  const queries = getQuebecTikTokQueries();
+  const queries = getMexicoTikTokQueries();
   const perQuery = Math.min(
     20,
     Math.max(8, Math.ceil(opts.limit / Math.min(queries.length, 8))),
@@ -319,14 +317,14 @@ export async function seedFromApify(
           const fileName = `apify/${videoId}-${randomUUID()}.mp4`;
           const { data: uploadData, error: uploadError } =
             await supabase.storage
-              .from("zyeute-videos")
+              .from("ojea-videos")
               .upload(fileName, buffer, {
                 contentType: "video/mp4",
                 upsert: true,
               });
           if (!uploadError && uploadData) {
             const { data: pub } = supabase.storage
-              .from("zyeute-videos")
+              .from("ojea-videos")
               .getPublicUrl(fileName);
             mediaUrl = pub.publicUrl;
           }
@@ -387,7 +385,7 @@ export async function seedFromApify(
 }
 
 /** Top up pool toward target using Apify (primary) + optional Pexels filler. */
-export async function replenishQuebecFeedPool(options?: {
+export async function replenishMexicoFeedPool(options?: {
   force?: boolean;
   targetCount?: number;
   minCount?: number;
@@ -410,7 +408,7 @@ export async function replenishQuebecFeedPool(options?: {
     options!.supabaseUrl,
     options!.supabaseServiceKey,
   );
-  const hiveId = options?.hiveId ?? "quebec";
+  const hiveId = options?.hiveId ?? "mexico";
   const minCount =
     options?.minCount ??
     parseInt(process.env.FEED_MIN_PLAYABLE_POSTS || "150", 10);
@@ -503,8 +501,8 @@ export async function seedFeedProviders(
     errors: [],
   };
   const limit = options.limitPerProvider ?? 15;
-  const hiveId = options.hiveId ?? "quebec";
-  const regionId = options.regionId ?? "montreal";
+  const hiveId = options.hiveId ?? "mexico";
+  const regionId = options.regionId ?? "cdmx";
 
   const supabase = createClient(
     options.supabaseUrl,
@@ -558,3 +556,6 @@ export async function seedFeedProviders(
 
   return stats;
 }
+
+export const getQuebecTikTokQueries = getMexicoTikTokQueries;
+export const replenishQuebecFeedPool = replenishMexicoFeedPool;

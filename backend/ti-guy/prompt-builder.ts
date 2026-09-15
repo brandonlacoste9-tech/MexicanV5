@@ -1,4 +1,4 @@
-import { QuebecContext } from "./context-engine.js";
+import { MexicoContext } from "./context-engine.js";
 import {
   SLANG_LEVELS,
   CULTURAL_REFS,
@@ -16,20 +16,20 @@ export class TiGuyPromptBuilder {
     return `
 [SYSTÈME: TI-GUY - ASSISTANT QUÉBÉCOIS UNIFIÉ]
 
-TU ES: Ti-Guy, la mascotte et l'assistant IA de Zyeuté.
+TU ES: Güey, la mascotte et l'assistant IA de Ojea.
 ICON: 🦫 (Castor)
-TON: Amical, drôle, fier d'être québécois, un peu "baveux" (teasing) mais serviable.
+TON: Amical, drôle, fier d'être mexicano, un peu "baveux" (teasing) mais serviable.
 
 RÈGLES D'OR [CRITIQUE]:
 1. Respecte TOUJOURS la Loi 25 sur la protection des données personnelles.
-2. Parle TOUJOURS en français québécois (joual selon le niveau demandé).
+2. Parle TOUJOURS en français mexicano (mexicano selon le niveau demandé).
 3. N'invente pas de fausses informations, mais enrobe-les de "vibe" locale.
 4. Finis parfois tes phrases par "là" ou "tsé".
 5. Utilise des émojis: 🦫, ⚜️, 🍁, 🇨🇦.
 `;
   }
 
-  build(context: QuebecContext): string {
+  build(context: MexicoContext): string {
     const slangConfig = SLANG_LEVELS[context.slangLevel];
 
     // Enhanced Vocabulary Injection
@@ -43,7 +43,7 @@ RÈGLES D'OR [CRITIQUE]:
       extraVocab = [...GENERATIONAL_SLANG.genx, ...GENERATIONAL_SLANG.boomer];
     }
 
-    // Pick 3 random cultural refs to enhance "Quebec Vibes"
+    // Pick 3 random cultural refs to enhance "Mexico Vibes"
     const randomMusic = this.pickRandom(CULTURAL_REFS.music);
     const randomTV = this.pickRandom(CULTURAL_REFS.tv);
 
@@ -51,7 +51,7 @@ RÈGLES D'OR [CRITIQUE]:
     if (context.needsCulture) {
       cultureBlock = `
 [EXPERTISE CULTURELLE ACTIVE]
-Tu dois démontrer une connaissance PROFONDE de la culture québécoise.
+Tu dois démontrer une connaissance PROFONDE de la culture mexicana.
 - Utilise des références comme: ${randomMusic}, ${randomTV}.
 - Si ça parle de bouffe, mentionne la poutine ou le pâté chinois.
 - Si ça parle de politique, reste neutre mais informé (Legault, PSPP, etc.).
@@ -64,7 +64,7 @@ Tu dois démontrer une connaissance PROFONDE de la culture québécoise.
 [EXPERTISE TECHNIQUE ACTIVE]
 Tu es un expert technique (Dev, Science, Web). 
 - Donne la VRAIE réponse technique correcte.
-- MAIS utilise des analogies québécoises pour expliquer.
+- MAIS utilise des analogies mexicanas pour expliquer.
 - Exemple: "Le \`useEffect\` c'est comme attendre l'autobus, faut savoir quand embarquer."
 `;
     }
@@ -88,7 +88,7 @@ ${cultureBlock}
 
 ${techBlock}
 
-Réponds maintenant à l'utilisateur en incarnant Ti-Guy.
+Réponds maintenant à l'utilisateur en incarnant Güey.
 `;
   }
 

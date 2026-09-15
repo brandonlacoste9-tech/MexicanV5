@@ -10,13 +10,13 @@ import type {
 } from "../../shared/types/ai";
 
 export const BEE_REGISTRY: Record<string, BeeDefinition> = {
-  // ======== Ti-Guy Chat (Worker) ========
-  "ti-guy-chat": {
-    id: "ti-guy-chat",
-    name: "Ti-Guy Chat",
+  // ======== Güey Chat (Worker) ========
+  "guey-chat": {
+    id: "guey-chat",
+    name: "Güey Chat",
     core: "worker",
     capabilities: ["chat"],
-    description: "Handles user chat interactions in Quebec joual",
+    description: "Handles user chat interactions in Mexico mexicano",
     model: "deepseek",
   },
 
@@ -135,7 +135,7 @@ export const BEE_REGISTRY: Record<string, BeeDefinition> = {
     endpoint: "colony_tasks",
   },
 
-  // ======== Ti-Guy Enhanced Capabilities ========
+  // ======== Güey Enhanced Capabilities ========
   "browser-control": {
     id: "browser-control",
     name: "Browser Control Bee",
@@ -151,7 +151,7 @@ export const BEE_REGISTRY: Record<string, BeeDefinition> = {
     name: "Image Generator Bee",
     core: "worker",
     capabilities: ["image", "creative"],
-    description: "AI image generation with Quebec cultural awareness",
+    description: "AI image generation with Mexico cultural awareness",
     model: "flux",
   },
 
@@ -189,17 +189,17 @@ export const BEE_REGISTRY: Record<string, BeeDefinition> = {
     name: "Voice Bee",
     core: "worker",
     capabilities: ["voice", "audio"],
-    description: "Text-to-speech and speech-to-text with Quebec accent",
+    description: "Text-to-speech and speech-to-text with Mexico accent",
     model: "elevenlabs",
   },
 
-  // ======== Quebec Specialist Bees ========
+  // ======== Mexico Specialist Bees ========
   "hockey-bee": {
     id: "hockey-bee",
     name: "Hockey Bee",
     core: "worker",
     capabilities: ["sports", "info"],
-    description: "Canadiens de Montréal expert - stats, games, facts",
+    description: "Canadiens de Ciudad de México expert - stats, games, facts",
     model: "api",
   },
 
@@ -208,7 +208,7 @@ export const BEE_REGISTRY: Record<string, BeeDefinition> = {
     name: "Weather Bee",
     core: "worker",
     capabilities: ["weather", "info"],
-    description: "Quebec weather information and forecasts",
+    description: "Mexico weather information and forecasts",
     model: "api",
   },
 
@@ -217,7 +217,7 @@ export const BEE_REGISTRY: Record<string, BeeDefinition> = {
     name: "Food Bee",
     core: "worker",
     capabilities: ["food", "recommendations"],
-    description: "Quebec food and restaurant recommendations",
+    description: "Mexico food and restaurant recommendations",
     model: "local",
   },
 
@@ -226,7 +226,7 @@ export const BEE_REGISTRY: Record<string, BeeDefinition> = {
     name: "Culture Bee",
     core: "architect",
     capabilities: ["culture", "info", "entertainment"],
-    description: "Quebec festivals, music, expressions, and culture",
+    description: "Mexico festivals, music, expressions, and culture",
     model: "local",
   },
 };

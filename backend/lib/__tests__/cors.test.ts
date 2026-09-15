@@ -6,7 +6,7 @@ import {
   DEFAULT_ALLOWED_ORIGINS,
 } from "../cors.js";
 
-const PROD_ORIGIN = "https://zyeute-v5.vercel.app";
+const PROD_ORIGIN = "https://ojea-mexico.netlify.app";
 
 // Build a minimal app that mirrors index.ts: cors middleware in front of a
 // /api/health route. This reproduces the production hotfix scenario where any

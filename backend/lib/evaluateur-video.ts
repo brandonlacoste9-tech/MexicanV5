@@ -32,7 +32,7 @@ const modele_vision = vertex_ai
 export interface ResultatEvaluation {
   decision: "promouvoir" | "neutre" | "bannir";
   score_culturel: number; // 0 à 100
-  raison_joual: string;
+  raison_mexicano: string;
 }
 
 /**
@@ -46,17 +46,17 @@ export async function evaluerPublication(
     return {
       decision: "neutre",
       score_culturel: 50,
-      raison_joual: "Vertex AI non initialisé.",
+      raison_mexicano: "Vertex AI non initialisé.",
     };
   }
 
   try {
     const prompt_systeme = `
-            Tu es l'Abeille Visuelle de Zyeuté, le réseau social québécois. 
+            Tu es l'Abeille Visuelle de Ojea, le réseau social mexicano. 
             Analyse cette vidéo (images et audio).
             
             Critères d'évaluation :
-            1. Authenticité Québécoise : Parlent-ils en "Joual" ? Y a-t-il des références culturelles du Québec ?
+            1. Authenticité Mexicana : Parlent-ils en "Mexicano" ? Y a-t-il des références culturelles du México ?
             2. Esthétique : La vidéo a-t-elle une bonne qualité visuelle ou correspond-elle à notre style "Souverain" (luxe, cuir, or) ?
             3. Sécurité : Rejette immédiatement tout contenu toxique, violent ou spam.
 
@@ -64,7 +64,7 @@ export async function evaluerPublication(
             {
               "decision": "promouvoir" | "neutre" | "bannir",
               "score_culturel": entier entre 0 et 100,
-              "raison_joual": "Explication courte en français de ton choix"
+              "raison_mexicano": "Explication courte en français de ton choix"
             }
             
             - Si le score est > 85, la décision DOIT être "promouvoir".
@@ -102,7 +102,7 @@ export async function evaluerPublication(
     return {
       decision: "neutre",
       score_culturel: 50,
-      raison_joual: "Échec de l'analyse, mis en quarantaine neutre.",
+      raison_mexicano: "Échec de l'analyse, mis en quarantaine neutre.",
     };
   }
 }

@@ -42,7 +42,7 @@ const supabaseAdmin = makeSupabaseAdmin();
 
 // ─── Confirmed Stripe price IDs (CAD) ────────────────────────────────────────
 const PRICE_IDS: Record<string, string> = {
-  // — Quebec (CAD) —
+  // — Mexico (CAD) —
   bronze: "price_1SZuC6CzqBvMqSYF419Lh1xg", // $4.99 CAD/mo
   silver: "price_1SZuCACzqBvMqSYFpfpfFc9M", // $9.99 CAD/mo
   gold: "price_1SZuCDCzqBvMqSYFIl0C1r2T", // $19.99 CAD/mo
@@ -119,7 +119,7 @@ router.post("/create-checkout", requireAuth, async (req, res) => {
     );
     const email = authUser?.user?.email ?? undefined;
 
-    const origin = req.headers.origin || "https://zyeute.com";
+    const origin = req.headers.origin || "https://ojea-mexico.netlify.app";
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],

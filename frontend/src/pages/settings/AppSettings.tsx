@@ -236,7 +236,7 @@ export const AppSettings: React.FC = () => {
               <span className="text-white">1.0.0</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-leather-400">Fait au Québec</span>
+              <span className="text-leather-400">Fait au México</span>
               <span className="text-gold-500">⚜️🇨🇦</span>
             </div>
           </div>

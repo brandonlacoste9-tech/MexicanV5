@@ -51,9 +51,9 @@ const BaseUserSchema = z
     role: UserRoleSchema.optional(),
     custom_permissions: z.record(z.string(), z.boolean()).optional(),
 
-    // Ti-Guy Preferences
+    // Güey Preferences
     tiGuyCommentsEnabled: z.boolean().default(true),
-    ti_guy_comments_enabled: z.boolean().optional(), // Compat
+    guey_comments_enabled: z.boolean().optional(), // Compat
 
     // Gamification
     last_daily_bonus: z.string().nullable().optional(),
@@ -110,18 +110,18 @@ export const UserSchema = z.preprocess((val: unknown) => {
     role: v.role || "citoyen",
     custom_permissions: v.custom_permissions || {},
 
-    // Ti-Guy
+    // Güey
     tiGuyCommentsEnabled:
       v.tiGuyCommentsEnabled !== undefined
         ? v.tiGuyCommentsEnabled
-        : v.ti_guy_comments_enabled !== undefined
-          ? v.ti_guy_comments_enabled
+        : v.guey_comments_enabled !== undefined
+          ? v.guey_comments_enabled
           : true,
-    ti_guy_comments_enabled:
+    guey_comments_enabled:
       v.tiGuyCommentsEnabled !== undefined
         ? v.tiGuyCommentsEnabled
-        : v.ti_guy_comments_enabled !== undefined
-          ? v.ti_guy_comments_enabled
+        : v.guey_comments_enabled !== undefined
+          ? v.guey_comments_enabled
           : true,
 
     // Gamification

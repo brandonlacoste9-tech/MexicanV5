@@ -26,7 +26,7 @@ const LoginPage = lazy(() => import("@/pages/Login"));
 const NotFoundPage = lazy(() => import("@/pages/NotFound"));
 const OnboardingPage = lazy(() => import("@/pages/Onboarding"));
 const AuthCallbackPage = lazy(() => import("@/pages/AuthCallback"));
-const Zyeute = lazy(() => import("@/pages/LaZyeute"));
+const Ojea = lazy(() => import("@/pages/LaOjea"));
 const ExplorePage = lazy(() => import("@/pages/Explore"));
 const FeedGrid = lazy(() => import("@/pages/Feed"));
 const UploadPage = lazy(() => import("@/pages/Upload"));
@@ -211,7 +211,7 @@ function ManusPage() {
           Manus Infrastructure
         </h1>
         <p className="text-xl opacity-80 max-w-lg mx-auto mb-8">
-          Autonomous execution layer for Zyeuté ops.
+          Autonomous execution layer for Ojea ops.
         </p>
       </div>
     </div>
@@ -258,7 +258,7 @@ export function AppRoutes() {
     const searchParams = new URLSearchParams(location.search);
     const ref = searchParams.get("ref");
     if (ref) {
-      localStorage.setItem("zyeute_bounty_ref", ref);
+      localStorage.setItem("ojea_bounty_ref", ref);
     }
   }, [location.search]);
 
@@ -288,15 +288,15 @@ export function AppRoutes() {
             path="/feed"
             element={
               <OnboardingGate>
-                <Zyeute />
+                <Ojea />
               </OnboardingGate>
             }
           />
           <Route
-            path="/lazyeute"
+            path="/laojea"
             element={
               <OnboardingGate>
-                <Zyeute />
+                <Ojea />
               </OnboardingGate>
             }
           />

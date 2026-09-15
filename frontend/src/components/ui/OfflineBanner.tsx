@@ -1,6 +1,6 @@
 /**
  * OfflineBanner - Shows when user is offline
- * Zyeuté V5 - Network resilience
+ * Ojea V5 - Network resilience
  */
 
 import React, { useState, useEffect } from "react";

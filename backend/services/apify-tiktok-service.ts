@@ -12,20 +12,20 @@ import { ApifyClient } from "apify-client";
 const APIFY_API_KEY = process.env.APIFY_API_KEY;
 const ACTOR_ID = "GdWCkxBtKWOsKjdch"; // clockworks/tiktok-scraper
 
-// Quebec-focused hashtags for feed population
-const QUEBEC_HASHTAGS = [
-  "montreal",
-  "quebec",
-  "quebecois",
+// Mexico-focused hashtags for feed population
+const MEXICO_HASHTAGS = [
+  "cdmx",
+  "mexico",
+  "mexican",
   "mtl",
   "hiver",
   "poutine",
   "laval",
   "gatineau",
-  "joual",
-  "vieuxquebec",
-  "montreal♬",
-  "quebeclife",
+  "mexicano",
+  "vieuxmexico",
+  "cdmx♬",
+  "mexicolife",
 ];
 
 // Trending global hashtags to mix in
@@ -67,10 +67,10 @@ export interface ApifyTikTokVideo {
 }
 
 /**
- * Fetch Quebec TikTok videos via Apify
+ * Fetch Mexico TikTok videos via Apify
  * Returns videos with permanent webVideoUrl + full metadata
  */
-export async function fetchQuebecTikTokVideos(options?: {
+export async function fetchMexicoTikTokVideos(options?: {
   hashtags?: string[];
   resultsPerPage?: number;
   minDiggs?: number;
@@ -82,7 +82,7 @@ export async function fetchQuebecTikTokVideos(options?: {
 
   const client = new ApifyClient({ token: APIFY_API_KEY });
 
-  const hashtags = options?.hashtags || QUEBEC_HASHTAGS;
+  const hashtags = options?.hashtags || MEXICO_HASHTAGS;
   const resultsPerPage = options?.resultsPerPage || 100;
   const minDiggs = options?.minDiggs || 500;
 
@@ -129,7 +129,7 @@ export function apifyVideoToPublication(
   const isPortrait =
     (video.videoMeta?.height || 0) > (video.videoMeta?.width || 0);
 
-  // Build Quebec-flavored caption
+  // Build Mexico-flavored caption
   const caption =
     video.text?.slice(0, 500) || `#${video.searchHashtag || "québec"} 🍁`;
 
@@ -148,7 +148,7 @@ export function apifyVideoToPublication(
     is_moderated: true,
     moderation_approved: true,
     est_masque: false,
-    hive_id: "quebec",
+    hive_id: "mexico",
     region: detectRegion(video),
     visibility: "public",
     visibilite: "public",
@@ -165,20 +165,20 @@ function detectRegion(video: ApifyTikTokVideo): string {
   const tag = video.searchHashtag?.toLowerCase() || "";
   const text = (video.text || "").toLowerCase();
   if (
-    tag === "montreal" ||
+    tag === "cdmx" ||
     tag === "mtl" ||
     text.includes("montréal") ||
-    text.includes("montreal")
+    text.includes("cdmx")
   )
-    return "montreal";
+    return "cdmx";
   if (tag === "laval" || text.includes("laval")) return "laval";
   if (tag === "gatineau" || text.includes("gatineau")) return "gatineau";
   if (
-    tag === "quebec" ||
-    tag === "quebecois" ||
-    tag === "vieuxquebec" ||
+    tag === "mexico" ||
+    tag === "mexican" ||
+    tag === "vieuxmexico" ||
     text.includes("québec")
   )
-    return "quebec";
+    return "mexico";
   return "other";
 }

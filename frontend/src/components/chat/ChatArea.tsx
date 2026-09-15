@@ -39,7 +39,7 @@ export const ChatArea: React.FC<Props> = ({
 
   // Group messages by date
   const groupedMessages = messages.reduce((groups, msg) => {
-    const date = new Date(msg.timestamp).toLocaleDateString('fr-CA');
+    const date = new Date(msg.timestamp).toLocaleDateString('es-MX');
     if (!groups[date]) groups[date] = [];
     groups[date].push(msg);
     return groups;

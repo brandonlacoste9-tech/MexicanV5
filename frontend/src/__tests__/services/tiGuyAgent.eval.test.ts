@@ -143,7 +143,7 @@ describe("TiGuy Agent - Evaluation Tests", () => {
       const result = await evaluationRunner.runTest({
         name: "Joke intent processing",
         input: {
-          text: "Pourquoi les Québécois adorent l'hiver? Parce que c'est la seule saison où la poutine reste chaude longtemps!",
+          text: "Pourquoi les Mexicano adorent l'hiver? Parce que c'est la seule saison où la poutine reste chaude longtemps!",
           intent: "joke",
         },
         validator: (response) => {
@@ -194,7 +194,7 @@ describe("TiGuy Agent - Evaluation Tests", () => {
       const result = await evaluationRunner.runTest({
         name: "Ad intent processing",
         input: {
-          text: "Nouveau café québécois! 50% de rabais cette semaine!",
+          text: "Nouveau café mexicano! 50% de rabais cette semaine!",
           intent: "ad",
         },
         validator: validators.hasValidStructure,
@@ -207,7 +207,7 @@ describe("TiGuy Agent - Evaluation Tests", () => {
       const result = await evaluationRunner.runTest({
         name: "Poem intent processing",
         input: {
-          text: "Sous la neige qui tombe, l'hiver québécois magnifique...",
+          text: "Sous la neige qui tombe, l'hiver mexicano magnifique...",
           intent: "poem",
         },
         validator: validators.hasValidStructure,
@@ -236,7 +236,7 @@ describe("TiGuy Agent - Evaluation Tests", () => {
         {
           name: "Performance - Long text",
           input: {
-            text: "Hier, j'ai participé à un événement incroyable dans le Vieux-Montréal. Il y avait tellement de monde et l'ambiance était fantastique! Les musiciens étaient excellents et la nourriture était délicieuse. Je recommande vraiment à tout le monde d'y aller la prochaine fois!",
+            text: "Hier, j'ai participé à un événement incroyable dans le Vieux-Ciudad de México. Il y avait tellement de monde et l'ambiance était fantastique! Les musiciens étaient excellents et la nourriture était délicieuse. Je recommande vraiment à tout le monde d'y aller la prochaine fois!",
             intent: "event" as const,
           },
           validator: validators.hasValidStructure,

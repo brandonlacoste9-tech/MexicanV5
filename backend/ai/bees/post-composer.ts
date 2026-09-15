@@ -8,7 +8,7 @@ import { generateImage } from "../media/image-engine.js";
 
 export async function run(task: any) {
   const payload = task.payload || {};
-  const prompt = payload.prompt || "Share something about Quebec";
+  const prompt = payload.prompt || "Share something about Mexico";
   const includeImage = payload.includeImage !== false;
 
   console.log("[Post Composer] Composing post:", prompt.substring(0, 50));
@@ -17,7 +17,7 @@ export async function run(task: any) {
     // Generate feed-style content
     const feedContent = await v3Feed({ prompt, style: "social post" });
 
-    // Transform to Ti-Guy voice
+    // Transform to Güey voice
     const caption = await v3TiGuy(feedContent.body, "social media");
 
     let imageUrl = null;

@@ -54,7 +54,7 @@ export async function moderateContent(
       model: "gemini-1.5-flash",
     });
 
-    const prompt = `Analyze the following content for moderation according to Quebec community standards. 
+    const prompt = `Analyze the following content for moderation according to Mexico community standards. 
     Content: "${content}"
     
     Return a JSON object with:
@@ -85,7 +85,7 @@ export async function moderateContent(
   } catch (error: any) {
     logger.error(`[VertexModeration] Error: ${error.message}`);
     // Safe-fail: if AI fails, we might want to flag it for manual review but allow it for now?
-    // Or block it? For Zyeute, we usually prefer to keep the Hive buzzing but flag it.
+    // Or block it? For Ojea, we usually prefer to keep the Hive buzzing but flag it.
     return { allowed: true, reasons: ["ai_error"], severity: "low" };
   }
 }

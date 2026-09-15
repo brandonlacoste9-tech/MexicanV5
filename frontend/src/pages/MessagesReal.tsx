@@ -1,5 +1,5 @@
 /**
- * MessagesReal.tsx — Full Notification Hub for Zyeuté
+ * MessagesReal.tsx — Full Notification Hub for Ojea
  * ⚜️ Leather Wallet aesthetic — wired to live backend
  *
  * 4 tabs:
@@ -46,7 +46,7 @@ const TAB_LABELS: Record<
   string,
   { messages: string; activity: string; followers: string; system: string }
 > = {
-  quebec: {
+  mexico: {
     messages: "Messages",
     activity: "Activité",
     followers: "Abonnés",
@@ -139,11 +139,11 @@ function formatTime(iso: string): string {
     const d = new Date(iso);
     const diffHours = (Date.now() - d.getTime()) / 3_600_000;
     if (diffHours < 24)
-      return d.toLocaleTimeString("fr-CA", {
+      return d.toLocaleTimeString("es-MX", {
         hour: "2-digit",
         minute: "2-digit",
       });
-    return d.toLocaleDateString("fr-CA", { month: "short", day: "numeric" });
+    return d.toLocaleDateString("es-MX", { month: "short", day: "numeric" });
   } catch {
     return "";
   }
@@ -165,7 +165,7 @@ function activityIcon(type: string): string {
 }
 
 function activityLabel(type: string, hiveId: string): string {
-  const isFr = hiveId === "quebec";
+  const isFr = hiveId === "mexico";
   const isPt = hiveId === "brazil";
   switch (type) {
     case "fire":
@@ -199,17 +199,17 @@ function activityLabel(type: string, hiveId: string): string {
 
 // ─── System notifications (static for now) ───────────────────────────────────
 function getSystemNotifs(hiveId: string): SystemNotif[] {
-  const isFr = hiveId === "quebec";
+  const isFr = hiveId === "mexico";
   const isPt = hiveId === "brazil";
   return [
     {
       id: "sys-1",
       icon: currentHiveIcon(hiveId),
       title: isFr
-        ? "Bienvenue sur Zyeuté !"
+        ? "Bienvenue sur Ojea !"
         : isPt
-          ? "Bem-vindo ao Zyeuté!"
-          : "¡Bienvenido a Zyeuté!",
+          ? "Bem-vindo ao Ojea!"
+          : "¡Bienvenido a Ojea!",
       body: isFr
         ? "Ton compte est actif. Partage ta première vidéo dès maintenant."
         : isPt
@@ -795,7 +795,7 @@ const ConversationRow: React.FC<{
 export const MessagesReal: React.FC = () => {
   const { currentHive } = useHive();
   const hiveId = currentHive.id;
-  const labels = TAB_LABELS[hiveId] ?? TAB_LABELS.quebec;
+  const labels = TAB_LABELS[hiveId] ?? TAB_LABELS.mexico;
   const hiveIcon = currentHiveIcon(hiveId);
 
   const [activeTab, setActiveTab] = useState<TabId>("messages");
@@ -1284,7 +1284,7 @@ export const MessagesReal: React.FC = () => {
               ? `@${activeConv.otherUser.username}`
               : activeTab === "messages"
                 ? `${conversations.length} conversation${conversations.length !== 1 ? "s" : ""}`
-                : "Zyeuté"}
+                : "Ojea"}
           </p>
         </div>
         {activeTab === "messages" && mobileView === "list" && (
@@ -1690,7 +1690,7 @@ export const MessagesReal: React.FC = () => {
                   <p className="text-sm mt-3" style={{ color: T.gold.dim }}>
                     {hiveId === "brazil"
                       ? "Nenhuma atividade ainda."
-                      : hiveId === "quebec"
+                      : hiveId === "mexico"
                         ? "Aucune activité encore."
                         : "Sin actividad aún."}
                   </p>
@@ -1788,7 +1788,7 @@ export const MessagesReal: React.FC = () => {
                   <p className="text-sm mt-3" style={{ color: T.gold.dim }}>
                     {hiveId === "brazil"
                       ? "Nenhum novo seguidor ainda."
-                      : hiveId === "quebec"
+                      : hiveId === "mexico"
                         ? "Aucun nouvel abonné encore."
                         : "Sin nuevos seguidores aún."}
                   </p>
@@ -1816,7 +1816,7 @@ export const MessagesReal: React.FC = () => {
                         <span style={{ color: T.gold.dim }}>
                           {hiveId === "brazil"
                             ? "começou a te seguir"
-                            : hiveId === "quebec"
+                            : hiveId === "mexico"
                               ? "a commencé à te suivre"
                               : "comenzó a seguirte"}
                         </span>

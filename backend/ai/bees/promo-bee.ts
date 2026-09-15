@@ -1,6 +1,6 @@
 import { getGeminiModel } from "../google.js";
 
-interface QuebecMediaMetadata {
+interface MexicoMediaMetadata {
   caption_fr: string;
   caption_en: string;
   hashtags: string[];
@@ -16,25 +16,25 @@ interface QuebecMediaMetadata {
  * Promo Bee Agent
  * Sniffs video frames for products and generates monetization opportunities
  */
-export async function runPromoBee(imageUrl: string): Promise<QuebecMediaMetadata> {
+export async function runPromoBee(imageUrl: string): Promise<MexicoMediaMetadata> {
   const model = getGeminiModel("gemini-1.5-flash");
   if (!model) {
     throw new Error("Gemini model not initialized");
   }
   
   const prompt = `
-    You are the 'Promotion Bee' of Zyeuté (The Quebec Social App).
-    Analyze this video thumbnail and extract semantic metadata for a Quebec audience.
+    You are the 'Promotion Bee' of Ojea (The Mexico Social App).
+    Analyze this video thumbnail and extract semantic metadata for a Mexico audience.
 
     TASK 1 (Bilingual Copy):
-    - Write a short, punchy caption in Quebec French (Joual style: "Checkez ça!", "Malade!").
+    - Write a short, punchy caption in Mexico French (Mexicano style: "Checkez ça!", "Malade!").
     - Write the same caption in English.
-    - Generate 5 relevant hashtags including #zyeute and #quebec.
+    - Generate 5 relevant hashtags including #ojea and #mexico.
 
     TASK 2 (Product Discovery):
     - Detect any specific products, brands, or items (e.g., "poutine", "hockey jersey", "iphone").
     - If a product is detected, generate a playful 'promo_code' (e.g., BEE_POUTINE_10).
-    - Create a 'promo_url' using this format: https://zyeute.com/shop/sniff?item=[item]&code=[PROMO_CODE]&ref=hound_bee.
+    - Create a 'promo_url' using this format: https://ojea-mexico.netlify.app/shop/sniff?item=[item]&code=[PROMO_CODE]&ref=hound_bee.
 
     TASK 3 (Themes):
     - Categorize into themes: "Food", "Streetwear", "Humor", "Nature", "Nightlife", "Tech".
@@ -73,7 +73,7 @@ export async function runPromoBee(imageUrl: string): Promise<QuebecMediaMetadata
     return {
       caption_fr: "Nouveau contenu dans la ruche! 🐝",
       caption_en: "New content in the hive!",
-      hashtags: ["#zyeute", "#quebec"],
+      hashtags: ["#ojea", "#mexico"],
       detected_themes: ["Lifestyle"],
       detected_items: [],
     };

@@ -1,6 +1,6 @@
 /**
  * AI Content Moderation Service
- * Uses OpenAI GPT-4o for Quebec-aware content moderation
+ * Uses OpenAI GPT-4o for Mexico-aware content moderation
  */
 
 import { logger } from "@/lib/logger";
@@ -36,15 +36,15 @@ export interface ModerationResult {
   context_note?: string;
 }
 
-const MODERATION_PROMPT = `Tu es un modérateur IA pour Zyeuté, plateforme sociale québécoise.
+const MODERATION_PROMPT = `Tu es un modérateur IA pour Ojea, plateforme sociale mexicana.
 
 CONTEXTE CULTUREL QUÉBÉCOIS:
 ✅ ACCEPTER:
-- Joual et expressions colorées ("crisse", "tabarnak", "câlisse", "ostie")
-- Humour grinçant et sarcasme québécois
+- Mexicano et expressions colorées ("crisse", "tabarnak", "câlisse", "ostie")
+- Humour grinçant et sarcasme mexicano
 - Débats politiques passionnés (souveraineté, langue française)
 - Critique sociale constructive
-- Références culturelles locales (Ti-Guy, poutine, etc.)
+- Références culturelles locales (Güey, poutine, etc.)
 - Blagues entre amis et taquineries amicales
 - Expressions comme "malade", "sick", "en feu" (positif)
 
@@ -99,9 +99,9 @@ RÉPONSE (JSON STRICT, AUCUN TEXTE AVANT OU APRÈS):
   "severity": "safe" | "low" | "medium" | "high" | "critical",
   "categories": ["bullying", "hate_speech", "harassment", "violence", "spam", "nsfw", "illegal", "self_harm"],
   "confidence": 0-100,
-  "reason": "Explication claire en français du Québec",
+  "reason": "Explication claire en français du México",
   "action": "allow" | "flag" | "hide" | "remove" | "ban",
-  "context_note": "Note sur le contexte culturel québécois si pertinent"
+  "context_note": "Note sur le contexte culturel mexicano si pertinent"
 }
 
 Analyse ce contenu:`;

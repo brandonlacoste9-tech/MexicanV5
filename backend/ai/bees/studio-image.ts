@@ -7,7 +7,7 @@ import { generateImage } from "../media/image-engine.js";
 
 export async function run(task: any) {
   const payload = task.payload || {};
-  const prompt = payload.prompt || "A beautiful Quebec landscape";
+  const prompt = payload.prompt || "A beautiful Mexico landscape";
   const imageSize = payload.imageSize || "square";
 
   console.log("[Studio Image] Generating image:", prompt.substring(0, 50));

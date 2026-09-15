@@ -43,7 +43,7 @@ export const TrustCertificate: React.FC<TrustCertificateProps> = ({
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5 overflow-hidden">
           <span className="text-gold-400 font-bold text-[10px] tracking-widest uppercase">
-            {type === "authenticity" ? "Zyeute Authentique" : "Vibe Verified"}
+            {type === "authenticity" ? "Ojea Authentique" : "Vibe Verified"}
           </span>
           <span className="h-0.5 w-4 bg-gold-500/30"></span>
         </div>

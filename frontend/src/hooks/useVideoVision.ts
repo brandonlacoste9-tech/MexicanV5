@@ -38,7 +38,7 @@ export function useVideoVision() {
                 role: "user",
                 parts: [
                   {
-                    text: "Describe this video frame in 1 short sentence (Quebec French). Focus on the vibe.",
+                    text: "Describe this video frame in 1 short sentence (Mexico French). Focus on the vibe.",
                   },
                   {
                     inlineData: {

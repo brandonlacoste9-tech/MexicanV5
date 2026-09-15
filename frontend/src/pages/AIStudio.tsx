@@ -1,6 +1,6 @@
 /**
  * AI Studio - Flux Image Generation & Kling Video
- * Premium AI content creation for Zyeuté
+ * Premium AI content creation for Ojea
  */
 
 import React from "react";
@@ -118,7 +118,7 @@ export const AIStudio: React.FC = () => {
       const downloadUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = downloadUrl;
-      a.download = `zyeute-ai-${Date.now()}.${type === "video" ? "mp4" : "png"}`;
+      a.download = `ojea-ai-${Date.now()}.${type === "video" ? "mp4" : "png"}`;
       document.body.appendChild(a);
       a.click();
       // Use a safe removeChild with existence check
@@ -173,7 +173,7 @@ export const AIStudio: React.FC = () => {
   return (
     <div className="relative h-screen bg-black overflow-hidden flex flex-col items-center justify-center p-4">
       <Header
-        title="Zyeuté Studio Pro"
+        title="Ojea Studio Pro"
         showBack
         className="absolute top-0 left-0 right-0 z-50 bg-transparent border-none text-white"
       />
@@ -193,7 +193,7 @@ export const AIStudio: React.FC = () => {
               Studio Créatif
             </h2>
             <p className="text-zinc-500 max-w-sm text-sm font-medium">
-              L'IA au service de l'influence québécoise. <br />
+              L'IA au service de l'influence mexicana. <br />
               Commence par une idée.
             </p>
           </div>
@@ -254,7 +254,7 @@ export const AIStudio: React.FC = () => {
                   handleUseForPost((generatedVideo || generatedImage)!)
                 }
                 className="p-4 bg-gold-500 rounded-full text-black hover:scale-110 active:scale-95 transition-all shadow-[0_0_40px_rgba(255,191,0,0.5)] border-2 border-white/20"
-                title="Publier sur Zyeuté"
+                title="Publier sur Ojea"
               >
                 📤
               </button>

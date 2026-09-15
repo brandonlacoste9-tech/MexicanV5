@@ -270,8 +270,8 @@ export const Player: React.FC = () => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: "Zyeuté",
-          text: "Check out this video on Zyeuté!",
+          title: "Ojea",
+          text: "Check out this video on Ojea!",
           url: `${window.location.origin}/video/${postId}`,
         });
       } else {

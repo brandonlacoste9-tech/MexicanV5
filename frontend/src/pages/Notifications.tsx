@@ -173,7 +173,7 @@ export const Notifications: React.FC = () => {
       </div>
 
       <p className="text-center text-leather-600 text-[10px] mt-8 uppercase tracking-[0.3em] font-medium">
-        Zyeuté v5.0 — Quebec Premium Social
+        Ojea v5.0 — Mexico Premium Social
       </p>
 
       <BottomNav />

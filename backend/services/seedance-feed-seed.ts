@@ -1,5 +1,5 @@
 /**
- * Generate Québec-style clips via BytePlus Seedance → Mux → publications.
+ * Generate México-style clips via BytePlus Seedance → Mux → publications.
  */
 import { randomUUID } from "crypto";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
@@ -17,15 +17,15 @@ import {
   downloadTikTokMp4,
 } from "./tiktok-mirror-storage.js";
 
-export const QUEBEC_SEEDANCE_PROMPTS = [
-  "Vertical smartphone video, Montreal Old Port in winter, snow falling, warm street lights, cinematic handheld",
-  "Close-up of poutine with cheese curds melting, steam rising, Quebec diner vibe, appetizing food video",
-  "Young friends laughing on a Montreal metro platform, urban Quebec energy, natural motion, 9:16 social clip",
-  "Sunset over the St. Lawrence River, Quebec City skyline, slow pan, golden hour cinematic",
-  "Maple syrup pouring on pancakes, cozy Quebec kitchen, warm lighting, satisfying slow motion",
-  "Street musician playing guitar on Saint-Denis, Montreal summer evening, lively crowd bokeh",
-  "Hockey fans cheering in a Quebec sports bar, energetic vertical clip, authentic atmosphere",
-  "Fresh snow on pine trees in Laurentians, peaceful Quebec nature, gentle camera drift",
+export const MEXICO_SEEDANCE_PROMPTS = [
+  "Vertical smartphone video, CDMX Old Port in winter, snow falling, warm street lights, cinematic handheld",
+  "Close-up of poutine with cheese curds melting, steam rising, Mexico diner vibe, appetizing food video",
+  "Young friends laughing on a CDMX metro platform, urban Mexico energy, natural motion, 9:16 social clip",
+  "Sunset over the St. Lawrence River, Mexico City skyline, slow pan, golden hour cinematic",
+  "Maple syrup pouring on pancakes, cozy Mexico kitchen, warm lighting, satisfying slow motion",
+  "Street musician playing guitar on Saint-Denis, CDMX summer evening, lively crowd bokeh",
+  "Hockey fans cheering in a Mexico sports bar, energetic vertical clip, authentic atmosphere",
+  "Fresh snow on pine trees in Laurentians, peaceful Mexico nature, gentle camera drift",
 ];
 
 export type SeedanceFeedSeedStats = {
@@ -41,10 +41,10 @@ export type SeedanceFeedSeedStats = {
 
 async function resolveAuthor(supabase: SupabaseClient): Promise<string | null> {
   for (const username of [
-    "ti_guy_bot",
-    "zyeute_scout",
-    "zyeute_ai",
-    "zyeute_seed",
+    "guey_bot",
+    "ojea_scout",
+    "ojea_ai",
+    "ojea_seed",
   ]) {
     const { data } = await supabase
       .from("user_profiles")
@@ -93,10 +93,10 @@ export async function seedFeedFromSeedance(options: {
     return stats;
   }
 
-  const hiveId = options.hiveId ?? "quebec";
+  const hiveId = options.hiveId ?? "mexico";
   const prompts = options.prompts?.length
     ? options.prompts
-    : QUEBEC_SEEDANCE_PROMPTS;
+    : MEXICO_SEEDANCE_PROMPTS;
   const { model } = getArkConfig();
 
   for (let i = 0; i < limit; i++) {
@@ -167,7 +167,7 @@ export async function seedFeedFromSeedance(options: {
         continue;
       }
 
-      const caption = `🎬 Zyeuté AI — ${prompt.slice(0, 120)} #Quebec #Zyeute`;
+      const caption = `🎬 Ojea AI — ${prompt.slice(0, 120)} #Mexico #Ojea`;
       const { error } = await supabase.from("publications").insert({
         user_id: userId,
         type: "video",
@@ -179,7 +179,7 @@ export async function seedFeedFromSeedance(options: {
         content: caption,
         visibility: "public",
         hive_id: hiveId,
-        region_id: "montreal",
+        region_id: "cdmx",
         video_source: "seedance",
         processing_status: processingStatus,
         moderation_approved: true,
