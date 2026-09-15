@@ -4,67 +4,67 @@
  * specific branding is pulled from AppConfig.identity.
  */
 const TRANSLATIONS: Record<string, Record<string, string>> = {
-  "es-MX": {
+  "en": {
     // Navigation
-    "nav.feed": "Fil d'actualité",
-    "nav.explore": "Explorer",
-    "nav.stories": "Histoires",
+    "nav.feed": "Feed",
+    "nav.explore": "Explore",
+    "nav.stories": "Stories",
     "nav.notifications": "Notifications",
-    "nav.profile": "Mon Profil",
-    "nav.home": "Accueil",
-    "nav.discover": "Découvrir",
-    "nav.create": "Créer",
+    "nav.profile": "My Profile",
+    "nav.home": "Home",
+    "nav.discover": "Discover",
+    "nav.create": "Create",
     "nav.notifications_short": "Notifs",
     "nav.messages": "Messages",
     "nav.arcade": "Arcade",
 
     // Auth
-    "auth.login": "Se connecter",
-    "auth.signup": "S'inscrire",
-    "auth.logout": "Déconnexion",
+    "auth.login": "Sign in",
+    "auth.signup": "Sign up",
+    "auth.logout": "Sign out",
 
     // Actions
-    "action.share": "Partager",
-    "action.comment": "Commenter",
-    "action.gift": "Offrir un cadeau",
+    "action.share": "Share",
+    "action.comment": "Comment",
+    "action.gift": "Send a gift",
 
     // Button Labels
-    btn_follow: "Suivre",
-    btn_following: "Abonné·e(s)",
-    btn_unfollow: "Ne plus suivre",
-    btn_like: "Feux",
-    btn_save: "Enregistrer",
-    btn_add: "Ajouter",
+    btn_follow: "Follow",
+    btn_following: "Following",
+    btn_unfollow: "Unfollow",
+    btn_like: "Fire",
+    btn_save: "Save",
+    btn_add: "Add",
 
     // Labels
-    lbl_comments: "Commentaires",
-    lbl_write_comment: "Écris un commentaire…",
-    lbl_post_comment: "Envoyer",
-    lbl_views: "Vues",
-    lbl_followers: "Abonnés",
-    lbl_following: "Abonnements",
-    lbl_recent_videos: "Vidéos récentes",
-    lbl_settings: "Paramètres",
-    lbl_posts: "Publications",
+    lbl_comments: "Comments",
+    lbl_write_comment: "Write a comment…",
+    lbl_post_comment: "Send",
+    lbl_views: "Views",
+    lbl_followers: "Followers",
+    lbl_following: "Following",
+    lbl_recent_videos: "Recent videos",
+    lbl_settings: "Settings",
+    lbl_posts: "Posts",
 
     // Toasts
-    toast_video_saved: "Vidéo enregistrée",
-    toast_share_started: "Partage lancé",
-    toast_comment_posted: "Commentaire publié",
-    toast_network_error: "Impossible de se connecter. Vérifie ta connexion",
-    toast_comment_error: "Le commentaire n'a pas pu être envoyé",
-    toast_save_error: "Impossible d'enregistrer la vidéo",
-    toast_loading: "Chargement…",
+    toast_video_saved: "Video saved",
+    toast_share_started: "Share started",
+    toast_comment_posted: "Comment posted",
+    toast_network_error: "Could not connect. Check your connection",
+    toast_comment_error: "The comment could not be sent",
+    toast_save_error: "Could not save the video",
+    toast_loading: "Loading…",
 
     // Error Messages
-    error_video_unavailable: "Vidéo non disponible",
-    error_cannot_load_comments: "Les commentaires n'ont pas pu être chargés",
-    error_not_logged_in: "Connecte-toi pour interagir",
-    error_action_not_allowed: "Cette action n'est pas permise",
-    error_content_unavailable: "Contenu indisponible",
+    error_video_unavailable: "Video unavailable",
+    error_cannot_load_comments: "Comments could not be loaded",
+    error_not_logged_in: "Sign in to interact",
+    error_action_not_allowed: "This action is not allowed",
+    error_content_unavailable: "Content unavailable",
 
     // Onboarding & Views
-    "onboarding.complete": "C'est parti !",
+    "onboarding.complete": "Let's go",
     "view.banned_account":
       "Compte suspendu pour violation grave des règles de sécurité.",
     "view.banned_message":
@@ -73,26 +73,26 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
       "Ojea applique une politique de tolérance zéro concernant toute forme de leurre, grooming ou interaction inappropriée impliquant des mineurs. Toute tentative détectée entraîne la suppression immédiate du contenu, la désactivation permanente du compte et le signalement interne requis par nos protocoles de sécurité. Les utilisateurs sont entièrement responsables du contenu qu'ils créent et partagent.",
 
     // Guest Mode
-    "guest.mode": "Mode Visiteur",
+    "guest.mode": "Guest mode",
     "guest.description":
       "Vous explorez en tant qu'invité. Créez un profil pour l'expérience complète.",
-    "guest.cta": "Rejoindre le Swarm",
+    "guest.cta": "Join Ojea",
 
     // Ephemeral
     "ephemeral.label": "Éphémère",
     "ephemeral.status_burned": "Brûlé",
 
     // ARIA Labels & Accessibility
-    aria_play_video: "Jouer la vidéo",
-    aria_praise_post: "Féliciter ce post",
-    aria_switch_character: "Changer de personnage",
-    aria_attach_file: "Joindre un fichier",
-    aria_send_task: "Envoyer la tâche à la Colonie",
+    aria_play_video: "Play video",
+    aria_praise_post: "Praise this post",
+    aria_switch_character: "Switch character",
+    aria_attach_file: "Attach a file",
+    aria_send_task: "Send the task to the colony",
 
     // Error & Status Messages
-    error_enter_command: "Rentre une commande, voyons",
-    error_sending_task: "Erreur lors de l'envoi de la tâche",
-    status_enhancing: "Amélioration...",
+    error_enter_command: "Enter a command",
+    error_sending_task: "Error sending the task",
+    status_enhancing: "Enhancing...",
   },
   "pt-BR": {
     // Navigation
@@ -313,7 +313,7 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
     // Guest Mode
     "guest.mode": "Modo Visitante",
     "guest.description": "Estás de visita, wey. Hazte un perfil.",
-    "guest.cta": "Entrar al Ritual",
+    "guest.cta": "Entrar a Ojea",
 
     // Ephemeral
     "ephemeral.label": "Fugaz",
@@ -321,14 +321,24 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
 };
 
-// HARDCODED TO FRENCH - Prevents locale switching loops
 const DEFAULT_LOCALE = "es-MX";
 
-export function useTranslation() {
-  // Always return French - no hooks, no re-renders
-  const t = (key: string) => {
-    return TRANSLATIONS[DEFAULT_LOCALE]?.[key] || key;
-  };
+function readLocale(): string {
+  try {
+    const saved = localStorage.getItem("ojea_language");
+    if (saved && TRANSLATIONS[saved]) return saved;
+    if (saved === "es") return "es-MX";
+    if (saved === "en" && TRANSLATIONS.en) return "en";
+  } catch {
+    /* ignore */
+  }
+  return DEFAULT_LOCALE;
+}
 
-  return { t, locale: DEFAULT_LOCALE };
+export function useTranslation() {
+  const locale = readLocale();
+  const t = (key: string) => {
+    return TRANSLATIONS[locale]?.[key] || TRANSLATIONS[DEFAULT_LOCALE]?.[key] || key;
+  };
+  return { t, locale };
 }

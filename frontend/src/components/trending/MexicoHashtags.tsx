@@ -1,81 +1,26 @@
 import React from "react";
 import { TrendingUp, MapPin, Users } from "lucide-react";
+import { region } from "@/config/region";
+import { MEXICO_HASHTAGS } from "@/lib/mexicoFeatures";
 
 interface TrendingTag {
   tag: string;
   count: number;
   trending: boolean;
   region?: string;
-  category: "food" | "culture" | "sports" | "politics" | "nature";
+  category: "food" | "culture" | "sports" | "music" | "city";
 }
 
 export const MexicoHashtags: React.FC = () => {
-  const trendingTags: TrendingTag[] = [
-    {
-      tag: "#Poutine",
-      count: 1243,
-      trending: true,
-      region: "México",
-      category: "food",
-    },
-    {
-      tag: "#México",
-      count: 892,
-      trending: true,
-      region: "México",
-      category: "culture",
-    },
-    {
-      tag: "#Ciudad de México",
-      count: 756,
-      trending: false,
-      region: "Ciudad de México",
-      category: "culture",
-    },
-    {
-      tag: "#GoHabsGo",
-      count: 543,
-      trending: true,
-      region: "Ciudad de México",
-      category: "sports",
-    },
-    {
-      tag: "#CultureQC",
-      count: 432,
-      trending: false,
-      region: "México",
-      category: "culture",
-    },
-    {
-      tag: "#FEQ2024",
-      count: 321,
-      trending: true,
-      region: "México",
-      category: "culture",
-    },
-    {
-      tag: "#Gaspésie",
-      count: 287,
-      trending: false,
-      region: "Gaspésie",
-      category: "nature",
-    },
-    {
-      tag: "#Tourtière",
-      count: 254,
-      trending: false,
-      region: "México",
-      category: "food",
-    },
-  ];
-
-  const categoryIcons: Record<TrendingTag["category"], string> = {
-    food: "🍴",
-    culture: "🎭",
-    sports: "🏒",
-    politics: "🏛️",
-    nature: "🌲",
-  };
+  const trendingTags: TrendingTag[] = MEXICO_HASHTAGS.slice(0, 8).map(
+    (tag, i) => ({
+      tag,
+      count: 1800 - i * 140,
+      trending: i < 4,
+      region: region.cities[i % region.cities.length],
+      category: (["city", "food", "culture", "sports", "music"] as const)[i % 5],
+    }),
+  );
 
   return (
     <div className="mb-10">
@@ -83,15 +28,15 @@ export const MexicoHashtags: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold flex items-center">
             <TrendingUp className="w-5 h-5 mr-2 text-gold-400" />
-            Hashtags tendance au México
+            Hashtags en México
           </h2>
           <p className="text-gray-400 text-sm mt-1">
-            Découvrez ce qui buzz en ce moment
+            Lo que está sonando ahora en el pack {region.brand}
           </p>
         </div>
         <div className="flex items-center text-sm text-gray-400">
           <MapPin className="w-4 h-4 mr-1" />
-          <span>Mis à jour à l'instant</span>
+          <span>Al momento</span>
         </div>
       </div>
 
@@ -112,7 +57,7 @@ export const MexicoHashtags: React.FC = () => {
                 </div>
                 <div className="flex items-center mt-1">
                   <span className="text-xs px-2 py-0.5 rounded bg-dark-700 text-gray-400">
-                    {categoryIcons[item.category]} {item.category}
+                    {item.category}
                   </span>
                   {item.region && (
                     <span className="text-xs text-gray-500 ml-2 flex items-center">
@@ -125,7 +70,7 @@ export const MexicoHashtags: React.FC = () => {
               {item.trending && (
                 <div className="flex items-center text-xs text-gold-400 bg-gold-500/10 px-2 py-1 rounded-full">
                   <TrendingUp className="w-3 h-3 mr-1" />
-                  Tendance
+                  Tendencia
                 </div>
               )}
             </div>
@@ -136,18 +81,11 @@ export const MexicoHashtags: React.FC = () => {
                 <span>{item.count.toLocaleString()} posts</span>
               </div>
               <button className="text-xs text-gold-400 hover:text-gold-300 transition-colors">
-                Suivre →
+                Seguir
               </button>
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="mt-6 text-center">
-        <button className="text-sm text-gray-400 hover:text-white transition-colors flex items-center justify-center mx-auto">
-          Voir plus de tendances
-          <TrendingUp className="w-4 h-4 ml-2" />
-        </button>
       </div>
     </div>
   );

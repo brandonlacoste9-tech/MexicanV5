@@ -1,16 +1,17 @@
 /**
- * Ojea V5 - Mexico Bootstrap Config
- * Hardcoded for the initial production launch.
+ * Ojea hive bootstrap — driven by the Mexico region pack.
  */
+import { region } from "./region";
+
 export const HIVE_CONFIG = {
-  id: "mexico",
-  name: "Ojea",
-  theme: "maple",
-  locale: "es-MX",
+  id: region.hive,
+  name: region.brand,
+  theme: "leather",
+  locale: region.locale,
   identity: {
-    name: "Ojea",
-    slogan: "Le radar de ton quartier",
-    giftEmoji: "⚜️",
-    primaryColor: "#E12127", // Mexico Red
+    name: region.brand,
+    slogan: region.tagline,
+    giftEmoji: "MXN",
+    primaryColor: "#E8B84A",
   },
 } as const;

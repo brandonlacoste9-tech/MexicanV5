@@ -34,30 +34,29 @@ export const RegionSettings: React.FC = () => {
           .update({ region: regionId })
           .eq("id", user.id);
 
-        toast.success(`Région mise à jour: ${region?.name || regionId}! ⚜️`);
+        toast.success(`Región actualizada: ${region?.name || regionId}`);
       }
     } catch (error) {
       regionSettingsLogger.error("Error updating region:", error);
-      toast.error("Erreur lors de la mise à jour");
+        toast.error("No se pudo actualizar la región");
     }
   };
 
   return (
     <div className="min-h-screen bg-black leather-overlay pb-20">
-      <Header title="Région du México" showBack={true} showSearch={false} />
+      <Header title="Región de México" showBack={true} showSearch={false} />
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
         {/* Info */}
         <div className="leather-card rounded-xl p-4 stitched bg-gold-500/10 border border-gold-500/30">
           <p className="text-white text-sm">
-            Sélectionne ta région pour voir du contenu local et connecter avec
-            d&apos;autres Mexicano de ta région! ⚜️
+            Elige tu región para ver contenido local y conectar con gente de tu ciudad.
           </p>
         </div>
 
         {/* Region Selection */}
         <div className="leather-card rounded-xl p-4 stitched">
-          <h3 className="text-white font-semibold mb-4">Choisis ta région</h3>
+          <h3 className="text-white font-semibold mb-4">Elige tu región</h3>
           <div className="grid grid-cols-1 gap-2">
             {MEXICO_REGIONS.map((region) => {
               const isSelected = preferences.region === region.id;

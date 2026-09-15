@@ -8,7 +8,7 @@ const useSettingsPreferencesLogger = logger.withContext(
 
 type MentionScope = "everyone" | "followers" | "no_one";
 type ContentFilterLevel = "strict" | "medium" | "off";
-type LanguageOption = "fr" | "en";
+type LanguageOption = "es" | "en";
 
 export interface SettingsPreferences {
   tags: {
@@ -180,8 +180,8 @@ const basePreferences: SettingsPreferences = {
     swipeGestures: true,
     doubleTapToFire: true,
   },
-  region: "mtl",
-  language: "fr",
+  region: "cdmx",
+  language: "es",
 };
 
 const clonePreferences = (): SettingsPreferences =>

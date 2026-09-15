@@ -1,20 +1,22 @@
 /**
  * Ojea Mexico pack — cities, slang, hashtags.
- * Replaces the Québec region pack from ZyeuteV5.
+ * Driven by config/region.ts so a pack swap stays in one place.
  */
+import { region } from "@/config/region";
+
 export const MEXICO_REGIONS = [
-  { id: "cdmx", name: "Ciudad de México", emoji: "🏙️" },
-  { id: "guadalajara", name: "Guadalajara", emoji: "🎺" },
-  { id: "monterrey", name: "Monterrey", emoji: "⛰️" },
-  { id: "puebla", name: "Puebla", emoji: "⛪" },
-  { id: "tijuana", name: "Tijuana", emoji: "🌉" },
-  { id: "merida", name: "Mérida", emoji: "🏛️" },
-  { id: "cancun", name: "Cancún", emoji: "🏖️" },
-  { id: "oaxaca", name: "Oaxaca", emoji: "🌽" },
-  { id: "leon", name: "León", emoji: "👢" },
-  { id: "queretaro", name: "Querétaro", emoji: "🎈" },
-  { id: "tulum", name: "Tulum", emoji: "🌊" },
-  { id: "acapulco", name: "Acapulco", emoji: "🌅" },
+  { id: "cdmx", name: "Ciudad de México", emoji: "CDMX" },
+  { id: "guadalajara", name: "Guadalajara", emoji: "GDL" },
+  { id: "monterrey", name: "Monterrey", emoji: "MTY" },
+  { id: "puebla", name: "Puebla", emoji: "PUE" },
+  { id: "tijuana", name: "Tijuana", emoji: "TIJ" },
+  { id: "merida", name: "Mérida", emoji: "MID" },
+  { id: "cancun", name: "Cancún", emoji: "CUN" },
+  { id: "oaxaca", name: "Oaxaca", emoji: "OAX" },
+  { id: "leon", name: "León", emoji: "LEO" },
+  { id: "queretaro", name: "Querétaro", emoji: "QRO" },
+  { id: "tulum", name: "Tulum", emoji: "TU" },
+  { id: "acapulco", name: "Acapulco", emoji: "ACA" },
 ] as const;
 
 export const CDMX_COLONIAS = [
@@ -29,7 +31,7 @@ export const CDMX_COLONIAS = [
 ] as const;
 
 export const MEXICAN_DICTIONARY = {
-  like: "Fuego 🔥",
+  like: "Fuego",
   comment: "Comentar",
   share: "Compartir",
   follow: "Seguir",
@@ -47,7 +49,7 @@ export const MEXICAN_DICTIONARY = {
   filters: "Filtros",
   cool: "Chido",
   nice: "Qué padre",
-  awesome: "¡Órale!",
+  awesome: "Órale",
   lol: "Jajaja",
   yes: "Simón",
   no: "Nel",
@@ -56,24 +58,11 @@ export const MEXICAN_DICTIONARY = {
   rain: "Está cayendo el aguacero",
 } as const;
 
-export const MEXICO_HASHTAGS = [
-  "#parati",
-  "#CDMX",
-  "#Mexico",
-  "#Tacos",
-  "#Guadalajara",
-  "#Monterrey",
-  "#LuchaLibre",
-  "#Mariachi",
-  "#Playa",
-  "#Oaxaca",
-  "#Cancun",
-  "#Futbol",
-  "#55",
-  "#GDL",
-  "#MTY",
-  "#HechoEnMexico",
-] as const;
+export const MEXICO_HASHTAGS = region.seedTags.map((tag) =>
+  tag.startsWith("#") ? tag : `#${tag}`,
+);
+
+export const MEXICO_CITIES = region.cities;
 
 /** Back-compat aliases so existing Zyeute imports keep compiling. */
 export const QUEBEC_REGIONS = MEXICO_REGIONS;

@@ -28,9 +28,9 @@ const exploreLogger = logger.withContext("Explore");
 
 export const Explore: React.FC = () => {
   useSEO({
-    title: "Découvrir — Vidéos et créateurs du México",
+    title: "Explorar — Videos y creadores de México",
     description:
-      "Explore les vidéos tendances, trouve des créateurs mexicano et découvre les hashtags populaires. Filtre par région — Ciudad de México, México, Gatineau et plus.",
+      "Explora videos, encuentra creadores y hashtags de México. Filtra por ciudad — CDMX, Guadalajara, Monterrey y más.",
     url: "/explore",
   });
 
@@ -55,21 +55,21 @@ export const Explore: React.FC = () => {
     savedState?.filters?.selectedHashtag || "",
   );
   const [selectedCategory, setSelectedCategory] = React.useState(
-    (savedState?.filters as any)?.selectedCategory || "Tout",
+    (savedState?.filters as any)?.selectedCategory || "Todo",
   );
   const { tap } = useHaptics();
 
   const CATEGORIES = [
-    "Tout",
-    "Humour",
-    "Musique",
-    "Jeux vidéo",
-    "Sports",
-    "Actualités",
-    "Nourriture",
-    "Mode",
-    "Animaux",
-    "Éducation",
+    "Todo",
+    "Humor",
+    "Música",
+    "Juegos",
+    "Deportes",
+    "Noticias",
+    "Comida",
+    "Moda",
+    "Animales",
+    "Educación",
   ];
 
   // Dynamic trending hashtags from API
@@ -225,18 +225,18 @@ export const Explore: React.FC = () => {
         );
       }
 
-      if (selectedCategory && selectedCategory !== "Tout") {
+      if (selectedCategory && selectedCategory !== "Todo") {
         // Map categories to simple keyword checks since we don't have hardcoded post categories yet
         const categoryMap: Record<string, string[]> = {
-          Humour: ["drôle", "humour", "blague", "joke", "lol"],
-          Musique: ["musique", "chanson", "music", "cover", "chanteur"],
-          "Jeux vidéo": ["gaming", "jeu", "twitch", "gamer", "playstation"],
-          Sports: ["sport", "hockey", "soccer", "gym", "workout", "fitness"],
-          Actualités: ["nouvelles", "news", "politique", "actu"],
-          Nourriture: ["recette", "food", "cuisine", "manger", "restaurant"],
-          Mode: ["mode", "fashion", "ootd", "style", "vêtement"],
-          Animaux: ["chien", "chat", "dog", "cat", "animal"],
-          Éducation: ["apprendre", "tuto", "comment", "savoir", "education"],
+          Humor: ["chiste", "humor", "joke", "lol", "jajaja"],
+          "Música": ["musica", "canción", "music", "cover", "cantante"],
+          Juegos: ["gaming", "juego", "twitch", "gamer", "playstation"],
+          Deportes: ["deporte", "futbol", "soccer", "gym", "lucha", "fitness"],
+          Noticias: ["noticias", "news", "politica", "actu"],
+          Comida: ["receta", "food", "tacos", "comida", "restaurant"],
+          Moda: ["moda", "fashion", "ootd", "style", "ropa"],
+          Animales: ["perro", "gato", "dog", "cat", "animal"],
+          "Educación": ["aprender", "tuto", "como", "saber", "education"],
         };
 
         const keywords = categoryMap[selectedCategory] || [];
@@ -497,14 +497,14 @@ export const Explore: React.FC = () => {
                 tap();
                 setSelectedRegion("");
                 if (selectedRegion) {
-                  toast.info("Filtre régional retiré");
+                  toast.info("Filtro de región quitado");
                 }
               }}
               className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                 selectedRegion === "" ? "btn-gold" : "btn-leather"
               }`}
             >
-              Toutes
+              Todas
             </button>
             {MEXICO_REGIONS.map((region) => {
               const isSelected = selectedRegion === region.id;

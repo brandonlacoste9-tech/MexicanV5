@@ -2,6 +2,7 @@
  * useSEO — per-page meta for Ojea (México).
  */
 import { useEffect } from "react";
+import { region } from "@/config/region";
 
 interface SEOProps {
   title?: string;
@@ -13,11 +14,11 @@ interface SEOProps {
   noIndex?: boolean;
 }
 
-const DEFAULT_TITLE = "Ojea — Videos de México";
+const DEFAULT_TITLE = `${region.brand} — ${region.tagline}`;
 const DEFAULT_DESC =
   "App de videos cortos de México. Talento de aquí: CDMX, Guadalajara, Monterrey, playa y calle.";
-const DEFAULT_IMAGE = "https://ojea-mexico.netlify.app/ojea_og_image.png";
-const BASE_URL = "https://ojea-mexico.netlify.app";
+const DEFAULT_IMAGE = `${region.siteUrl}/ojea_og_image.png`;
+const BASE_URL = region.siteUrl;
 
 function setMeta(property: string, content: string, isName = false) {
   const attr = isName ? "name" : "property";

@@ -2,7 +2,7 @@
  * Ojea Factory - Application Configuration Schema
  * This file defines the identity of a specific app clone.
  */
-import { HIVE_CONFIG } from "./hive.js";
+import { region } from "./region";
 
 export interface AppTheme {
   primary: string;
@@ -49,22 +49,22 @@ export interface AppConfig {
 // 1. Ojea México (The Original)
 const MEXICO_CONFIG: AppConfig = {
   identity: {
-    hiveId: "mexico",
-    name: "Ojea",
-    tagline: "Le Swarm Mexicano ⚜️",
-    region: "QC",
-    locale: "es-MX",
-    iconEmoji: "⚜️",
-    giftEmoji: "⚜️",
-    landingTitle: "Bienvenue dans le Swarm",
-    landingSubtitle: "La plateforme sociale premium du México.",
+    hiveId: region.hive,
+    name: region.brand,
+    tagline: region.tagline,
+    region: region.country,
+    locale: region.locale,
+    iconEmoji: "MX",
+    giftEmoji: "MXN",
+    landingTitle: "Bienvenido a Ojea",
+    landingSubtitle: region.tagline,
     onboardingSteps: [
       {
-        title: "Découvrez",
-        description: "Vidéos exclusives et talents locaux.",
+        title: "Descubre",
+        description: "Videos de México: CDMX, Guadalajara, Monterrey y más.",
       },
-      { title: "Connectez", description: "Échangez avec la communauté." },
-      { title: "Gagnez", description: "Recevez des cadeaux de vos fans." },
+      { title: "Conecta", description: "Sigue, comenta y manda mensajes." },
+      { title: "Publica", description: "Sube un clip al feed de Ojea." },
     ],
   },
   theme: {
@@ -169,48 +169,8 @@ const ARGENTINA_CONFIG: AppConfig = {
   },
 };
 
-// 4. Ritual (Mexico Pilot)
-const MEXICO_CONFIG: AppConfig = {
-  identity: {
-    hiveId: "mexico",
-    name: "Ojea México",
-    tagline: "El Swarm Mexicano 🇲🇽",
-    region: "MX",
-    locale: "es-MX",
-    iconEmoji: "🇲🇽",
-    giftEmoji: "🌮",
-    landingTitle: "Entra al Ritual",
-    landingSubtitle: "La plataforma más chida de México.",
-    onboardingSteps: [
-      { title: "Descubre", description: "Vibra con talento local." },
-      { title: "Conecta", description: "Únete a la banda." },
-      { title: "Gana", description: "Recibe regalos auténticos." },
-    ],
-  },
-  theme: {
-    primary: "#E63946", // Aztec Red
-    secondary: "#101010",
-    accent: "#A8DADC", // Turquoise
-    background: "#080808",
-    cardBackground: "#1A1A1A",
-    textMain: "#FFFFFF",
-    textMuted: "#9CA3AF",
-    edgeLighting: "#00FF7F", // Neon Green (Cyberpunk CDMX vibe)
-    glowColor: "rgba(230, 57, 70, 0.4)",
-    stitchingColor: "rgba(0, 255, 127, 0.5)",
-    fontFamily: "'Inter', sans-serif",
-  },
-  features: {
-    enableChat: true,
-    enableStories: true,
-    enableModeration: true,
-    enableGifts: true,
-  },
-};
-
-// DOMAIN-BASED CONFIG DETECTION (The Chameleon Protocol - DISABLED for Mexico Bootstrap)
+// DOMAIN-BASED CONFIG DETECTION — this fork is the Mexico pack
 const detectConfig = (): AppConfig => {
-  // Hardcoded to Mexico for Phase 2
   return MEXICO_CONFIG;
 };
 
