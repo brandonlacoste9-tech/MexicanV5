@@ -4,7 +4,7 @@ services:
     name: ojea-api
     env: node
     plan: free  # Upgrade to 'starter' ($7/mo) for always-on
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --legacy-peer-deps --include=dev && npm run build
     startCommand: npm run start
     envVars:
       - key: NODE_ENV
