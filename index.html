@@ -12,36 +12,34 @@
     <aside class="side">
       <div class="logo">OJEA<span>Videos de México</span></div>
       <nav>
-        <button data-view="feed" class="active">⌂ Para ti</button>
-        <button data-view="explore">◎ Explorar</button>
-        <button data-view="create">↑ Crear</button>
-        <button data-view="profile">☺ Perfil</button>
+        <button data-view="feed" class="active">Para ti</button>
+        <button data-view="explore">Explorar</button>
+        <button data-view="create">Crear</button>
+        <button data-view="profile">Perfil</button>
       </nav>
       <button class="cta" id="loginBtn">Iniciar sesión</button>
       <p class="hint">Conéctate para seguir creadores, dar like y ver tus suscripciones.</p>
       <footer>
-        <a href="#">Acerca de</a>
-        <a href="#">Contacto</a>
-        <a href="#">Términos</a>
-        <a href="#">Privacidad</a>
+        <a href="#" data-page="about">Acerca de</a>
+        <a href="#" data-page="contact">Contacto</a>
+        <a href="#" data-page="terms">Términos</a>
+        <a href="#" data-page="privacy">Privacidad</a>
         <small>© 2026 Ojea — MexicanV5</small>
       </footer>
     </aside>
-
     <main id="main"></main>
-
     <aside class="rail-help">es-MX</aside>
   </div>
-
   <div class="modal hidden" id="modal">
     <div class="card">
       <h2>Iniciar sesión</h2>
-      <input placeholder="Correo" />
+      <input id="email" placeholder="Correo" />
       <input placeholder="Contraseña" type="password" />
-      <button class="cta">Entrar</button>
+      <button class="cta" id="doLogin">Entrar</button>
       <button class="ghost" id="closeModal">Cerrar</button>
     </div>
   </div>
+  <script src="config/region.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

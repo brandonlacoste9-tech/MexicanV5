@@ -48,6 +48,16 @@ footer small { width: 100%; color: #6e624e; font-size: 11px; }
 .card h2 { margin-bottom: 12px; }
 .card input { width: 100%; margin: 6px 0; padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #0d0906; color: var(--text); }
 .liked { color: #e23; }
+.top .on, .top b.on, .top span.on { color: var(--gold); font-weight: 700; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #120c08ee; padding: 16px; max-height: 40%; overflow: auto; }
+.sheet h3 { margin-bottom: 8px; }
+.sheet p { font-size: 13px; margin: 6px 0; color: #ddd; }
+.sheet input { width: 100%; margin-top: 8px; padding: 8px; border-radius: 8px; border: 1px solid var(--line); background: #0d0906; color: var(--text); }
+.follow { font-style: normal; color: var(--gold); cursor: pointer; }
+.cta.slim { max-width: 220px; }
+.panel input, .panel video, .panel img { display: block; width: min(420px, 100%); margin: 10px 0; }
+.panel input[type="text"], .panel #caption { padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: #0d0906; color: var(--text); }
+.muted { color: var(--muted); margin-top: 8px; }
 @media (max-width: 800px) {
   .app { grid-template-columns: 1fr; }
   .side, .rail-help { display: none; }
