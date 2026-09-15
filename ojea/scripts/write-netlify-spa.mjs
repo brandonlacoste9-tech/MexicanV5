@@ -5,28 +5,23 @@
  * (`{"status":500,"unhandled":true,"message":"HTTPError"}`). Ojea is a
  * client-side app (Supabase + zustand) — it does not need that function.
  *
- * Run after `vite build` with NITRO_PRESET=netlify:
- *   1. Render key routes through the local Node handler
- *   2. Write real HTML into dist/
- *   3. Add a SPA fallback
- *   4. Delete the function so Netlify cannot catch-all to a 500
+ * Run after `vite build` with NITRO_PRESET=netlify.
  */
-import { mkdirSync, writeFileSync, rmSync, existsSync } from "node:fs";
+import {
+  mkdirSync,
+  writeFileSync,
+  rmSync,
+  existsSync,
+  readdirSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
-const handlerPath = join(root, ".netlify/functions-internal/server/server.mjs");
-if (!existsSync(handlerPath)) {
-  console.error("[netlify-spa] missing", handlerPath);
-  process.exit(1);
-}
 
-const { default: handler } = await import(pathToFileURL(handlerPath).href);
-if (typeof handler !== "function") {
-  console.error("[netlify-spa] server export is not a fetch handler");
-  process.exit(1);
-}
+// Neon-on-Netlify injects DATABASE_URL. Ojea does not use it; leave it
+// unset so SSR at build time cannot hang on a remote Postgres.
+delete process.env.DATABASE_URL;
 
 const routes = [
   ["/", "dist/index.html"],
@@ -44,28 +39,123 @@ const routes = [
   ["/recuperar", "dist/recuperar/index.html"],
 ];
 
-for (const [path, file] of routes) {
-  const res = await handler(
-    new Request(`https://ojea-mexico.netlify.app${path}`, {
-      headers: {
-        accept: "text/html,application/xhtml+xml",
-        host: "ojea-mexico.netlify.app",
-      },
-    }),
+function firstExisting(paths) {
+  return paths.find((p) => existsSync(p));
+}
+
+async function loadFetcher() {
+  const ssrPath = firstExisting([
+    join(root, ".netlify/functions-internal/server/_ssr/ssr.mjs"),
+    join(root, "node_modules/.nitro/vite/services/ssr/index.js"),
+  ]);
+  if (ssrPath) {
+    const mod = await import(pathToFileURL(ssrPath).href);
+    const entry = mod.default?.fetch
+      ? mod.default
+      : mod.t?.default?.fetch
+        ? mod.t.default
+        : mod.t?.fetch
+          ? mod.t
+          : null;
+    if (entry?.fetch) {
+      console.log("[netlify-spa] using SSR entry", ssrPath);
+      return (req) => entry.fetch(req);
+    }
+  }
+
+  const handlerPath = firstExisting([
+    join(root, ".netlify/functions-internal/server/server.mjs"),
+    join(root, ".netlify/functions-internal/server/main.mjs"),
+  ]);
+  if (handlerPath) {
+    const mod = await import(pathToFileURL(handlerPath).href);
+    if (typeof mod.default === "function") {
+      console.log("[netlify-spa] using Nitro handler", handlerPath);
+      return mod.default;
+    }
+  }
+
+  throw new Error(
+    `[netlify-spa] no SSR entry (cwd=${root} netlify=${existsSync(join(root, ".netlify"))})`,
   );
-  const html = await res.text();
-  if (path === "/" && (res.status !== 200 || !html.includes("<html"))) {
-    throw new Error(
-      `[netlify-spa] ${path} -> ${res.status} ${html.slice(0, 240)}`,
-    );
+}
+
+function writeAssetFallback() {
+  const dir = join(root, "dist/assets");
+  const files = existsSync(dir) ? readdirSync(dir) : [];
+  const indexJs = files.find((f) => /^index-.*\.js$/.test(f));
+  const css = files.filter((f) => f.endsWith(".css"));
+  if (!indexJs) {
+    throw new Error("[netlify-spa] no dist/assets/index-*.js for fallback");
   }
-  if (res.status !== 200 || !html.includes("<html")) {
-    console.warn("[netlify-spa] skip", path, res.status);
-    continue;
+  const cssLinks = css
+    .map((f) => `<link rel="stylesheet" href="/assets/${f}"/>`)
+    .join("\n");
+  const html = `<!DOCTYPE html>
+<html lang="es-MX" class="antialiased">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ojea</title>
+  <meta name="description" content="Videos cortos hechos en México, para México."/>
+  <meta name="theme-color" content="#0d0c0b"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  ${cssLinks}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap"/>
+</head>
+<body>
+<script>
+(self.$R=self.$R||{})["tsr"]=[];
+self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};
+$_TSR.router={manifest:{routes:{__root__:{preloads:["/assets/${indexJs}"],scripts:[{attrs:{type:"module",async:!0,src:"/assets/${indexJs}"}}]}}},matches:[{i:"__root__",u:Date.now(),s:"success",ssr:!0}]};
+$_TSR.e();
+</script>
+<script type="module" async src="/assets/${indexJs}"></script>
+</body>
+</html>
+`;
+  mkdirSync(join(root, "dist"), { recursive: true });
+  writeFileSync(join(root, "dist/index.html"), html);
+  console.log("[netlify-spa] wrote asset fallback index.html via", indexJs);
+}
+
+let wroteHome = false;
+try {
+  const fetchDoc = await loadFetcher();
+  for (const [path, file] of routes) {
+    try {
+      const res = await fetchDoc(
+        new Request(`https://ojea-mexico.netlify.app${path}`, {
+          headers: {
+            accept: "text/html,application/xhtml+xml",
+            host: "ojea-mexico.netlify.app",
+          },
+        }),
+      );
+      const html = await res.text();
+      if (res.status !== 200 || !html.includes("<html")) {
+        console.warn("[netlify-spa] skip", path, res.status);
+        continue;
+      }
+      mkdirSync(dirname(join(root, file)), { recursive: true });
+      writeFileSync(join(root, file), html);
+      console.log("[netlify-spa]", path, "->", file, html.length, "bytes");
+      if (path === "/") wroteHome = true;
+    } catch (err) {
+      console.warn("[netlify-spa] skip", path, err);
+    }
   }
-  mkdirSync(dirname(join(root, file)), { recursive: true });
-  writeFileSync(join(root, file), html);
-  console.log("[netlify-spa]", path, "->", file, html.length, "bytes");
+} catch (err) {
+  console.error("[netlify-spa] renderer failed:", err);
+}
+
+if (!wroteHome && !existsSync(join(root, "dist/index.html"))) {
+  writeAssetFallback();
+  wroteHome = true;
+}
+
+if (!existsSync(join(root, "dist/index.html"))) {
+  throw new Error("[netlify-spa] failed to produce dist/index.html");
 }
 
 mkdirSync(join(root, "dist/__grok"), { recursive: true });
