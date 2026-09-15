@@ -17,6 +17,9 @@ Open `index.html` or:
 npx serve .
 ```
 
+## Best move
+Copy ZyeuteV5 into this repo, then swap a region pack. Do not rebuild the stack. See `ROADMAP.md`.
+
 ## What this is
-Frontend demo (feed, explore, create, login).  
-Full stack (Supabase, Redis, video pipeline) still needs a separate Mexico backend — do not reuse Zyeuté production keys.
+Frontend demo (feed, explore, create, login, comments, local publish).  
+Full stack still needs a **separate** Mexico backend — do not reuse Zyeuté keys.
