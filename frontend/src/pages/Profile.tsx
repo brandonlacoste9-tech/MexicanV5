@@ -1,0 +1,1330 @@
+/**
+ * Profile Page - Premium Quebec Heritage Design
+ * Luxury leather profile with gold stats and stitched sections
+ */
+
+import React from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { BottomNav } from "@/components/BottomNav";
+import { GoldButton } from "@/components/GoldButton";
+import { Avatar } from "@/components/Avatar";
+import { Image } from "@/components/Image";
+import { Button } from "@/components/Button";
+import { WalletBalance } from "@/components/features/WalletBalance";
+import { BountyCard } from "@/components/features/BountyCard";
+import { SubscriberBadge } from "@/components/ui/SubscriberBadge";
+import {
+  getCurrentUser,
+  getUserProfile,
+  getUserPosts,
+  checkFollowing,
+  toggleFollow,
+  logout,
+  deletePost,
+  moderatorDeletePost,
+  getModerationStats,
+} from "@/services/api";
+import { formatNumber } from "@/lib/utils";
+import { useHaptics } from "@/hooks/useHaptics";
+import {
+  IoShareOutline,
+  IoTrashOutline,
+  IoShieldOutline,
+} from "react-icons/io5";
+import type { User, Post } from "@/types";
+import { logger } from "@/lib/logger";
+import { useSEO } from "@/hooks/useSEO";
+import { QuebecEmptyState } from "@/components/ui/QuebecEmptyState";
+import { ProfileSkeleton } from "@/components/ui/Skeleton";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
+import { usePremium } from "@/hooks/usePremium";
+import { toast } from "@/components/Toast";
+import {
+  fetchGamificationProfile,
+  getTierMeta,
+  type GamificationProfile,
+} from "@/services/gamificationService";
+
+const profileLogger = logger.withContext("Profile");
+
+// Helper component for the Stats bar
+const ProfileStat: React.FC<{
+  value: number | string;
+  label: string;
+  onClick?: () => void;
+}> = ({ value, label, onClick }) => (
+  <button
+    onClick={onClick}
+    disabled={!onClick}
+    className={`flex items-baseline gap-1.5 px-2 ${onClick ? "active:scale-95 hover:bg-white/5 rounded-md py-1 transition-all cursor-pointer" : ""}`}
+  >
+    <span className="text-base font-black" style={{ color: "#FFFFFF" }}>
+      {value}
+    </span>
+    <span
+      className="text-sm font-medium"
+      style={{ color: "rgba(255,255,255,0.7)" }}
+    >
+      {label}
+    </span>
+  </button>
+);
+
+export const Profile: React.FC = () => {
+  const { username } = useParams<{ username: string }>();
+  const navigate = useNavigate();
+  const { tap, impact } = useHaptics();
+  const {
+    user: authUser,
+    isLoading: authLoading,
+    isGuest,
+    isAdmin,
+  } = useAuth();
+  const { tier: subTier, isPremium } = usePremium();
+
+  const [user, setUser] = React.useState<User | null>(null);
+  const [currentUser, setCurrentUser] = React.useState<User | null>(null);
+  const [posts, setPosts] = React.useState<Post[]>([]);
+  const [firedPosts, setFiredPosts] = React.useState<Post[]>([]);
+  const [savedPosts, setSavedPosts] = React.useState<Post[]>([]);
+  const [tabsLoaded, setTabsLoaded] = React.useState<Record<string, boolean>>(
+    {},
+  );
+  const [isFollowing, setIsFollowing] = React.useState(false);
+  const [isBlocked, setIsBlocked] = React.useState(false);
+  const [isBlocking, setIsBlocking] = React.useState(false);
+  const [deletingPostId, setDeletingPostId] = React.useState<string | null>(
+    null,
+  );
+  const [modStatsPending, setModStatsPending] = React.useState<number | null>(
+    null,
+  );
+
+  const handleDeleteOwnPost = async (post: Post) => {
+    const isPhoto = post.type === "photo";
+    const noun = isPhoto ? "cette photo" : "cette vidéo";
+    if (
+      !window.confirm(
+        `Supprimer ${noun}? Elle disparaîtra du fil et de ton profil.`,
+      )
+    ) {
+      return;
+    }
+    setDeletingPostId(post.id);
+    try {
+      const ok = await deletePost(post.id);
+      if (ok) {
+        setPosts((prev) => prev.filter((p) => p.id !== post.id));
+        toast.success(isPhoto ? "Photo supprimée" : "Vidéo supprimée");
+        impact();
+      } else {
+        toast.error(
+          isPhoto
+            ? "Impossible de supprimer la photo"
+            : "Impossible de supprimer la vidéo",
+        );
+      }
+    } catch (err) {
+      profileLogger.error("Delete post failed:", err);
+      toast.error("Impossible de supprimer la publication");
+    } finally {
+      setDeletingPostId(null);
+    }
+  };
+
+  const handleModeratorDeletePost = async (post: Post) => {
+    if (
+      !window.confirm(
+        "Supprimer définitivement cette publication du fil? Cette action est irréversible.",
+      )
+    ) {
+      return;
+    }
+    setDeletingPostId(post.id);
+    try {
+      const ok = await moderatorDeletePost(post.id);
+      if (ok) {
+        setPosts((prev) => prev.filter((p) => p.id !== post.id));
+        toast.success("Publication retirée par modération");
+        impact();
+      } else {
+        toast.error("Impossible de supprimer (droits modérateur requis)");
+      }
+    } catch (err) {
+      profileLogger.error("Moderator delete failed:", err);
+      toast.error("Impossible de supprimer la publication");
+    } finally {
+      setDeletingPostId(null);
+    }
+  };
+
+  const handleBlock = async () => {
+    if (!currentUser || !user || isBlocking) return;
+    setIsBlocking(true);
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      if (!token) return;
+
+      if (isBlocked) {
+        // Unblock
+        await fetch("/api/moderation/unblock-user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ blockedUserId: user.id }),
+        });
+        setIsBlocked(false);
+        toast.success("Utilisateur débloqué");
+      } else {
+        // Block
+        await fetch("/api/moderation/block-user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ blockedUserId: user.id }),
+        });
+        setIsBlocked(true);
+        if (isFollowing) setIsFollowing(false);
+        toast.success("Utilisateur bloqué");
+      }
+    } catch {
+      toast.error("Erreur lors du blocage");
+    } finally {
+      setIsBlocking(false);
+    }
+  };
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [reloadKey, setReloadKey] = React.useState(0);
+  const [gamification, setGamification] =
+    React.useState<GamificationProfile | null>(null);
+  const [activeTab, setActiveTab] = React.useState<"posts" | "fires" | "saved">(
+    "posts",
+  );
+
+  const isOwnProfile = username === "me" || user?.id === currentUser?.id;
+
+  const showOwnPostDelete = isOwnProfile && activeTab === "posts";
+  const showModPostDelete = !isOwnProfile && isAdmin && activeTab === "posts";
+
+  const renderPostDeleteButton = (post: Post) => {
+    if (showOwnPostDelete) {
+      const isPhoto = post.type === "photo";
+      return (
+        <button
+          type="button"
+          aria-label={isPhoto ? "Supprimer la photo" : "Supprimer la vidéo"}
+          disabled={deletingPostId === post.id}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            void handleDeleteOwnPost(post);
+          }}
+          className="absolute top-1 right-1 z-30 p-2 rounded-full bg-black/80 text-red-400 border border-red-500/50 hover:bg-red-950/90 hover:text-red-300 transition-colors disabled:opacity-50 touch-manipulation"
+        >
+          <IoTrashOutline className="w-4 h-4" />
+        </button>
+      );
+    }
+
+    if (showModPostDelete) {
+      return (
+        <button
+          type="button"
+          aria-label="Supprimer en tant que modérateur"
+          disabled={deletingPostId === post.id}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            void handleModeratorDeletePost(post);
+          }}
+          className="absolute top-1 right-1 z-30 p-2 rounded-full bg-orange-950/90 text-orange-300 border border-orange-500/60 hover:bg-red-950/90 hover:text-red-300 transition-colors disabled:opacity-50 touch-manipulation"
+        >
+          <IoShieldOutline className="w-4 h-4" />
+        </button>
+      );
+    }
+
+    return null;
+  };
+
+  React.useEffect(() => {
+    if (!isOwnProfile || !isAdmin) return;
+    let cancelled = false;
+    void getModerationStats().then((stats) => {
+      if (!cancelled && stats) setModStatsPending(stats.pending);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isOwnProfile, isAdmin]);
+
+  useSEO(
+    user
+      ? {
+          title: `${user.display_name || user.username} (@${user.username})`,
+          description: user.bio
+            ? `${user.bio} — Créateur sur Zyeute, la plateforme vidéo québécoise.`
+            : `Découvre les vidéos de @${user.username} sur Zyeute, la plateforme vidéo 100% québécoise.`,
+          image: user.avatar_url || undefined,
+          url: `/profile/${user.username}`,
+          type: "profile",
+          jsonLd: {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: user.display_name || user.username,
+            alternateName: `@${user.username}`,
+            url: `https://www.zyeute.com/profile/${user.username}`,
+            image: user.avatar_url || undefined,
+            description: user.bio || `Créateur sur Zyeute`,
+            memberOf: {
+              "@type": "Organization",
+              name: "Zyeute",
+              url: "https://www.zyeute.com",
+            },
+          },
+        }
+      : { title: "Profil", url: `/profile/${username}` },
+  );
+
+  // Wait for auth to complete before doing anything
+  React.useEffect(() => {
+    if (authLoading) return;
+
+    // If accessing /profile/me and not authenticated/guest, we shouldn't be here
+    // But this should already be handled by ProtectedRoute
+    if (username === "me" && authUser) {
+      setCurrentUser(authUser);
+    }
+  }, [authUser, authLoading, username]);
+
+  // Fetch profile user
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      // Wait for auth to complete
+      if (authLoading) return;
+
+      setIsLoading(true);
+      setError(null);
+      try {
+        // Handle Guest Mode for /profile/me
+        if (username === "me") {
+          if (isGuest) {
+            // Show guest user profile
+            setUser({
+              id: "guest",
+              username: "visiteur",
+              display_name: "Visiteur",
+              avatar_url: null,
+              bio: "Compte invité. Créez un compte pour profiter de tout! 🚀",
+              coins: 0,
+              fire_score: 0,
+              is_verified: false,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+              followers_count: 0,
+              following_count: 0,
+              posts_count: 0,
+              is_following: false,
+            } as User);
+            setCurrentUser(null);
+            return;
+          }
+
+          // Use authenticated user from context
+          if (authUser) {
+            setUser(authUser);
+            setCurrentUser(authUser);
+            setError(null);
+          } else {
+            // This should not happen due to ProtectedRoute, but as a safeguard
+            profileLogger.warn(
+              "[Profile] /me accessed but no auth user available",
+            );
+            navigate("/login");
+            return;
+          }
+        } else {
+          // Regular profile lookup by username
+          const profileUser = await getUserProfile(
+            username || "",
+            authUser?.id,
+          );
+          if (profileUser) {
+            setUser(profileUser);
+            setError(null);
+          } else {
+            // User not found (404) or fetch failed — show an actionable error
+            // instead of a silent redirect that looks like an infinite skeleton.
+            setError("Profil introuvable. Réessaye!");
+          }
+        }
+      } catch (error) {
+        profileLogger.error("[Profile] Error fetching user:", error);
+        setError("Impossible de charger le profil. Réessaye!");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (!username) return;
+
+    // Safety net: the skeleton must never be permanent. If the profile fetch
+    // somehow never settles (hung network, stalled session lookup), surface an
+    // error state with retry after a hard timeout.
+    const watchdog = setTimeout(() => {
+      setIsLoading((stillLoading) => {
+        if (stillLoading) {
+          setError("Le profil a mis trop de temps à charger. Réessaye!");
+        }
+        return false;
+      });
+    }, 12000);
+
+    // Fetch immediately once auth is loaded
+    void fetchUser().finally(() => clearTimeout(watchdog));
+
+    return () => clearTimeout(watchdog);
+  }, [username, navigate, authUser, authLoading, isGuest, reloadKey]);
+
+  // Fetch user posts + subscribe to Realtime for processing status updates
+  React.useEffect(() => {
+    if (!user || user.id === "guest") {
+      setPosts([]);
+      return;
+    }
+
+    let cancelled = false;
+    const fetchPosts = async () => {
+      try {
+        // Prefer username route when available (same handler; clearer logs)
+        const userPosts = await getUserPosts(user.id);
+        if (!cancelled) setPosts(userPosts || []);
+      } catch (err) {
+        profileLogger.error("[Profile] Error fetching user posts:", err);
+        if (!cancelled) setPosts([]);
+      }
+    };
+
+    void fetchPosts();
+
+    // Supabase Realtime: refresh grid when a post's processing_status changes
+    // (e.g. Mux webhook fires and sets status = 'completed')
+    const channel = supabase
+      .channel(`profile-posts-${user.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "publications",
+          filter: `user_id=eq.${user.id}`,
+        },
+        () => {
+          // Re-fetch posts silently when any of this user's posts are updated
+          fetchPosts();
+        },
+      )
+      .subscribe();
+
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(channel);
+    };
+  }, [user]);
+
+  // Fetch gamification profile (streak, tier, badges)
+  React.useEffect(() => {
+    if (!user || user.id === "guest") return;
+    fetchGamificationProfile(user.id)
+      .then((data) => {
+        if (data) setGamification(data);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  // Fetch fired posts when fires tab activated
+  React.useEffect(() => {
+    if (activeTab !== "fires" || !user || tabsLoaded["fires"]) return;
+    const fetchFired = async () => {
+      try {
+        const { data } = await supabase
+          .from("reactions")
+          .select(
+            "publication:publication_id(id, media_url, thumbnail_url, caption, reactions_count, comments_count, type, hls_url, mux_playback_id, processing_status, user_id)",
+          )
+          .eq("user_id", user.id)
+          .eq("type", "fire")
+          .order("created_at", { ascending: false })
+          .limit(50);
+        const raw = (data || []).map((r: any) => r.publication).filter(Boolean);
+        setFiredPosts(raw as Post[]);
+        setTabsLoaded((p) => ({ ...p, fires: true }));
+      } catch {
+        setFiredPosts([]);
+      }
+    };
+    fetchFired();
+  }, [activeTab, user, tabsLoaded, supabase]);
+
+  // Fetch saved posts when saved tab activated (own profile only)
+  React.useEffect(() => {
+    if (activeTab !== "saved" || !user || tabsLoaded["saved"]) return;
+    const fetchSaved = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("saved_posts")
+          .select(
+            "publication:publication_id(id, media_url, thumbnail_url, caption, reactions_count, comments_count, type, hls_url, mux_playback_id, processing_status, user_id)",
+          )
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false })
+          .limit(50);
+        if (error && error.code === "42P01") {
+          setSavedPosts([]);
+          return;
+        }
+        const raw = (data || []).map((r: any) => r.publication).filter(Boolean);
+        setSavedPosts(raw as Post[]);
+        setTabsLoaded((p) => ({ ...p, saved: true }));
+      } catch {
+        setSavedPosts([]);
+      }
+    };
+    fetchSaved();
+  }, [activeTab, user, tabsLoaded, supabase]);
+
+  // Check if following
+  React.useEffect(() => {
+    const checkFollowStatus = async () => {
+      if (!user || !currentUser || isOwnProfile || user.id === "guest") return;
+
+      try {
+        const following = await checkFollowing(currentUser.id, user.id);
+        setIsFollowing(following);
+      } catch (err) {
+        profileLogger.error("[Profile] Error checking follow status:", err);
+      }
+    };
+
+    checkFollowStatus();
+  }, [user, currentUser, isOwnProfile]);
+
+  const handleFollow = async () => {
+    if (!user || !currentUser) return;
+    impact();
+
+    // Optimistic update — flip state and adjust count immediately
+    const wasFollowing = isFollowing;
+    setIsFollowing(!wasFollowing);
+    setUser((prev) =>
+      prev
+        ? {
+            ...prev,
+            followers_count:
+              (prev.followers_count || 0) + (wasFollowing ? -1 : 1),
+          }
+        : prev,
+    );
+
+    const success = await toggleFollow(currentUser.id, user.id, wasFollowing);
+    if (!success) {
+      // Revert on failure
+      setIsFollowing(wasFollowing);
+      setUser((prev) =>
+        prev
+          ? {
+              ...prev,
+              followers_count:
+                (prev.followers_count || 0) + (wasFollowing ? 1 : -1),
+            }
+          : prev,
+      );
+    }
+  };
+
+  const handleLogout = async () => {
+    tap();
+    try {
+      await logout();
+    } catch (error) {
+      profileLogger.error("Error signing out:", error);
+    } finally {
+      navigate("/login");
+    }
+  };
+
+  // Calculate total likes from posts
+  const totalLikes = React.useMemo(() => {
+    return posts.reduce((sum, post) => sum + post.fire_count, 0);
+  }, [posts]);
+
+  if (isLoading || authLoading) {
+    return <ProfileSkeleton />;
+  }
+
+  if (error || !user) {
+    return (
+      <div className="min-h-screen bg-black leather-overlay flex items-center justify-center pb-20">
+        <div className="text-center px-4">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-xl font-bold text-gold-500 mb-2">
+            Profil introuvable
+          </h2>
+          <p className="text-gray-400 mb-6">
+            {error || "Impossible de charger le profil"}
+          </p>
+          <div className="flex flex-col gap-3 items-center">
+            <GoldButton
+              onClick={() => {
+                setError(null);
+                setIsLoading(true);
+                setReloadKey((k) => k + 1);
+              }}
+              size="md"
+            >
+              Réessayer
+            </GoldButton>
+            <button
+              onClick={() => navigate("/")}
+              className="text-sm text-gold-500/70 hover:text-gold-400 transition"
+            >
+              Retour à l'accueil
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-black leather-overlay pb-20">
+      <Header title={user.username} showBack={true} showSearch={false} />
+
+      {/* Profile Top Section — dark banner with fleur-de-lis motif */}
+      <div className="relative">
+        {/* Banner background — dark charcoal with subtle fleur-de-lis texture */}
+        <div
+          className="absolute top-0 left-0 w-full h-52"
+          style={{
+            background:
+              "linear-gradient(180deg, #1a1208 0%, #0d0a04 60%, #000000 100%)",
+            borderBottom: "1px solid rgba(212,175,55,0.15)",
+          }}
+        >
+          {/* Subtle fleur-de-lis watermark pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ctext x='50%25' y='50%25' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%23FFD700'%3E%E2%9A%9C%3C/text%3E%3C/svg%3E")`,
+              backgroundRepeat: "repeat",
+            }}
+          />
+        </div>
+
+        <div className="relative p-4 z-10">
+          {/* Profile Picture and Share Button */}
+          <div className="flex justify-between items-start mb-4">
+            <div
+              className="w-24 h-24 rounded-full overflow-hidden shadow-lg"
+              style={{
+                border: "3px solid #FFD700",
+                boxShadow:
+                  "0 0 20px rgba(212,175,55,0.4), 0 0 40px rgba(212,175,55,0.15)",
+              }}
+            >
+              <Image
+                src={
+                  user.avatar_url ||
+                  `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect width='150' height='150' fill='%23FFBF00'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-size='72' font-family='sans-serif' fill='%23000'%3E${encodeURIComponent((user.username?.[0] || "U").toUpperCase())}%3C/text%3E%3C/svg%3E`
+                }
+                alt={user.display_name || user.username}
+                objectFit="cover"
+                fetchPriority="high"
+                loading="eager"
+              />
+            </div>
+            <button
+              onClick={async () => {
+                tap();
+                const profileUrl = `${window.location.origin}/profile/${user.username}`;
+                try {
+                  if (navigator.share) {
+                    await navigator.share({
+                      title: `Profil de ${user.display_name || user.username} sur Zyeuté`,
+                      text: `Regarde le profil de @${user.username} sur Zyeuté! ⚜️`,
+                      url: profileUrl,
+                    });
+                  } else {
+                    await navigator.clipboard.writeText(profileUrl);
+                    toast.success("Lien copié!");
+                  }
+                } catch (error) {
+                  profileLogger.error("Error sharing:", error);
+                }
+              }}
+              className="p-2 text-gold-500 hover:text-white transition"
+              aria-label="Partager"
+            >
+              <IoShareOutline className="text-2xl" />
+            </button>
+          </div>
+
+          {/* Name and Handle */}
+          <h1 className="text-2xl font-bold mt-2 text-white">
+            {user.display_name || user.username}
+            {user.is_verified && (
+              <span className="text-gold-500 drop-shadow-[0_0_3px_rgba(255,191,0,0.8)] ml-2">
+                ✓
+              </span>
+            )}
+            {user.role === "founder" && (
+              <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-gold-500 text-black font-bold tracking-wider shadow-[0_0_10px_rgba(255,215,0,0.4)]">
+                FONDATEUR
+              </span>
+            )}
+            {user.role === "moderator" && (
+              <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/50 font-bold tracking-wider uppercase">
+                Gardien
+              </span>
+            )}
+            <SubscriberBadge tier={(user as any).subscription_tier} size="sm" />
+          </h1>
+          <p className="text-sm text-gold-500/70">@{user.username}</p>
+
+          {/* Wallet Balance Integration */}
+          {isOwnProfile && (
+            <div className="mt-6 mb-2">
+              <WalletBalance
+                balance={user.piasse_balance || 0}
+                karma={user.total_karma || 0}
+              />
+            </div>
+          )}
+
+          {/* Stats Bar — gold premium style */}
+          <div
+            className="flex justify-between items-center p-3 mt-4 rounded-xl overflow-x-auto hide-scrollbar"
+            style={{
+              background: "rgba(0,0,0,0.6)",
+              border: "1px solid rgba(212,175,55,0.25)",
+              boxShadow:
+                "0 2px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+            }}
+          >
+            <ProfileStat
+              value={formatNumber(user.followers_count || 0)}
+              label="Abonnés"
+              onClick={() => {
+                navigate(`/profile/${user.username}/network?tab=abonnes`);
+              }}
+            />
+            <div
+              className="h-8 w-px mx-1 shrink-0"
+              style={{ background: "rgba(212,175,55,0.2)" }}
+            />
+            <ProfileStat
+              value={formatNumber(user.following_count || 0)}
+              label="Abonnements"
+              onClick={() => {
+                navigate(`/profile/${user.username}/network?tab=abonnements`);
+              }}
+            />
+            <div
+              className="h-8 w-px mx-1 shrink-0"
+              style={{ background: "rgba(212,175,55,0.2)" }}
+            />
+            <ProfileStat
+              value={formatNumber(user.posts_count || 0)}
+              label="Vidéos"
+            />
+            <div
+              className="h-8 w-px mx-1 shrink-0"
+              style={{ background: "rgba(212,175,55,0.2)" }}
+            />
+            <ProfileStat
+              value={
+                totalLikes >= 1000
+                  ? `${(totalLikes / 1000).toFixed(1)}K`
+                  : formatNumber(totalLikes)
+              }
+              label="Feux 🔥"
+            />
+          </div>
+
+          {/* Gamification — Streak + Tier + Badges */}
+          {gamification && (
+            <div
+              className="mt-4 p-3 rounded-xl"
+              style={{
+                background: "rgba(0,0,0,0.5)",
+                border: "1px solid rgba(212,175,55,0.2)",
+              }}
+            >
+              {/* Streak row */}
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🔥</span>
+                  <div>
+                    <span
+                      className="text-base font-bold"
+                      style={{ color: "#FF6B35" }}
+                    >
+                      {gamification.streak} jour
+                      {gamification.streak !== 1 ? "s" : ""}
+                    </span>
+                    <span
+                      className="text-xs ml-1"
+                      style={{ color: "rgba(255,255,255,0.5)" }}
+                    >
+                      d'affilée
+                    </span>
+                  </div>
+                </div>
+                {/* Tier badge */}
+                {(() => {
+                  const tierMeta = getTierMeta(gamification.tier);
+                  return (
+                    <div
+                      className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
+                      style={{
+                        background: `${tierMeta.color}22`,
+                        border: `1px solid ${tierMeta.color}66`,
+                        color: tierMeta.color,
+                      }}
+                    >
+                      <span>
+                        {tierMeta.icon.startsWith("/") ? (
+                          <img
+                            src={tierMeta.icon}
+                            alt={tierMeta.name}
+                            className="w-4 h-4 object-contain inline-block"
+                          />
+                        ) : (
+                          tierMeta.icon
+                        )}
+                      </span>
+                      <span>{tierMeta.name}</span>
+                    </div>
+                  );
+                })()}
+              </div>
+              {/* Points */}
+              <div
+                className="text-xs mb-3"
+                style={{ color: "rgba(212,175,55,0.7)" }}
+              >
+                {gamification.total_points} pts •{" "}
+                {gamification.achievement_count} badge
+                {gamification.achievement_count !== 1 ? "s" : ""} obtenus
+              </div>
+              {/* Recent badges */}
+              {gamification.achievements.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {gamification.achievements.slice(0, 8).map((ua) => (
+                    <div
+                      key={ua.id}
+                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs"
+                      style={{
+                        background: `${ua.achievement?.color ?? "#FFD700"}22`,
+                        border: `1px solid ${ua.achievement?.color ?? "#FFD700"}55`,
+                        color: ua.achievement?.color ?? "#FFD700",
+                      }}
+                      title={ua.achievement?.name_fr}
+                    >
+                      <span>{ua.achievement?.icon ?? "🏆"}</span>
+                      <span className="font-semibold">
+                        {ua.achievement?.name_fr ?? ua.achievement_id}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Action Button */}
+          <div className="mt-4">
+            {isOwnProfile ? (
+              <Link to="/settings/profile" onClick={tap}>
+                <GoldButton className="w-full" size="md">
+                  Modifier le profil
+                </GoldButton>
+              </Link>
+            ) : (
+              <div className="flex gap-2 w-full">
+                <GoldButton
+                  onClick={handleFollow}
+                  isInverse={isFollowing}
+                  className="flex-1"
+                  size="md"
+                >
+                  {isFollowing ? "Abonné" : "S'abonner"}
+                </GoldButton>
+                <button
+                  onClick={handleBlock}
+                  disabled={isBlocking}
+                  title={isBlocked ? "Débloquer" : "Bloquer"}
+                  className={`px-3 py-2 rounded-xl text-sm font-semibold border transition-colors ${
+                    isBlocked
+                      ? "border-red-500/60 bg-red-500/20 text-red-400 hover:bg-red-500/30"
+                      : "border-white/20 bg-white/5 text-white/60 hover:bg-red-500/20 hover:border-red-500/40 hover:text-red-400"
+                  }`}
+                >
+                  {isBlocked ? "🔓" : "🚫"}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Gardien / moderation shortcuts — own profile, admin only */}
+          {isOwnProfile && isAdmin && (
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  tap();
+                  navigate("/moderation");
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-orange-500/50 bg-orange-950/30 text-sm font-medium text-orange-100"
+              >
+                <span className="flex items-center gap-2">
+                  <IoShieldOutline className="w-4 h-4" />
+                  File de modération
+                </span>
+                <span className="text-xs text-orange-300/80">
+                  {modStatsPending != null && modStatsPending > 0
+                    ? `${modStatsPending} en attente`
+                    : "Gardien"}
+                </span>
+              </button>
+            </div>
+          )}
+
+          {/* Settings / Logout Section for own profile */}
+          {isOwnProfile && (
+            <div className="mt-4 space-y-3">
+              <button
+                onClick={() => navigate("/wallet")}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gold-500/40 bg-gold-500/10 text-sm font-medium text-gold-200"
+              >
+                <span>💸 Portefeuille créateur</span>
+                <span className="text-xs text-gold-400/80">
+                  Cennes, retraits…
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
+                  tap();
+                  navigate("/settings");
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gold-500/60 bg-black/40 text-sm font-medium text-gold-100"
+              >
+                <span>Paramètres &amp; compte</span>
+                <span className="text-xs text-gold-400/80">
+                  Notifications, sécurité…
+                </span>
+              </button>
+
+              <button
+                onClick={handleLogout}
+                className="w-full px-4 py-3 rounded-xl bg-red-600/80 hover:bg-red-600 text-sm font-semibold text-center text-white transition-colors"
+              >
+                Déconnexion
+              </button>
+            </div>
+          )}
+
+          {/* Subscription Status Card — own profile only */}
+          {isOwnProfile && (
+            <div className="mt-4">
+              <div
+                className="w-full rounded-2xl border stitched p-4"
+                style={{
+                  background:
+                    subTier === "gold"
+                      ? "linear-gradient(135deg, #3D2800 0%, #1A0F00 100%)"
+                      : subTier === "silver"
+                        ? "linear-gradient(135deg, #1e2535 0%, #0f1420 100%)"
+                        : subTier === "bronze"
+                          ? "linear-gradient(135deg, #2a1a0a 0%, #140d04 100%)"
+                          : "linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)",
+                  borderColor:
+                    subTier === "gold"
+                      ? "rgba(212,175,55,0.6)"
+                      : subTier === "silver"
+                        ? "rgba(148,163,184,0.5)"
+                        : subTier === "bronze"
+                          ? "rgba(205,127,50,0.5)"
+                          : "rgba(255,255,255,0.1)",
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center justify-center w-8 h-8">
+                      {subTier === "gold" ? (
+                        <img
+                          src="/assets/emojis/icon-badge-1.png"
+                          className="w-8 h-8 object-contain"
+                          alt="Gold"
+                        />
+                      ) : subTier === "silver" ? (
+                        <img
+                          src="/assets/emojis/icon-badge-2.png"
+                          className="w-8 h-8 object-contain"
+                          alt="Silver"
+                        />
+                      ) : subTier === "bronze" ? (
+                        <img
+                          src="/assets/emojis/icon-badge-3.png"
+                          className="w-8 h-8 object-contain"
+                          alt="Bronze"
+                        />
+                      ) : (
+                        "🆓"
+                      )}
+                    </span>
+                    <div>
+                      <p
+                        className="text-xs font-bold uppercase tracking-widest"
+                        style={{
+                          color:
+                            subTier === "gold"
+                              ? "#D4AF37"
+                              : subTier === "silver"
+                                ? "#94A3B8"
+                                : subTier === "bronze"
+                                  ? "#CD7F32"
+                                  : "#666",
+                        }}
+                      >
+                        Abonnement
+                      </p>
+                      <p className="text-white font-black text-lg leading-tight">
+                        {subTier === "gold"
+                          ? "Or VIP"
+                          : subTier === "silver"
+                            ? "Argent"
+                            : subTier === "bronze"
+                              ? "Bronze"
+                              : "Gratuit"}
+                      </p>
+                      {isPremium && (
+                        <p
+                          className="text-xs mt-0.5"
+                          style={{
+                            color:
+                              subTier === "gold"
+                                ? "#D4AF37aa"
+                                : subTier === "silver"
+                                  ? "#94A3B8aa"
+                                  : "#CD7F32aa",
+                          }}
+                        >
+                          {subTier === "gold"
+                            ? "Ti-Guy VIP · Boost x5 · 500 cennes/mois"
+                            : subTier === "silver"
+                              ? "Ti-Guy · Analytics · Boost x3 · 100 cennes/mois"
+                              : "Ti-Guy · Pas de pub · Boost x2"}
+                        </p>
+                      )}
+                      {!isPremium && (
+                        <p className="text-xs text-white/40 mt-0.5">
+                          Ti-Guy verrouillé · Aucun boost
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      tap();
+                      navigate("/premium");
+                    }}
+                    className="text-xs font-bold px-3 py-2 rounded-xl transition-all"
+                    style={{
+                      background: isPremium
+                        ? "rgba(255,255,255,0.07)"
+                        : "linear-gradient(135deg, #D4AF37, #b8860b)",
+                      color: isPremium ? "#888" : "#000",
+                      border: isPremium
+                        ? "1px solid rgba(255,255,255,0.1)"
+                        : "none",
+                    }}
+                  >
+                    {isPremium ? "Gérer" : "Upgrade ⚜️"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Viral Bounty Card — own profile only */}
+          {isOwnProfile && (
+            <div className="mt-4">
+              <BountyCard />
+            </div>
+          )}
+
+          {/* Bio */}
+          {user.bio && (
+            <div className="mt-4">
+              <p className="text-white text-sm leading-relaxed">{user.bio}</p>
+            </div>
+          )}
+
+          {/* Location */}
+          {(user.city || user.region) && (
+            <div className="flex items-center gap-2 text-gold-500/70 text-sm mt-2">
+              <span>📍</span>
+              <span>
+                {user.city && user.region
+                  ? `${user.city}, ${user.region}`
+                  : user.city || user.region}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Content Tabs Section */}
+        <div className="p-4 pt-0">
+          {/* Tabs */}
+          <div className="leather-card rounded-2xl mb-4 stitched overflow-hidden">
+            <div className="grid grid-cols-3 bg-leather-900/50">
+              <button
+                onClick={() => {
+                  setActiveTab("posts");
+                  tap();
+                }}
+                className={`py-4 font-semibold transition-all relative ${
+                  activeTab === "posts"
+                    ? "text-gold-400"
+                    : "text-leather-300 hover:text-gold-200"
+                }`}
+              >
+                <span className="relative z-10">Publications</span>
+                {activeTab === "posts" && (
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gold-gradient" />
+                )}
+              </button>
+              <button
+                onClick={() => {
+                  setActiveTab("fires");
+                  tap();
+                }}
+                className={`py-4 font-semibold transition-all relative ${
+                  activeTab === "fires"
+                    ? "text-gold-400"
+                    : "text-leather-300 hover:text-gold-200"
+                }`}
+              >
+                <span className="relative z-10">🔥 Fires</span>
+                {activeTab === "fires" && (
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gold-gradient" />
+                )}
+              </button>
+              {isOwnProfile && (
+                <button
+                  onClick={() => {
+                    setActiveTab("saved");
+                    tap();
+                  }}
+                  className={`py-4 font-semibold transition-all relative ${
+                    activeTab === "saved"
+                      ? "text-gold-400"
+                      : "text-leather-300 hover:text-gold-200"
+                  }`}
+                >
+                  <span className="relative z-10">Sauvegardés</span>
+                  {activeTab === "saved" && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gold-gradient" />
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Posts / Fires / Saved Grid */}
+          {(() => {
+            const gridPosts =
+              activeTab === "fires"
+                ? firedPosts
+                : activeTab === "saved"
+                  ? savedPosts
+                  : posts;
+            const emptyTitle =
+              activeTab === "fires"
+                ? "Aucun fire encore"
+                : activeTab === "saved"
+                  ? "Aucun post sauvegardé"
+                  : isOwnProfile
+                    ? "Aucun post encore"
+                    : "Aucun post";
+            const emptyDesc =
+              activeTab === "fires"
+                ? "Les posts que tu fires apparaissent ici."
+                : activeTab === "saved"
+                  ? "Sauvegarde des posts pour les retrouver ici."
+                  : isOwnProfile
+                    ? "Commence à partager ton contenu québécois!"
+                    : `${user.display_name || user.username} n'a pas encore posté.`;
+            return gridPosts.length === 0 ? (
+              <QuebecEmptyState
+                type="profile"
+                title={emptyTitle}
+                description={emptyDesc}
+                actionText={
+                  activeTab === "posts" && isOwnProfile
+                    ? "Créer un post"
+                    : undefined
+                }
+                onAction={
+                  activeTab === "posts" && isOwnProfile
+                    ? () => navigate("/upload")
+                    : undefined
+                }
+              />
+            ) : (
+              <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 md:gap-2">
+                {gridPosts.map((post, index) => {
+                  const isProcessing =
+                    post.processing_status === "pending" ||
+                    post.processing_status === "processing";
+
+                  if (isProcessing) {
+                    return (
+                      <div
+                        key={post.id}
+                        className="relative aspect-[3/4] leather-card rounded-xl overflow-hidden stitched-subtle flex flex-col items-center justify-center gap-2"
+                      >
+                        {/* Animated shimmer background */}
+                        <div className="absolute inset-0 bg-leather-900 animate-pulse" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-gold-900/20 to-transparent" />
+                        {renderPostDeleteButton(post)}
+                        {/* Spinner + label */}
+                        <div className="relative z-10 flex flex-col items-center gap-2">
+                          <div className="w-8 h-8 border-2 border-gold-500 border-t-transparent rounded-full animate-spin" />
+                          <span className="text-[9px] font-bold text-gold-400 uppercase tracking-widest text-center leading-tight px-1">
+                            En cours de traitement
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div
+                      key={post.id}
+                      className="relative aspect-[3/4] leather-card rounded-xl overflow-hidden stitched-subtle hover:scale-105 transition-transform group"
+                    >
+                      <Link
+                        to={`/p/${post.id}`}
+                        className="absolute inset-0 z-0"
+                        aria-label={post.caption || "Voir la vidéo"}
+                      />
+                      <Image
+                        src={post.thumbnail_url || post.media_url}
+                        alt={post.caption || "Post"}
+                        objectFit="cover"
+                        fetchPriority={index < 6 ? "high" : "auto"}
+                        loading={index < 6 ? "eager" : "lazy"}
+                        className="w-full h-full"
+                      />
+                      {renderPostDeleteButton(post)}
+                      {/* TikTok-style persistent overlays */}
+                      {post.type === "video" && (
+                        <div className="absolute bottom-1 left-1 md:bottom-2 md:left-2 flex items-center gap-1 text-white z-10 font-semibold text-xs md:text-sm drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                          <svg
+                            className="w-3 h-3 md:w-4 md:h-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                          </svg>
+                          <span>
+                            {formatNumber(
+                              post.view_count || post.fire_count * 5,
+                            )}
+                          </span>
+                        </div>
+                      )}
+                      {(post as any).is_pinned && (
+                        <div className="absolute top-1 left-1 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm z-10">
+                          Pinned
+                        </div>
+                      )}
+                      {!isOwnProfile &&
+                        isFollowing &&
+                        activeTab === "posts" && (
+                          <div className="absolute top-1 right-1 bg-gold-500/90 text-black text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm z-10 flex items-center gap-0.5 border border-gold-400">
+                            <span>Abonné</span>
+                            <span className="text-[8px]">✓</span>
+                          </div>
+                        )}
+
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 z-20">
+                        <div className="flex items-center gap-1 text-white">
+                          <svg
+                            className="w-4 h-4 md:w-5 md:h-5"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                          </svg>
+                          <span className="font-bold text-sm md:text-base">
+                            {formatNumber(post.fire_count)}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-white">
+                          <svg
+                            className="w-4 h-4 md:w-5 md:h-5"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                          <span className="font-bold text-sm md:text-base">
+                            {formatNumber(post.comment_count)}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Gradient at bottom for text readability */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+        </div>
+      </div>
+
+      {/* Quebec Pride Footer */}
+      <div className="text-center py-8 text-leather-400 text-sm">
+        <p className="flex items-center justify-center gap-2">
+          <span className="text-gold-500">⚜️</span>
+          <span>Créateur québécois</span>
+          <span className="text-gold-500">⚜️</span>
+        </p>
+      </div>
+
+      <BottomNav />
+    </div>
+  );
+};
+
+export default Profile;

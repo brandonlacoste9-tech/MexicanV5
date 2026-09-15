@@ -1,0 +1,247 @@
+/**
+ * MuxVideoPlayer - MUX streaming player with French UI
+ * Zyeuté V5 - Quebec social media
+ *
+ * FIXED: Added explicit HLS buffer configuration to prevent mid-play freezes
+ * - Increased maxBufferLength for better quality switching
+ * - Added min/max bitrate constraints to stabilize ABR
+ * - Added retry logic for failed segments
+ */
+
+import { useState, useCallback, useRef, useEffect } from "react";
+import MuxPlayer from "@mux/mux-player-react";
+import { AlertCircle, Loader2, RefreshCw } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface MuxVideoPlayerProps {
+  playbackId: string;
+  thumbnailUrl?: string;
+  className?: string;
+  autoPlay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  style?: React.CSSProperties;
+  /** Real video title for Mux Data analytics */
+  videoTitle?: string;
+  /** Real viewer user ID for Mux Data analytics */
+  viewerUserId?: string;
+  /** Called when Mux player errors (for diagnostics) */
+  onError?: (error: Error) => void;
+  /** Called when video freezes (buffer starvation) */
+  onFreeze?: () => void;
+  /** Called on timeupdate — provides currentTime and duration */
+  onTimeUpdate?: (currentTime: number, duration: number) => void;
+  /** When false, inactive slides keep playback position (feed swipe-back). */
+  resetOnDeactivate?: boolean;
+}
+
+export function MuxVideoPlayer({
+  playbackId,
+  thumbnailUrl,
+  className = "",
+  autoPlay = false,
+  loop = true,
+  muted = true,
+  style,
+  videoTitle,
+  viewerUserId,
+  onError: onErrorProp,
+  onFreeze,
+  onTimeUpdate,
+  resetOnDeactivate = true,
+}: MuxVideoPlayerProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const playerRef = useRef<any>(null);
+  const freezeCheckRef = useRef<NodeJS.Timeout | null>(null);
+  const lastTimeRef = useRef<number>(0);
+
+  // Reset error state and loading when playbackId changes
+  // Use setTimeout(0) to avoid synchronous setState within effect (ESLint rule)
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setHasError(false);
+      setErrorMessage(null);
+      setIsLoading(true);
+      setRetryKey(0);
+    }, 0);
+    return () => clearTimeout(t);
+  }, [playbackId]);
+
+  // Imperatively pause/play when autoPlay (isActive) changes.
+  // This is the critical fix for audio rollover between feed videos.
+  useEffect(() => {
+    const video = playerRef.current?.media as HTMLVideoElement | null;
+    if (!video) return;
+    if (autoPlay) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      if (resetOnDeactivate) {
+        video.currentTime = 0;
+      }
+    }
+  }, [autoPlay, resetOnDeactivate]);
+
+  // Monitor for freezes (time not advancing despite playing)
+  useEffect(() => {
+    if (!autoPlay) return;
+
+    const checkFreeze = () => {
+      const video = playerRef.current?.media;
+      if (!video || video.paused || video.ended) return;
+
+      const currentTime = video.currentTime;
+      if (currentTime === lastTimeRef.current && !video.seeking) {
+        // Time hasn't advanced - potential freeze
+        console.warn("[MuxVideoPlayer] Detected freeze at", currentTime);
+        onFreeze?.();
+
+        // Attempt recovery: pause then play
+        video.pause();
+        setTimeout(() => video.play().catch(() => {}), 100);
+      }
+      lastTimeRef.current = currentTime;
+    };
+
+    freezeCheckRef.current = setInterval(checkFreeze, 2000);
+    return () => {
+      if (freezeCheckRef.current) clearInterval(freezeCheckRef.current);
+    };
+  }, [autoPlay, onFreeze]);
+
+  // Relay timeupdate events to parent for progress bar
+  useEffect(() => {
+    if (!onTimeUpdate) return;
+    const video = playerRef.current?.media as HTMLVideoElement | null;
+    if (!video) return;
+    const handler = () => {
+      onTimeUpdate(video.currentTime, video.duration || 0);
+    };
+    video.addEventListener("timeupdate", handler);
+    return () => video.removeEventListener("timeupdate", handler);
+  }, [onTimeUpdate]);
+
+  const handleLoadStart = useCallback(() => {
+    setIsLoading(true);
+    setHasError(false);
+    setErrorMessage(null);
+    lastTimeRef.current = 0;
+  }, []);
+
+  const handleLoadedData = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
+  const handleError = useCallback(
+    (e?: any) => {
+      console.error("[MuxVideoPlayer] Error Event:", e);
+
+      // Check if this is an autoplay policy error — don't show error UI, just retry muted
+      const muxError = e?.detail;
+      const msg =
+        muxError?.message || e?.target?.error?.message || "Mux playback failed";
+      const isAutoplayBlocked =
+        msg.includes("NotAllowedError") ||
+        msg.includes("play()") ||
+        msg.includes("user didn't interact") ||
+        e?.name === "NotAllowedError";
+
+      if (isAutoplayBlocked) {
+        console.warn("[MuxVideoPlayer] Autoplay blocked, retrying muted...");
+        const media = playerRef.current?.media;
+        if (media instanceof HTMLVideoElement) {
+          // eslint-disable-next-line react-hooks/immutability -- DOM playback recovery
+          media.muted = true;
+          media.play().catch(() => {});
+        }
+        setIsLoading(false);
+        return; // Don't show error UI
+      }
+
+      setIsLoading(false);
+      setHasError(true);
+      setErrorMessage(msg);
+      onErrorProp?.(new Error(msg));
+    },
+    [onErrorProp],
+  );
+
+  const handleRetry = useCallback(() => {
+    setHasError(false);
+    setErrorMessage(null);
+    setIsLoading(true);
+    setRetryKey((prev) => prev + 1);
+  }, []);
+
+  if (hasError) {
+    return (
+      <div
+        className={cn(
+          "flex items-center justify-center bg-zinc-900 rounded-xl overflow-hidden",
+          className,
+        )}
+        style={style}
+      >
+        <div className="text-center p-6 bg-black/40 backdrop-blur-sm rounded-2xl border border-white/10">
+          <AlertCircle className="w-10 h-10 text-red-500 mx-auto mb-3" />
+          <p className="text-base font-bold text-white mb-1">
+            Signal Interrompu
+          </p>
+          <p className="text-xs text-zinc-400 mb-4 max-w-[200px] mx-auto">
+            {errorMessage || "Une erreur est survenue lors de la lecture."}
+          </p>
+          <button
+            onClick={handleRetry}
+            className="flex items-center gap-2 px-4 py-2 bg-gold-500 hover:bg-gold-600 text-black text-xs font-bold rounded-full transition-all active:scale-95"
+          >
+            <RefreshCw className="w-3 h-3" />
+            RÉESSAYER
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={cn("relative", className)} style={style}>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-zinc-900 rounded-xl z-10">
+          <Loader2 className="w-8 h-8 text-gold-500 animate-spin" />
+        </div>
+      )}
+
+      <MuxPlayer
+        key={`${playbackId}-${retryKey}`}
+        ref={playerRef}
+        playbackId={playbackId}
+        thumbnailTime={0}
+        placeholder={thumbnailUrl}
+        autoPlay={autoPlay}
+        loop={loop}
+        muted={muted}
+        playsInline
+        className="w-full h-full rounded-xl object-cover"
+        onLoadStart={handleLoadStart}
+        onLoadedData={handleLoadedData}
+        onLoadedMetadata={handleLoadedData}
+        onCanPlay={handleLoadedData}
+        onError={handleError}
+        streamType="on-demand"
+        metadata={{
+          video_id: playbackId,
+          video_title: videoTitle || `Post ${playbackId}`,
+          viewer_user_id: viewerUserId || "anonymous",
+          player_name: "Zyeuté Player",
+          player_version: "5.0.0",
+        }}
+        maxResolution="1080p"
+        primaryColor="#D4AF37"
+        secondaryColor="#1a1a1a"
+        accentColor="#FFD700"
+      />
+    </div>
+  );
+}

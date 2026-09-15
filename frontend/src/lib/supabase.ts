@@ -1,0 +1,271 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+const isValidUrl = (url: string | undefined) => {
+  try {
+    return url && new URL(url).protocol.startsWith("http");
+  } catch (e) {
+    return false;
+  }
+};
+
+// No-op lock: bypass Navigator LockManager to prevent 10s timeout (auth-js#1594)
+const noOpLock = async <R>(
+  _name: string,
+  _acquireTimeout: number,
+  fn: () => Promise<R>,
+): Promise<R> => fn();
+
+const credentialsMissing = !isValidUrl(supabaseUrl) || !supabaseAnonKey;
+
+// When credentials are missing, use a placeholder URL so createClient doesn't
+// throw synchronously. newer supabase-js rejects empty strings, which crashes
+// the entire module at init time and causes a TDZ ReferenceError in all
+// modules that import from this file.
+const safeUrl = isValidUrl(supabaseUrl)
+  ? supabaseUrl!
+  : "https://placeholder.supabase.co";
+const safeKey = supabaseAnonKey || "placeholder-anon-key";
+
+export const supabase = createClient(safeUrl, safeKey, {
+  auth: {
+    persistSession: !credentialsMissing,
+    autoRefreshToken: !credentialsMissing,
+    detectSessionInUrl: !credentialsMissing,
+    lock: noOpLock,
+  },
+});
+
+// ─── In-memory session cache ────────────────────────────────────────────────
+// Prevents redundant getSession() calls that each add 50-200ms latency.
+// Cache is invalidated on auth state change.
+let _cachedSession: { access_token: string } | null | undefined = undefined;
+let _cacheTimestamp = 0;
+const SESSION_CACHE_TTL = 30_000; // 30s
+
+supabase.auth.onAuthStateChange((_event, session) => {
+  _cachedSession = session ? { access_token: session.access_token } : null;
+  _cacheTimestamp = Date.now();
+});
+
+/** getSession with timeout and in-memory cache - prevents feed/API from hanging if auth is slow. */
+export async function getSessionWithTimeout(ms = 2500): Promise<{
+  data: { session: { access_token: string } | null };
+}> {
+  // Return cached session if fresh
+  if (
+    _cachedSession !== undefined &&
+    Date.now() - _cacheTimestamp < SESSION_CACHE_TTL
+  ) {
+    return { data: { session: _cachedSession } };
+  }
+
+  try {
+    let timedOut = false;
+    const result = await Promise.race([
+      supabase.auth.getSession(),
+      new Promise<{ data: { session: null } }>((resolve) =>
+        setTimeout(() => {
+          timedOut = true;
+          resolve({ data: { session: null } });
+        }, ms),
+      ),
+    ]);
+
+    const sess = (result as any)?.data?.session ?? null;
+
+    // CRITICAL: never cache a timeout as "logged out" — mobile storage is often
+    // slow and a 3s race would strip the bearer token for 30s, breaking gifts.
+    if (timedOut && !sess) {
+      // Prefer last known good session if we had one earlier in this page life
+      if (_cachedSession?.access_token) {
+        return { data: { session: _cachedSession } };
+      }
+      return { data: { session: null } };
+    }
+
+    _cachedSession = sess ? { access_token: sess.access_token } : null;
+    _cacheTimestamp = Date.now();
+    return { data: { session: _cachedSession } };
+  } catch {
+    // On error, keep previous cache rather than forcing logout
+    if (_cachedSession?.access_token) {
+      return { data: { session: _cachedSession } };
+    }
+    return { data: { session: null } };
+  }
+}
+
+/** Force a fresh session read (e.g. before payment/gift). */
+export async function refreshSessionCache(): Promise<{
+  access_token: string;
+} | null> {
+  try {
+    const { data } = await supabase.auth.getSession();
+    const sess = data.session;
+    _cachedSession = sess ? { access_token: sess.access_token } : null;
+    _cacheTimestamp = Date.now();
+    return _cachedSession;
+  } catch {
+    return _cachedSession?.access_token ? _cachedSession : null;
+  }
+}
+
+if (credentialsMissing) {
+  if (process.env.NODE_ENV === "production") {
+    console.error(
+      "❌ CRITICAL: Supabase credentials missing in production! The app will likely fail to load.",
+    );
+  } else {
+    console.warn("⚠️ [SECURITY] Supabase credentials missing or invalid.");
+  }
+}
+
+// Helper function to get dynamic redirect URL based on current domain
+function getRedirectUrl(): string {
+  const origin = window.location.origin;
+  return `${origin}/auth/callback`;
+}
+
+// Helper functions
+export async function getCurrentUser() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
+}
+
+export async function signIn(email: string, password: string) {
+  return await supabase.auth.signInWithPassword({ email, password });
+}
+
+export async function signUp(
+  email: string,
+  password: string,
+  username: string,
+  hiveId?: string,
+) {
+  const redirectUrl = getRedirectUrl();
+
+  return await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { username, hive_id: hiveId ?? "quebec", display_name: username },
+      emailRedirectTo: redirectUrl,
+    },
+  });
+}
+
+export async function signOut() {
+  return await supabase.auth.signOut();
+}
+
+export async function signInWithGoogle() {
+  const redirectUrl = getRedirectUrl();
+
+  console.log("🔍 Google OAuth redirect URL:", redirectUrl);
+
+  return await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: redirectUrl,
+    },
+  });
+}
+
+export async function uploadFile(bucket: string, path: string, file: File) {
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .upload(path, file);
+  if (error) return { url: null, error };
+  const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(path);
+  return { url: urlData.publicUrl, error: null };
+}
+
+export async function deleteFile(bucket: string, path: string) {
+  const { error } = await supabase.storage.from(bucket).remove([path]);
+  return { error };
+}
+
+export function subscribeToTable(
+  table: string,
+  callback: (payload: any) => void,
+) {
+  const channel = supabase
+    .channel(`public:${table}`)
+    .on("postgres_changes", { event: "*", schema: "public", table }, callback)
+    .subscribe();
+
+  return () => {
+    supabase.removeChannel(channel);
+  };
+}
+
+// WebAuthn Biometric Authentication
+export async function signInWithBiometrics() {
+  try {
+    if (!window.PublicKeyCredential) {
+      throw new Error("WebAuthn not supported in this browser");
+    }
+
+    const { data, error } = await (supabase.auth as any).signInWithWebAuthn({
+      options: {
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required",
+          residentKey: "preferred",
+        },
+        timeout: 60000,
+        challenge: new Uint8Array(32),
+      },
+    });
+
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error("Biometric authentication failed:", error);
+    return { data: null, error };
+  }
+}
+
+export async function registerBiometrics(email: string) {
+  try {
+    if (!window.PublicKeyCredential) {
+      throw new Error("WebAuthn not supported in this browser");
+    }
+
+    const { data, error } = await (supabase.auth as any).signUpWithWebAuthn({
+      email,
+      options: {
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required",
+          residentKey: "required",
+        },
+        attestation: "direct",
+        timeout: 60000,
+      },
+    });
+
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error("Biometric registration failed:", error);
+    return { data: null, error };
+  }
+}
+
+// Check if biometric authentication is available
+export async function isBiometricAvailable(): Promise<boolean> {
+  try {
+    if (!window.PublicKeyCredential) return false;
+    const available =
+      await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+    return available;
+  } catch {
+    return false;
+  }
+}
