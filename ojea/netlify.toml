@@ -1,0 +1,25 @@
+# Ojea (MexicoV5) — Netlify production.
+# Grok live preview still uses `npm run dev` + vercel nitro preset.
+# A Netlify build must set NITRO_PRESET=netlify so Nitro emits
+# dist/ + .netlify/functions-internal instead of .vercel/output.
+#
+# TanStack Start SSR emits a second hashed stylesheet under
+# node_modules/.nitro/.../ssr/assets that is not copied to dist;
+# without the cp, the live HTML 404s the CSS.
+
+[build]
+  command = "NITRO_PRESET=netlify npm run build && cp node_modules/.nitro/vite/services/ssr/assets/*.css dist/assets/"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NITRO_PRESET = "netlify"
+
+[functions]
+  directory = ".netlify/functions-internal"
+
+[[headers]]
+  for = "/clips/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Accept-Ranges = "bytes"

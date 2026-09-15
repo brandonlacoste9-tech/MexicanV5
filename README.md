@@ -43,7 +43,7 @@ npm run seed:bulk
 | `#montreal` `#quebec` | `#cdmx` `#mexico` `#parati` |
 
 Prototype static demo (pre-copy) lives in [`demo/`](demo/).
-Live Grok preview Ojea (TanStack) is separate and stays up.
+Live Ojea web (TikTok-style TanStack UI) is snapshotted in [`ojea/`](ojea/).
 
 ## Legal
 See frontend legal routes after you run the Vite app. Do not reuse Zyeuté terms as-is in production without a Mexico pass.
