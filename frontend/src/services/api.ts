@@ -1120,13 +1120,12 @@ export async function surgicalUpload(
     const hiveId = localStorage.getItem("ojea_hive_id") || "mexico";
     formData.append("hiveId", hiveId);
     const langMap: Record<string, string> = {
-      mexico: "fr",
       mexico: "es",
       argentina: "es",
       brazil: "pt",
     };
     const language =
-      localStorage.getItem("ojea_language") || langMap[hiveId] || "fr";
+      localStorage.getItem("ojea_language") || langMap[hiveId] || "es";
     formData.append("language", language);
 
     // Get auth token for the upload
