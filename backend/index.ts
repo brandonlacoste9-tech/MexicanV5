@@ -23,6 +23,7 @@ import { registerRoutes } from "./routes.js";
 import { verifyAuthToken } from "./supabase-auth.js";
 import { storage } from "./storage.js";
 import { recoverBotMatches } from "./services/grid-rush-service.js";
+import { serveStatic } from "./static.js";
 import { initTiGuy } from "./bot/guey.js";
 import tiGuyRouter from "./routes/tiguy.js";
 import hiveRouter from "./routes/hive.js";
@@ -661,7 +662,14 @@ app.use((req, res, next) => {
 
     if (process.env.NODE_ENV === "production") {
       console.log("🛠️  Step 3: Serving static files (Production)...");
-      serveStatic(app);
+      try {
+        serveStatic(app);
+      } catch (err) {
+        console.warn(
+          "⚠️ No frontend build on this instance — API-only mode.",
+          err instanceof Error ? err.message : err,
+        );
+      }
     } else {
       console.log("🛠️  Step 3: Setting up Vite (Development)...");
       try {
