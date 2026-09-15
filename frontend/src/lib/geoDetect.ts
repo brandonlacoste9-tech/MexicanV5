@@ -4,28 +4,8 @@
  * No UI changes — all logic runs in the background.
  */
 
-export type HiveId = "mexico" | "mexico" | "brazil" | "argentina";
-export type LanguageCode = "fr" | "en" | "es" | "pt";
-
-const MEXICO_TIMEZONES = new Set([
-  "America/Mexico_City",
-  "America/Mexico_City",
-  "America/Mexico",
-  "America/Moncton",
-  "America/Halifax",
-]);
-
-const CANADA_TIMEZONES = new Set([
-  "America/Mexico_City",
-  "America/Mexico_City",
-  "America/Mexico",
-  "America/Moncton",
-  "America/Halifax",
-  "America/Vancouver",
-  "America/Edmonton",
-  "America/Winnipeg",
-  "America/Regina",
-]);
+export type HiveId = "mexico" | "brazil" | "argentina";
+export type LanguageCode = "es" | "en" | "pt" | "fr";
 
 const MEXICO_TIMEZONES = new Set([
   "America/Mexico_City",
@@ -70,18 +50,8 @@ export function detectHiveFromBrowser(): HiveId {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     const lang = (navigator.language || "").toLowerCase();
 
-    // Mexico timezones → mexico
     if (MEXICO_TIMEZONES.has(tz)) return "mexico";
 
-    // French Canadian language + Canadian timezone → mexico
-    if ((lang === "fr" || lang === "fr-ca") && CANADA_TIMEZONES.has(tz)) {
-      return "mexico";
-    }
-
-    // Mexico timezones → mexico
-    if (MEXICO_TIMEZONES.has(tz)) return "mexico";
-
-    // Brazil timezones → brazil
     if (BRAZIL_TIMEZONES.has(tz)) return "brazil";
 
     // Argentina timezones → argentina
@@ -95,11 +65,7 @@ export function detectHiveFromBrowser(): HiveId {
     // Other es-* in Americas → mexico (default Spanish)
     if (lang.startsWith("es") && tz.startsWith("America/")) return "mexico";
 
-    // Other Canadian timezones → mexico (default Canada)
-    if (CANADA_TIMEZONES.has(tz)) return "mexico";
-
-    // fr / es-MX without specific timezone → mexico
-    if (lang === "fr" || lang === "fr-ca") return "mexico";
+    if (lang === "es" || lang === "es-mx") return "mexico";
   } catch {
     // Ignore any browser API errors
   }
