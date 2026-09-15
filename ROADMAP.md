@@ -27,5 +27,5 @@ Do **not** rewrite OjeaV5. Copy it into MexicanV5, then swap a region pack.
 - [x] Locale `es-MX`, timezone `America/Mexico_City`
 - [x] `mexicanizer.ts`, `mexicanize-content.ts`, `seed-bulk-mexico.ts`
 - [x] Wire the pack: `hive.ts`, `factory.ts`, `mexicoFeatures.ts`, `useSEO.ts`, Language + Region settings, English `en` locale
-- [ ] Run Zyeute schema migrations on MexicoV5 (separate from the live TanStack Ojea tables)
+- [x] Additive Zyeute tables on MexicoV5 (`user_profiles`, `publications`) synced from live Ojea `profiles` / `clips` — did not replace Ojea tables
 - [ ] Deploy API on Render as **ojea-api**
