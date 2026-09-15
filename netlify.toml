@@ -1,5 +1,6 @@
-# Ojea Mexico — TikTok-style web lives in ojea/.
-# API is ojea-api on Render, not the old Québec Railway box.
+# Ojea Mexico — static web in ojea/. API is ojea-api on Render.
+# Nitro's Netlify function 500s every HTML route; Ojea is client-only
+# (Supabase + zustand), so the build writes HTML and drops the function.
 
 [build]
   command = "npm run build:ojea"
@@ -10,9 +11,12 @@
   NITRO_PRESET = "netlify"
   NODE_OPTIONS = "--max-old-space-size=4096"
   CI = "true"
+  NETLIFY_SPA_DROP_FUNCTIONS = "1"
 
-[functions]
-  directory = "ojea/.netlify/functions-internal"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 [[headers]]
   for = "/clips/*"
