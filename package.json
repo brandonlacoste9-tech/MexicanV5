@@ -12,6 +12,8 @@
     "dev:check": "npm run check:env && npm run dev",
     "build": "npx vite build && npx esbuild backend/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.cjs --external:sharp --external:pg --external:vite --external:./vite.js --define:process.env.NODE_ENV=\\\"production\\\"",
     "build:api": "npx esbuild backend/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.cjs --external:sharp --external:pg --external:vite --external:./vite.js --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build:vercel": "npm run build:ojea",
+    "build:ojea": "npm --prefix ojea install --include=dev && NITRO_PRESET=netlify npm --prefix ojea run build:netlify",
     "start": "node --max-old-space-size=512 dist/index.cjs",
     "check": "tsc",
     "check:env": "tsx scripts/check-env.ts",
