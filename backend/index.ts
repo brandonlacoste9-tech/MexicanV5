@@ -23,7 +23,7 @@ import { registerRoutes } from "./routes.js";
 import { verifyAuthToken } from "./supabase-auth.js";
 import { storage } from "./storage.js";
 import { recoverBotMatches } from "./services/grid-rush-service.js";
-import { serveStatic } from "./static.js";
+import { initTiGuy } from "./bot/guey.js";
 import tiGuyRouter from "./routes/tiguy.js";
 import hiveRouter from "./routes/hive.js";
 import messagingRouter from "./routes/messaging.js";
@@ -649,8 +649,6 @@ app.use((req, res, next) => {
     const { default: leaderboardRouter } = await import("./routes/leaderboard.js");
     app.use("/api/leaderboard", leaderboardRouter);
 
-    // Initialize Güey Discord Bot
-    const { initTiGuy } = await import("./bot/guey.js");
     initTiGuy();
 
     // Guarded Sentry verification endpoint (404 unless ?secret matches env).
