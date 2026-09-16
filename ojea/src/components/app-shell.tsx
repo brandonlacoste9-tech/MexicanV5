@@ -13,7 +13,7 @@ import { LangToggle } from "@/components/lang-toggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { hydrateLocale, useCopy } from "@/lib/i18n";
-import { AGE_KEY, AUTH_PATHS, ONBOARD_KEY, formatGuestRemaining } from "@/lib/session";
+import { AUTH_PATHS, ONBOARD_KEY, formatGuestRemaining } from "@/lib/session";
 import { useOjea, type Tab } from "@/lib/store";
 import { AvatarCircle } from "@/components/avatar";
 import { region } from "@/lib/region";
@@ -141,7 +141,6 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-dvh bg-bg text-fg">
-      <AgeGate />
       {hideChrome ? (
         children
       ) : (
@@ -372,39 +371,6 @@ function BackendBadge({ status }: { status: "loading" | "live" | "offline" }) {
       />
       {label}
     </p>
-  );
-}
-
-function AgeGate() {
-  const c = useCopy();
-  const [ready, setReady] = useState(false);
-  const [ok, setOk] = useState(true);
-
-  useEffect(() => {
-    setOk(localStorage.getItem(AGE_KEY) === "1");
-    setReady(true);
-  }, []);
-
-  if (!ready || ok) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-bg/92 p-4">
-      <div className="auth-card w-full max-w-sm rounded-xl p-6 text-center">
-        <LangToggle className="mx-auto" />
-        <p className="mt-4 font-display text-2xl text-primary">{region.brand.toUpperCase()}</p>
-        <p className="mt-3 text-sm text-fg/90">{c.ageBody}</p>
-        <button
-          type="button"
-          className="mt-6 h-12 w-full rounded-md bg-primary text-sm font-semibold text-primary-fg"
-          onClick={() => {
-            localStorage.setItem(AGE_KEY, "1");
-            setOk(true);
-          }}
-        >
-          {c.ageCta}
-        </button>
-      </div>
-    </div>
   );
 }
 

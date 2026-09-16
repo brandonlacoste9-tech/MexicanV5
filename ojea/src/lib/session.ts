@@ -10,7 +10,6 @@ export const AUTH_PATHS = new Set([
 export const GUEST_KEY = "ojea-guest";
 export const GUEST_TS_KEY = "ojea-guest-ts";
 export const GUEST_MS = 24 * 60 * 60 * 1000;
-export const AGE_KEY = "ojea-age-ok";
 export const ONBOARD_KEY = "ojea-onboarded";
 export const MUTE_KEY = "otealo-muted";
 

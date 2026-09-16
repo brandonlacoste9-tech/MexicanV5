@@ -93,8 +93,8 @@ export const copy = {
     liveBadge: "Otealo · en vivo",
     offlineBadge: "Sin conexión · modo local",
     loadingBadge: "Conectando Otealo…",
-    ageBody: "Esta app es para mayores de 18 años. Al entrar confirmas tu edad.",
-    ageCta: "Tengo 18 o más",
+    ageBody: "Otealo es para toda la familia.",
+    ageCta: "Entrar",
     onboard1Title: "Descubre",
     onboard1Body: "Desliza Para ti. Talento de México, no un feed genérico.",
     onboard2Title: "Conecta",
@@ -327,7 +327,7 @@ export const copy = {
       "Al usar Otealo aceptas estas reglas. Otealo es una app de videos cortos para México.",
     termsAgeH: "Edad",
     termsAge:
-      "Tienes que tener 18 años o más. Si no, no entres. No hay modo infantil.",
+      "Otealo es para toda la familia. Los padres deciden si sus hijos la usan. No subas contenido violento, sexual o que lastime a alguien.",
     termsAccountH: "Tu cuenta",
     termsAccount:
       "Eres responsable de tu usuario, tu clave y lo que subes. No uses el nombre de otra persona. No vendas cuentas.",
@@ -436,8 +436,8 @@ export const copy = {
     liveBadge: "Otealo · live",
     offlineBadge: "Offline · local mode",
     loadingBadge: "Connecting to Otealo…",
-    ageBody: "This app is 18+. By entering you confirm your age.",
-    ageCta: "I am 18 or older",
+    ageBody: "Otealo is for the whole family.",
+    ageCta: "Enter",
     onboard1Title: "Discover",
     onboard1Body: "Swipe For you. Talent from Mexico, not a generic feed.",
     onboard2Title: "Connect",
@@ -669,7 +669,8 @@ export const copy = {
     termsIntro:
       "By using Otealo you accept these rules. Otealo is a short-video app for Mexico.",
     termsAgeH: "Age",
-    termsAge: "You must be 18 or older. If not, don’t enter. There is no kids mode.",
+    termsAge:
+      "Otealo is for the whole family. Parents decide if their kids use it. Don’t post violent, sexual, or harmful content.",
     termsAccountH: "Your account",
     termsAccount:
       "You are responsible for your username, password, and what you upload. Don’t use someone else’s name. Don’t sell accounts.",
