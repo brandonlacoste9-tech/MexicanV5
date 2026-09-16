@@ -128,7 +128,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
           <LangToggle compact className="pointer-events-auto md:invisible" />
         </div>
         ) : null}
-        {!cinema ? (
+        {!cinema && tab === "foryou" ? (
         <div className="pointer-events-auto absolute inset-x-0 top-[3.75rem] z-20 flex gap-1.5 overflow-x-auto no-scrollbar px-3 md:top-16">
           {(
             [

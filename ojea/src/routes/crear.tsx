@@ -9,8 +9,6 @@ import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/crear")({ component: Crear });
 
-const SOUNDS = [...new Set(SEED_CLIPS.map((clip) => clip.sound))];
-
 const STREET = [
   {
     label: "El puesto",
@@ -20,24 +18,31 @@ const STREET = [
   {
     label: "El organillo",
     caption: "El organillero en la esquina. La ciudad respira con él.",
-    sound: "Organillo",
+    sound: "Campanas de noche",
   },
   {
     label: "El estadio",
     caption: "Cuando canta el estadio, se oye hasta la casa.",
-    sound: "Afición",
+    sound: "Luces del estadio",
   },
   {
     label: "El atardecer",
     caption: "Esta luz no se queda. 15 segundos y ya se fue.",
-    sound: "Atardecer",
+    sound: "Atardecer malecón",
   },
   {
     label: "La calle",
     caption: "Así está la calle hoy. ¿Y allá cómo está?",
-    sound: "Calle",
+    sound: "Calle viva",
   },
 ] as const;
+
+const SOUNDS = [
+  ...new Set([
+    ...STREET.map((item) => item.sound),
+    ...SEED_CLIPS.map((clip) => clip.sound),
+  ]),
+];
 
 function Crear() {
   const { user, userId, guest, publish, submitIdea, openAuth, backend } = useOjea();
@@ -45,7 +50,7 @@ function Crear() {
   const c = useCopy();
   const [caption, setCaption] = useState("");
   const [city, setCity] = useState<string>(() => getHomeCity());
-  const [sound, setSound] = useState(SOUNDS[0] ?? "Sonido Otealo");
+  const [sound, setSound] = useState(STREET[4]?.sound ?? "Calle viva");
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [pending, setPending] = useState(false);
@@ -74,10 +79,7 @@ function Crear() {
             className="h-10 rounded-full border border-border px-3 text-sm text-muted hover:border-primary hover:text-primary"
             onClick={() => {
               setCaption(item.caption);
-              const hit = SOUNDS.find((s) =>
-                s.toLowerCase().includes(item.sound.toLowerCase()),
-              );
-              if (hit) setSound(hit);
+              setSound(item.sound);
             }}
           >
             {item.label}
