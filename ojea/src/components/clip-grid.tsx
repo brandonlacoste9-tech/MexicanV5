@@ -39,7 +39,7 @@ export function ClipGrid({ clips }: { clips: Clip[] }) {
             <span className="block truncate text-xs">@{clip.user}</span>
             <span className="mt-0.5 flex items-center gap-1 text-[11px] text-fg/80">
               <Play className="size-3 fill-fg/80" />
-              {formatCount(clip.likes * 8 + clip.comments.length * 40)}
+              {formatCount(clip.likes)}
             </span>
           </span>
           {clip.live ? (

@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { mergeClipFeeds, SEED_CLIPS, SEED_NOTES, type Clip } from "./clips";
-import { MX_CLIPS } from "./mx-clips";
 import { tCopy } from "./i18n";
 import {
   fetchClips,
@@ -126,12 +125,10 @@ let unsubLive: (() => void) | null = null;
 let unsubAuth: (() => void) | null = null;
 
 export const useOjea = create<State>()((set, get) => ({
-  clips: mergeClipFeeds(MX_CLIPS, SEED_CLIPS),
+  clips: mergeClipFeeds(SEED_CLIPS),
   liked: {},
   saved: {},
-  followed: Object.fromEntries(
-    SEED_CLIPS.filter((c) => c.following).map((c) => [c.user, true]),
-  ),
+  followed: {},
   hidden: {},
   reposted: {},
   notes: SEED_NOTES,
@@ -433,7 +430,7 @@ export const useOjea = create<State>()((set, get) => ({
   refreshClips: async () => {
     try {
       const clips = await fetchClips();
-      set({ clips: mergeClipFeeds(MX_CLIPS, clips, SEED_CLIPS), backend: "live" });
+      set({ clips: mergeClipFeeds(clips, SEED_CLIPS), backend: "live" });
     } catch {
       /* keep current */
     }
@@ -446,7 +443,7 @@ export const useOjea = create<State>()((set, get) => ({
         : null;
       const guestState = !session ? readGuestSession() : { guest: false, remainingMs: 0 };
       set({
-        clips: mergeClipFeeds(MX_CLIPS, clips, SEED_CLIPS),
+        clips: mergeClipFeeds(clips, SEED_CLIPS),
         backend: "live",
         user: session?.username ?? (guestState.guest ? "invitado" : null),
         userId: session?.userId ?? null,

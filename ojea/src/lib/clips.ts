@@ -243,9 +243,14 @@ const RAW_CLIPS: Clip[] = [
 
 export const SEED_CLIPS: Clip[] = RAW_CLIPS.map((c) => ({
   ...c,
+  likes: 0,
+  comments: [],
+  shares: 0,
+  live: false,
+  viewers: undefined,
+  following: false,
+  friend: false,
   video: c.video ?? seedClipVideoUrl(c.id),
-  shares: c.shares ?? Math.max(12, Math.round(c.likes / 14)),
-  friend: c.following ?? false,
 }));
 
 export function mergeClipFeeds(...lists: Clip[][]) {
@@ -287,35 +292,4 @@ export const SEED_NOTES: Array<{
   kind: "feed" | "user" | "sound";
   user?: string;
   sound?: string;
-}> = [
-  {
-    id: "n1",
-    text: "arena.mexico está en vivo — tercera caída",
-    time: "ahora",
-    unread: true,
-    kind: "feed",
-  },
-  {
-    id: "n2",
-    text: "guadalajara.nights publicó un clip nuevo",
-    time: "hace 8 min",
-    unread: true,
-    kind: "feed",
-  },
-  {
-    id: "n3",
-    text: "caribe.ojo empezó a seguirte",
-    time: "hace 1 h",
-    unread: true,
-    kind: "user",
-    user: "caribe.ojo",
-  },
-  {
-    id: "n4",
-    text: "Tu sonido «Pastor a las 2» se usó 12 veces hoy",
-    time: "hace 3 h",
-    unread: false,
-    kind: "sound",
-    sound: "Pastor a las 2",
-  },
-];
+}> = [];
