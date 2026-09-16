@@ -32,7 +32,7 @@ export function clipVideoSrc(clip: Clip) {
   if (!raw) return seedClipVideoUrl(clip.id);
   const local = raw.match(LOCAL_CLIP);
   if (local) {
-    if (local[1].startsWith("ind-")) return raw;
+    if (local[1].startsWith("ind-") || local[1].startsWith("st-")) return raw;
     return seedClipVideoUrl(local[1]);
   }
   const seed = raw.match(/\/clips\/seed\/([^/?#]+)\.mp4/i);
