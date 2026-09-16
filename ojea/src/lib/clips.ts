@@ -248,6 +248,19 @@ export const SEED_CLIPS: Clip[] = RAW_CLIPS.map((c) => ({
   friend: c.following ?? false,
 }));
 
+export function mergeClipFeeds(...lists: Clip[][]) {
+  const seen = new Set<string>();
+  const out: Clip[] = [];
+  for (const list of lists) {
+    for (const clip of list) {
+      if (!clip?.id || seen.has(clip.id)) continue;
+      seen.add(clip.id);
+      out.push(clip);
+    }
+  }
+  return out;
+}
+
 export const FRIEND_USERS = [
   ...new Set(SEED_CLIPS.filter((c) => c.friend).map((c) => c.user)),
 ];

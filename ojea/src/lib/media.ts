@@ -14,6 +14,15 @@ export function seedClipVideoUrl(id: string) {
   return `${SUPABASE_URL}/storage/v1/object/public/clips/seed/${encodeURIComponent(id)}.mp4`;
 }
 
+/** Public MexicoV5 Storage URL for a Mexico hashtag clip. */
+export function mxClipVideoUrl(id: string) {
+  return `${SUPABASE_URL}/storage/v1/object/public/clips/mx/${encodeURIComponent(id)}.mp4`;
+}
+
+export function mxClipImageUrl(id: string, ext: "jpg" | "png" = "jpg") {
+  return `${SUPABASE_URL}/storage/v1/object/public/clips/mx/${encodeURIComponent(id)}.${ext}`;
+}
+
 export function localClipVideoUrl(id: string) {
   return `/clips/${id}.mp4`;
 }
