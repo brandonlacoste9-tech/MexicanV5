@@ -12,7 +12,7 @@ export const region = {
   currency: "MXN",
   country: "MX",
   hive: "mexico",
-  siteUrl: "https://ojea-mexico.netlify.app",
+  siteUrl: "https://otealo.com",
   supabaseProject: "MexicoV5",
   cities: [
     "Ciudad de México",

@@ -78,7 +78,7 @@ export function accountEmail(raw: string) {
   const trimmed = raw.trim();
   if (trimmed.includes("@")) return trimmed.toLowerCase();
   const slug = accountUsername(trimmed) || "otealo";
-  return `${slug}@otealo.app`;
+  return `${slug}@otealo.com`;
 }
 
 function rowToClip(row: ClipRow, comments: Comment[]): Clip {
