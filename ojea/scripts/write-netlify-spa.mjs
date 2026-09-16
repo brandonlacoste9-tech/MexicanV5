@@ -230,7 +230,7 @@ function writeAssetFallback() {
 <html lang="es-MX" class="antialiased">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>Otealo</title>
   <meta name="description" content="Videos cortos hechos en México, para México."/>
   <meta name="theme-color" content="#0d0c0b"/>
@@ -239,58 +239,22 @@ function writeAssetFallback() {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap"/>
 </head>
 <body>
-<script>
-(self.$R=self.$R||{})["tsr"]=[];
-self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};
-$_TSR.router={manifest:{routes:{__root__:{preloads:["/assets/${indexJs}"],scripts:[{attrs:{type:"module",async:!0,src:"/assets/${indexJs}"}}]}}},matches:[{i:"__root__",u:Date.now(),s:"success",ssr:!0}]};
-$_TSR.e();
-</script>
-<script type="module" async src="/assets/${indexJs}"></script>
+  <script type="module" src="/assets/${indexJs}"></script>
 </body>
 </html>
 `;
   mkdirSync(join(root, "dist"), { recursive: true });
   writeFileSync(join(root, "dist/index.html"), html);
-  console.log("[netlify-spa] wrote asset fallback index.html via", indexJs);
-}
-
-let wroteHome = false;
-try {
-  // Production is a static SPA. Importing the Nitro SSR bundle on Node 20
-  // crashes supabase-js (no native WebSocket) and prints a 500 per route.
-  // Always write the client shell; drop the unused function below.
-  throw new Error("static-spa");
-  for (const [path, file] of routes) {
-    try {
-      const res = await fetchDoc(
-        new Request(`https://otealo.com${path}`, {
-          headers: {
-            accept: "text/html,application/xhtml+xml",
-            host: "otealo.com",
-          },
-        }),
-      );
-      const html = await res.text();
-      if (res.status !== 200 || !html.includes("<html")) {
-        console.warn("[netlify-spa] skip", path, res.status);
-        continue;
-      }
-      mkdirSync(dirname(join(root, file)), { recursive: true });
-      writeFileSync(join(root, file), html);
-      console.log("[netlify-spa]", path, "->", file, html.length, "bytes");
-      if (path === "/") wroteHome = true;
-    } catch (err) {
-      console.warn("[netlify-spa] skip", path, err);
-    }
+  for (const [path] of routes) {
+    if (path === "/") continue;
+    const file = join(root, "dist", path, "index.html");
+    mkdirSync(dirname(file), { recursive: true });
+    writeFileSync(file, html);
   }
-} catch (err) {
-  console.error("[netlify-spa] renderer failed:", err);
+  console.log("[netlify-spa] wrote client shell via", indexJs);
 }
 
-if (!wroteHome && !existsSync(join(root, "dist/index.html"))) {
-  writeAssetFallback();
-  wroteHome = true;
-}
+writeAssetFallback();
 
 if (!existsSync(join(root, "dist/index.html"))) {
   throw new Error("[netlify-spa] failed to produce dist/index.html");
@@ -349,17 +313,21 @@ writeFileSync(
 
 writeFileSync(
   join(root, "dist/_redirects"),
-  `# Clip permalinks: static dist/c/{id}/index.html wins; unknown ids hit the OG function.
-/c/*  /.netlify/functions/clip-card  200
-# SPA fallback — static files win over this rewrite.
-/*    /index.html   200
+  `# Functions first — otherwise /* swallows them.
+/health       /.netlify/functions/health      200
+/api/health   /.netlify/functions/health      200
+/api/feed     /.netlify/functions/feed        200
+/api/feed/*   /.netlify/functions/feed        200
+/api/clips    /.netlify/functions/feed        200
+/c/*          /.netlify/functions/clip-card   200
+/*            /index.html                     200
 `,
 );
 
-if (process.env.NETLIFY || process.env.NETLIFY_SPA_DROP_FUNCTIONS === "1") {
-  rmSync(join(root, ".netlify/functions-internal"), {
-    recursive: true,
-    force: true,
-  });
-  console.log("[netlify-spa] dropped functions-internal (static host)");
+for (const dir of [
+  join(root, ".netlify/functions-internal"),
+  join(root, "../.netlify/functions-internal"),
+]) {
+  rmSync(dir, { recursive: true, force: true });
 }
+console.log("[netlify-spa] dropped Nitro functions-internal");
