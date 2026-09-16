@@ -17,7 +17,7 @@ function Home() {
     );
     const v = params.get("v");
     const feed = params.get("tab");
-    if (feed === "following" || feed === "live" || feed === "friends" || feed === "foryou") {
+    if (feed === "following" || feed === "foryou") {
       setTab(feed);
     }
     if (!v) return;

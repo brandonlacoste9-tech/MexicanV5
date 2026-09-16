@@ -243,6 +243,8 @@ const RAW_CLIPS: Clip[] = [
 
 export const SEED_CLIPS: Clip[] = RAW_CLIPS.map((c) => ({
   ...c,
+  user: "otealo",
+  displayName: "Otealo",
   likes: 0,
   comments: [],
   shares: 0,

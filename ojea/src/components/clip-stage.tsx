@@ -120,17 +120,6 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
               active={tab === "foryou"}
               onClick={() => setTab("foryou")}
             />
-            <StageTab
-              className="hidden md:block"
-              label={c.navFriends}
-              active={tab === "friends"}
-              onClick={() => setTab("friends")}
-            />
-            <StageTab
-              label={c.liveTab}
-              active={tab === "live"}
-              onClick={() => setTab("live")}
-            />
           </div>
           <LangToggle compact className="pointer-events-auto md:invisible" />
         </div>

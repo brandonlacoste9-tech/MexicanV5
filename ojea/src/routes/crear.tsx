@@ -44,7 +44,7 @@ function Crear() {
       {preview && file?.type.startsWith("video/") ? (
         <video
           src={preview}
-          className="mt-4 max-h-72 w-full rounded-lg object-cover"
+          className="mt-4 max-h-72 w-full rounded-lg object-contain bg-bg"
           muted
           loop
           autoPlay
@@ -54,7 +54,7 @@ function Crear() {
         <img
           src={preview}
           alt={c.previewAlt}
-          className="mt-4 max-h-72 w-full rounded-lg object-cover"
+          className="mt-4 max-h-72 w-full rounded-lg object-contain bg-bg"
         />
       ) : null}
       <label className="mt-4 block text-xs text-muted">{c.caption}</label>

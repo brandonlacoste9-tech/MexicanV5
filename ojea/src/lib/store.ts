@@ -12,6 +12,9 @@ import {
   persistLike,
   persistSave,
   persistReport,
+  persistNotification,
+  fetchNotifications,
+  markNotificationsRead,
   readSession,
   sendDm,
   signInAccount,
@@ -165,7 +168,21 @@ export const useOjea = create<State>()((set, get) => ({
     });
     const userId = get().userId;
     if (!userId) return;
-    void persistLike(userId, id, liked).catch(() => {
+    void persistLike(userId, id, liked)
+      .then(() => {
+        if (!liked) return;
+        const clip = get().clips.find((c) => c.id === id);
+        const actor = get().user;
+        if (clip && actor) {
+          void persistNotification({
+            recipient: clip.user,
+            actor,
+            kind: "like",
+            clipId: id,
+          });
+        }
+      })
+      .catch(() => {
       set({
         liked: { ...get().liked, [id]: !liked },
         clips: get().clips.map((c) =>
@@ -190,7 +207,18 @@ export const useOjea = create<State>()((set, get) => ({
     set({ followed: { ...get().followed, [user]: following } });
     const userId = get().userId;
     if (!userId) return;
-    void persistFollow(userId, user, following).catch(() => {
+    void persistFollow(userId, user, following)
+      .then(() => {
+        const actor = get().user;
+        if (following && actor) {
+          void persistNotification({
+            recipient: user,
+            actor,
+            kind: "follow",
+          });
+        }
+      })
+      .catch(() => {
       set({ followed: { ...get().followed, [user]: !following } });
       get().showToast(tCopy().errFollow);
     });
@@ -246,7 +274,19 @@ export const useOjea = create<State>()((set, get) => ({
       ),
     });
     if (!get().userId) return;
-    void persistComment(id, who, text).catch(() => {
+    void persistComment(id, who, text)
+      .then(() => {
+        const clip = get().clips.find((c) => c.id === id);
+        if (clip) {
+          void persistNotification({
+            recipient: clip.user,
+            actor: who,
+            kind: "comment",
+            clipId: id,
+          });
+        }
+      })
+      .catch(() => {
       get().showToast(tCopy().errComment);
     });
   },
@@ -364,8 +404,11 @@ export const useOjea = create<State>()((set, get) => ({
   },
   openAuth: () => set({ authOpen: true }),
   closeAuth: () => set({ authOpen: false }),
-  markNotesRead: () =>
-    set({ notes: get().notes.map((n) => ({ ...n, unread: false })) }),
+  markNotesRead: () => {
+    set({ notes: get().notes.map((n) => ({ ...n, unread: false })) });
+    const user = get().user;
+    if (user && get().userId) void markNotificationsRead(user);
+  },
   sendMessage: async (recipient, body) => {
     const { userId, user } = get();
     if (!userId || !user) return tCopy().errDmLogin;
@@ -386,13 +429,15 @@ export const useOjea = create<State>()((set, get) => ({
     const userId = get().userId;
     if (!user || !userId) return;
     try {
-      const [dms, directory] = await Promise.all([
+      const [dms, directory, notes] = await Promise.all([
         fetchDms(user),
         fetchUsernames().catch(() => get().directory),
+        fetchNotifications(user).catch(() => get().notes),
       ]);
       set({
         dms,
         directory,
+        notes,
         avatars: mergeAvatars(get().avatars, directory, get().user, get().avatarUrl),
       });
     } catch {

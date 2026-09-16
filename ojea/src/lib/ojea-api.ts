@@ -63,14 +63,8 @@ function asError(err: unknown, fallback: string) {
 
 export function accountUsername(raw: string) {
   const trimmed = raw.trim();
-  if (trimmed.includes("@")) {
-    return trimmed
-      .split("@")[0]
-      .toLowerCase()
-      .replace(/[^a-z0-9._]/g, "")
-      .slice(0, 24);
-  }
-  return trimmed
+  const base = trimmed.includes("@") ? trimmed.split("@")[0] : trimmed;
+  return base
     .toLowerCase()
     .replace(/\s+/g, ".")
     .replace(/[^a-z0-9._]/g, "")
@@ -239,6 +233,68 @@ export async function persistComment(clipId: string, username: string, text: str
   if (error) throw error;
 }
 
+export async function persistNotification(input: {
+  recipient: string;
+  actor: string;
+  kind: "like" | "comment" | "follow";
+  clipId?: string;
+}) {
+  if (!input.recipient || input.recipient === input.actor) return;
+  await supabase.from("notifications").insert({
+    recipient: accountUsername(input.recipient),
+    actor: accountUsername(input.actor),
+    kind: input.kind,
+    clip_id: input.clipId ?? null,
+  });
+}
+
+export async function fetchNotifications(username: string) {
+  const { data, error } = await supabase
+    .from("notifications")
+    .select("id,actor,kind,clip_id,created_at,read_at")
+    .eq("recipient", username)
+    .order("created_at", { ascending: false })
+    .limit(40);
+  if (error || !data) return [];
+  return data.map((row) => {
+    const actor = row.actor as string;
+    const kind = row.kind as string;
+    const c = tCopy();
+    const text =
+      kind === "like"
+        ? c.noteLike(actor)
+        : kind === "comment"
+          ? c.noteComment(actor)
+          : c.noteFollow(actor);
+    return {
+      id: row.id as string,
+      text,
+      time: relativeTime(row.created_at as string),
+      unread: !row.read_at,
+      kind: (kind === "follow" ? "user" : "feed") as "feed" | "user",
+      user: actor,
+    };
+  });
+}
+
+export async function markNotificationsRead(username: string) {
+  await supabase
+    .from("notifications")
+    .update({ read_at: new Date().toISOString() })
+    .eq("recipient", username)
+    .is("read_at", null);
+}
+
+function relativeTime(iso: string) {
+  const ms = Date.now() - new Date(iso).getTime();
+  const min = Math.max(0, Math.round(ms / 60000));
+  if (min < 1) return "ahora";
+  if (min < 60) return `hace ${min} min`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `hace ${h} h`;
+  return `hace ${Math.round(h / 24)} d`;
+}
+
 export async function persistReport(userId: string, clipId: string) {
   const { error } = await supabase.from("reports").insert({
     clip_id: clipId,
@@ -368,6 +424,9 @@ export async function readSession(): Promise<SessionProfile | null> {
   const meta = (user.user_metadata ?? {}) as {
     username?: string;
     display_name?: string;
+    full_name?: string;
+    name?: string;
+    given_name?: string;
     picture?: string;
     avatar_url?: string;
   };
@@ -375,12 +434,15 @@ export async function readSession(): Promise<SessionProfile | null> {
     (typeof meta.picture === "string" && meta.picture) ||
     (typeof meta.avatar_url === "string" && meta.avatar_url) ||
     null;
-  return loadProfile(
-    user.id,
-    meta.display_name || meta.username || user.email || "otealo",
-    user.email ?? null,
-    picture,
-  );
+  const display =
+    meta.full_name ||
+    meta.name ||
+    meta.display_name ||
+    meta.given_name ||
+    meta.username ||
+    user.email?.split("@")[0] ||
+    "otealo";
+  return loadProfile(user.id, display, user.email ?? null, picture);
 }
 
 export async function resolveLoginEmail(raw: string) {

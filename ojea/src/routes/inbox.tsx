@@ -119,11 +119,15 @@ function Inbox() {
       </div>
 
       {pane === "actividad" ? (
+        notes.length ? (
         <ul className="mt-4 divide-y divide-border rounded-lg border border-border">
           {notes.map((n) => (
             <ActivityRow key={n.id} note={n} />
           ))}
         </ul>
+        ) : (
+          <p className="mt-6 text-sm text-muted">{c.activityEmpty}</p>
+        )
       ) : guest || !userId ? (
         <div className="mt-6 rounded-xl border border-border bg-elevated p-5">
           <p className="text-sm text-fg/90">{c.dmGuest}</p>

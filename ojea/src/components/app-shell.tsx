@@ -4,9 +4,7 @@ import {
   Compass,
   Home,
   PlusSquare,
-  Radio,
   Search,
-  UserPlus,
   UserRound,
   Users,
 } from "lucide-react";
@@ -59,8 +57,6 @@ export function AppShell({ children }: { children: ReactNode }) {
     { to: "/", tab: "foryou", label: c.navForYou, icon: Home },
     { to: "/explorar", label: c.navExplore, icon: Compass },
     { to: "/", tab: "following", label: c.followingTab, icon: Users },
-    { to: "/", tab: "friends", label: c.navFriends, icon: UserPlus },
-    { to: "/", tab: "live", label: c.navLive, icon: Radio },
     { to: "/crear", label: c.navUpload, icon: PlusSquare, plus: true },
     { to: "/inbox", label: c.navInbox, icon: Bell },
     { to: "/perfil", label: c.navProfile, icon: UserRound },
@@ -258,7 +254,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link to="/ajustes" className="mt-2 text-xs text-primary hover:underline">
               {c.settings}
             </Link>
-            <BackendBadge status={backend} />
+            {backend !== "live" ? <BackendBadge status={backend} /> : null}
           </aside>
 
           <main className="md:pl-56">
