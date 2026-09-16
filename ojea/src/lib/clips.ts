@@ -1207,6 +1207,37 @@ export function mergeClipFeeds(...lists: Clip[][]) {
   return out;
 }
 
+export function shuffleClips(clips: Clip[]) {
+  const out = [...clips];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const a = out[i]!;
+    const b = out[j]!;
+    out[i] = b;
+    out[j] = a;
+  }
+  return out;
+}
+
+/** Keep current order. Drop gone clips. Insert new ones at random spots. */
+export function mergeIntoShuffled(current: Clip[], incoming: Clip[]) {
+  const next = new Map(incoming.filter((c) => c?.id).map((c) => [c.id, c]));
+  const kept: Clip[] = [];
+  for (const clip of current) {
+    const fresh = next.get(clip.id);
+    if (!fresh) continue;
+    kept.push({ ...clip, ...fresh, comments: fresh.comments?.length ? fresh.comments : clip.comments });
+    next.delete(clip.id);
+  }
+  const extras = [...next.values()];
+  const out = [...kept];
+  for (const clip of extras) {
+    const i = Math.floor(Math.random() * (out.length + 1));
+    out.splice(i, 0, clip);
+  }
+  return out;
+}
+
 export const FRIEND_USERS = [
   ...new Set(SEED_CLIPS.filter((c) => c.friend).map((c) => c.user)),
 ];

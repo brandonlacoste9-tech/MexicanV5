@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { mergeClipFeeds, SEED_CLIPS, SEED_NOTES, type Clip } from "./clips";
+import { mergeClipFeeds, mergeIntoShuffled, shuffleClips, SEED_CLIPS, SEED_NOTES, type Clip } from "./clips";
 import { tCopy } from "./i18n";
 import {
   fetchClips,
@@ -130,7 +130,7 @@ let unsubLive: (() => void) | null = null;
 let unsubAuth: (() => void) | null = null;
 
 export const useOjea = create<State>()((set, get) => ({
-  clips: mergeClipFeeds(SEED_CLIPS),
+  clips: shuffleClips(mergeClipFeeds(SEED_CLIPS)),
   liked: {},
   saved: {},
   followed: {},
@@ -499,7 +499,10 @@ export const useOjea = create<State>()((set, get) => ({
   refreshClips: async () => {
     try {
       const clips = await fetchClips();
-      set({ clips: mergeClipFeeds(clips, SEED_CLIPS), backend: "live" });
+      set({
+        clips: mergeIntoShuffled(get().clips, mergeClipFeeds(clips, SEED_CLIPS)),
+        backend: "live",
+      });
     } catch {
       /* keep current */
     }
@@ -512,7 +515,7 @@ export const useOjea = create<State>()((set, get) => ({
         : null;
       const guestState = !session ? readGuestSession() : { guest: false, remainingMs: 0 };
       set({
-        clips: mergeClipFeeds(clips, SEED_CLIPS),
+        clips: shuffleClips(mergeClipFeeds(clips, SEED_CLIPS)),
         backend: "live",
         user: session?.username ?? (guestState.guest ? "invitado" : null),
         userId: session?.userId ?? null,
