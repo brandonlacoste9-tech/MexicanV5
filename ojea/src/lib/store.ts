@@ -294,7 +294,7 @@ export const useOjea = create<State>()((set, get) => ({
       ),
     });
     if (!get().userId) return;
-    void persistComment(id, who, text)
+    void persistComment(id, who, text, get().userId)
       .then(() => {
         const clip = get().clips.find((c) => c.id === id);
         if (clip) {

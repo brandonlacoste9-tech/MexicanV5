@@ -228,11 +228,17 @@ export async function persistFollow(
   }
 }
 
-export async function persistComment(clipId: string, username: string, text: string) {
+export async function persistComment(
+  clipId: string,
+  username: string,
+  text: string,
+  userId: string,
+) {
   const { error } = await supabase.from("comments").insert({
     clip_id: clipId,
     username,
     body: text,
+    user_id: userId,
   });
   if (error) throw error;
 }
