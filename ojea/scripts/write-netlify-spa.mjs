@@ -1,8 +1,8 @@
 /**
  * Turn the Nitro SSR build into a static Netlify site.
  *
- * ojea-mexico's serverless handler 500s on every HTML route
- * (`{"status":500,"unhandled":true,"message":"HTTPError"}`). Ojea is a
+ * otealo.com's serverless handler 500s on every HTML route
+ * (`{"status":500,"unhandled":true,"message":"HTTPError"}`). Otealo is a
  * client-side app (Supabase + zustand) — it does not need that function.
  *
  * Run after `vite build` with NITRO_PRESET=netlify.
@@ -10,6 +10,7 @@
 import {
   mkdirSync,
   writeFileSync,
+  readFileSync,
   rmSync,
   existsSync,
   readdirSync,
@@ -19,7 +20,7 @@ import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 
-// Neon-on-Netlify injects DATABASE_URL. Ojea does not use it; leave it
+// Neon-on-Netlify injects DATABASE_URL. Otealo does not use it; leave it
 // unset so SSR at build time cannot hang on a remote Postgres.
 delete process.env.DATABASE_URL;
 
@@ -96,7 +97,7 @@ function writeAssetFallback() {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Ojea</title>
+  <title>Otealo</title>
   <meta name="description" content="Videos cortos hechos en México, para México."/>
   <meta name="theme-color" content="#0d0c0b"/>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
@@ -125,10 +126,10 @@ try {
   for (const [path, file] of routes) {
     try {
       const res = await fetchDoc(
-        new Request(`https://ojea-mexico.netlify.app${path}`, {
+        new Request(`https://otealo.com${path}`, {
           headers: {
             accept: "text/html,application/xhtml+xml",
-            host: "ojea-mexico.netlify.app",
+            host: "otealo.com",
           },
         }),
       );
@@ -158,13 +159,36 @@ if (!existsSync(join(root, "dist/index.html"))) {
   throw new Error("[netlify-spa] failed to produce dist/index.html");
 }
 
+function retitle(dir) {
+  if (!existsSync(dir)) return;
+  for (const name of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, name.name);
+    if (name.isDirectory()) {
+      if (name.name === "assets" || name.name === "clips") continue;
+      retitle(p);
+      continue;
+    }
+    if (!name.name.endsWith(".html")) continue;
+    const html = readFileSync(p, "utf8");
+    const next = html
+      .replaceAll("<title>Ojea</title>", "<title>Otealo</title>")
+      .replaceAll("Ojea —", "Otealo —")
+      .replaceAll("name: \"Ojea\"", "name: \"Otealo\"");
+    if (next !== html) {
+      writeFileSync(p, next);
+      console.log("[netlify-spa] retitled", p);
+    }
+  }
+}
+retitle(join(root, "dist"));
+
 mkdirSync(join(root, "dist/__grok"), { recursive: true });
 writeFileSync(
   join(root, "dist/__grok/manifest.webmanifest"),
   JSON.stringify(
     {
-      name: "Ojea",
-      short_name: "Ojea",
+      name: "Otealo",
+      short_name: "Otealo",
       description: "Videos cortos hechos en México, para México.",
       start_url: "/",
       display: "standalone",
