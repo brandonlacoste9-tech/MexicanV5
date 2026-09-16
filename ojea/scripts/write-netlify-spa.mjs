@@ -295,8 +295,9 @@ function writeAssetFallback() {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Otealo</title>
-  <meta name="description" content="Videos cortos hechos en México, para México."/>
+  <title>Otealo — ¿Y allá cómo está?</title>
+  <meta name="description" content="Clips de la calle mexicana: tu ciudad, este sonido, esta hora. El video que mandas cuando preguntan ¿y allá cómo está?"/>
+  <meta name="google-site-verification" content="rBGuBEps1Bo24o403e1P6Vl2C5Q5iuDXYrS1VN56TZo"/>
   <meta name="theme-color" content="#0d0c0b"/>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   ${cssLinks}

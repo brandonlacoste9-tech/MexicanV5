@@ -7,6 +7,7 @@ export const SEO = {
   title: "Otealo — ¿Y allá cómo está?",
   description:
     "Clips de la calle mexicana: tu ciudad, este sonido, esta hora. El video que mandas cuando preguntan ¿y allá cómo está?",
+  googleSiteVerification: "rBGuBEps1Bo24o403e1P6Vl2C5Q5iuDXYrS1VN56TZo",
 };
 
 const SPAIN_CITIES = new Set([
@@ -49,6 +50,7 @@ export function seoHead({
       { name: "description", content: desc },
       { name: "robots", content: noIndex ? "noindex,nofollow" : "index,follow" },
       { name: "author", content: "Otealo" },
+      { name: "google-site-verification", content: SEO.googleSiteVerification },
       { property: "og:locale", content: "es_MX" },
       ...(image
         ? [

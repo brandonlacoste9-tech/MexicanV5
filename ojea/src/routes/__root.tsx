@@ -16,6 +16,7 @@ export const Route = createRootRoute({
       { name: "theme-color", content: "#0d0c0b" },
       { name: "robots", content: "index,follow" },
       { name: "author", content: "Otealo" },
+      { name: "google-site-verification", content: SEO.googleSiteVerification },
     ],
     links: [
       { rel: "canonical", href: `${SITE}/` },
