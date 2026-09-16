@@ -5,7 +5,7 @@
  */
 export const region = {
   brand: "Otealo",
-  tagline: "Videos de México",
+  tagline: "¿Y allá cómo está?",
   locale: "es-MX",
   locales: ["es-MX", "en"] as const,
   timezone: "America/Mexico_City",

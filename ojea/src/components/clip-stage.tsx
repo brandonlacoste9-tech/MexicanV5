@@ -270,7 +270,14 @@ function EmptyFeed({
   return (
     <div className="flex h-full flex-col items-center justify-center px-6 text-center">
       <p className="max-w-xs text-sm text-muted">{copy}</p>
-      {tab === "following" && suggestions.length ? (
+      {tab === "following" ? (
+        <Link
+          to="/crear"
+          className="mt-6 inline-flex h-11 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-fg"
+        >
+          {c.cityEmptyCta}
+        </Link>
+      ) : suggestions.length ? (
         <ul className="mt-6 w-full max-w-xs space-y-2">
           {suggestions.map((item) => (
             <li

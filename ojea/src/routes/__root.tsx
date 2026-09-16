@@ -16,7 +16,7 @@ export const Route = createRootRoute({
       { title: APP_NAME },
       {
         name: "description",
-        content: `${APP_NAME} — videos cortos hechos en México, para México.`,
+        content: `${APP_NAME} — el clip que mandas cuando preguntan ¿y allá cómo está?`,
       },
       { name: "theme-color", content: "#0d0c0b" },
     ],

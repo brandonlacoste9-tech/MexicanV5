@@ -11,6 +11,34 @@ export const Route = createFileRoute("/crear")({ component: Crear });
 
 const SOUNDS = [...new Set(SEED_CLIPS.map((clip) => clip.sound))];
 
+const STREET = [
+  {
+    label: "El puesto",
+    caption: "Pastor a las 2am. Si no hay piña, no es pastor.",
+    sound: "Trompo mix",
+  },
+  {
+    label: "El organillo",
+    caption: "El organillero en la esquina. La ciudad respira con él.",
+    sound: "Organillo",
+  },
+  {
+    label: "El estadio",
+    caption: "Cuando canta el estadio, se oye hasta la casa.",
+    sound: "Afición",
+  },
+  {
+    label: "El atardecer",
+    caption: "Esta luz no se queda. 15 segundos y ya se fue.",
+    sound: "Atardecer",
+  },
+  {
+    label: "La calle",
+    caption: "Así está la calle hoy. ¿Y allá cómo está?",
+    sound: "Calle",
+  },
+] as const;
+
 function Crear() {
   const { user, userId, guest, publish, submitIdea, openAuth, backend } = useOjea();
   const navigate = useNavigate();
@@ -37,6 +65,25 @@ function Crear() {
         {backend === "live" ? c.createLive : c.createOffline}
         {guest ? c.createGuest : null}
       </p>
+      <p className="mt-6 text-xs tracking-widest text-muted uppercase">{c.templatesLabel}</p>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {STREET.map((item) => (
+          <button
+            key={item.label}
+            type="button"
+            className="h-10 rounded-full border border-border px-3 text-sm text-muted hover:border-primary hover:text-primary"
+            onClick={() => {
+              setCaption(item.caption);
+              const hit = SOUNDS.find((s) =>
+                s.toLowerCase().includes(item.sound.toLowerCase()),
+              );
+              if (hit) setSound(hit);
+            }}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
       <label className="mt-6 block text-xs text-muted">{c.file}</label>
       <input
         type="file"
@@ -130,7 +177,7 @@ function Crear() {
               video: isVid ? preview ?? undefined : undefined,
               likes: 0,
               comments: [],
-              tags: ["parati"],
+              tags: [city.split(/\s+/)[0]!.toLowerCase(), "calle"],
               sound,
               soundArtist: artist,
             },

@@ -3,14 +3,16 @@ import { useEffect } from "react";
 import { ClipStage } from "@/components/clip-stage";
 import { FRIEND_USERS } from "@/lib/clips";
 import { matchesCulture } from "@/lib/culture";
+import { getHomeCity } from "@/lib/region";
 import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const { clips, tab, followed, hidden, setTab, countryFilter, seriesFilter } = useOjea();
+  const { clips, tab, followed, hidden, setTab, countryFilter, seriesFilter, city } = useOjea();
   const searchStr = useRouterState({ select: (s) => s.location.searchStr });
   const navigate = useNavigate();
+  const home = city || getHomeCity();
 
   useEffect(() => {
     const params = new URLSearchParams(
@@ -26,7 +28,7 @@ function Home() {
   }, [searchStr, navigate, setTab]);
 
   const list = clips.filter((c) => !hidden[c.id]).filter((c) => {
-    if (tab === "following") return followed[c.user];
+    if (tab === "following") return c.city === home;
     if (tab === "live") return c.live;
     if (tab === "friends") return followed[c.user] && FRIEND_USERS.includes(c.user);
     return matchesCulture(c, countryFilter, seriesFilter);

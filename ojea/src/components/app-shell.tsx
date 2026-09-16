@@ -6,7 +6,7 @@ import {
   PlusSquare,
   Search,
   UserRound,
-  Users,
+  MapPin,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { LangToggle } from "@/components/lang-toggle";
@@ -57,7 +57,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const sideNav: SideItem[] = [
     { to: "/", tab: "foryou", label: c.navForYou, icon: Home },
     { to: "/explorar", label: c.navExplore, icon: Compass },
-    { to: "/", tab: "following", label: c.followingTab, icon: Users },
+    { to: "/", tab: "following", label: c.followingTab, icon: MapPin },
     { to: "/crear", label: c.navUpload, icon: PlusSquare, plus: true },
     { to: "/inbox", label: c.navInbox, icon: Bell },
     { to: "/perfil", label: c.navProfile, icon: UserRound },

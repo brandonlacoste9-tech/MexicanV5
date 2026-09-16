@@ -28,6 +28,10 @@ export function clipShareUrl(clip: Clip) {
   return clipPermalink(clip.id);
 }
 
+export function clipShareText(clip: Clip) {
+  return `${clip.caption}\n${clip.city} · ${clip.sound}\n${clipShareUrl(clip)}`;
+}
+
 export function ActionRail({
   clip,
   onComments,
@@ -244,7 +248,7 @@ export function ShareDock({
           icon={<Copy className="size-4" />}
           label={c.copyLink}
           onClick={wrap(() => {
-            void navigator.clipboard?.writeText(clipShareUrl(clip));
+            void navigator.clipboard?.writeText(clipShareText(clip));
             bumpShares(clip.id);
             showToast(c.linkCopied);
           })}
@@ -255,7 +259,7 @@ export function ShareDock({
           onClick={wrap(() => {
             bumpShares(clip.id);
             window.open(
-              `https://wa.me/?text=${encodeURIComponent(`${clip.caption} ${clipShareUrl(clip)}`)}`,
+              `https://wa.me/?text=${encodeURIComponent(clipShareText(clip))}`,
               "_blank",
               "noopener,noreferrer",
             );
