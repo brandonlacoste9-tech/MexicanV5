@@ -219,7 +219,7 @@ export const copy = {
     account: "Cuenta",
     recoverLink: "Cambiar o recuperar contraseña",
     googleHint:
-      "Google se activa cuando MéxicoV5 tenga el cliente OAuth. Mientras, usa correo o invitado.",
+      "Continuar con Google ya está activo. También puedes entrar con correo.",
     legal: "Legal",
     terms: "Términos de uso",
     privacy: "Privacidad",
@@ -513,7 +513,7 @@ export const copy = {
     account: "Account",
     recoverLink: "Change or recover password",
     googleHint:
-      "Google turns on once MéxicoV5 has the OAuth client. Until then, use email or guest.",
+      "Continue with Google is on. Email sign-in still works.",
     legal: "Legal",
     terms: "Terms of use",
     privacy: "Privacy",
