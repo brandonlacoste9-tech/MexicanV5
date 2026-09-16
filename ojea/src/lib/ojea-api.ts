@@ -77,8 +77,8 @@ export function accountUsername(raw: string) {
 export function accountEmail(raw: string) {
   const trimmed = raw.trim();
   if (trimmed.includes("@")) return trimmed.toLowerCase();
-  const slug = accountUsername(trimmed) || "ojea";
-  return `${slug}@ojea.app`;
+  const slug = accountUsername(trimmed) || "otealo";
+  return `${slug}@otealo.app`;
 }
 
 function rowToClip(row: ClipRow, comments: Comment[]): Clip {
@@ -263,7 +263,7 @@ async function loadProfile(userId: string, fallbackName: string): Promise<Sessio
       city: data.city ?? null,
     };
   }
-  const username = accountUsername(fallbackName) || "ojea";
+  const username = accountUsername(fallbackName) || "otealo";
   await supabase.from("profiles").upsert({
     id: userId,
     username,
@@ -289,7 +289,7 @@ export async function readSession(): Promise<SessionProfile | null> {
   };
   return loadProfile(
     user.id,
-    meta.display_name || meta.username || user.email || "ojea",
+    meta.display_name || meta.username || user.email || "otealo",
   );
 }
 

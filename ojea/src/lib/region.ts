@@ -1,10 +1,10 @@
 /**
- * Ojea region pack — México / es-MX
+ * Otealo region pack — México / es-MX
  * Single source for brand, locale, cities, and feed tags.
  * Swap this file to retarget the app. Do not point at Zyeuté keys.
  */
 export const region = {
-  brand: "Ojea",
+  brand: "Otealo",
   tagline: "Videos de México",
   locale: "es-MX",
   locales: ["es-MX", "en"] as const,

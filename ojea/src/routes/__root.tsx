@@ -4,7 +4,9 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { AppShell } from "@/components/app-shell";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Ojea";
+import { region } from "@/lib/region";
+
+const APP_NAME = region.brand;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -14,7 +16,7 @@ export const Route = createRootRoute({
       { title: APP_NAME },
       {
         name: "description",
-        content: "Ojea — videos cortos hechos en México, para México.",
+        content: `${APP_NAME} — videos cortos hechos en México, para México.`,
       },
       { name: "theme-color", content: "#0d0c0b" },
     ],

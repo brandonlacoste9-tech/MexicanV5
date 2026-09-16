@@ -17,6 +17,7 @@ import { cn } from "@/lib/cn";
 import { hydrateLocale, useCopy } from "@/lib/i18n";
 import { AGE_KEY, AUTH_PATHS, ONBOARD_KEY, formatGuestRemaining } from "@/lib/session";
 import { initials, useOjea, type Tab } from "@/lib/store";
+import { region } from "@/lib/region";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -149,7 +150,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <aside className="fixed inset-y-0 left-0 z-20 hidden w-56 flex-col overflow-y-auto border-r border-border bg-surface px-4 py-6 no-scrollbar md:flex">
             <Link to="/" onClick={() => setTab("foryou")} className="mb-4 px-2">
               <p className="font-display text-2xl font-semibold tracking-[0.18em] text-primary">
-                OJEA
+                {region.brand.toUpperCase()}
               </p>
               <p className="mt-1 text-xs tracking-[0.16em] text-muted uppercase">
                 {c.tagline}
@@ -374,7 +375,7 @@ function AgeGate() {
     <div className="fixed inset-0 z-50 grid place-items-center bg-bg/92 p-4">
       <div className="auth-card w-full max-w-sm rounded-xl p-6 text-center">
         <LangToggle className="mx-auto" />
-        <p className="mt-4 font-display text-2xl text-primary">OJEA</p>
+        <p className="mt-4 font-display text-2xl text-primary">{region.brand.toUpperCase()}</p>
         <p className="mt-3 text-sm text-fg/90">{c.ageBody}</p>
         <button
           type="button"

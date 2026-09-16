@@ -260,7 +260,7 @@ export function ShareDock({
         />
         <SheetRow
           icon={<MessageCircle className="size-4" />}
-          label={c.sendOjea}
+          label={c.sendOtealo}
           onClick={wrap(() => {
             if (!user) {
               openAuth();

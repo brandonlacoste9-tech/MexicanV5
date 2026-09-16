@@ -1,12 +1,14 @@
-# Used when the Netlify base directory is ojea/.
-# Repo-root netlify.toml is the one ojea-mexico actually reads.
+# Otealo (MexicoV5) — Netlify production is a static SPA.
+# The Nitro serverless handler 500s on Netlify (`HTTPError`); Otealo does not
+# need SSR (client Supabase + zustand). Build writes HTML into dist/ and
+# drops the function. Live preview still uses `npm run dev`.
 
 [build]
   command = "NETLIFY_SPA_DROP_FUNCTIONS=1 npm run build:netlify"
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   NITRO_PRESET = "netlify"
 
 [[redirects]]

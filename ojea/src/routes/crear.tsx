@@ -16,7 +16,7 @@ function Crear() {
   const c = useCopy();
   const [caption, setCaption] = useState("");
   const [city, setCity] = useState<string>(() => getHomeCity());
-  const [sound, setSound] = useState(SOUNDS[0] ?? "Sonido Ojea");
+  const [sound, setSound] = useState(SOUNDS[0] ?? "Sonido Otealo");
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [pending, setPending] = useState(false);

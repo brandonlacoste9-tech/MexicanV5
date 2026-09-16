@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { LangToggle } from "@/components/lang-toggle";
 import { useCopy } from "@/lib/i18n";
+import { region } from "@/lib/region";
 
 export function AuthScreen({ children }: { children: ReactNode }) {
   const c = useCopy();
@@ -16,7 +17,7 @@ export function AuthScreen({ children }: { children: ReactNode }) {
             <span className="font-display text-4xl text-primary">O</span>
           </div>
           <h1 className="mt-5 font-display text-5xl tracking-[0.08em] text-primary">
-            OJEA
+            {region.brand.toUpperCase()}
           </h1>
           <p className="mt-2 text-xs font-semibold tracking-[0.28em] text-muted uppercase">
             {c.tagline}
