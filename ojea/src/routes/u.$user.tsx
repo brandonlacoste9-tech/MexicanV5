@@ -3,11 +3,20 @@ import { useEffect, useState } from "react";
 import { ClipGrid } from "@/components/clip-grid";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/lib/i18n";
+import { seoHead } from "@/lib/seo";
 import { fetchPublicProfile } from "@/lib/ojea-api";
 import { useOjea } from "@/lib/store";
 import { AvatarCircle } from "@/components/avatar";
 
-export const Route = createFileRoute("/u/$user")({ component: Creator });
+export const Route = createFileRoute("/u/$user")({
+  component: Creator,
+  head: ({ params }) =>
+    seoHead({
+      path: `/u/${encodeURIComponent(params.user)}`,
+      title: `@${params.user}`,
+      description: `Clips de @${params.user} en Otealo. Calle mexicana.`,
+    }),
+});
 
 function Creator() {
   const { user } = Route.useParams();

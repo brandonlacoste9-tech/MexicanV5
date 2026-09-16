@@ -5,9 +5,18 @@ import { CITIES, SEED_CLIPS } from "@/lib/clips";
 import { SERIES, SERIES_LABEL } from "@/lib/culture";
 import { getLocale, useCopy } from "@/lib/i18n";
 import { getHomeCity } from "@/lib/region";
+import { seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
-export const Route = createFileRoute("/crear")({ component: Crear });
+export const Route = createFileRoute("/crear")({
+  component: Crear,
+  head: () =>
+    seoHead({
+      path: "/crear",
+      title: "15 segundos en la calle",
+      noIndex: true,
+    }),
+});
 
 const STREET = [
   {

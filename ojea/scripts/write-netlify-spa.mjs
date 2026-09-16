@@ -68,7 +68,21 @@ function injectOg(html, meta) {
   const description = esc(meta.description);
   const url = esc(meta.url);
   const image = esc(meta.image);
+  const jsonLd = escJson({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: meta.title,
+    description: meta.description,
+    thumbnailUrl: meta.image,
+    contentUrl: meta.url,
+    uploadDate: "2026-09-01",
+    inLanguage: "es-MX",
+    regionsAllowed: "MX",
+    publisher: { "@type": "Organization", name: "Otealo", url: SITE },
+  });
   const tags = `
+  <link rel="canonical" href="${url}"/>
+  <meta property="og:locale" content="es_MX"/>
   <meta property="og:type" content="video.other"/>
   <meta property="og:site_name" content="Otealo"/>
   <meta property="og:title" content="${title}"/>
@@ -80,12 +94,26 @@ function injectOg(html, meta) {
   <meta name="twitter:title" content="${title}"/>
   <meta name="twitter:description" content="${description}"/>
   <meta name="twitter:image" content="${image}"/>
+  <script type="application/ld+json">${jsonLd}</script>
 `;
   let next = html.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
   if (next.includes("</head>")) next = next.replace("</head>", `${tags}</head>`);
   else next = tags + next;
   return next;
 }
+
+function escJson(value) {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
+}
+
+const SPAIN_CITIES = new Set([
+  "Madrid",
+  "Sevilla",
+  "Granada",
+  "Barcelona",
+  "Buñol",
+  "Santiago de Compostela",
+]);
 
 function parseLocalClips() {
   const catalog = {};
@@ -170,12 +198,48 @@ async function writeClipOgPages() {
   );
   let n = 0;
   for (const [id, meta] of Object.entries(catalog)) {
+    if (SPAIN_CITIES.has(meta.city)) continue;
     const dir = join(root, "dist/c", id);
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, "index.html"), injectOg(shell, meta));
     n += 1;
   }
   console.log("[netlify-spa] wrote", n, "clip OG pages");
+  writeSitemap(catalog);
+}
+
+function xmlUrl(loc, changefreq, priority) {
+  return `  <url>
+    <loc>${esc(loc)}</loc>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+}
+
+function writeSitemap(catalog) {
+  const rows = [
+    xmlUrl(`${SITE}/`, "hourly", "1.0"),
+    xmlUrl(`${SITE}/explorar`, "daily", "0.9"),
+    xmlUrl(`${SITE}/buscar`, "weekly", "0.5"),
+    xmlUrl(`${SITE}/terminos`, "yearly", "0.3"),
+    xmlUrl(`${SITE}/privacidad`, "yearly", "0.3"),
+  ];
+  const users = new Set();
+  for (const [id, meta] of Object.entries(catalog)) {
+    if (SPAIN_CITIES.has(meta.city)) continue;
+    rows.push(xmlUrl(`${SITE}/c/${encodeURIComponent(id)}`, "weekly", "0.7"));
+    if (meta.user) users.add(meta.user);
+  }
+  for (const user of users) {
+    rows.push(xmlUrl(`${SITE}/u/${encodeURIComponent(user)}`, "weekly", "0.4"));
+  }
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${rows.join("\n")}
+</urlset>
+`;
+  writeFileSync(join(root, "dist/sitemap.xml"), xml);
+  console.log("[netlify-spa] sitemap", rows.length, "urls");
 }
 
 async function loadFetcher() {

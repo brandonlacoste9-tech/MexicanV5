@@ -4,11 +4,13 @@ import { ClipStage } from "@/components/clip-stage";
 import { Button } from "@/components/ui/button";
 import type { Clip } from "@/lib/clips";
 import { useCopy } from "@/lib/i18n";
+import { clipSeo } from "@/lib/seo";
 import { fetchClipById } from "@/lib/ojea-api";
 import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/c/$id")({
   component: ClipPermalink,
+  head: ({ params }) => clipSeo(params.id),
 });
 
 function ClipPermalink() {

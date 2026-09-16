@@ -13,12 +13,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/lib/i18n";
 import { AUTH_PATHS } from "@/lib/session";
+import { seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/entrar")({
   validateSearch: (s: Record<string, unknown> & SearchSchemaInput) => ({
     from: typeof s.from === "string" ? s.from : undefined,
   }),
+  head: () => seoHead({ path: "/entrar", title: "Entrar", noIndex: true }),
   component: Entrar,
 });
 

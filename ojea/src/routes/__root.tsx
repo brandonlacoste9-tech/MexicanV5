@@ -4,23 +4,21 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { AppShell } from "@/components/app-shell";
 import appCss from "../styles.css?url";
 
-import { region } from "@/lib/region";
-
-const APP_NAME = region.brand;
+import { SEO, SITE, websiteJsonLd } from "@/lib/seo";
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: APP_NAME },
-      {
-        name: "description",
-        content: `${APP_NAME} — el clip que mandas cuando preguntan ¿y allá cómo está?`,
-      },
+      { title: SEO.title },
+      { name: "description", content: SEO.description },
       { name: "theme-color", content: "#0d0c0b" },
+      { name: "robots", content: "index,follow" },
+      { name: "author", content: "Otealo" },
     ],
     links: [
+      { rel: "canonical", href: `${SITE}/` },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
@@ -35,6 +33,10 @@ export const Route = createRootRoute({
     <html lang="es-MX" className="antialiased" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
       </head>
       <body>
         <PreviewHostBridge />

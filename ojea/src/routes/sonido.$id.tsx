@@ -1,9 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ClipGrid } from "@/components/clip-grid";
 import { useCopy } from "@/lib/i18n";
+import { seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
-export const Route = createFileRoute("/sonido/$id")({ component: Sonido });
+export const Route = createFileRoute("/sonido/$id")({
+  component: Sonido,
+  head: ({ params }) =>
+    seoHead({
+      path: `/sonido/${encodeURIComponent(params.id)}`,
+      title: params.id,
+      description: `Sonido “${params.id}” en Otealo. El clip y la calle que lo lleva.`,
+    }),
+});
 
 function Sonido() {
   const { id } = Route.useParams();

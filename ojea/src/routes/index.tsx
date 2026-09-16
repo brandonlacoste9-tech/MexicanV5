@@ -4,9 +4,17 @@ import { ClipStage } from "@/components/clip-stage";
 import { FRIEND_USERS } from "@/lib/clips";
 import { matchesCulture } from "@/lib/culture";
 import { getHomeCity } from "@/lib/region";
+import { SEO, seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  component: Home,
+  head: () =>
+    seoHead({
+      path: "/",
+      description: SEO.description,
+    }),
+});
 
 function Home() {
   const { clips, tab, followed, hidden, setTab, countryFilter, seriesFilter, city } = useOjea();

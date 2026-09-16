@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
+Allow: /c/
+Allow: /explorar
+Allow: /buscar
+Allow: /u/
+Allow: /tag/
+Allow: /sonido/
 Disallow: /entrar
 Disallow: /registro
 Disallow: /inbox
@@ -9,3 +15,4 @@ Disallow: /recuperar
 Disallow: /nueva-clave
 
 Sitemap: https://otealo.com/sitemap.xml
+Host: https://otealo.com

@@ -1,8 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/legal-page";
 import { useCopy } from "@/lib/i18n";
+import { seoHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/terminos")({ component: Terminos });
+export const Route = createFileRoute("/terminos")({
+  component: Terminos,
+  head: () =>
+    seoHead({
+      path: "/terminos",
+      title: "Términos de uso",
+      description: "Reglas de Otealo. App de clips de la calle mexicana.",
+    }),
+});
 
 function Terminos() {
   const c = useCopy();

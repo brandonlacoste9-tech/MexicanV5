@@ -1,9 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ClipGrid } from "@/components/clip-grid";
 import { useCopy } from "@/lib/i18n";
+import { seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
-export const Route = createFileRoute("/tag/$tag")({ component: TagPage });
+export const Route = createFileRoute("/tag/$tag")({
+  component: TagPage,
+  head: ({ params }) =>
+    seoHead({
+      path: `/tag/${encodeURIComponent(params.tag)}`,
+      title: `#${params.tag}`,
+      description: `Clips con #${params.tag} en Otealo. México, de la calle.`,
+    }),
+});
 
 function TagPage() {
   const { tag } = Route.useParams();

@@ -5,9 +5,19 @@ import { ClipGrid } from "@/components/clip-grid";
 import { EXPLORE_TAGS, STORIES } from "@/lib/clips";
 import { useCopy, useLocale } from "@/lib/i18n";
 import { region } from "@/lib/region";
+import { seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
-export const Route = createFileRoute("/explorar")({ component: Explorar });
+export const Route = createFileRoute("/explorar")({
+  component: Explorar,
+  head: () =>
+    seoHead({
+      path: "/explorar",
+      title: "Calles de México",
+      description:
+        "Ciudad, sonido, hora. Clips de CDMX, Guadalajara, Oaxaca, Monterrey y más — lo que reenvías, no un For You.",
+    }),
+});
 
 function Explorar() {
   const { clips, setIndex, setTab } = useOjea();

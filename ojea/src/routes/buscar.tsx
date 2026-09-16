@@ -5,6 +5,7 @@ import { ClipGrid } from "@/components/clip-grid";
 import { cn } from "@/lib/cn";
 import { useCopy, useLocale } from "@/lib/i18n";
 import { region } from "@/lib/region";
+import { seoHead } from "@/lib/seo";
 import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/buscar")({
@@ -12,6 +13,12 @@ export const Route = createFileRoute("/buscar")({
     q: typeof s.q === "string" ? s.q : undefined,
   }),
   component: Buscar,
+  head: () =>
+    seoHead({
+      path: "/buscar",
+      title: "Buscar",
+      description: "Busca ciudad, sonido o puesto en Otealo.",
+    }),
 });
 
 type SearchTab = "top" | "videos" | "users" | "sounds" | "tags";

@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { useCopy, type Copy } from "@/lib/i18n";
 import { useOjea, type Note } from "@/lib/store";
+import { seoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/inbox")({
   validateSearch: (s: Record<string, unknown> & SearchSchemaInput) => ({
     to: typeof s.to === "string" ? s.to : undefined,
   }),
+  head: () => seoHead({ path: "/inbox", title: "Buzón", noIndex: true }),
   component: Inbox,
 });
 

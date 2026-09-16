@@ -1,8 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/legal-page";
 import { useCopy } from "@/lib/i18n";
+import { seoHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/privacidad")({ component: Privacidad });
+export const Route = createFileRoute("/privacidad")({
+  component: Privacidad,
+  head: () =>
+    seoHead({
+      path: "/privacidad",
+      title: "Privacidad",
+      description: "Cómo Otealo trata tus datos. México.",
+    }),
+});
 
 function Privacidad() {
   const c = useCopy();
