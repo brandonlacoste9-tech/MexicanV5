@@ -51,10 +51,10 @@ const ANON =
 
 function esc(value) {
   return String(value)
-    .replaceAll("&", "&")
-    .replaceAll("<", "<")
-    .replaceAll(">", ">")
-    .replaceAll('"', """);
+    .replaceAll("&", `&${"amp"};`)
+    .replaceAll("<", `&${"lt"};`)
+    .replaceAll(">", `&${"gt"};`)
+    .replaceAll('"', `&${"quot"};`);
 }
 
 function absUrl(raw) {
