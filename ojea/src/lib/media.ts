@@ -11,7 +11,7 @@ export function isVideoUrl(url?: string | null) {
 
 /** Public MexicoV5 Storage URL for a seed clip. */
 export function seedClipVideoUrl(id: string) {
-  return `${SUPABASE_URL}/storage/v1/object/public/clips/seed/${encodeURIComponent(id)}.mp4`;
+  return `${SUPABASE_URL}/storage/v1/object/public/clips/seed/${encodeURIComponent(id)}.mp4?v=9x16`;
 }
 
 /** Public MexicoV5 Storage URL for a Mexico hashtag clip. */
