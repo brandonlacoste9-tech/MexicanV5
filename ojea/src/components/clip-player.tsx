@@ -37,6 +37,18 @@ export function ClipPlayer({
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
+    el.setAttribute("playsinline", "true");
+    el.setAttribute("webkit-playsinline", "true");
+    el.setAttribute("x5-playsinline", "true");
+    el.setAttribute("x5-video-player-type", "h5");
+    el.setAttribute("x5-video-player-fullscreen", "false");
+    el.playsInline = true;
+    el.muted = muted;
+  }, [attach, muted]);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
     if (active && !paused) {
       void el.play().catch(() => {});
     } else {
@@ -47,11 +59,6 @@ export function ClipPlayer({
       }
     }
   }, [active, paused, src, attach, near]);
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (el) el.muted = muted;
-  }, [muted, attach]);
 
   function seekFromEvent(e: PointerEvent<HTMLDivElement>) {
     const el = videoRef.current;
@@ -64,19 +71,11 @@ export function ClipPlayer({
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-bg">
-      <img
-        src={clip.image}
-        alt=""
-        className="absolute inset-0 size-full object-cover"
-      />
       {attach ? (
         <video
           ref={videoRef}
           src={src ?? undefined}
-          className={cn(
-            "absolute inset-0 size-full object-cover",
-            ready ? "opacity-100" : "opacity-0",
-          )}
+          className="clip-video"
           loop
           muted={muted}
           playsInline
@@ -100,6 +99,14 @@ export function ClipPlayer({
             const v = e.currentTarget;
             if (v.duration) setProgress(v.currentTime / v.duration);
           }}
+        />
+      ) : null}
+
+      {!ready ? (
+        <img
+          src={clip.image}
+          alt=""
+          className="absolute inset-0 z-[1] size-full object-contain bg-bg"
         />
       ) : null}
 

@@ -29,7 +29,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
       `[data-clip-index="${index}"]`,
     ) as HTMLElement | null;
     root.scrollTop = node ? node.offsetTop : 0;
-  }, [clips, tab]);
+  }, [tab]);
 
   useEffect(() => {
     setDeskPanel(null);
