@@ -22,38 +22,46 @@ export function ClipPlayer({
   const [buffering, setBuffering] = useState(false);
   const [failed, setFailed] = useState(false);
   const [seeking, setSeeking] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const hosted = clipVideoSrc(clip);
   const [src, setSrc] = useState(hosted);
-  const showVideo = Boolean(src) && !failed && (active || near);
+  const phone =
+    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+  const attach = Boolean(src) && !failed && (active || (!phone && near));
 
   useEffect(() => {
     setSrc(hosted);
     setFailed(false);
     setProgress(0);
-    setReady(false);
+    setPlaying(false);
   }, [hosted]);
 
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
     if (active && !paused) {
-      void el.play().catch(() => {
-        /* autoplay can fail until a gesture; mute stays on by default */
-      });
+      const play = el.play();
+      if (play) {
+        void play
+          .then(() => setPlaying(true))
+          .catch(() => {
+            /* autoplay can fail until a gesture; mute stays on by default */
+          });
+      }
     } else {
       el.pause();
+      setPlaying(false);
       if (!active && !near) {
         el.currentTime = 0;
         setProgress(0);
       }
     }
-  }, [active, paused, src, showVideo, near]);
+  }, [active, paused, src, attach, near]);
 
   useEffect(() => {
     const el = videoRef.current;
     if (el) el.muted = muted;
-  }, [muted, showVideo]);
+  }, [muted, attach]);
 
   function seekFromEvent(e: PointerEvent<HTMLDivElement>) {
     const el = videoRef.current;
@@ -65,31 +73,26 @@ export function ClipPlayer({
   }
 
   return (
-    <>
-      <img
-        src={clip.image}
-        alt=""
-        className="absolute inset-0 size-full object-cover"
-      />
-      {showVideo ? (
+    <div className="absolute inset-0 overflow-hidden bg-bg">
+      {attach ? (
         <video
           ref={videoRef}
           src={src ?? undefined}
-          poster={clip.image}
-          className={cn("clip-video", ready ? "opacity-100" : "opacity-0")}
+          className="clip-video"
           loop
-          playsInline
           muted={muted}
+          playsInline
           preload={active ? "auto" : "metadata"}
-          onLoadedData={() => setReady(true)}
+          disablePictureInPicture
+          controls={false}
           onWaiting={() => setBuffering(true)}
           onPlaying={() => {
             setBuffering(false);
-            setReady(true);
+            setPlaying(true);
           }}
-          onCanPlay={() => {
-            setBuffering(false);
-            setReady(true);
+          onCanPlay={() => setBuffering(false)}
+          onPause={() => {
+            if (!active || paused) setPlaying(false);
           }}
           onError={() => {
             const local = localClipVideoUrl(clip.id);
@@ -104,6 +107,14 @@ export function ClipPlayer({
         />
       ) : null}
 
+      {!playing ? (
+        <img
+          src={clip.image}
+          alt=""
+          className="absolute inset-0 z-[1] size-full object-cover"
+        />
+      ) : null}
+
       {buffering && active ? <span className="clip-buffer" aria-hidden /> : null}
 
       {paused && active && !holding ? (
@@ -112,7 +123,7 @@ export function ClipPlayer({
         </span>
       ) : null}
 
-      {showVideo && active ? (
+      {attach && active ? (
         <div
           className={cn("clip-seek", seeking && "is-active")}
           onPointerDown={(e) => {
@@ -139,6 +150,6 @@ export function ClipPlayer({
           </div>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
