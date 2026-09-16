@@ -12,6 +12,36 @@
   NITRO_PRESET = "netlify"
 
 [[redirects]]
+  from = "/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api/feed"
+  to = "/.netlify/functions/feed"
+  status = 200
+
+[[redirects]]
+  from = "/api/feed/*"
+  to = "/.netlify/functions/feed"
+  status = 200
+
+[[redirects]]
+  from = "/api/clips"
+  to = "/.netlify/functions/feed"
+  status = 200
+
+[[redirects]]
   from = "/c/*"
   to = "/.netlify/functions/clip-card"
   status = 200

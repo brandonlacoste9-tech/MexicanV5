@@ -60,11 +60,18 @@ function Creator() {
         <Button onClick={() => toggleFollow(user)}>
           {isFollowed ? c.following : c.follow}
         </Button>
-        <Link to="/inbox" search={{ to: user }} className="inline-flex">
-          <Button variant="gold-outline">{c.creatorMessage}</Button>
+        <Link
+          to="/inbox"
+          search={{ to: user }}
+          className="inline-flex h-11 items-center justify-center rounded-md border border-border bg-transparent px-4 text-sm font-medium text-primary"
+        >
+          {c.creatorMessage}
         </Link>
-        <Link to="/" className="inline-flex">
-          <Button variant="ghost">{c.seeInFeed}</Button>
+        <Link
+          to="/"
+          className="inline-flex h-11 items-center justify-center rounded-md px-4 text-sm font-medium text-fg hover:bg-elevated"
+        >
+          {c.seeInFeed}
         </Link>
       </div>
       <p className="mt-8 text-xs tracking-widest text-muted uppercase">

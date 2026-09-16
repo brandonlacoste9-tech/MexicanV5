@@ -143,7 +143,7 @@ let unsubLive: (() => void) | null = null;
 let unsubAuth: (() => void) | null = null;
 
 export const useOjea = create<State>()((set, get) => ({
-  clips: shuffleClips(mergeClipFeeds(SEED_CLIPS)),
+  clips: mergeClipFeeds(SEED_CLIPS),
   liked: {},
   saved: {},
   followed: {},
@@ -153,7 +153,7 @@ export const useOjea = create<State>()((set, get) => ({
   dms: [],
   directory: [],
   tab: "foryou",
-  countryFilter: "ALL",
+  countryFilter: "MX",
   seriesFilter: "ALL",
   index: 0,
   user: null,
@@ -167,7 +167,7 @@ export const useOjea = create<State>()((set, get) => ({
   guest: false,
   guestRemainingMs: 0,
   backend: "loading",
-  muted: typeof window === "undefined" ? true : readMuted(),
+  muted: true,
   paused: false,
   toast: null,
   authOpen: false,
@@ -369,6 +369,9 @@ export const useOjea = create<State>()((set, get) => ({
         guest: false,
         guestRemainingMs: 0,
         authOpen: false,
+        tab: "foryou",
+        index: 0,
+        paused: false,
         liked: { ...get().liked, ...engagement.liked },
         saved: { ...get().saved, ...engagement.saved },
         followed: { ...get().followed, ...engagement.followed },
@@ -403,6 +406,11 @@ export const useOjea = create<State>()((set, get) => ({
       guest: true,
       guestRemainingMs: remainingMs,
       authOpen: false,
+      tab: "foryou",
+      countryFilter: "MX",
+      seriesFilter: "ALL",
+      index: 0,
+      paused: false,
     });
   },
   logout: () => {
@@ -549,6 +557,9 @@ export const useOjea = create<State>()((set, get) => ({
       set({
         clips: shuffleClips(mergeClipFeeds(clips, SEED_CLIPS)),
         backend: "live",
+        muted: readMuted(),
+        paused: false,
+        tab: get().tab === "following" && !session ? "foryou" : get().tab,
         user: session?.username ?? (guestState.guest ? "invitado" : null),
         userId: session?.userId ?? null,
         displayName: session?.displayName ?? (guestState.guest ? "Invitado" : null),

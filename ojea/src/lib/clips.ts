@@ -1185,8 +1185,6 @@ const EDITORIAL_CLIPS: Clip[] = [
 
 export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS].map((c) => ({
   ...c,
-  user: "otealo",
-  displayName: "Otealo",
   likes: 0,
   comments: [],
   shares: 0,

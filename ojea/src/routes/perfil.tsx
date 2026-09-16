@@ -93,7 +93,7 @@ function Perfil() {
         ) : null}
       </div>
       <dl className="mt-8 grid grid-cols-3 gap-3 text-center">
-        <Stat n={userId ? mine.length : clips.length} label={c.clips} />
+        <Stat n={userId ? mine.length : 0} label={c.clips} />
         <Stat n={followingCount} label={c.followingTab} />
         <Stat n={savedClips.length} label={c.saved} />
       </dl>
@@ -120,12 +120,17 @@ function Perfil() {
         ))}
       </div>
       <div className="mt-4">
+        {!userId && pane === "clips" ? (
+          <p className="rounded-lg border border-border bg-elevated px-4 py-6 text-sm text-muted">
+            {c.profileAnon}
+          </p>
+        ) : (
         <ClipGrid
           clips={
             pane === "clips"
               ? userId
                 ? mine
-                : clips
+                : []
               : pane === "liked"
                 ? likedClips
                 : pane === "saved"
@@ -133,6 +138,7 @@ function Perfil() {
                   : repostClips
           }
         />
+        )}
       </div>
     </div>
   );

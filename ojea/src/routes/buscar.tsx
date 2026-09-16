@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Hash, Music2, Search, UserRound } from "lucide-react";
 import { useMemo, useState } from "react";
 import { ClipGrid } from "@/components/clip-grid";
@@ -7,20 +7,22 @@ import { useCopy, useLocale } from "@/lib/i18n";
 import { region } from "@/lib/region";
 import { useOjea } from "@/lib/store";
 
-export const Route = createFileRoute("/buscar")({ component: Buscar });
+export const Route = createFileRoute("/buscar")({
+  validateSearch: (s: Record<string, unknown>) => ({
+    q: typeof s.q === "string" ? s.q : undefined,
+  }),
+  component: Buscar,
+});
 
 type SearchTab = "top" | "videos" | "users" | "sounds" | "tags";
 
 function Buscar() {
+  const { q: qParam } = Route.useSearch();
   const { clips, setIndex, setTab } = useOjea();
   const navigate = useNavigate();
   const c = useCopy();
   const locale = useLocale((s) => s.locale);
-  const searchStr = useRouterState({ select: (s) => s.location.searchStr });
-  const initial = new URLSearchParams(
-    searchStr.startsWith("?") ? searchStr.slice(1) : searchStr,
-  ).get("q") ?? "";
-  const [q, setQ] = useState(initial);
+  const [q, setQ] = useState(qParam ?? "");
   const [pane, setPane] = useState<SearchTab>("top");
   const query = q.trim().toLowerCase();
 

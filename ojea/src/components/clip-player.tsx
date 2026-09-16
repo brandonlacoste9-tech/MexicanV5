@@ -50,7 +50,16 @@ export function ClipPlayer({
     const el = videoRef.current;
     if (!el) return;
     if (active && !paused) {
-      void el.play().catch(() => {});
+      const tryPlay = () => {
+        const p = el.play();
+        if (p) {
+          void p.catch(() => {
+            el.muted = true;
+            void el.play().catch(() => {});
+          });
+        }
+      };
+      tryPlay();
     } else {
       el.pause();
       if (!active && !near) {
@@ -78,6 +87,7 @@ export function ClipPlayer({
           className="clip-video"
           loop
           muted={muted}
+          autoPlay={active && !paused}
           playsInline
           preload={active ? "auto" : "metadata"}
           disablePictureInPicture

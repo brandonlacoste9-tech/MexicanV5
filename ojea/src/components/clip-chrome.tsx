@@ -53,8 +53,8 @@ export function ActionRail({
   const isLiked = !!liked[clip.id];
   const isSaved = !!saved[clip.id];
   const isFollowed = !!followed[clip.user];
-  const saveCount = Math.max(1, Math.round(clip.likes / 6) + (isSaved ? 1 : 0));
-  const shareCount = clip.shares ?? Math.max(1, Math.round(clip.likes / 14));
+  const saveCount = (clip.likes ? Math.round(clip.likes / 6) : 0) + (isSaved ? 1 : 0);
+  const shareCount = clip.shares ?? 0;
 
   return (
     <div className="flex flex-col items-center gap-3">

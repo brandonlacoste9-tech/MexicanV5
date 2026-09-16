@@ -94,12 +94,23 @@ function Crear() {
         ))}
       </select>
       {error ? <p className="mt-3 text-sm text-live">{error}</p> : null}
+      {!userId ? (
+        <Button
+          className="mt-6 w-full"
+          size="lg"
+          onClick={() => {
+            void navigate({ to: "/entrar", search: { from: "/crear" } });
+          }}
+        >
+          {c.publishNeedLogin}
+        </Button>
+      ) : (
       <Button
         className="mt-6 w-full"
         size="lg"
         disabled={pending}
         onClick={() => {
-          if (!userId || !user) {
+          if (!user) {
             openAuth();
             return;
           }
@@ -135,12 +146,9 @@ function Crear() {
             });
         }}
       >
-        {userId
-          ? pending
-            ? c.publishing
-            : c.publish
-          : c.publishNeedLogin}
+        {pending ? c.publishing : c.publish}
       </Button>
+      )}
 
       <h2 className="mt-12 font-display text-2xl tracking-tight">{c.ideaTitle}</h2>
       <p className="mt-2 text-sm text-muted">{c.ideaLead}</p>

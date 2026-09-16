@@ -156,13 +156,25 @@ export function AppShell({ children }: { children: ReactNode }) {
               </p>
             </Link>
             <LangToggle className="mb-4 self-start" />
-            <Link
-              to="/buscar"
-              className="mb-4 flex h-10 items-center gap-2 rounded-md border border-border bg-bg px-3 text-sm text-muted hover:text-fg"
+            <form
+              className="mb-4 flex h-10 items-center gap-2 rounded-md border border-border bg-bg px-3 text-sm"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const q = String(new FormData(e.currentTarget).get("q") ?? "").trim();
+                void navigate({
+                  to: "/buscar",
+                  search: { q: q || undefined },
+                });
+              }}
             >
-              <Search className="size-4 shrink-0" />
-              <span className="truncate">{c.searchPh}</span>
-            </Link>
+              <Search className="size-4 shrink-0 text-muted" />
+              <input
+                name="q"
+                type="search"
+                placeholder={c.searchPh}
+                className="min-w-0 flex-1 bg-transparent text-sm text-fg outline-none placeholder:text-muted"
+              />
+            </form>
             <nav className="flex flex-1 flex-col gap-1">
               {sideNav.map((item) => {
                 const Icon = item.icon;

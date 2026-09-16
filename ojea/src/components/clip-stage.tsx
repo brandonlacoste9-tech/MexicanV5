@@ -105,6 +105,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
         <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between px-3 pt-4 md:px-4">
           <Link
             to="/buscar"
+            search={{ q: undefined }}
             aria-label={c.navSearch}
             className="pointer-events-auto grid size-10 place-items-center rounded-full bg-bg/40 text-fg md:invisible"
           >
@@ -347,7 +348,7 @@ function ClipCard({
               {isFollowed ? c.following : c.follow}
             </button>
           </p>
-          <p className={cn("mt-1 text-sm leading-snug text-fg/90", !expand && "line-clamp-2")}>
+          <p className={cn("mt-1 whitespace-pre-line text-sm leading-snug text-fg/90", !expand && "line-clamp-2")}>
             {clip.caption}
           </p>
           {longCaption ? (
