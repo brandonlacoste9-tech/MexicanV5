@@ -180,7 +180,7 @@ export function inferSeries(clip: { series?: SeriesId; tags: string[] }): Series
     return "HistorySnack";
   if (tags.some((t) => ["tacos", "elote", "comida", "cacao", "churros"].includes(t)))
     return "FoodLab";
-  if (tags.some((t) => ["muertos", "fiesta", "mariachi"].includes(t))) return "FestivalFiles";
+  if (tags.some((t) => ["muertos", "fiesta", "mariachi", "independencia", "grito"].includes(t))) return "FestivalFiles";
   return "MexicoIn30s";
 }
 

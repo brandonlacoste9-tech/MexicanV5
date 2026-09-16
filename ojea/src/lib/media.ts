@@ -31,7 +31,10 @@ export function clipVideoSrc(clip: Clip) {
   const raw = clip.video || (isVideoUrl(clip.image) ? clip.image : null);
   if (!raw) return seedClipVideoUrl(clip.id);
   const local = raw.match(LOCAL_CLIP);
-  if (local) return seedClipVideoUrl(local[1]);
+  if (local) {
+    if (local[1].startsWith("ind-")) return raw;
+    return seedClipVideoUrl(local[1]);
+  }
   const seed = raw.match(/\/clips\/seed\/([^/?#]+)\.mp4/i);
   if (seed) return seedClipVideoUrl(seed[1]);
   return raw;

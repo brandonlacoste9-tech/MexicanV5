@@ -45,10 +45,11 @@ export const region = {
     { id: "musica", es: "Música", en: "Music", match: ["musica", "mariachi", "cumbia", "sonido", "banda", "folklor", "jarabe"] },
     { id: "futbol", es: "Fútbol", en: "Soccer", match: ["futbol", "gol", "estadio", "aficion", "azteca"] },
     { id: "playa", es: "Playa", en: "Beach", match: ["playa", "cancun", "mar", "caribe", "cenote", "vallarta"] },
-    { id: "lucha", es: "Lucha", en: "Lucha", match: ["lucha", "arena"] },
+    { id: "fiesta", es: "Fiestas", en: "Festivals", match: ["independencia", "grito", "fiesta", "muertos", "nogada"] },
     { id: "cdmx", es: "CDMX", en: "CDMX", match: ["cdmx", "roma", "ciudad", "zocalo", "reforma"] },
   ],
   trending: [
+    { q: "independencia", es: "El Grito", en: "Independence" },
     { q: "tacos", es: "Tacos al pastor", en: "Tacos al pastor" },
     { q: "piramide", es: "Pirámides", en: "Pyramids" },
     { q: "mariachi", es: "Mariachi", en: "Mariachi" },
