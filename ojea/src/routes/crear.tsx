@@ -213,7 +213,7 @@ function Crear() {
         onChange={(e) => setIdeaSeries(e.target.value as (typeof SERIES)[number])}
         className="mt-1 h-11 w-full rounded-md border border-border bg-surface px-3 text-sm outline-none focus:outline-2 focus:outline-primary"
       >
-        {SERIES.map((id) => (
+        {SERIES.filter((id) => id !== "SpainIn30s").map((id) => (
           <option key={id} value={id}>
             {SERIES_LABEL[id][getLocale() === "en" ? "en" : "es"]}
           </option>
@@ -226,8 +226,6 @@ function Crear() {
         className="mt-1 h-11 w-full rounded-md border border-border bg-surface px-3 text-sm outline-none focus:outline-2 focus:outline-primary"
       >
         <option value="MX">{c.filterMx}</option>
-        <option value="ES">{c.filterEs}</option>
-        <option value="BOTH">{c.filterAll}</option>
       </select>
       <label className="mt-4 block text-xs text-muted">{c.ideaScript}</label>
       <textarea

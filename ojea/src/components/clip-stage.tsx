@@ -18,7 +18,7 @@ import { SERIES, SERIES_LABEL, type SeriesId } from "@/lib/culture";
 import { formatCount, useOjea } from "@/lib/store";
 
 export function ClipStage({ clips }: { clips: Clip[] }) {
-  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, countryFilter, seriesFilter, setCountryFilter, setSeriesFilter, clips: allClips, followed, toggleFollow, avatars, cinema } =
+  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, seriesFilter, setSeriesFilter, clips: allClips, followed, toggleFollow, avatars, cinema } =
     useOjea();
   const c = useCopy();
   const scroller = useRef<HTMLDivElement>(null);
@@ -130,32 +130,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
         ) : null}
         {!cinema && tab === "foryou" ? (
         <div className="pointer-events-auto absolute inset-x-0 top-[3.75rem] z-20 flex gap-1.5 overflow-x-auto no-scrollbar px-3 md:top-16">
-          {(
-            [
-              ["ALL", c.filterAll],
-              ["MX", c.filterMx],
-              ["ES", c.filterEs],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setCountryFilter(id)}
-              className={cn(
-                "shrink-0 rounded-full px-3 py-1 text-[11px] font-medium",
-                countryFilter === id
-                  ? "bg-primary text-primary-fg"
-                  : "bg-bg/50 text-fg",
-              )}
-            >
-              {label}
-            </button>
-          ))}
-          {SERIES.filter((id) => {
-            if (countryFilter === "MX" && id === "SpainIn30s") return false;
-            if (countryFilter === "ES" && id === "MexicoIn30s") return false;
-            return true;
-          }).map((id) => (
+          {SERIES.filter((id) => id !== "SpainIn30s").map((id) => (
             <button
               key={id}
               type="button"

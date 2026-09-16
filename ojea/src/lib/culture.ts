@@ -196,8 +196,8 @@ export function matchesCulture(
 ) {
   const c = inferCountry(clip);
   const s = inferSeries(clip);
+  if (c === "ES" || s === "SpainIn30s") return false;
   if (country === "MX" && c === "ES") return false;
-  if (country === "ES" && c === "MX") return false;
   if (country === "BOTH" && c !== "BOTH") return false;
   if (series !== "ALL" && s !== series) return false;
   return true;
