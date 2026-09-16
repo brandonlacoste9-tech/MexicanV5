@@ -7,6 +7,7 @@ import {
   fetchEngagement,
   fetchUsernames,
   persistClip,
+  persistClipIdea,
   persistComment,
   persistFollow,
   persistLike,
@@ -32,6 +33,7 @@ import {
   type DirectMessage,
 } from "./ojea-api";
 import { setHomeCity, type RegionCity } from "./region";
+import type { ClipCountry, SeriesId } from "./culture";
 import {
   clearGuestSession,
   readGuestSession,
@@ -69,6 +71,8 @@ type State = {
   dms: DirectMessage[];
   directory: DirectoryUser[];
   tab: Tab;
+  countryFilter: "ALL" | ClipCountry;
+  seriesFilter: "ALL" | SeriesId;
   index: number;
   user: string | null;
   userId: string | null;
@@ -86,6 +90,8 @@ type State = {
   toast: string | null;
   authOpen: boolean;
   setTab: (tab: Tab) => void;
+  setCountryFilter: (f: "ALL" | ClipCountry) => void;
+  setSeriesFilter: (f: "ALL" | SeriesId) => void;
   setIndex: (i: number) => void;
   toggleLike: (id: string) => void;
   toggleSave: (id: string) => void;
@@ -96,6 +102,13 @@ type State = {
   bumpShares: (id: string) => void;
   addComment: (id: string, text: string) => void;
   publish: (clip: Clip, file?: File | null) => Promise<void>;
+  submitIdea: (input: {
+    title: string;
+    series: string;
+    country: string;
+    scriptOutline: string;
+    notes?: string;
+  }) => Promise<string | null>;
   login: (
     name: string,
     password: string,
@@ -140,6 +153,8 @@ export const useOjea = create<State>()((set, get) => ({
   dms: [],
   directory: [],
   tab: "foryou",
+  countryFilter: "ALL",
+  seriesFilter: "ALL",
   index: 0,
   user: null,
   userId: null,
@@ -157,6 +172,8 @@ export const useOjea = create<State>()((set, get) => ({
   toast: null,
   authOpen: false,
   setTab: (tab) => set({ tab, index: 0, paused: false }),
+  setCountryFilter: (countryFilter) => set({ countryFilter, index: 0, paused: false }),
+  setSeriesFilter: (seriesFilter) => set({ seriesFilter, index: 0, paused: false }),
   setIndex: (index) => set({ index, paused: false }),
   toggleLike: (id) => {
     const liked = !get().liked[id];
@@ -313,6 +330,21 @@ export const useOjea = create<State>()((set, get) => ({
       set({ clips: get().clips.filter((c) => c.id !== next.id) });
       get().showToast(tCopy().errPublish);
       throw new Error("publish failed");
+    }
+  },
+  submitIdea: async (input) => {
+    const userId = get().userId;
+    if (!userId) {
+      get().openAuth();
+      return tCopy().reportedNeedLogin;
+    }
+    if (!input.title.trim() || !input.scriptOutline.trim()) return tCopy().ideaNeed;
+    try {
+      await persistClipIdea({ userId, ...input });
+      get().showToast(tCopy().ideaOk);
+      return null;
+    } catch (err) {
+      return err instanceof Error ? err.message : tCopy().ideaFail;
     }
   },
   login: async (name, password, mode, email) => {

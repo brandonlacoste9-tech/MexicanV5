@@ -2,7 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CITIES, SEED_CLIPS } from "@/lib/clips";
-import { useCopy } from "@/lib/i18n";
+import { SERIES, SERIES_LABEL } from "@/lib/culture";
+import { getLocale, useCopy } from "@/lib/i18n";
 import { getHomeCity } from "@/lib/region";
 import { useOjea } from "@/lib/store";
 
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/crear")({ component: Crear });
 const SOUNDS = [...new Set(SEED_CLIPS.map((clip) => clip.sound))];
 
 function Crear() {
-  const { user, userId, guest, publish, openAuth, backend } = useOjea();
+  const { user, userId, guest, publish, submitIdea, openAuth, backend } = useOjea();
   const navigate = useNavigate();
   const c = useCopy();
   const [caption, setCaption] = useState("");
@@ -21,6 +22,13 @@ function Crear() {
   const [file, setFile] = useState<File | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [ideaTitle, setIdeaTitle] = useState("");
+  const [ideaSeries, setIdeaSeries] = useState<(typeof SERIES)[number]>("MexicoIn30s");
+  const [ideaCountry, setIdeaCountry] = useState("MX");
+  const [ideaScript, setIdeaScript] = useState("");
+  const [ideaNotes, setIdeaNotes] = useState("");
+  const [ideaPending, setIdeaPending] = useState(false);
+  const [ideaError, setIdeaError] = useState<string | null>(null);
 
   return (
     <div className="mx-auto max-w-lg px-5 py-10">
@@ -132,6 +140,82 @@ function Crear() {
             ? c.publishing
             : c.publish
           : c.publishNeedLogin}
+      </Button>
+
+      <h2 className="mt-12 font-display text-2xl tracking-tight">{c.ideaTitle}</h2>
+      <p className="mt-2 text-sm text-muted">{c.ideaLead}</p>
+      <label className="mt-4 block text-xs text-muted">{c.ideaName}</label>
+      <input
+        value={ideaTitle}
+        onChange={(e) => setIdeaTitle(e.target.value)}
+        className="mt-1 h-11 w-full rounded-md border border-border bg-surface px-3 text-sm outline-none focus:outline-2 focus:outline-primary"
+      />
+      <label className="mt-4 block text-xs text-muted">{c.ideaSeries}</label>
+      <select
+        value={ideaSeries}
+        onChange={(e) => setIdeaSeries(e.target.value as (typeof SERIES)[number])}
+        className="mt-1 h-11 w-full rounded-md border border-border bg-surface px-3 text-sm outline-none focus:outline-2 focus:outline-primary"
+      >
+        {SERIES.map((id) => (
+          <option key={id} value={id}>
+            {SERIES_LABEL[id][getLocale() === "en" ? "en" : "es"]}
+          </option>
+        ))}
+      </select>
+      <label className="mt-4 block text-xs text-muted">{c.ideaCountry}</label>
+      <select
+        value={ideaCountry}
+        onChange={(e) => setIdeaCountry(e.target.value)}
+        className="mt-1 h-11 w-full rounded-md border border-border bg-surface px-3 text-sm outline-none focus:outline-2 focus:outline-primary"
+      >
+        <option value="MX">{c.filterMx}</option>
+        <option value="ES">{c.filterEs}</option>
+        <option value="BOTH">{c.filterAll}</option>
+      </select>
+      <label className="mt-4 block text-xs text-muted">{c.ideaScript}</label>
+      <textarea
+        value={ideaScript}
+        onChange={(e) => setIdeaScript(e.target.value)}
+        rows={4}
+        className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:outline-2 focus:outline-primary"
+      />
+      <label className="mt-4 block text-xs text-muted">{c.ideaNotes}</label>
+      <textarea
+        value={ideaNotes}
+        onChange={(e) => setIdeaNotes(e.target.value)}
+        rows={2}
+        className="mt-1 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:outline-2 focus:outline-primary"
+      />
+      {ideaError ? <p className="mt-2 text-sm text-live">{ideaError}</p> : null}
+      <Button
+        className="mt-4 mb-8 w-full"
+        variant="gold-outline"
+        disabled={ideaPending}
+        onClick={() => {
+          if (!userId) {
+            openAuth();
+            return;
+          }
+          setIdeaPending(true);
+          setIdeaError(null);
+          void submitIdea({
+            title: ideaTitle,
+            series: ideaSeries,
+            country: ideaCountry,
+            scriptOutline: ideaScript,
+            notes: ideaNotes,
+          }).then((err) => {
+            setIdeaPending(false);
+            if (err) setIdeaError(err);
+            else {
+              setIdeaTitle("");
+              setIdeaScript("");
+              setIdeaNotes("");
+            }
+          });
+        }}
+      >
+        {c.ideaSend}
       </Button>
     </div>
   );

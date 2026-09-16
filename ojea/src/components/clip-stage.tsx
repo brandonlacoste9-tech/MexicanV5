@@ -12,11 +12,12 @@ import {
 import { LangToggle } from "@/components/lang-toggle";
 import { cn } from "@/lib/cn";
 import type { Clip } from "@/lib/clips";
-import { useCopy } from "@/lib/i18n";
+import { getLocale, useCopy } from "@/lib/i18n";
+import { SERIES, SERIES_LABEL, type SeriesId } from "@/lib/culture";
 import { formatCount, useOjea } from "@/lib/store";
 
 export function ClipStage({ clips }: { clips: Clip[] }) {
-  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave } =
+  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, countryFilter, seriesFilter, setCountryFilter, setSeriesFilter } =
     useOjea();
   const c = useCopy();
   const scroller = useRef<HTMLDivElement>(null);
@@ -122,6 +123,46 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
             />
           </div>
           <LangToggle compact className="pointer-events-auto md:invisible" />
+        </div>
+        <div className="pointer-events-auto absolute inset-x-0 top-[3.75rem] z-20 flex gap-1.5 overflow-x-auto no-scrollbar px-3 md:top-16">
+          {(
+            [
+              ["ALL", c.filterAll],
+              ["MX", c.filterMx],
+              ["ES", c.filterEs],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setCountryFilter(id)}
+              className={cn(
+                "shrink-0 rounded-full px-3 py-1 text-[11px] font-medium",
+                countryFilter === id
+                  ? "bg-primary text-primary-fg"
+                  : "bg-bg/50 text-fg",
+              )}
+            >
+              {label}
+            </button>
+          ))}
+          {SERIES.map((id) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() =>
+                setSeriesFilter(seriesFilter === id ? "ALL" : (id as SeriesId))
+              }
+              className={cn(
+                "shrink-0 rounded-full px-3 py-1 text-[11px] font-medium",
+                seriesFilter === id
+                  ? "bg-primary text-primary-fg"
+                  : "bg-bg/50 text-fg",
+              )}
+            >
+              {SERIES_LABEL[id][getLocale() === "en" ? "en" : "es"]}
+            </button>
+          ))}
         </div>
 
         {clips.length === 0 ? (

@@ -36,6 +36,8 @@ type ClipRow = {
   sound_artist: string;
   live: boolean | null;
   viewers: number | null;
+  series: string | null;
+  country: string | null;
 };
 
 type CommentRow = {
@@ -94,6 +96,8 @@ function rowToClip(row: ClipRow, comments: Comment[]): Clip {
     soundArtist: row.sound_artist,
     live: Boolean(row.live),
     viewers: row.viewers ?? undefined,
+    series: (row.series as Clip["series"]) ?? undefined,
+    country: (row.country as Clip["country"]) ?? undefined,
   };
 }
 
@@ -103,7 +107,7 @@ export async function fetchClips(): Promise<Clip[]> {
       supabase
         .from("clips")
         .select(
-          "id,username,display_name,caption,city,image,video,likes_count,tags,sound,sound_artist,live,viewers",
+          "id,username,display_name,caption,city,image,video,likes_count,tags,sound,sound_artist,live,viewers,series,country",
         )
         .order("created_at", { ascending: false }),
       supabase
@@ -367,8 +371,30 @@ export async function persistClip(clip: Clip, authorId: string) {
     sound_artist: clip.soundArtist,
     live: Boolean(clip.live),
     viewers: clip.viewers ?? null,
+    series: clip.series ?? "MexicoIn30s",
+    country: clip.country ?? "MX",
   });
   if (error) throw error;
+}
+
+export async function persistClipIdea(input: {
+  userId: string;
+  title: string;
+  series: string;
+  country: string;
+  scriptOutline: string;
+  notes?: string;
+}) {
+  const { error } = await supabase.from("clip_submissions").insert({
+    user_id: input.userId,
+    title: input.title.trim(),
+    series: input.series,
+    country: input.country,
+    script_outline: input.scriptOutline.trim(),
+    notes: input.notes?.trim() || null,
+    status: "pending",
+  });
+  if (error) throw new Error(asError(error, tCopy().ideaFail));
 }
 
 async function loadProfile(

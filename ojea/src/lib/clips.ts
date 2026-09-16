@@ -1,5 +1,6 @@
 import { seedClipVideoUrl } from "./media";
 import { region } from "./region";
+import { CALENDAR_CLIPS, inferCountry, inferSeries, type ClipCountry, type SeriesId } from "./culture";
 
 export type Comment = { user: string; text: string };
 
@@ -21,6 +22,8 @@ export type Clip = {
   viewers?: number;
   shares?: number;
   friend?: boolean;
+  series?: SeriesId;
+  country?: ClipCountry;
 };
 
 const RAW_CLIPS: Clip[] = [
@@ -1180,7 +1183,7 @@ const EDITORIAL_CLIPS: Clip[] = [
   },
 ];
 
-export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS].map((c) => ({
+export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS].map((c) => ({
   ...c,
   user: "otealo",
   displayName: "Otealo",
@@ -1192,6 +1195,8 @@ export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS].map((c) => 
   following: false,
   friend: false,
   video: c.video ?? seedClipVideoUrl(c.id),
+  series: inferSeries(c),
+  country: inferCountry(c),
 }));
 
 export function mergeClipFeeds(...lists: Clip[][]) {

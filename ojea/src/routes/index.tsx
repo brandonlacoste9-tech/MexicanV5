@@ -2,12 +2,13 @@ import { createFileRoute, useNavigate, useRouterState } from "@tanstack/react-ro
 import { useEffect } from "react";
 import { ClipStage } from "@/components/clip-stage";
 import { FRIEND_USERS } from "@/lib/clips";
+import { matchesCulture } from "@/lib/culture";
 import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const { clips, tab, followed, hidden, setTab } = useOjea();
+  const { clips, tab, followed, hidden, setTab, countryFilter, seriesFilter } = useOjea();
   const searchStr = useRouterState({ select: (s) => s.location.searchStr });
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ function Home() {
     if (tab === "following") return followed[c.user];
     if (tab === "live") return c.live;
     if (tab === "friends") return followed[c.user] && FRIEND_USERS.includes(c.user);
-    return true;
+    return matchesCulture(c, countryFilter, seriesFilter);
   });
 
   return <ClipStage clips={list} />;
