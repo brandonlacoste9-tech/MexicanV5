@@ -4,19 +4,21 @@ import { ClipGrid } from "@/components/clip-grid";
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/lib/i18n";
 import { fetchPublicProfile } from "@/lib/ojea-api";
-import { initials, useOjea } from "@/lib/store";
+import { useOjea } from "@/lib/store";
+import { AvatarCircle } from "@/components/avatar";
 
 export const Route = createFileRoute("/u/$user")({ component: Creator });
 
 function Creator() {
   const { user } = Route.useParams();
-  const { clips, followed, toggleFollow } = useOjea();
+  const { clips, followed, toggleFollow, avatars } = useOjea();
   const c = useCopy();
   const theirs = clips.filter((clip) => clip.user === user);
   const [profile, setProfile] = useState<{
     displayName: string;
     city: string | null;
     bio: string | null;
+    avatarUrl: string | null;
   } | null>(null);
   const name = profile?.displayName ?? theirs[0]?.displayName ?? user;
   const city = profile?.city ?? theirs[0]?.city;
@@ -30,6 +32,7 @@ function Creator() {
           displayName: row.displayName,
           city: row.city,
           bio: row.bio,
+          avatarUrl: row.avatarUrl,
         });
       }
     });
@@ -41,9 +44,7 @@ function Creator() {
   return (
     <div className="mx-auto max-w-lg px-5 py-10">
       <div className="flex items-center gap-4">
-        <span className="grid size-16 place-items-center rounded-full border border-primary bg-elevated font-display text-xl text-primary">
-          {initials(name)}
-        </span>
+        <AvatarCircle name={name} src={profile?.avatarUrl ?? avatars[user]} size="lg" />
         <div>
           <h1 className="font-display text-3xl tracking-tight">@{user}</h1>
           <p className="text-sm text-muted">

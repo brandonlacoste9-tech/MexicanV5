@@ -8,6 +8,7 @@ import { useCopy } from "@/lib/i18n";
 import { getHomeCity } from "@/lib/region";
 import { formatGuestRemaining } from "@/lib/session";
 import { useOjea } from "@/lib/store";
+import { AvatarCircle } from "@/components/avatar";
 
 export const Route = createFileRoute("/perfil")({ component: Perfil });
 
@@ -18,6 +19,7 @@ function Perfil() {
     displayName,
     city,
     bio,
+    avatarUrl,
     guest,
     guestRemainingMs,
     clips,
@@ -40,7 +42,13 @@ function Perfil() {
   return (
     <div className="mx-auto max-w-lg px-5 py-10">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="flex min-w-0 items-start gap-4">
+          <AvatarCircle
+            name={displayName || user || "Otealo"}
+            src={avatarUrl}
+            size="xl"
+          />
+          <div>
           <h1 className="font-display text-3xl tracking-tight">
             {user ? `@${user}` : c.profile}
           </h1>
@@ -52,6 +60,7 @@ function Perfil() {
             {city || getHomeCity()} · {c.hiveMexico}
           </p>
           {bio ? <p className="mt-3 max-w-sm text-sm text-fg/90">{bio}</p> : null}
+          </div>
         </div>
         <Link to="/ajustes" className="text-xs text-primary hover:underline">
           {c.settings}

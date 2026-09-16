@@ -16,7 +16,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { hydrateLocale, useCopy } from "@/lib/i18n";
 import { AGE_KEY, AUTH_PATHS, ONBOARD_KEY, formatGuestRemaining } from "@/lib/session";
-import { initials, useOjea, type Tab } from "@/lib/store";
+import { useOjea, type Tab } from "@/lib/store";
+import { AvatarCircle } from "@/components/avatar";
 import { region } from "@/lib/region";
 import { isFeedPath } from "@/lib/clip-link";
 
@@ -41,6 +42,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     followed,
     toggleFollow,
     clips,
+    avatars,
   } = useOjea();
   const unread = notes.filter((n) => n.unread).length;
   const hideChrome = AUTH_PATHS.has(pathname);
@@ -205,9 +207,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                       <Link
                         to="/u/$user"
                         params={{ user: item.user }}
-                        className="grid size-8 shrink-0 place-items-center rounded-full bg-elevated text-[10px] text-primary"
+                        className="shrink-0"
                       >
-                        {initials(item.displayName)}
+                        <AvatarCircle
+                          name={item.displayName}
+                          src={avatars[item.user]}
+                          size="sm"
+                          className="size-8 text-[10px]"
+                        />
                       </Link>
                       <Link
                         to="/u/$user"

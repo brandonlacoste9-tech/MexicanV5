@@ -11,6 +11,7 @@ export type SessionProfile = {
   city: string | null;
   bio: string | null;
   email: string | null;
+  avatarUrl: string | null;
 };
 
 export type DirectMessage = {
@@ -250,6 +251,37 @@ export async function uploadClipMedia(userId: string, file: File) {
   return data.publicUrl;
 }
 
+export async function uploadAvatar(userId: string, file: File): Promise<string> {
+  const type = file.type.toLowerCase();
+  const ok =
+    type === "image/jpeg" ||
+    type === "image/jpg" ||
+    type === "image/png" ||
+    type === "image/webp" ||
+    /\.(jpe?g|png|webp)$/i.test(file.name);
+  if (!ok) throw new Error(tCopy().photoBadType);
+  if (file.size > 2 * 1024 * 1024) throw new Error(tCopy().photoTooBig);
+  const ext = type.includes("png")
+    ? "png"
+    : type.includes("webp")
+      ? "webp"
+      : "jpg";
+  const path = `${userId}/avatar.${ext}`;
+  const { error } = await supabase.storage.from("clips").upload(path, file, {
+    upsert: true,
+    contentType: file.type || "image/jpeg",
+  });
+  if (error) throw new Error(asError(error, tCopy().photoFail));
+  const { data } = supabase.storage.from("clips").getPublicUrl(path);
+  const url = `${data.publicUrl}?t=${Date.now()}`;
+  const { error: upErr } = await supabase
+    .from("profiles")
+    .update({ avatar_url: url })
+    .eq("id", userId);
+  if (upErr) throw new Error(asError(upErr, tCopy().photoFail));
+  return url;
+}
+
 export async function persistClip(clip: Clip, authorId: string) {
   const { error } = await supabase.from("clips").insert({
     id: clip.id,
@@ -274,13 +306,18 @@ async function loadProfile(
   userId: string,
   fallbackName: string,
   email: string | null = null,
+  picture: string | null = null,
 ): Promise<SessionProfile> {
   const { data } = await supabase
     .from("profiles")
-    .select("username,display_name,city,bio")
+    .select("username,display_name,city,bio,avatar_url")
     .eq("id", userId)
     .maybeSingle();
   if (data?.username) {
+    const avatarUrl = (data.avatar_url as string | null) || picture;
+    if (!data.avatar_url && picture) {
+      await supabase.from("profiles").update({ avatar_url: picture }).eq("id", userId);
+    }
     return {
       userId,
       username: data.username,
@@ -288,6 +325,7 @@ async function loadProfile(
       city: data.city ?? null,
       bio: data.bio ?? null,
       email,
+      avatarUrl,
     };
   }
   const username = accountUsername(fallbackName) || "otealo";
@@ -297,6 +335,7 @@ async function loadProfile(
     display_name: fallbackName.trim() || username,
     hive_id: "mexico",
     region: "MX",
+    avatar_url: picture,
   });
   return {
     userId,
@@ -305,6 +344,7 @@ async function loadProfile(
     city: null,
     bio: null,
     email,
+    avatarUrl: picture,
   };
 }
 
@@ -315,11 +355,18 @@ export async function readSession(): Promise<SessionProfile | null> {
   const meta = (user.user_metadata ?? {}) as {
     username?: string;
     display_name?: string;
+    picture?: string;
+    avatar_url?: string;
   };
+  const picture =
+    (typeof meta.picture === "string" && meta.picture) ||
+    (typeof meta.avatar_url === "string" && meta.avatar_url) ||
+    null;
   return loadProfile(
     user.id,
     meta.display_name || meta.username || user.email || "otealo",
     user.email ?? null,
+    picture,
   );
 }
 
@@ -459,7 +506,7 @@ export async function updateProfile(
 export async function fetchPublicProfile(username: string) {
   const { data } = await supabase
     .from("profiles")
-    .select("username,display_name,city,bio")
+    .select("username,display_name,city,bio,avatar_url")
     .eq("username", username)
     .maybeSingle();
   if (!data) return null;
@@ -468,6 +515,7 @@ export async function fetchPublicProfile(username: string) {
     displayName: data.display_name as string,
     city: (data.city as string | null) ?? null,
     bio: (data.bio as string | null) ?? null,
+    avatarUrl: (data.avatar_url as string | null) ?? null,
   };
 }
 
@@ -488,14 +536,17 @@ export async function updateHomeCity(userId: string, city: string): Promise<void
 export async function fetchUsernames() {
   const { data, error } = await supabase
     .from("profiles")
-    .select("username,display_name")
+    .select("username,display_name,avatar_url")
     .order("username", { ascending: true })
     .limit(80);
   if (error) throw error;
-  return ((data ?? []) as { username: string; display_name: string }[]).map((row) => ({
-    username: row.username,
-    displayName: row.display_name,
-  }));
+  return ((data ?? []) as { username: string; display_name: string; avatar_url: string | null }[]).map(
+    (row) => ({
+      username: row.username,
+      displayName: row.display_name,
+      avatarUrl: row.avatar_url,
+    }),
+  );
 }
 
 export function subscribeOjea(onChange: () => void) {

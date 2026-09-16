@@ -23,6 +23,7 @@ import {
   updateProfile,
   updateHomeCity,
   uploadClipMedia,
+  uploadAvatar,
   deleteOwnAccount,
   type BackendStatus,
   type DirectMessage,
@@ -51,6 +52,7 @@ export type Note = {
 export type DirectoryUser = {
   username: string;
   displayName: string;
+  avatarUrl?: string | null;
 };
 
 type State = {
@@ -71,6 +73,8 @@ type State = {
   city: string | null;
   bio: string | null;
   email: string | null;
+  avatarUrl: string | null;
+  avatars: Record<string, string>;
   guest: boolean;
   guestRemainingMs: number;
   backend: BackendStatus;
@@ -108,6 +112,7 @@ type State = {
   sendMessage: (recipient: string, body: string) => Promise<string | null>;
   refreshDms: () => Promise<void>;
   saveProfile: (displayName: string, bio: string) => Promise<string | null>;
+  uploadPhoto: (file: File) => Promise<string | null>;
   saveHomeCity: (city: RegionCity) => Promise<string | null>;
   deleteAccount: () => Promise<string | null>;
   hydrate: (
@@ -140,6 +145,8 @@ export const useOjea = create<State>()((set, get) => ({
   city: null,
   bio: null,
   email: null,
+  avatarUrl: null,
+  avatars: {},
   guest: false,
   guestRemainingMs: 0,
   backend: "loading",
@@ -262,6 +269,10 @@ export const useOjea = create<State>()((set, get) => ({
         city: profile.city,
         bio: profile.bio,
         email: profile.email,
+        avatarUrl: profile.avatarUrl,
+        avatars: profile.avatarUrl
+          ? { ...get().avatars, [profile.username]: profile.avatarUrl }
+          : get().avatars,
         guest: false,
         guestRemainingMs: 0,
         authOpen: false,
@@ -295,6 +306,7 @@ export const useOjea = create<State>()((set, get) => ({
       city: null,
       bio: null,
       email: null,
+      avatarUrl: null,
       guest: true,
       guestRemainingMs: remainingMs,
       authOpen: false,
@@ -310,6 +322,7 @@ export const useOjea = create<State>()((set, get) => ({
       city: null,
       bio: null,
       email: null,
+      avatarUrl: null,
       guest: false,
       guestRemainingMs: 0,
       dms: [],
@@ -356,7 +369,11 @@ export const useOjea = create<State>()((set, get) => ({
         fetchDms(user),
         fetchUsernames().catch(() => get().directory),
       ]);
-      set({ dms, directory });
+      set({
+        dms,
+        directory,
+        avatars: mergeAvatars(get().avatars, directory, get().user, get().avatarUrl),
+      });
     } catch {
       /* keep current */
     }
@@ -371,6 +388,22 @@ export const useOjea = create<State>()((set, get) => ({
       return null;
     } catch (err) {
       return err instanceof Error ? err.message : tCopy().errGeneric;
+    }
+  },
+  uploadPhoto: async (file) => {
+    const userId = get().userId;
+    const user = get().user;
+    if (!userId) return tCopy().errProfileLogin;
+    try {
+      const url = await uploadAvatar(userId, file);
+      set({
+        avatarUrl: url,
+        avatars: user ? { ...get().avatars, [user]: url } : get().avatars,
+      });
+      get().showToast(tCopy().photoOk);
+      return null;
+    } catch (err) {
+      return err instanceof Error ? err.message : tCopy().photoFail;
     }
   },
   deleteAccount: async () => {
@@ -421,6 +454,10 @@ export const useOjea = create<State>()((set, get) => ({
         city: session?.city ?? null,
         bio: session?.bio ?? null,
         email: session?.email ?? null,
+        avatarUrl: session?.avatarUrl ?? null,
+        avatars: session?.avatarUrl
+          ? { ...get().avatars, [session.username]: session.avatarUrl }
+          : get().avatars,
         guest: guestState.guest,
         guestRemainingMs: guestState.remainingMs,
         liked: engagement ? { ...get().liked, ...engagement.liked } : get().liked,
@@ -449,6 +486,10 @@ export const useOjea = create<State>()((set, get) => ({
             city: next.city,
             bio: next.bio,
             email: next.email,
+            avatarUrl: next.avatarUrl,
+            avatars: next.avatarUrl
+              ? { ...get().avatars, [next.username]: next.avatarUrl }
+              : get().avatars,
             guest: false,
             guestRemainingMs: 0,
             liked: { ...get().liked, ...eng.liked },
@@ -474,10 +515,22 @@ export function formatCount(n: number) {
 }
 
 export function initials(name: string) {
-  return name
-    .split(/[.\s_]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((s) => s[0]?.toUpperCase() ?? "")
-    .join("");
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "OT";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+function mergeAvatars(
+  prev: Record<string, string>,
+  directory: DirectoryUser[],
+  username?: string | null,
+  url?: string | null,
+) {
+  const next = { ...prev };
+  for (const row of directory) {
+    if (row.avatarUrl) next[row.username] = row.avatarUrl;
+  }
+  if (username && url) next[username] = url;
+  return next;
 }

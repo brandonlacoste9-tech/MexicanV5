@@ -21,7 +21,8 @@ import { cn } from "@/lib/cn";
 import type { Clip } from "@/lib/clips";
 import { clipPermalink } from "@/lib/clip-link";
 import { useCopy } from "@/lib/i18n";
-import { formatCount, initials, useOjea } from "@/lib/store";
+import { formatCount, useOjea } from "@/lib/store";
+import { AvatarCircle } from "@/components/avatar";
 
 export function clipShareUrl(clip: Clip) {
   return clipPermalink(clip.id);
@@ -47,6 +48,7 @@ export function ActionRail({
     toggleSave,
     toggleFollow,
     toggleMute,
+    avatars,
   } = useOjea();
   const isLiked = !!liked[clip.id];
   const isSaved = !!saved[clip.id];
@@ -60,9 +62,9 @@ export function ActionRail({
         <Link
           to="/u/$user"
           params={{ user: clip.user }}
-          className="grid size-12 place-items-center rounded-full border-2 border-fg bg-elevated text-xs font-medium text-primary"
+          className="rounded-full border-2 border-fg"
         >
-          {initials(clip.displayName)}
+          <AvatarCircle name={clip.displayName} src={avatars[clip.user]} size="md" className="border-0" />
         </Link>
         {!isFollowed ? (
           <button
@@ -351,7 +353,7 @@ export function StagePager({
 
 export function SuggestedAside({ clip, clips }: { clip: Clip; clips: Clip[] }) {
   const c = useCopy();
-  const { followed, toggleFollow } = useOjea();
+  const { followed, toggleFollow, avatars } = useOjea();
   const seen = new Set<string>([clip.user]);
   const suggested: Clip[] = [];
   for (const item of clips) {
@@ -369,9 +371,9 @@ export function SuggestedAside({ clip, clips }: { clip: Clip; clips: Clip[] }) {
           <Link
             to="/u/$user"
             params={{ user: clip.user }}
-            className="grid size-12 place-items-center rounded-full border border-primary/40 bg-elevated text-sm font-medium text-primary"
+            className="rounded-full"
           >
-            {initials(clip.displayName)}
+            <AvatarCircle name={clip.displayName} src={avatars[clip.user]} size="md" />
           </Link>
           <div className="min-w-0 flex-1">
             <Link
@@ -418,9 +420,9 @@ export function SuggestedAside({ clip, clips }: { clip: Clip; clips: Clip[] }) {
                 <Link
                   to="/u/$user"
                   params={{ user: item.user }}
-                  className="grid size-10 shrink-0 place-items-center rounded-full bg-elevated text-xs text-primary"
+                  className="shrink-0 rounded-full"
                 >
-                  {initials(item.displayName)}
+                  <AvatarCircle name={item.displayName} src={avatars[item.user]} size="sm" />
                 </Link>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm">@{item.user}</p>

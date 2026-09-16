@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Check, Globe, Languages, MapPin, Volume2, VolumeX } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { AvatarCircle } from "@/components/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { useCopy, useLocale, type Locale } from "@/lib/i18n";
@@ -21,6 +22,7 @@ function Ajustes() {
     displayName,
     bio,
     email,
+    avatarUrl,
     guest,
     guestRemainingMs,
     logout,
@@ -28,6 +30,7 @@ function Ajustes() {
     muted,
     setMuted,
     saveProfile,
+    uploadPhoto,
     saveHomeCity,
     deleteAccount,
   } = useOjea();
@@ -42,6 +45,7 @@ function Ajustes() {
   const [home, setHome] = useState<RegionCity>(getHomeCity);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const photoInput = useRef<HTMLInputElement>(null);
 
   const languages: Array<{ code: Locale; title: string; lead: string }> = [
     { code: "es", title: c.spanish, lead: c.spanishLead },
@@ -267,6 +271,40 @@ function Ajustes() {
               });
             }}
           >
+            <div>
+              <p className="mb-2 text-sm text-muted">{c.photo}</p>
+              <div className="flex items-center gap-4">
+                <AvatarCircle name={name || user || "Otealo"} src={avatarUrl} size="xl" />
+                <div>
+                  <input
+                    ref={photoInput}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      e.target.value = "";
+                      if (!file) return;
+                      setPending(true);
+                      setError(null);
+                      void uploadPhoto(file).then((err) => {
+                        setPending(false);
+                        if (err) setError(err);
+                      });
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="gold-outline"
+                    disabled={pending}
+                    onClick={() => photoInput.current?.click()}
+                  >
+                    {c.photoChange}
+                  </Button>
+                  <p className="mt-2 text-xs text-muted">{c.photoHint}</p>
+                </div>
+              </div>
+            </div>
             <label className="block text-sm">
               <span className="mb-1 block text-muted">{c.displayName}</span>
               <input
