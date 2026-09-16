@@ -239,6 +239,19 @@ export async function persistComment(clipId: string, username: string, text: str
   if (error) throw error;
 }
 
+export async function persistReport(userId: string, clipId: string) {
+  const { error } = await supabase.from("reports").insert({
+    clip_id: clipId,
+    reporter_id: userId,
+    reason: "inapropiado",
+  });
+  if (error) {
+    if (error.code === "23505") return "already" as const;
+    throw new Error(asError(error, tCopy().reportedFail));
+  }
+  return "ok" as const;
+}
+
 export async function uploadClipMedia(userId: string, file: File) {
   const ext = (file.name.split(".").pop() || "jpg").replace(/[^a-z0-9]/gi, "") || "jpg";
   const path = `${userId}/${Date.now()}.${ext}`;

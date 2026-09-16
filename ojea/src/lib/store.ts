@@ -11,6 +11,7 @@ import {
   persistFollow,
   persistLike,
   persistSave,
+  persistReport,
   readSession,
   sendDm,
   signInAccount,
@@ -87,6 +88,7 @@ type State = {
   toggleSave: (id: string) => void;
   toggleFollow: (user: string) => void;
   hideClip: (id: string) => void;
+  reportClip: (id: string) => Promise<void>;
   toggleRepost: (id: string) => void;
   bumpShares: (id: string) => void;
   addComment: (id: string, text: string) => void;
@@ -199,6 +201,28 @@ export const useOjea = create<State>()((set, get) => ({
     const visible = get().clips.filter((c) => !get().hidden[c.id]);
     const i = Math.min(get().index, Math.max(0, visible.length - 1));
     set({ index: i, paused: false });
+  },
+  reportClip: async (id) => {
+    const userId = get().userId;
+    if (!userId) {
+      get().openAuth();
+      get().showToast(tCopy().reportedNeedLogin);
+      return;
+    }
+    try {
+      const result = await persistReport(userId, id);
+      set({ hidden: { ...get().hidden, [id]: true } });
+      const visible = get().clips.filter((c) => !get().hidden[c.id]);
+      const i = Math.min(get().index, Math.max(0, visible.length - 1));
+      set({ index: i, paused: false });
+      get().showToast(
+        result === "already" ? tCopy().reportedAlready : tCopy().reportedOk,
+      );
+    } catch (err) {
+      get().showToast(
+        err instanceof Error ? err.message : tCopy().reportedFail,
+      );
+    }
   },
   toggleRepost: (id) => {
     const on = !get().reposted[id];

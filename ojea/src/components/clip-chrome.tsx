@@ -214,7 +214,7 @@ export function ShareDock({
   variant: "sheet" | "dock";
 }) {
   const c = useCopy();
-  const { user, openAuth, showToast, hideClip, toggleRepost, bumpShares } = useOjea();
+  const { user, openAuth, showToast, hideClip, reportClip, toggleRepost, bumpShares } = useOjea();
 
   function wrap(fn: () => void) {
     return () => {
@@ -285,7 +285,9 @@ export function ShareDock({
         <SheetRow
           icon={<Flag className="size-4" />}
           label={c.report}
-          onClick={wrap(() => showToast(c.reportedOk))}
+          onClick={wrap(() => {
+            void reportClip(clip.id);
+          })}
         />
       </div>
     </div>
