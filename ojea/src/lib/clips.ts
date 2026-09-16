@@ -1,3 +1,4 @@
+import { seedClipVideoUrl } from "./media";
 import { region } from "./region";
 
 export type Comment = { user: string; text: string };
@@ -242,7 +243,7 @@ const RAW_CLIPS: Clip[] = [
 
 export const SEED_CLIPS: Clip[] = RAW_CLIPS.map((c) => ({
   ...c,
-  video: c.video ?? `/clips/${c.id}.mp4`,
+  video: c.video ?? seedClipVideoUrl(c.id),
   shares: c.shares ?? Math.max(12, Math.round(c.likes / 14)),
   friend: c.following ?? false,
 }));

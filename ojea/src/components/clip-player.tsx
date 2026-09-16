@@ -2,7 +2,7 @@ import { Pause } from "lucide-react";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { cn } from "@/lib/cn";
 import type { Clip } from "@/lib/clips";
-import { clipVideoSrc } from "@/lib/media";
+import { clipVideoSrc, localClipVideoUrl } from "@/lib/media";
 import { useOjea } from "@/lib/store";
 
 export function ClipPlayer({
@@ -22,13 +22,15 @@ export function ClipPlayer({
   const [buffering, setBuffering] = useState(false);
   const [failed, setFailed] = useState(false);
   const [seeking, setSeeking] = useState(false);
-  const src = clipVideoSrc(clip);
+  const hosted = clipVideoSrc(clip);
+  const [src, setSrc] = useState(hosted);
   const showVideo = Boolean(src) && !failed && (active || near);
 
   useEffect(() => {
+    setSrc(hosted);
     setFailed(false);
     setProgress(0);
-  }, [src]);
+  }, [hosted]);
 
   useEffect(() => {
     const el = videoRef.current;
@@ -84,7 +86,11 @@ export function ClipPlayer({
           onWaiting={() => setBuffering(true)}
           onPlaying={() => setBuffering(false)}
           onCanPlay={() => setBuffering(false)}
-          onError={() => setFailed(true)}
+          onError={() => {
+            const local = localClipVideoUrl(clip.id);
+            if (src && src !== local) setSrc(local);
+            else setFailed(true);
+          }}
           onTimeUpdate={(e) => {
             if (seeking) return;
             const v = e.currentTarget;
