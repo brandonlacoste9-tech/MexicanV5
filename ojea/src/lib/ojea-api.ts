@@ -373,37 +373,17 @@ export async function signUpAccount(
 }
 
 export async function signInWithGoogle() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
+  const { error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      skipBrowserRedirect: true,
       redirectTo:
-        typeof window !== "undefined" ? `${window.location.origin}/` : undefined,
+        typeof window !== "undefined"
+          ? `${window.location.origin}/`
+          : "https://otealo.com/",
+      queryParams: { prompt: "select_account" },
     },
   });
   if (error) throw new Error(asError(error, "No se pudo conectar con Google."));
-  if (!data.url) throw new Error("No se pudo conectar con Google.");
-  try {
-    const probe = await fetch(data.url, { redirect: "manual" });
-    const type = probe.headers.get("content-type") ?? "";
-    if (type.includes("application/json")) {
-      const body = (await probe.json()) as { msg?: string; error?: string };
-      throw new Error(
-        asError(
-          { message: body.msg || body.error || "" },
-          "Google aún no está activo en MéxicoV5. Entra con usuario o como invitado.",
-        ),
-      );
-    }
-  } catch (err) {
-    if (
-      err instanceof Error &&
-      !/Failed to fetch|NetworkError|Load failed/i.test(err.message)
-    ) {
-      throw err;
-    }
-  }
-  window.location.assign(data.url);
 }
 
 export async function requestPasswordReset(email: string) {
