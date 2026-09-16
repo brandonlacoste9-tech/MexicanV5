@@ -239,7 +239,13 @@ function writeAssetFallback() {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap"/>
 </head>
 <body>
-  <script type="module" src="/assets/${indexJs}"></script>
+<script>
+(self.$R=self.$R||{})["tsr"]=[];
+self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};
+$_TSR.router={manifest:{routes:{__root__:{preloads:["/assets/${indexJs}"],scripts:[{attrs:{type:"module",async:!0,src:"/assets/${indexJs}"}}]}}},matches:[{i:"spa",u:Date.now(),s:"success",ssr:!1}]};
+$_TSR.e();
+</script>
+<script type="module" async src="/assets/${indexJs}"></script>
 </body>
 </html>
 `;
@@ -254,7 +260,37 @@ function writeAssetFallback() {
   console.log("[netlify-spa] wrote client shell via", indexJs);
 }
 
-writeAssetFallback();
+let wroteHome = false;
+try {
+  const fetchDoc = await loadFetcher();
+  for (const [path, file] of routes) {
+    try {
+      const res = await fetchDoc(
+        new Request(`https://otealo.com${path}`, {
+          headers: {
+            accept: "text/html,application/xhtml+xml",
+            host: "otealo.com",
+          },
+        }),
+      );
+      const html = await res.text();
+      if (res.status !== 200 || !html.includes("<html") || !html.includes("$_TSR")) {
+        console.warn("[netlify-spa] skip", path, res.status);
+        continue;
+      }
+      mkdirSync(dirname(join(root, file)), { recursive: true });
+      writeFileSync(join(root, file), html);
+      console.log("[netlify-spa]", path, "->", file, html.length, "bytes");
+      if (path === "/") wroteHome = true;
+    } catch (err) {
+      console.warn("[netlify-spa] skip", path, err);
+    }
+  }
+} catch (err) {
+  console.warn("[netlify-spa] prerender skipped:", err?.message || err);
+}
+
+if (!wroteHome) writeAssetFallback();
 
 if (!existsSync(join(root, "dist/index.html"))) {
   throw new Error("[netlify-spa] failed to produce dist/index.html");
@@ -313,7 +349,9 @@ writeFileSync(
 
 writeFileSync(
   join(root, "dist/_redirects"),
-  `# Functions first — otherwise /* swallows them.
+  `# Files in /assets and /clips win. Missing hashed JS must 404, not HTML.
+/assets/*     /assets/:splat                  200
+/clips/*      /clips/:splat                   200
 /health       /.netlify/functions/health      200
 /api/health   /.netlify/functions/health      200
 /api/feed     /.netlify/functions/feed        200
