@@ -82,7 +82,7 @@ function Explorar() {
               />
             </span>
             <span className="w-full truncate text-center text-xs text-muted">
-              {s.user.split(".")[0]}
+              {s.label}
             </span>
           </button>
         ))}

@@ -1286,13 +1286,14 @@ export const EXPLORE_TAGS = [...region.seedTags];
 export const CITIES = [...region.cities];
 
 export const STORIES = [
-  { user: "otealo", image: "/clips/xochi.jpg" },
-  { user: "otealo", image: "/clips/cenote.jpg" },
-  { user: "otealo", image: "/clips/mariachi.jpg" },
-  { user: "otealo", image: "/clips/cabo.jpg" },
-  { user: "otealo", image: "/clips/folklor.jpg" },
-  { user: "otealo", image: "/clips/mezcal.jpg" },
-  { user: "otealo", image: "/clips/taxco.jpg" },
+  { user: "chile_y_lima", label: "Tacos", image: "/clips/tacos.jpg" },
+  { user: "centro.cdmx", label: "CDMX", image: "/clips/zocalo.jpg" },
+  { user: "istmo.luz", label: "Oaxaca", image: "/clips/oaxaca.jpg" },
+  { user: "piedra.antigua", label: "Mayas", image: "/clips/chichen.jpg" },
+  { user: "caribe.ojo", label: "Caribe", image: "/clips/playa.jpg" },
+  { user: "guadalajara.nights", label: "GDL", image: "/clips/gdl.jpg" },
+  { user: "arena.mexico", label: "Lucha", image: "/clips/lucha.jpg" },
+  { user: "norteno.mx", label: "Norte", image: "/clips/monterrey.jpg" },
 ];
 
 export const SEED_NOTES: Array<{
