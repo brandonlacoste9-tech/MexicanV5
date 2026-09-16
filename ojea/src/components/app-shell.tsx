@@ -41,6 +41,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     toggleFollow,
     clips,
     avatars,
+    cinema,
   } = useOjea();
   const unread = notes.filter((n) => n.unread).length;
   const hideChrome = AUTH_PATHS.has(pathname);
@@ -145,7 +146,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         children
       ) : (
         <>
-          <aside className="fixed inset-y-0 left-0 z-20 hidden w-56 flex-col overflow-y-auto border-r border-border bg-surface px-4 py-6 no-scrollbar md:flex">
+          <aside className={cn(
+            "fixed inset-y-0 left-0 z-20 hidden w-56 flex-col overflow-y-auto border-r border-border bg-surface px-4 py-6 no-scrollbar md:flex",
+            cinema && "md:hidden",
+          )}>
             <Link to="/" onClick={() => setTab("foryou")} className="mb-4 px-2">
               <p className="font-display text-2xl font-semibold tracking-[0.18em] text-primary">
                 {region.brand.toUpperCase()}
@@ -268,10 +272,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             {backend !== "live" ? <BackendBadge status={backend} /> : null}
           </aside>
 
-          <main className="md:pl-56">
-            {guest && !isFeedPath(pathname) ? <GuestChip overlay={false} /> : null}
-            {guest && isFeedPath(pathname) ? <GuestChip overlay /> : null}
-            {!isFeedPath(pathname) ? (
+          <main className={cn(!cinema && "md:pl-56")}>
+            {guest && !cinema && !isFeedPath(pathname) ? <GuestChip overlay={false} /> : null}
+            {guest && !cinema && isFeedPath(pathname) ? <GuestChip overlay /> : null}
+            {!cinema && !isFeedPath(pathname) ? (
               <div className="fixed top-3 right-3 z-30 md:hidden">
                 <LangToggle compact />
               </div>
@@ -288,6 +292,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
           </main>
 
+          {cinema ? null : (
           <nav className="fixed inset-x-0 bottom-0 z-20 flex border-t border-border bg-surface/95 backdrop-blur-sm md:hidden">
             {mobileNav.map((item) => {
               const Icon = item.icon;
@@ -328,7 +333,8 @@ export function AppShell({ children }: { children: ReactNode }) {
               );
             })}
           </nav>
-          <Onboard />
+          )}
+          {cinema ? null : <Onboard />}
         </>
       )}
       {toast ? <Toast text={toast} /> : null}

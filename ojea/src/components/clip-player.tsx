@@ -16,7 +16,7 @@ export function ClipPlayer({
   near: boolean;
   holding?: boolean;
 }) {
-  const { muted, paused } = useOjea();
+  const { muted, paused, cinema } = useOjea();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
   const [buffering, setBuffering] = useState(false);
@@ -134,7 +134,7 @@ export function ClipPlayer({
         </span>
       ) : null}
 
-      {attach && active ? (
+      {attach && active && !cinema ? (
         <div
           className={cn("clip-seek", seeking && "is-active")}
           onPointerDown={(e) => {

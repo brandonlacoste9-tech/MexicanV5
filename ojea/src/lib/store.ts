@@ -87,6 +87,7 @@ type State = {
   backend: BackendStatus;
   muted: boolean;
   paused: boolean;
+  cinema: boolean;
   toast: string | null;
   authOpen: boolean;
   setTab: (tab: Tab) => void;
@@ -122,6 +123,7 @@ type State = {
   setMuted: (muted: boolean) => void;
   togglePaused: () => void;
   setPaused: (paused: boolean) => void;
+  toggleCinema: () => void;
   showToast: (msg: string) => void;
   openAuth: () => void;
   closeAuth: () => void;
@@ -169,9 +171,10 @@ export const useOjea = create<State>()((set, get) => ({
   backend: "loading",
   muted: true,
   paused: false,
+  cinema: false,
   toast: null,
   authOpen: false,
-  setTab: (tab) => set({ tab, index: 0, paused: false }),
+  setTab: (tab) => set({ tab, index: 0, paused: false, cinema: false }),
   setCountryFilter: (countryFilter) => set({ countryFilter, index: 0, paused: false }),
   setSeriesFilter: (seriesFilter) => set({ seriesFilter, index: 0, paused: false }),
   setIndex: (index) => set({ index, paused: false }),
@@ -436,6 +439,7 @@ export const useOjea = create<State>()((set, get) => ({
   },
   togglePaused: () => set({ paused: !get().paused }),
   setPaused: (paused) => set({ paused }),
+  toggleCinema: () => set({ cinema: !get().cinema }),
   showToast: (msg) => {
     set({ toast: msg });
     window.setTimeout(() => {

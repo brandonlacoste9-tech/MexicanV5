@@ -18,7 +18,7 @@ import { SERIES, SERIES_LABEL, type SeriesId } from "@/lib/culture";
 import { formatCount, useOjea } from "@/lib/store";
 
 export function ClipStage({ clips }: { clips: Clip[] }) {
-  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, countryFilter, seriesFilter, setCountryFilter, setSeriesFilter, clips: allClips, followed, toggleFollow, avatars } =
+  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, countryFilter, seriesFilter, setCountryFilter, setSeriesFilter, clips: allClips, followed, toggleFollow, avatars, cinema } =
     useOjea();
   const c = useCopy();
   const scroller = useRef<HTMLDivElement>(null);
@@ -103,6 +103,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
   return (
     <div className="flex h-svh overflow-hidden md:h-dvh md:items-center md:justify-center md:gap-4 md:px-6">
       <div className="stage-frame min-h-0 shrink-0">
+        {!cinema ? (
         <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between px-3 pt-4 md:px-4">
           <Link
             to="/buscar"
@@ -126,6 +127,8 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
           </div>
           <LangToggle compact className="pointer-events-auto md:invisible" />
         </div>
+        ) : null}
+        {!cinema ? (
         <div className="pointer-events-auto absolute inset-x-0 top-[3.75rem] z-20 flex gap-1.5 overflow-x-auto no-scrollbar px-3 md:top-16">
           {(
             [
@@ -170,6 +173,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
             </button>
           ))}
         </div>
+        ) : null}
 
         {clips.length === 0 ? (
           <EmptyFeed
@@ -196,7 +200,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
         )}
       </div>
 
-      {current ? (
+      {current && !cinema ? (
         <div className="hidden shrink-0 items-center gap-3 md:flex">
           <ActionRail
             clip={current}
@@ -212,21 +216,21 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
         </div>
       ) : null}
 
-      {current && deskPanel === "comments" ? (
+      {current && !cinema && deskPanel === "comments" ? (
         <CommentsDock
           clip={current}
           onClose={() => setDeskPanel(null)}
           variant="dock"
         />
       ) : null}
-      {current && deskPanel === "share" ? (
+      {current && !cinema && deskPanel === "share" ? (
         <ShareDock
           clip={current}
           onClose={() => setDeskPanel(null)}
           variant="dock"
         />
       ) : null}
-      {current && !deskPanel ? (
+      {current && !cinema && !deskPanel ? (
         <SuggestedAside clip={current} clips={clips} />
       ) : null}
     </div>
@@ -348,40 +352,45 @@ function ClipCard({
   near: boolean;
 }) {
   const c = useCopy();
-  const { followed, liked, toggleFollow, toggleLike, togglePaused } = useOjea();
+  const { followed, liked, toggleFollow, toggleLike, togglePaused, cinema, toggleCinema } =
+    useOjea();
   const [sheet, setSheet] = useState<"comments" | "share" | null>(null);
   const [heart, setHeart] = useState(false);
   const [expand, setExpand] = useState(false);
-  const lastTap = useRef(0);
-  const pauseTimer = useRef(0);
+  const taps = useRef(0);
+  const burstTimer = useRef(0);
   const isFollowed = !!followed[clip.user];
   const isLiked = !!liked[clip.id];
   const longCaption = clip.caption.length > 88;
 
-  useEffect(() => () => window.clearTimeout(pauseTimer.current), []);
+  useEffect(() => () => window.clearTimeout(burstTimer.current), []);
 
   function onTap() {
-    const now = Date.now();
-    if (now - lastTap.current < 280) {
-      window.clearTimeout(pauseTimer.current);
-      lastTap.current = 0;
-      if (!isLiked) toggleLike(clip.id);
-      setHeart(true);
-      window.setTimeout(() => setHeart(false), 700);
-      return;
-    }
-    lastTap.current = now;
-    window.clearTimeout(pauseTimer.current);
-    pauseTimer.current = window.setTimeout(() => {
+    taps.current += 1;
+    window.clearTimeout(burstTimer.current);
+    burstTimer.current = window.setTimeout(() => {
+      const n = taps.current;
+      taps.current = 0;
+      if (n >= 3) {
+        toggleCinema();
+        return;
+      }
+      if (n === 2) {
+        if (!isLiked) toggleLike(clip.id);
+        setHeart(true);
+        window.setTimeout(() => setHeart(false), 700);
+        return;
+      }
       togglePaused();
-      lastTap.current = 0;
     }, 280);
   }
 
   return (
     <article data-clip-index={index} className="stage-clip">
       <ClipPlayer clip={clip} active={active} near={near} />
-      <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/40" />
+      {cinema ? null : (
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/40" />
+      )}
       <button
         type="button"
         className="absolute inset-0"
@@ -393,6 +402,7 @@ function ClipCard({
         <Heart className="heart-pop pointer-events-none absolute top-1/2 left-1/2 z-10 size-24 -translate-x-1/2 -translate-y-1/2 fill-like text-like" />
       ) : null}
 
+      {cinema ? null : (
       <div className="pointer-events-none absolute inset-x-0 bottom-16 z-10 px-4 md:bottom-6 md:right-4 md:left-4">
         <div className="pointer-events-auto max-w-xs">
           {clip.live ? (
@@ -450,7 +460,9 @@ function ClipCard({
           </Link>
         </div>
       </div>
+      )}
 
+      {cinema ? null : (
       <div className="absolute right-3 bottom-28 z-10 md:hidden">
         <ActionRail
           clip={clip}
@@ -458,11 +470,12 @@ function ClipCard({
           onShare={() => setSheet("share")}
         />
       </div>
+      )}
 
-      {sheet === "comments" ? (
+      {cinema ? null : sheet === "comments" ? (
         <CommentsDock clip={clip} onClose={() => setSheet(null)} variant="sheet" />
       ) : null}
-      {sheet === "share" ? (
+      {cinema ? null : sheet === "share" ? (
         <ShareDock clip={clip} onClose={() => setSheet(null)} variant="sheet" />
       ) : null}
     </article>
