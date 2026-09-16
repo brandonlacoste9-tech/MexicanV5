@@ -315,7 +315,11 @@ function retitle(dir) {
   }
 }
 retitle(join(root, "dist"));
-await writeClipOgPages();
+try {
+  await writeClipOgPages();
+} catch (err) {
+  console.warn("[netlify-spa] clip OG pages skipped", err);
+}
 
 mkdirSync(join(root, "dist/__grok"), { recursive: true });
 writeFileSync(

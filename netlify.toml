@@ -13,6 +13,15 @@
   CI = "true"
   NETLIFY_SPA_DROP_FUNCTIONS = "1"
 
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/c/*"
+  to = "/.netlify/functions/clip-card"
+  status = 200
+  force = false
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -5,17 +5,10 @@ import { Button } from "@/components/ui/button";
 import type { Clip } from "@/lib/clips";
 import { useCopy } from "@/lib/i18n";
 import { fetchClipById } from "@/lib/ojea-api";
-import { region } from "@/lib/region";
 import { useOjea } from "@/lib/store";
 
 export const Route = createFileRoute("/c/$id")({
   component: ClipPermalink,
-  head: ({ params }) => ({
-    meta: [
-      { title: `Otealo` },
-      { property: "og:url", content: `${region.siteUrl}/c/${params.id}` },
-    ],
-  }),
 });
 
 function ClipPermalink() {
