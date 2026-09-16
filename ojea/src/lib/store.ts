@@ -23,6 +23,7 @@ import {
   updateProfile,
   updateHomeCity,
   uploadClipMedia,
+  deleteOwnAccount,
   type BackendStatus,
   type DirectMessage,
 } from "./ojea-api";
@@ -31,6 +32,8 @@ import {
   clearGuestSession,
   readGuestSession,
   startGuestSession,
+  readMuted,
+  writeMuted,
 } from "./session";
 
 export type Tab = "foryou" | "following" | "live" | "friends";
@@ -66,6 +69,8 @@ type State = {
   userId: string | null;
   displayName: string | null;
   city: string | null;
+  bio: string | null;
+  email: string | null;
   guest: boolean;
   guestRemainingMs: number;
   backend: BackendStatus;
@@ -93,6 +98,7 @@ type State = {
   enterGuest: () => void;
   logout: () => void;
   toggleMute: () => void;
+  setMuted: (muted: boolean) => void;
   togglePaused: () => void;
   setPaused: (paused: boolean) => void;
   showToast: (msg: string) => void;
@@ -101,8 +107,9 @@ type State = {
   markNotesRead: () => void;
   sendMessage: (recipient: string, body: string) => Promise<string | null>;
   refreshDms: () => Promise<void>;
-  saveProfile: (displayName: string) => Promise<string | null>;
+  saveProfile: (displayName: string, bio: string) => Promise<string | null>;
   saveHomeCity: (city: RegionCity) => Promise<string | null>;
+  deleteAccount: () => Promise<string | null>;
   hydrate: (
     partial: Partial<Pick<State, "liked" | "saved" | "followed" | "hidden" | "reposted">>,
   ) => void;
@@ -131,10 +138,12 @@ export const useOjea = create<State>()((set, get) => ({
   userId: null,
   displayName: null,
   city: null,
+  bio: null,
+  email: null,
   guest: false,
   guestRemainingMs: 0,
   backend: "loading",
-  muted: true,
+  muted: typeof window === "undefined" ? true : readMuted(),
   paused: false,
   toast: null,
   authOpen: false,
@@ -251,6 +260,8 @@ export const useOjea = create<State>()((set, get) => ({
         userId: profile.userId,
         displayName: profile.displayName,
         city: profile.city,
+        bio: profile.bio,
+        email: profile.email,
         guest: false,
         guestRemainingMs: 0,
         authOpen: false,
@@ -282,6 +293,8 @@ export const useOjea = create<State>()((set, get) => ({
       userId: null,
       displayName: "Invitado",
       city: null,
+      bio: null,
+      email: null,
       guest: true,
       guestRemainingMs: remainingMs,
       authOpen: false,
@@ -295,12 +308,18 @@ export const useOjea = create<State>()((set, get) => ({
       userId: null,
       displayName: null,
       city: null,
+      bio: null,
+      email: null,
       guest: false,
       guestRemainingMs: 0,
       dms: [],
     });
   },
-  toggleMute: () => set({ muted: !get().muted }),
+  toggleMute: () => get().setMuted(!get().muted),
+  setMuted: (muted) => {
+    writeMuted(muted);
+    set({ muted });
+  },
   togglePaused: () => set({ paused: !get().paused }),
   setPaused: (paused) => set({ paused }),
   showToast: (msg) => {
@@ -342,16 +361,27 @@ export const useOjea = create<State>()((set, get) => ({
       /* keep current */
     }
   },
-  saveProfile: async (displayName) => {
+  saveProfile: async (displayName, bio) => {
     const userId = get().userId;
     if (!userId) return tCopy().errProfileLogin;
     try {
-      await updateProfile(userId, displayName);
-      set({ displayName: displayName.trim() });
+      await updateProfile(userId, { displayName, bio });
+      set({ displayName: displayName.trim(), bio: bio.trim() });
       get().showToast(tCopy().errProfileOk);
       return null;
     } catch (err) {
       return err instanceof Error ? err.message : tCopy().errGeneric;
+    }
+  },
+  deleteAccount: async () => {
+    const userId = get().userId;
+    if (!userId) return tCopy().errProfileLogin;
+    try {
+      await deleteOwnAccount();
+      get().logout();
+      return null;
+    } catch (err) {
+      return err instanceof Error ? err.message : tCopy().errDelete;
     }
   },
   saveHomeCity: async (city) => {
@@ -389,6 +419,8 @@ export const useOjea = create<State>()((set, get) => ({
         userId: session?.userId ?? null,
         displayName: session?.displayName ?? (guestState.guest ? "Invitado" : null),
         city: session?.city ?? null,
+        bio: session?.bio ?? null,
+        email: session?.email ?? null,
         guest: guestState.guest,
         guestRemainingMs: guestState.remainingMs,
         liked: engagement ? { ...get().liked, ...engagement.liked } : get().liked,
@@ -415,6 +447,8 @@ export const useOjea = create<State>()((set, get) => ({
             userId: next.userId,
             displayName: next.displayName,
             city: next.city,
+            bio: next.bio,
+            email: next.email,
             guest: false,
             guestRemainingMs: 0,
             liked: { ...get().liked, ...eng.liked },

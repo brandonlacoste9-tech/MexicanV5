@@ -17,6 +17,7 @@ function Perfil() {
     userId,
     displayName,
     city,
+    bio,
     guest,
     guestRemainingMs,
     clips,
@@ -50,6 +51,7 @@ function Perfil() {
             <MapPin className="size-3.5 text-primary" aria-hidden />
             {city || getHomeCity()} · {c.hiveMexico}
           </p>
+          {bio ? <p className="mt-3 max-w-sm text-sm text-fg/90">{bio}</p> : null}
         </div>
         <Link to="/ajustes" className="text-xs text-primary hover:underline">
           {c.settings}

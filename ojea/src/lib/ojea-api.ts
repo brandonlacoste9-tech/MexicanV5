@@ -9,6 +9,8 @@ export type SessionProfile = {
   username: string;
   displayName: string;
   city: string | null;
+  bio: string | null;
+  email: string | null;
 };
 
 export type DirectMessage = {
@@ -249,10 +251,14 @@ export async function persistClip(clip: Clip, authorId: string) {
   if (error) throw error;
 }
 
-async function loadProfile(userId: string, fallbackName: string): Promise<SessionProfile> {
+async function loadProfile(
+  userId: string,
+  fallbackName: string,
+  email: string | null = null,
+): Promise<SessionProfile> {
   const { data } = await supabase
     .from("profiles")
-    .select("username,display_name,city")
+    .select("username,display_name,city,bio")
     .eq("id", userId)
     .maybeSingle();
   if (data?.username) {
@@ -261,6 +267,8 @@ async function loadProfile(userId: string, fallbackName: string): Promise<Sessio
       username: data.username,
       displayName: data.display_name,
       city: data.city ?? null,
+      bio: data.bio ?? null,
+      email,
     };
   }
   const username = accountUsername(fallbackName) || "otealo";
@@ -276,6 +284,8 @@ async function loadProfile(userId: string, fallbackName: string): Promise<Sessio
     username,
     displayName: fallbackName.trim() || username,
     city: null,
+    bio: null,
+    email,
   };
 }
 
@@ -290,6 +300,7 @@ export async function readSession(): Promise<SessionProfile | null> {
   return loadProfile(
     user.id,
     meta.display_name || meta.username || user.email || "otealo",
+    user.email ?? null,
   );
 }
 
@@ -312,7 +323,7 @@ export async function signInAccount(
   if (error) throw new Error(asError(error, "No se pudo entrar."));
   const user = data.user;
   if (!user) throw new Error("No se pudo entrar.");
-  return loadProfile(user.id, name);
+  return loadProfile(user.id, name, user.email ?? null);
 }
 
 export async function signUpAccount(
@@ -339,7 +350,7 @@ export async function signUpAccount(
   if (error) throw new Error(asError(error, "No se pudo crear la cuenta."));
   const user = data.user;
   if (!user) throw new Error("Revisa tu correo para confirmar la cuenta.");
-  return loadProfile(user.id, name.trim() || username);
+  return loadProfile(user.id, name.trim() || username, user.email ?? mail);
 }
 
 export async function signInWithGoogle() {
@@ -433,16 +444,38 @@ export async function sendDm(
 
 export async function updateProfile(
   userId: string,
-  displayName: string,
+  patch: { displayName: string; bio: string },
 ): Promise<void> {
-  const name = displayName.trim();
+  const name = patch.displayName.trim();
   if (name.length < 2) throw new Error("El nombre debe tener al menos 2 caracteres.");
+  const bio = patch.bio.trim().slice(0, 160);
   const { error } = await supabase
     .from("profiles")
-    .update({ display_name: name })
+    .update({ display_name: name, bio })
     .eq("id", userId);
   if (error) throw new Error(asError(error, "No se pudo guardar el perfil."));
-  await supabase.auth.updateUser({ data: { display_name: name } });
+  await supabase.auth.updateUser({ data: { display_name: name, bio } });
+}
+
+export async function fetchPublicProfile(username: string) {
+  const { data } = await supabase
+    .from("profiles")
+    .select("username,display_name,city,bio")
+    .eq("username", username)
+    .maybeSingle();
+  if (!data) return null;
+  return {
+    username: data.username as string,
+    displayName: data.display_name as string,
+    city: (data.city as string | null) ?? null,
+    bio: (data.bio as string | null) ?? null,
+  };
+}
+
+export async function deleteOwnAccount(): Promise<void> {
+  const { error } = await supabase.rpc("delete_own_account");
+  if (error) throw new Error(asError(error, "No se pudo borrar la cuenta."));
+  await supabase.auth.signOut();
 }
 
 export async function updateHomeCity(userId: string, city: string): Promise<void> {

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Check, Globe, Languages, MapPin } from "lucide-react";
+import { Check, Globe, Languages, MapPin, Volume2, VolumeX } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
@@ -19,21 +19,29 @@ function Ajustes() {
     user,
     userId,
     displayName,
+    bio,
+    email,
     guest,
     guestRemainingMs,
     logout,
     backend,
+    muted,
+    setMuted,
     saveProfile,
     saveHomeCity,
+    deleteAccount,
   } = useOjea();
   const c = useCopy();
   const locale = useLocale((s) => s.locale);
   const setLocale = useLocale((s) => s.setLocale);
   const navigate = useNavigate();
   const [name, setName] = useState(displayName ?? user ?? "");
+  const [about, setAbout] = useState(bio ?? "");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [home, setHome] = useState<RegionCity>(getHomeCity);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const languages: Array<{ code: Locale; title: string; lead: string }> = [
     { code: "es", title: c.spanish, lead: c.spanishLead },
@@ -87,6 +95,48 @@ function Ajustes() {
             );
           })}
         </div>
+      </section>
+
+      <section className="mt-4 rounded-xl border border-border bg-elevated p-5">
+        <p className="flex items-center gap-2 text-xs tracking-wide text-muted uppercase">
+          {muted ? (
+            <VolumeX className="size-3.5" aria-hidden />
+          ) : (
+            <Volume2 className="size-3.5" aria-hidden />
+          )}
+          {c.playback}
+        </p>
+        <button
+          type="button"
+          onClick={() => setMuted(!muted)}
+          aria-pressed={muted}
+          className={cn(
+            "mt-3 flex min-h-14 w-full items-center gap-3 rounded-lg border px-4 py-3 text-left",
+            muted
+              ? "border-primary bg-primary/10"
+              : "border-border bg-surface hover:border-primary/40",
+          )}
+        >
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-medium text-fg">
+              {muted ? c.muteOn : c.muteOff}
+            </span>
+            <span className="mt-0.5 block text-xs text-muted">{c.muteOnLead}</span>
+          </span>
+          <span
+            className={cn(
+              "relative h-6 w-11 shrink-0 rounded-full",
+              muted ? "bg-primary" : "bg-border",
+            )}
+          >
+            <span
+              className={cn(
+                "absolute top-0.5 size-5 rounded-full bg-fg transition-transform",
+                muted ? "translate-x-5" : "translate-x-0.5",
+              )}
+            />
+          </span>
+        </button>
       </section>
 
       <section className="mt-4 rounded-xl border border-border bg-elevated p-5">
@@ -211,7 +261,7 @@ function Ajustes() {
               e.preventDefault();
               setPending(true);
               setError(null);
-              void saveProfile(name).then((err) => {
+              void saveProfile(name, about).then((err) => {
                 setPending(false);
                 if (err) setError(err);
               });
@@ -225,6 +275,20 @@ function Ajustes() {
                 className="h-11 w-full rounded-md border border-border bg-surface px-3 text-sm outline-none focus:outline-2 focus:outline-primary"
               />
             </label>
+            <label className="block text-sm">
+              <span className="mb-1 block text-muted">{c.bio}</span>
+              <textarea
+                value={about}
+                maxLength={160}
+                rows={3}
+                placeholder={c.bioPh}
+                onChange={(e) => setAbout(e.target.value)}
+                className="w-full resize-none rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:outline-2 focus:outline-primary"
+              />
+              <span className="mt-1 block text-xs text-muted">
+                {about.length}/160
+              </span>
+            </label>
             {error ? <p className="text-sm text-live">{error}</p> : null}
             <Button type="submit" disabled={pending}>
               {pending ? c.saving : c.saveName}
@@ -235,6 +299,14 @@ function Ajustes() {
 
       <section className="mt-4 rounded-xl border border-border bg-elevated p-5">
         <p className="text-xs tracking-wide text-muted uppercase">{c.account}</p>
+        {userId ? (
+          <p className="mt-3 text-sm">
+            <span className="block text-xs tracking-wide text-muted uppercase">
+              {c.emailLabel}
+            </span>
+            <span className="mt-1 block text-fg">{email || c.noEmail}</span>
+          </p>
+        ) : null}
         <Link
           to="/recuperar"
           className="mt-3 block text-sm text-primary hover:underline"
@@ -242,6 +314,50 @@ function Ajustes() {
           {c.recoverLink}
         </Link>
         <p className="mt-3 text-sm text-muted">{c.googleHint}</p>
+        {userId ? (
+          <div className="mt-5 border-t border-border pt-4">
+            <p className="text-sm text-muted">{c.deleteAccountLead}</p>
+            {confirmDelete ? (
+              <div className="mt-3">
+                <p className="text-sm text-live">{c.deleteConfirm}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    variant="gold-outline"
+                    disabled={deleting}
+                    onClick={() => {
+                      setDeleting(true);
+                      void deleteAccount().then((err) => {
+                        setDeleting(false);
+                        if (err) {
+                          setError(err);
+                          return;
+                        }
+                        void navigate({ to: "/" });
+                      });
+                    }}
+                  >
+                    {deleting ? c.deleting : c.deleteYes}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setConfirmDelete(false)}
+                    disabled={deleting}
+                  >
+                    {c.deleteCancel}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="mt-3 text-sm text-live hover:underline"
+                onClick={() => setConfirmDelete(true)}
+              >
+                {c.deleteAccount}
+              </button>
+            )}
+          </div>
+        ) : null}
       </section>
 
       <section className="mt-4 rounded-xl border border-border bg-elevated p-5">

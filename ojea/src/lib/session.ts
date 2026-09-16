@@ -12,6 +12,26 @@ export const GUEST_TS_KEY = "ojea-guest-ts";
 export const GUEST_MS = 24 * 60 * 60 * 1000;
 export const AGE_KEY = "ojea-age-ok";
 export const ONBOARD_KEY = "ojea-onboarded";
+export const MUTE_KEY = "otealo-muted";
+
+export function readMuted() {
+  try {
+    const v = localStorage.getItem(MUTE_KEY);
+    if (v === "0") return false;
+    if (v === "1") return true;
+  } catch {
+    /* default on */
+  }
+  return true;
+}
+
+export function writeMuted(muted: boolean) {
+  try {
+    localStorage.setItem(MUTE_KEY, muted ? "1" : "0");
+  } catch {
+    /* ignore */
+  }
+}
 
 export function readGuestSession() {
   try {
