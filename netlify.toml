@@ -1,5 +1,5 @@
-# Ojea Mexico — static web in ojea/. API is ojea-api on Render.
-# Nitro's Netlify function 500s every HTML route; Ojea is client-only
+# Otealo — static SPA in ojea/. Live site is otealo.com.
+# Nitro's Netlify function 500s every HTML route; Otealo is client-only
 # (Supabase + zustand), so the build writes HTML and drops the function.
 
 [build]
@@ -7,7 +7,7 @@
   publish = "ojea/dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   NITRO_PRESET = "netlify"
   NODE_OPTIONS = "--max-old-space-size=4096"
   CI = "true"
@@ -15,6 +15,36 @@
 
 [functions]
   directory = "netlify/functions"
+
+[[redirects]]
+  from = "/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api"
+  to = "/.netlify/functions/health"
+  status = 200
+
+[[redirects]]
+  from = "/api/feed"
+  to = "/.netlify/functions/feed"
+  status = 200
+
+[[redirects]]
+  from = "/api/feed/*"
+  to = "/.netlify/functions/feed"
+  status = 200
+
+[[redirects]]
+  from = "/api/clips"
+  to = "/.netlify/functions/feed"
+  status = 200
 
 [[redirects]]
   from = "/c/*"

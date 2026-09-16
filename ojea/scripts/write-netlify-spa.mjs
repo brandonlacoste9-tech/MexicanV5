@@ -256,7 +256,10 @@ $_TSR.e();
 
 let wroteHome = false;
 try {
-  const fetchDoc = await loadFetcher();
+  // Production is a static SPA. Importing the Nitro SSR bundle on Node 20
+  // crashes supabase-js (no native WebSocket) and prints a 500 per route.
+  // Always write the client shell; drop the unused function below.
+  throw new Error("static-spa");
   for (const [path, file] of routes) {
     try {
       const res = await fetchDoc(
