@@ -50,7 +50,7 @@ function Crear() {
   const c = useCopy();
   const [caption, setCaption] = useState("");
   const [city, setCity] = useState<string>(() => getHomeCity());
-  const [sound, setSound] = useState(STREET[4]?.sound ?? "Calle viva");
+  const [sound, setSound] = useState<string>(STREET[4]?.sound ?? "Calle viva");
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [pending, setPending] = useState(false);
