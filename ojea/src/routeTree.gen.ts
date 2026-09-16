@@ -23,6 +23,7 @@ import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as CIdRouteImport } from './routes/c.$id'
 import { Route as SonidoIdRouteImport } from './routes/sonido.$id'
 import { Route as TagTagRouteImport } from './routes/tag.$tag'
 import { Route as UUserRouteImport } from './routes/u.$user'
@@ -97,6 +98,11 @@ const TerminosRoute = TerminosRouteImport.update({
   path: '/terminos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CIdRoute = CIdRouteImport.update({
+  id: '/c/$id',
+  path: '/c/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SonidoIdRoute = SonidoIdRouteImport.update({
   id: '/sonido/$id',
   path: '/sonido/$id',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/recuperar': typeof RecuperarRoute
   '/registro': typeof RegistroRoute
   '/terminos': typeof TerminosRoute
+  '/c/$id': typeof CIdRoute
   '/sonido/$id': typeof SonidoIdRoute
   '/tag/$tag': typeof TagTagRoute
   '/u/$user': typeof UUserRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/recuperar': typeof RecuperarRoute
   '/registro': typeof RegistroRoute
   '/terminos': typeof TerminosRoute
+  '/c/$id': typeof CIdRoute
   '/sonido/$id': typeof SonidoIdRoute
   '/tag/$tag': typeof TagTagRoute
   '/u/$user': typeof UUserRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/recuperar': typeof RecuperarRoute
   '/registro': typeof RegistroRoute
   '/terminos': typeof TerminosRoute
+  '/c/$id': typeof CIdRoute
   '/sonido/$id': typeof SonidoIdRoute
   '/tag/$tag': typeof TagTagRoute
   '/u/$user': typeof UUserRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/registro'
     | '/terminos'
+    | '/c/$id'
     | '/sonido/$id'
     | '/tag/$tag'
     | '/u/$user'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/registro'
     | '/terminos'
+    | '/c/$id'
     | '/sonido/$id'
     | '/tag/$tag'
     | '/u/$user'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/registro'
     | '/terminos'
+    | '/c/$id'
     | '/sonido/$id'
     | '/tag/$tag'
     | '/u/$user'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   RecuperarRoute: typeof RecuperarRoute
   RegistroRoute: typeof RegistroRoute
   TerminosRoute: typeof TerminosRoute
+  CIdRoute: typeof CIdRoute
   SonidoIdRoute: typeof SonidoIdRoute
   TagTagRoute: typeof TagTagRoute
   UUserRoute: typeof UUserRoute
@@ -351,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TerminosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/c/$id': {
+      id: '/c/$id'
+      path: '/c/$id'
+      fullPath: '/c/$id'
+      preLoaderRoute: typeof CIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sonido/$id': {
       id: '/sonido/$id'
       path: '/sonido/$id'
@@ -390,6 +410,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecuperarRoute: RecuperarRoute,
   RegistroRoute: RegistroRoute,
   TerminosRoute: TerminosRoute,
+  CIdRoute: CIdRoute,
   SonidoIdRoute: SonidoIdRoute,
   TagTagRoute: TagTagRoute,
   UUserRoute: UUserRoute,

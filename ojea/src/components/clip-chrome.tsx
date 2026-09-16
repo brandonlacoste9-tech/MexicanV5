@@ -19,12 +19,12 @@ import {
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import type { Clip } from "@/lib/clips";
+import { clipPermalink } from "@/lib/clip-link";
 import { useCopy } from "@/lib/i18n";
 import { formatCount, initials, useOjea } from "@/lib/store";
 
 export function clipShareUrl(clip: Clip) {
-  if (typeof window === "undefined") return `/?v=${clip.id}`;
-  return `${window.location.origin}/?v=${clip.id}`;
+  return clipPermalink(clip.id);
 }
 
 export function ActionRail({

@@ -18,6 +18,7 @@ import { hydrateLocale, useCopy } from "@/lib/i18n";
 import { AGE_KEY, AUTH_PATHS, ONBOARD_KEY, formatGuestRemaining } from "@/lib/session";
 import { initials, useOjea, type Tab } from "@/lib/store";
 import { region } from "@/lib/region";
+import { isFeedPath } from "@/lib/clip-link";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -72,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   ];
 
   function navActive(item: SideItem) {
-    if (item.tab) return pathname === "/" && tab === item.tab;
+    if (item.tab) return isFeedPath(pathname) && tab === item.tab;
     return pathname === item.to;
   }
 
@@ -254,9 +255,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           </aside>
 
           <main className="md:pl-56">
-            {guest && pathname !== "/" ? <GuestChip overlay={false} /> : null}
-            {guest && pathname === "/" ? <GuestChip overlay /> : null}
-            {pathname !== "/" ? (
+            {guest && !isFeedPath(pathname) ? <GuestChip overlay={false} /> : null}
+            {guest && isFeedPath(pathname) ? <GuestChip overlay /> : null}
+            {!isFeedPath(pathname) ? (
               <div className="fixed top-3 right-3 z-30 md:hidden">
                 <LangToggle compact />
               </div>
@@ -264,7 +265,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div
               className={cn(
                 "mx-auto min-h-dvh",
-                pathname === "/"
+                isFeedPath(pathname)
                   ? "max-w-none overflow-hidden"
                   : "max-w-5xl pb-16 md:pb-0",
               )}
@@ -278,7 +279,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               const Icon = item.icon;
               const active =
                 item.to === "/"
-                  ? pathname === "/"
+                  ? isFeedPath(pathname)
                   : pathname === item.to;
               return (
                 <Link

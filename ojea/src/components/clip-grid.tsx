@@ -3,10 +3,9 @@ import { Play } from "lucide-react";
 import type { Clip } from "@/lib/clips";
 import { useCopy } from "@/lib/i18n";
 import { clipVideoSrc } from "@/lib/media";
-import { formatCount, useOjea } from "@/lib/store";
+import { formatCount } from "@/lib/store";
 
 export function ClipGrid({ clips }: { clips: Clip[] }) {
-  const { setIndex, setTab, clips: all } = useOjea();
   const navigate = useNavigate();
   const t = useCopy();
 
@@ -23,10 +22,7 @@ export function ClipGrid({ clips }: { clips: Clip[] }) {
           className="group relative aspect-portrait overflow-hidden rounded-lg"
           aria-label={`@${clip.user}`}
           onClick={() => {
-            const idx = all.findIndex((x) => x.id === clip.id);
-            setTab("foryou");
-            setIndex(idx >= 0 ? idx : 0);
-            void navigate({ to: "/" });
+            void navigate({ to: "/c/$id", params: { id: clip.id } });
           }}
         >
           <img

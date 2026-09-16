@@ -12,6 +12,12 @@
   NITRO_PRESET = "netlify"
 
 [[redirects]]
+  from = "/c/*"
+  to = "/.netlify/functions/clip-card"
+  status = 200
+  force = false
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

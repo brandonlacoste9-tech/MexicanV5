@@ -1,4 +1,4 @@
-import { createFileRoute, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { ClipStage } from "@/components/clip-stage";
 import { FRIEND_USERS } from "@/lib/clips";
@@ -7,8 +7,9 @@ import { useOjea } from "@/lib/store";
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const { clips, tab, followed, hidden, setIndex, setTab } = useOjea();
+  const { clips, tab, followed, hidden, setTab } = useOjea();
   const searchStr = useRouterState({ select: (s) => s.location.searchStr });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(
@@ -20,12 +21,8 @@ function Home() {
       setTab(feed);
     }
     if (!v) return;
-    const i = clips.findIndex((c) => c.id === v);
-    if (i >= 0) {
-      setTab("foryou");
-      setIndex(i);
-    }
-  }, [searchStr, clips, setIndex, setTab]);
+    void navigate({ to: "/c/$id", params: { id: v }, replace: true });
+  }, [searchStr, navigate, setTab]);
 
   const list = clips.filter((c) => !hidden[c.id]).filter((c) => {
     if (tab === "following") return followed[c.user];

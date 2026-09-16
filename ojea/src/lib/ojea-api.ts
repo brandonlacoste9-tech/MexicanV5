@@ -132,6 +132,25 @@ export async function fetchClips(): Promise<Clip[]> {
   );
 }
 
+export async function fetchClipById(id: string): Promise<Clip | null> {
+  const [{ data: row, error: clipErr }, { data: commentRows }] = await Promise.all([
+    supabase
+      .from("clips")
+      .select(
+        "id,username,display_name,caption,city,image,video,likes_count,tags,sound,sound_artist,live,viewers",
+      )
+      .eq("id", id)
+      .maybeSingle(),
+    supabase.from("comments").select("clip_id,username,body").eq("clip_id", id),
+  ]);
+  if (clipErr || !row) return null;
+  const comments = ((commentRows ?? []) as CommentRow[]).map((item) => ({
+    user: item.username,
+    text: item.body,
+  }));
+  return rowToClip(row as ClipRow, comments);
+}
+
 export async function fetchEngagement(userId: string) {
   const [likes, saves, follows] = await Promise.all([
     supabase.from("likes").select("clip_id").eq("user_id", userId),

@@ -44,6 +44,140 @@ function firstExisting(paths) {
   return paths.find((p) => existsSync(p));
 }
 
+const SITE = "https://otealo.com";
+const SUPA = "https://oqaswdsyqyecufdmwmxs.supabase.co";
+const ANON =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xYXN3ZHN5cXllY3VmZG13bXhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0OTkxODIsImV4cCI6MjEwNTA3NTE4Mn0.CgBZFnuxnXFmEKMSuRyr8zOoBITB0MUMtbRsxw7rT2E";
+
+function esc(value) {
+  return String(value)
+    .replaceAll("&", "&")
+    .replaceAll("<", "<")
+    .replaceAll(">", ">")
+    .replaceAll('"', """);
+}
+
+function absUrl(raw) {
+  if (!raw) return `${SITE}/favicon.svg`;
+  if (raw.startsWith("http")) return raw;
+  return `${SITE}${raw.startsWith("/") ? raw : `/${raw}`}`;
+}
+
+function injectOg(html, meta) {
+  const title = esc(meta.title);
+  const description = esc(meta.description);
+  const url = esc(meta.url);
+  const image = esc(meta.image);
+  const tags = `
+  <meta property="og:type" content="video.other"/>
+  <meta property="og:site_name" content="Otealo"/>
+  <meta property="og:title" content="${title}"/>
+  <meta property="og:description" content="${description}"/>
+  <meta property="og:url" content="${url}"/>
+  <meta property="og:image" content="${image}"/>
+  <meta property="og:image:alt" content="${title}"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="${title}"/>
+  <meta name="twitter:description" content="${description}"/>
+  <meta name="twitter:image" content="${image}"/>
+`;
+  let next = html.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
+  if (next.includes("</head>")) next = next.replace("</head>", `${tags}</head>`);
+  else next = tags + next;
+  return next;
+}
+
+function parseLocalClips() {
+  const catalog = {};
+  const files = [
+    join(root, "src/lib/mx-clips.ts"),
+    join(root, "src/lib/clips.ts"),
+  ];
+  for (const file of files) {
+    if (!existsSync(file)) continue;
+    const src = readFileSync(file, "utf8");
+    const blockRe =
+      /\{\s*id:\s*"([^"]+)"[\s\S]*?user:\s*"([^"]+)"[\s\S]*?displayName:\s*"([^"]+)"[\s\S]*?caption:\s*"([^"]*)"[\s\S]*?city:\s*"([^"]+)"[\s\S]*?image:\s*([^\n]+)/g;
+    let match;
+    while ((match = blockRe.exec(src))) {
+      const [, id, user, displayName, caption, city, imageExpr] = match;
+      let image = `${SITE}/favicon.svg`;
+      const mx = imageExpr.match(
+        /mxClipImageUrl\("([^"]+)"(?:,\s*"(jpg|png)")?\)/,
+      );
+      const local = imageExpr.match(/"(\/clips\/[^"]+)"/);
+      const remote = imageExpr.match(/"(https?:\/\/[^"]+)"/);
+      if (mx) {
+        image = `${SUPA}/storage/v1/object/public/clips/mx/${mx[1]}.${mx[2] || "jpg"}`;
+      } else if (local) {
+        image = absUrl(local[1]);
+      } else if (remote) {
+        image = remote[1];
+      }
+      catalog[id] = {
+        title: caption || `@${user} en Otealo`,
+        description: `@${user} · ${city} · Otealo`,
+        image,
+        url: `${SITE}/c/${encodeURIComponent(id)}`,
+        user,
+        displayName,
+        city,
+      };
+    }
+  }
+  return catalog;
+}
+
+async function loadRemoteClips(catalog) {
+  try {
+    const res = await fetch(
+      `${SUPA}/rest/v1/clips?select=id,username,display_name,caption,city,image&limit=200`,
+      {
+        headers: {
+          apikey: ANON,
+          Authorization: `Bearer ${ANON}`,
+        },
+      },
+    );
+    if (!res.ok) return;
+    const rows = await res.json();
+    for (const row of rows) {
+      if (!row?.id || catalog[row.id]) continue;
+      catalog[row.id] = {
+        title: row.caption || `@${row.username} en Otealo`,
+        description: `@${row.username} · ${row.city || "México"} · Otealo`,
+        image: absUrl(row.image),
+        url: `${SITE}/c/${encodeURIComponent(row.id)}`,
+        user: row.username,
+        displayName: row.display_name,
+        city: row.city,
+      };
+    }
+  } catch (err) {
+    console.warn("[netlify-spa] clip catalog supabase skipped", err);
+  }
+}
+
+async function writeClipOgPages() {
+  const catalog = parseLocalClips();
+  await loadRemoteClips(catalog);
+  const shellPath = join(root, "dist/index.html");
+  if (!existsSync(shellPath)) return;
+  const shell = readFileSync(shellPath, "utf8");
+  writeFileSync(
+    join(root, "dist/clip-og.json"),
+    JSON.stringify(catalog),
+  );
+  let n = 0;
+  for (const [id, meta] of Object.entries(catalog)) {
+    const dir = join(root, "dist/c", id);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, "index.html"), injectOg(shell, meta));
+    n += 1;
+  }
+  console.log("[netlify-spa] wrote", n, "clip OG pages");
+}
+
 async function loadFetcher() {
   const ssrPath = firstExisting([
     join(root, ".netlify/functions-internal/server/_ssr/ssr.mjs"),
@@ -181,6 +315,7 @@ function retitle(dir) {
   }
 }
 retitle(join(root, "dist"));
+await writeClipOgPages();
 
 mkdirSync(join(root, "dist/__grok"), { recursive: true });
 writeFileSync(
@@ -207,7 +342,9 @@ writeFileSync(
 
 writeFileSync(
   join(root, "dist/_redirects"),
-  `# SPA fallback — static files win over this rewrite.
+  `# Clip permalinks: static dist/c/{id}/index.html wins; unknown ids hit the OG function.
+/c/*  /.netlify/functions/clip-card  200
+# SPA fallback — static files win over this rewrite.
 /*    /index.html   200
 `,
 );
