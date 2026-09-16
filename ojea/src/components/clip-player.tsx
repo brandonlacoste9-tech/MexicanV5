@@ -22,6 +22,7 @@ export function ClipPlayer({
   const [buffering, setBuffering] = useState(false);
   const [failed, setFailed] = useState(false);
   const [seeking, setSeeking] = useState(false);
+  const [ready, setReady] = useState(false);
   const hosted = clipVideoSrc(clip);
   const [src, setSrc] = useState(hosted);
   const showVideo = Boolean(src) && !failed && (active || near);
@@ -30,6 +31,7 @@ export function ClipPlayer({
     setSrc(hosted);
     setFailed(false);
     setProgress(0);
+    setReady(false);
   }, [hosted]);
 
   useEffect(() => {
@@ -41,12 +43,12 @@ export function ClipPlayer({
       });
     } else {
       el.pause();
-      if (!active) {
+      if (!active && !near) {
         el.currentTime = 0;
         setProgress(0);
       }
     }
-  }, [active, paused, src, showVideo]);
+  }, [active, paused, src, showVideo, near]);
 
   useEffect(() => {
     const el = videoRef.current;
@@ -67,25 +69,28 @@ export function ClipPlayer({
       <img
         src={clip.image}
         alt=""
-        className={cn(
-          "absolute inset-0 size-full object-cover",
-          !showVideo && "clip-ken",
-          !showVideo && paused && "is-paused",
-        )}
+        className="absolute inset-0 size-full object-cover"
       />
       {showVideo ? (
         <video
           ref={videoRef}
           src={src ?? undefined}
           poster={clip.image}
-          className="absolute inset-0 size-full object-cover"
+          className={cn("clip-video", ready ? "opacity-100" : "opacity-0")}
           loop
           playsInline
           muted={muted}
           preload={active ? "auto" : "metadata"}
+          onLoadedData={() => setReady(true)}
           onWaiting={() => setBuffering(true)}
-          onPlaying={() => setBuffering(false)}
-          onCanPlay={() => setBuffering(false)}
+          onPlaying={() => {
+            setBuffering(false);
+            setReady(true);
+          }}
+          onCanPlay={() => {
+            setBuffering(false);
+            setReady(true);
+          }}
           onError={() => {
             const local = localClipVideoUrl(clip.id);
             if (src && src !== local) setSrc(local);

@@ -99,7 +99,7 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
         : c.liveEmpty;
 
   return (
-    <div className="flex h-dvh overflow-hidden md:items-center md:justify-center md:gap-4 md:px-6">
+    <div className="flex h-svh overflow-hidden md:h-dvh md:items-center md:justify-center md:gap-4 md:px-6">
       <div className="stage-frame min-h-0 shrink-0">
         <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start justify-between px-3 pt-4 md:px-4">
           <Link
