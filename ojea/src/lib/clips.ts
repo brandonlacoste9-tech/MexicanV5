@@ -1183,35 +1183,6 @@ const EDITORIAL_CLIPS: Clip[] = [
   },
 ];
 
-export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS].map((c) => {
-  const country = inferCountry(c);
-  const stamped = stampHouseCreator({ ...c, country });
-  return {
-    ...stamped,
-    likes: 0,
-    comments: [],
-    shares: 0,
-    live: false,
-    viewers: undefined,
-    following: false,
-    friend: false,
-    video: c.video ?? seedClipVideoUrl(c.id),
-    series: inferSeries(c),
-    country,
-  };
-});
-
-export function stampHouseCreator<
-  T extends { user: string; displayName: string; city?: string; country?: ClipCountry },
->(clip: T): T {
-  if (clip.user && clip.user !== "otealo") return clip;
-  if (clip.country === "ES") {
-    return { ...clip, user: "iberia.ojo", displayName: "Iberia Ojo" };
-  }
-  const hit = CITY_HANDLE[clip.city ?? ""];
-  return hit ? { ...clip, user: hit.user, displayName: hit.displayName } : clip;
-}
-
 const CITY_HANDLE: Record<string, { user: string; displayName: string }> = {
   "Ciudad de México": { user: "centro.cdmx", displayName: "Centro CDMX" },
   Guadalajara: { user: "guadalajara.nights", displayName: "GDL Nights" },
@@ -1232,6 +1203,35 @@ const CITY_HANDLE: Record<string, { user: string; displayName: string }> = {
   Buñol: { user: "iberia.ojo", displayName: "Iberia Ojo" },
   "Santiago de Compostela": { user: "iberia.ojo", displayName: "Iberia Ojo" },
 };
+
+export function stampHouseCreator<
+  T extends { user: string; displayName: string; city?: string; country?: ClipCountry },
+>(clip: T): T {
+  if (clip.user && clip.user !== "otealo") return clip;
+  if (clip.country === "ES") {
+    return { ...clip, user: "iberia.ojo", displayName: "Iberia Ojo" };
+  }
+  const hit = CITY_HANDLE[clip.city ?? ""];
+  return hit ? { ...clip, user: hit.user, displayName: hit.displayName } : clip;
+}
+
+export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS].map((c) => {
+  const country = inferCountry(c);
+  const stamped = stampHouseCreator({ ...c, country });
+  return {
+    ...stamped,
+    likes: 0,
+    comments: [],
+    shares: 0,
+    live: false,
+    viewers: undefined,
+    following: false,
+    friend: false,
+    video: c.video ?? seedClipVideoUrl(c.id),
+    series: inferSeries(c),
+    country,
+  };
+});
 
 export function mergeClipFeeds(...lists: Clip[][]) {
   const seen = new Set<string>();
