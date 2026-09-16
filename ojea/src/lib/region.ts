@@ -40,7 +40,7 @@ export const region = {
   ],
   exploreCategories: [
     { id: "all", es: "Hoy", en: "Today", match: [] as string[] },
-    { id: "comida", es: "Comida", en: "Food", match: ["taco", "comida", "trompo", "pastor", "chile", "elote", "tamal", "guacamole", "mole", "mezcal"] },
+    { id: "comida", es: "Comida", en: "Food", match: ["taco", "comida", "trompo", "pastor", "chile", "elote", "tamal", "guacamole", "mole", "mezcal", "pozole", "nogada"] },
     { id: "historia", es: "Historia", en: "History", match: ["piramide", "maya", "azteca", "teotihuacan", "templo", "olmec", "palenque"] },
     { id: "musica", es: "Música", en: "Music", match: ["musica", "mariachi", "cumbia", "sonido", "banda", "folklor", "jarabe"] },
     { id: "futbol", es: "Fútbol", en: "Soccer", match: ["futbol", "gol", "estadio", "aficion", "azteca"] },

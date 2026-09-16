@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { ClipStage } from "@/components/clip-stage";
-import { FRIEND_USERS } from "@/lib/clips";
+import { FRIEND_USERS, pinPatriaClips } from "@/lib/clips";
 import { matchesCulture } from "@/lib/culture";
 import { getHomeCity } from "@/lib/region";
 import { SEO, seoHead } from "@/lib/seo";
@@ -42,5 +42,5 @@ function Home() {
     return matchesCulture(c, countryFilter, seriesFilter);
   });
 
-  return <ClipStage clips={list} />;
+  return <ClipStage clips={pinPatriaClips(list)} />;
 }

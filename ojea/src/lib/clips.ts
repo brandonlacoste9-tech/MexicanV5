@@ -326,6 +326,134 @@ const EDITORIAL_CLIPS: Clip[] = [
     country: "MX",
   },
   {
+    id: "ind-mariachi",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "El mariachi no pide el día. Hoy canta la patria.",
+    city: "Ciudad de México",
+    image: "/clips/ind-mariachi.jpg",
+    video: "/clips/ind-mariachi.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "mariachi", "grito", "parati"],
+    sound: "Trompetas del Grito",
+    soundArtist: "Plaza viva",
+    series: "FestivalFiles",
+    country: "MX",
+  },
+  {
+    id: "ind-pozole",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "Pozole de septiembre. El 16 también se come.",
+    city: "Guerrero",
+    image: "/clips/ind-pozole.jpg",
+    video: "/clips/ind-pozole.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "comida", "pozole", "parati"],
+    sound: "Cazuela de fiesta",
+    soundArtist: "Cocina de casa",
+    series: "FoodLab",
+    country: "MX",
+  },
+  {
+    id: "ind-tequila",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "Un caballito por México. Salud, y que no se apague.",
+    city: "Ciudad de México",
+    image: "/clips/ind-tequila.jpg",
+    video: "/clips/ind-tequila.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "grito", "tequila", "parati"],
+    sound: "Salud por México",
+    soundArtist: "Azotea Roma",
+    series: "DailyLife",
+    country: "MX",
+  },
+  {
+    id: "ind-china",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "China poblana. La falda también es bandera.",
+    city: "Puebla",
+    image: "/clips/ind-china.jpg",
+    video: "/clips/ind-china.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "folklor", "puebla", "parati"],
+    sound: "Falda de lentejuela",
+    soundArtist: "Puebla Mole",
+    series: "FestivalFiles",
+    country: "MX",
+  },
+  {
+    id: "ind-cohetes",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "Cohetes desde la azotea. Así se oye el barrio.",
+    city: "Ciudad de México",
+    image: "/clips/ind-cohetes.jpg",
+    video: "/clips/ind-cohetes.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "grito", "CDMX", "parati"],
+    sound: "Cielo de colonia",
+    soundArtist: "La azotea",
+    series: "DailyLife",
+    country: "MX",
+  },
+  {
+    id: "ind-gdlgrito",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "Plaza Liberación. Jalisco también da el Grito.",
+    city: "Guadalajara",
+    image: "/clips/ind-gdlgrito.jpg",
+    video: "/clips/ind-gdlgrito.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "grito", "guadalajara", "parati"],
+    sound: "Catedral y fuente",
+    soundArtist: "GDL Nights",
+    series: "FestivalFiles",
+    country: "MX",
+  },
+  {
+    id: "ind-tacos15",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "Después del Grito, el trompo. La patria también tiene hambre.",
+    city: "Ciudad de México",
+    image: "/clips/ind-tacos15.jpg",
+    video: "/clips/ind-tacos15.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "tacos", "CDMX", "parati"],
+    sound: "Pastor a las 2",
+    soundArtist: "Sonido Roma",
+    series: "FoodLab",
+    country: "MX",
+  },
+  {
+    id: "ind-bandera",
+    user: "otealo",
+    displayName: "Otealo",
+    caption: "El águila no se arrodilla. Hoy la bandera manda.",
+    city: "Ciudad de México",
+    image: "/clips/ind-bandera.jpg",
+    video: "/clips/ind-bandera.mp4",
+    likes: 0,
+    comments: [],
+    tags: ["independencia", "bandera", "grito", "parati"],
+    sound: "Toque de bandera",
+    soundArtist: "Patio de escuela",
+    series: "MexicoIn30s",
+    country: "MX",
+  },
+  {
     id: "pastor2",
     user: "otealo",
     displayName: "Otealo",
@@ -1276,6 +1404,7 @@ const CITY_HANDLE: Record<string, { user: string; displayName: string }> = {
   Querétaro: { user: "centro.cdmx", displayName: "Centro CDMX" },
   Guanajuato: { user: "campana.gto", displayName: "Campana GTO" },
   Morelos: { user: "piedra.antigua", displayName: "Piedra Antigua" },
+  Guerrero: { user: "istmo.luz", displayName: "Istmo Luz" },
   Michoacán: { user: "istmo.luz", displayName: "Istmo Luz" },
   Madrid: { user: "iberia.ojo", displayName: "Iberia Ojo" },
   Sevilla: { user: "iberia.ojo", displayName: "Iberia Ojo" },
@@ -1337,6 +1466,27 @@ export function shuffleClips(clips: Clip[]) {
     out[j] = a;
   }
   return out;
+}
+
+export function isPatriaDay(now = new Date()) {
+  const fmt = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Mexico_City",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const parts = Object.fromEntries(fmt.formatToParts(now).map((p) => [p.type, p.value]));
+  return parts.month === "09" && (parts.day === "15" || parts.day === "16");
+}
+
+function isPatriaClip(clip: Clip) {
+  if (clip.id.startsWith("ind-")) return true;
+  return clip.tags.some((t) => /independencia|grito|nogada/i.test(t));
+}
+
+/** On 15–16 Sept, El Grito leads Hoy. Other days stay shuffled. */
+export function pinPatriaClips(clips: Clip[]) {
+  if (!isPatriaDay()) return clips;
+  return [...clips.filter(isPatriaClip), ...clips.filter((c) => !isPatriaClip(c))];
 }
 
 /** Keep current order. Drop gone clips. Insert new ones at random spots. */
