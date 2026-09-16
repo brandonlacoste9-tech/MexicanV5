@@ -92,13 +92,19 @@ export function ClipPlayer({
           preload={active ? "auto" : "metadata"}
           disablePictureInPicture
           controls={false}
-          onLoadedData={() => setReady(true)}
+          onLoadedData={(e) => {
+            setReady(true);
+            if (active && !paused) void e.currentTarget.play().catch(() => {});
+          }}
           onPlaying={() => {
             setBuffering(false);
             setReady(true);
           }}
           onWaiting={() => setBuffering(true)}
-          onCanPlay={() => setBuffering(false)}
+          onCanPlay={(e) => {
+            setBuffering(false);
+            if (active && !paused) void e.currentTarget.play().catch(() => {});
+          }}
           onError={() => {
             const local = localClipVideoUrl(clip.id);
             if (src && src !== local) setSrc(local);

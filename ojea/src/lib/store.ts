@@ -557,7 +557,7 @@ export const useOjea = create<State>()((set, get) => ({
       set({
         clips: shuffleClips(mergeClipFeeds(clips, SEED_CLIPS)),
         backend: "live",
-        muted: readMuted(),
+        muted: true,
         paused: false,
         tab: get().tab === "following" && !session ? "foryou" : get().tab,
         user: session?.username ?? (guestState.guest ? "invitado" : null),

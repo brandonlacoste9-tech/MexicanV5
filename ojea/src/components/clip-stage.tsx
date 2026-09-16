@@ -10,6 +10,7 @@ import {
   SuggestedAside,
 } from "@/components/clip-chrome";
 import { LangToggle } from "@/components/lang-toggle";
+import { AvatarCircle } from "@/components/avatar";
 import { cn } from "@/lib/cn";
 import type { Clip } from "@/lib/clips";
 import { getLocale, useCopy } from "@/lib/i18n";
@@ -17,7 +18,7 @@ import { SERIES, SERIES_LABEL, type SeriesId } from "@/lib/culture";
 import { formatCount, useOjea } from "@/lib/store";
 
 export function ClipStage({ clips }: { clips: Clip[] }) {
-  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, countryFilter, seriesFilter, setCountryFilter, setSeriesFilter } =
+  const { index, setIndex, tab, setTab, togglePaused, toggleMute, toggleLike, toggleSave, countryFilter, seriesFilter, setCountryFilter, setSeriesFilter, clips: allClips, followed, toggleFollow, avatars } =
     useOjea();
   const c = useCopy();
   const scroller = useRef<HTMLDivElement>(null);
@@ -147,7 +148,11 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
               {label}
             </button>
           ))}
-          {SERIES.map((id) => (
+          {SERIES.filter((id) => {
+            if (countryFilter === "MX" && id === "SpainIn30s") return false;
+            if (countryFilter === "ES" && id === "MexicoIn30s") return false;
+            return true;
+          }).map((id) => (
             <button
               key={id}
               type="button"
@@ -167,7 +172,15 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
         </div>
 
         {clips.length === 0 ? (
-          <p className="px-6 py-32 text-center text-muted">{emptyCopy}</p>
+          <EmptyFeed
+            copy={emptyCopy}
+            tab={tab}
+            allClips={allClips}
+            followed={followed}
+            avatars={avatars}
+            onFollow={toggleFollow}
+            onForYou={() => setTab("foryou")}
+          />
         ) : (
           <div ref={scroller} className="stage-scroller no-scrollbar">
             {clips.map((clip, i) => (
@@ -216,6 +229,80 @@ export function ClipStage({ clips }: { clips: Clip[] }) {
       {current && !deskPanel ? (
         <SuggestedAside clip={current} clips={clips} />
       ) : null}
+    </div>
+  );
+}
+
+function EmptyFeed({
+  copy,
+  tab,
+  allClips,
+  followed,
+  avatars,
+  onFollow,
+  onForYou,
+}: {
+  copy: string;
+  tab: string;
+  allClips: Clip[];
+  followed: Record<string, boolean>;
+  avatars: Record<string, string>;
+  onFollow: (user: string) => void;
+  onForYou: () => void;
+}) {
+  const c = useCopy();
+  const suggestions = (() => {
+    const seen = new Set<string>();
+    const out: { user: string; displayName: string }[] = [];
+    for (const clip of allClips) {
+      if (followed[clip.user] || seen.has(clip.user) || clip.user === "otealo") continue;
+      seen.add(clip.user);
+      out.push({ user: clip.user, displayName: clip.displayName });
+      if (out.length >= 5) break;
+    }
+    return out;
+  })();
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+      <p className="max-w-xs text-sm text-muted">{copy}</p>
+      {tab === "following" && suggestions.length ? (
+        <ul className="mt-6 w-full max-w-xs space-y-2">
+          {suggestions.map((item) => (
+            <li
+              key={item.user}
+              className="flex items-center gap-3 rounded-lg border border-border bg-surface/80 px-3 py-2"
+            >
+              <AvatarCircle
+                name={item.displayName}
+                src={avatars[item.user]}
+                size="sm"
+              />
+              <Link
+                to="/u/$user"
+                params={{ user: item.user }}
+                className="min-w-0 flex-1 truncate text-left text-sm"
+              >
+                @{item.user}
+              </Link>
+              <button
+                type="button"
+                className="text-xs font-medium text-primary"
+                onClick={() => onFollow(item.user)}
+              >
+                {c.follow}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <button
+        type="button"
+        className="mt-6 text-sm font-medium text-primary"
+        onClick={onForYou}
+      >
+        {c.backToForYou}
+      </button>
     </div>
   );
 }

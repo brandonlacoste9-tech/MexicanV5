@@ -1183,19 +1183,55 @@ const EDITORIAL_CLIPS: Clip[] = [
   },
 ];
 
-export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS].map((c) => ({
-  ...c,
-  likes: 0,
-  comments: [],
-  shares: 0,
-  live: false,
-  viewers: undefined,
-  following: false,
-  friend: false,
-  video: c.video ?? seedClipVideoUrl(c.id),
-  series: inferSeries(c),
-  country: inferCountry(c),
-}));
+export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS].map((c) => {
+  const country = inferCountry(c);
+  const stamped = stampHouseCreator({ ...c, country });
+  return {
+    ...stamped,
+    likes: 0,
+    comments: [],
+    shares: 0,
+    live: false,
+    viewers: undefined,
+    following: false,
+    friend: false,
+    video: c.video ?? seedClipVideoUrl(c.id),
+    series: inferSeries(c),
+    country,
+  };
+});
+
+export function stampHouseCreator<
+  T extends { user: string; displayName: string; city?: string; country?: ClipCountry },
+>(clip: T): T {
+  if (clip.user && clip.user !== "otealo") return clip;
+  if (clip.country === "ES") {
+    return { ...clip, user: "iberia.ojo", displayName: "Iberia Ojo" };
+  }
+  const hit = CITY_HANDLE[clip.city ?? ""];
+  return hit ? { ...clip, user: hit.user, displayName: hit.displayName } : clip;
+}
+
+const CITY_HANDLE: Record<string, { user: string; displayName: string }> = {
+  "Ciudad de México": { user: "centro.cdmx", displayName: "Centro CDMX" },
+  Guadalajara: { user: "guadalajara.nights", displayName: "GDL Nights" },
+  Monterrey: { user: "norteno.mx", displayName: "Norteño" },
+  Mérida: { user: "yucatan.sabor", displayName: "Yucatán Sabor" },
+  Cancún: { user: "caribe.ojo", displayName: "Caribe Ojo" },
+  Oaxaca: { user: "istmo.luz", displayName: "Istmo Luz" },
+  Puebla: { user: "puebla.mole", displayName: "Puebla Mole" },
+  Tijuana: { user: "norteno.mx", displayName: "Norteño" },
+  León: { user: "guadalajara.nights", displayName: "GDL Nights" },
+  Querétaro: { user: "centro.cdmx", displayName: "Centro CDMX" },
+  "Estado de México": { user: "piedra.antigua", displayName: "Piedra Antigua" },
+  Michoacán: { user: "istmo.luz", displayName: "Istmo Luz" },
+  Madrid: { user: "iberia.ojo", displayName: "Iberia Ojo" },
+  Sevilla: { user: "iberia.ojo", displayName: "Iberia Ojo" },
+  Granada: { user: "iberia.ojo", displayName: "Iberia Ojo" },
+  Barcelona: { user: "iberia.ojo", displayName: "Iberia Ojo" },
+  Buñol: { user: "iberia.ojo", displayName: "Iberia Ojo" },
+  "Santiago de Compostela": { user: "iberia.ojo", displayName: "Iberia Ojo" },
+};
 
 export function mergeClipFeeds(...lists: Clip[][]) {
   const seen = new Set<string>();

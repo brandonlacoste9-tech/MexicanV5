@@ -1,4 +1,4 @@
-import type { Clip, Comment } from "./clips";
+import { stampHouseCreator, type Clip, type Comment } from "./clips";
 import { tCopy } from "./i18n";
 import { supabase } from "./supabase";
 
@@ -81,7 +81,7 @@ export function accountEmail(raw: string) {
 }
 
 function rowToClip(row: ClipRow, comments: Comment[]): Clip {
-  return {
+  return stampHouseCreator({
     id: row.id,
     user: row.username,
     displayName: row.display_name,
@@ -98,7 +98,7 @@ function rowToClip(row: ClipRow, comments: Comment[]): Clip {
     viewers: row.viewers ?? undefined,
     series: (row.series as Clip["series"]) ?? undefined,
     country: (row.country as Clip["country"]) ?? undefined,
-  };
+  });
 }
 
 export async function fetchClips(): Promise<Clip[]> {

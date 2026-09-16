@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
   Ban,
   Bookmark,
@@ -214,7 +214,8 @@ export function ShareDock({
   variant: "sheet" | "dock";
 }) {
   const c = useCopy();
-  const { user, openAuth, showToast, hideClip, reportClip, toggleRepost, bumpShares } = useOjea();
+  const navigate = useNavigate();
+  const { userId, openAuth, showToast, hideClip, reportClip, toggleRepost, bumpShares } = useOjea();
 
   function wrap(fn: () => void) {
     return () => {
@@ -264,12 +265,15 @@ export function ShareDock({
           icon={<MessageCircle className="size-4" />}
           label={c.sendOtealo}
           onClick={wrap(() => {
-            if (!user) {
+            if (!userId) {
               openAuth();
               return;
             }
             bumpShares(clip.id);
-            window.location.assign(`/inbox?to=${encodeURIComponent(clip.user)}`);
+            void navigate({
+              to: "/inbox",
+              search: { to: clip.user },
+            });
           })}
         />
         <SheetRow
