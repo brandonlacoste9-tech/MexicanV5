@@ -348,67 +348,45 @@ function ClipCard({
   near: boolean;
 }) {
   const c = useCopy();
-  const { followed, liked, toggleFollow, toggleLike, togglePaused, setPaused } = useOjea();
+  const { followed, liked, toggleFollow, toggleLike, togglePaused } = useOjea();
   const [sheet, setSheet] = useState<"comments" | "share" | null>(null);
   const [heart, setHeart] = useState(false);
-  const [holding, setHolding] = useState(false);
   const [expand, setExpand] = useState(false);
   const lastTap = useRef(0);
-  const holdTimer = useRef(0);
-  const held = useRef(false);
+  const pauseTimer = useRef(0);
   const isFollowed = !!followed[clip.user];
   const isLiked = !!liked[clip.id];
   const longCaption = clip.caption.length > 88;
 
+  useEffect(() => () => window.clearTimeout(pauseTimer.current), []);
+
   function onTap() {
     const now = Date.now();
     if (now - lastTap.current < 280) {
+      window.clearTimeout(pauseTimer.current);
+      lastTap.current = 0;
       if (!isLiked) toggleLike(clip.id);
       setHeart(true);
       window.setTimeout(() => setHeart(false), 700);
-    } else {
-      togglePaused();
+      return;
     }
     lastTap.current = now;
-  }
-
-  function clearHold() {
-    window.clearTimeout(holdTimer.current);
-    if (held.current) {
-      held.current = false;
-      setHolding(false);
-      setPaused(false);
-      return true;
-    }
-    return false;
+    window.clearTimeout(pauseTimer.current);
+    pauseTimer.current = window.setTimeout(() => {
+      togglePaused();
+      lastTap.current = 0;
+    }, 280);
   }
 
   return (
     <article data-clip-index={index} className="stage-clip">
-      <ClipPlayer clip={clip} active={active} near={near} holding={holding} />
+      <ClipPlayer clip={clip} active={active} near={near} />
       <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/40" />
       <button
         type="button"
         className="absolute inset-0"
         aria-label={c.pauseOrLike}
-        onPointerDown={() => {
-          held.current = false;
-          holdTimer.current = window.setTimeout(() => {
-            held.current = true;
-            setHolding(true);
-            setPaused(true);
-          }, 180);
-        }}
-        onPointerUp={() => {
-          if (clearHold()) return;
-          onTap();
-        }}
-        onPointerCancel={() => {
-          clearHold();
-        }}
-        onPointerLeave={() => {
-          if (held.current) clearHold();
-        }}
+        onClick={onTap}
       />
 
       {heart ? (
