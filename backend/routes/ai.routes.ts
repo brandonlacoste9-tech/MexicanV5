@@ -270,7 +270,7 @@ router.post("/generate-video", requireAuth, async (req: any, res) => {
 });
 
 // 8. Secure Proxies for Frontend AI Calls (preventing API keys exposure)
-router.post("/proxy/deepseek", async (req, res) => {
+router.post("/proxy/deepseek", requireAuth, async (req, res) => {
   try {
     const { model, messages, temperature, response_format, max_tokens } =
       req.body;
@@ -316,7 +316,7 @@ router.post("/proxy/deepseek", async (req, res) => {
   }
 });
 
-router.post("/proxy/gemini", async (req, res) => {
+router.post("/proxy/gemini", requireAuth, async (req, res) => {
   try {
     const { prompt, model } = req.body;
 

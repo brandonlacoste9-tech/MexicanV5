@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /entrar
+Disallow: /registro
+Disallow: /inbox
+Disallow: /ajustes
+Disallow: /crear
+Disallow: /recuperar
+Disallow: /nueva-clave
+
+Sitemap: https://otealo.com/sitemap.xml

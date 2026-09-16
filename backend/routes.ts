@@ -257,7 +257,7 @@ export async function registerRoutes(
 
   app.use("/api/mux", attachBearerUserId, muxRoutes);
   app.use("/api/live", attachBearerUserId, liveRoutes);
-  app.use("/api/video-doctor", videoDoctorRoutes);
+  app.use("/api/video-doctor", attachBearerUserId, videoDoctorRoutes);
 
   // Media proxy - streams external video/image URLs (fixes Mixkit 403, Unsplash ORB)
   app.use("/api/media-proxy", mediaProxyRoutes);
@@ -342,7 +342,7 @@ export async function registerRoutes(
 
   // ============ NOTIFICATIONS ROUTES ============
   app.use("/api/notifications", notificationRoutes);
-  app.use("/api/push", pushRoutes);
+  app.use("/api/push", attachBearerUserId, pushRoutes);
 
   // ============ SUPPORT ROUTES ============
   app.use("/api/support", supportRoutes);

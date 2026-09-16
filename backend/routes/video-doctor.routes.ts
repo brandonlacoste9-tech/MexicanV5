@@ -12,8 +12,10 @@ import {
   autoFixVideos,
 } from "../services/video-doctor.js";
 import { logger } from "../utils/logger.js";
+import { requireModerator } from "../middleware/require-moderator.js";
 
 const router = Router();
+router.use(requireModerator);
 
 /**
  * Supabase service-role client. The direct Postgres pool times out in
@@ -38,22 +40,6 @@ function getSupabase(): SupabaseClient {
   return _supabase;
 }
 
-// Admin middleware
-const requireAdmin = (req: any, res: any, next: any) => {
-  if (!req.userId) {
-    // return res.status(401).json({ error: "Unauthorized" });
-  }
-  // Check if user is admin/moderator
-  if (req.userRole !== "admin" && req.userRole !== "moderator") {
-    // return res.status(403).json({ error: "Admin access required" });
-  }
-  next();
-};
-
-/**
- * GET /api/video-doctor/health/:postId
- * Diagnose a specific video's health
- */
 router.get("/health/:postId", async (req, res) => {
   try {
     const { postId } = req.params;
@@ -100,7 +86,7 @@ router.post("/fix/:postId", async (req, res) => {
  * GET /api/video-doctor/health-check
  * Run health check on all videos (admin only)
  */
-router.get("/health-check", requireAdmin, async (req, res) => {
+router.get("/health-check", async (req, res) => {
   try {
     const { limit = 100 } = req.query;
     const reports = await healthCheckAllVideos(parseInt(limit as string));
@@ -134,7 +120,7 @@ router.get("/health-check", requireAdmin, async (req, res) => {
  * POST /api/video-doctor/auto-fix
  * Auto-fix all fixable videos (admin only)
  */
-router.post("/auto-fix", requireAdmin, async (req, res) => {
+router.post("/auto-fix", async (req, res) => {
   try {
     const { limit = 50 } = req.body;
     const result = await autoFixVideos(limit);
@@ -157,7 +143,7 @@ router.post("/auto-fix", requireAdmin, async (req, res) => {
  * POST /api/video-doctor/fix-pending
  * Fix all pending videos (admin only)
  */
-router.post("/fix-pending", requireAdmin, async (req, res) => {
+router.post("/fix-pending", async (req, res) => {
   try {
     const supabase = getSupabase();
 

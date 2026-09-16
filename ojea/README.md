@@ -1,10 +1,10 @@
-# Ojea web (TikTok-style)
+# Otealo (otealo.com)
 
-Playable Mexico feed wired to **MexicoV5**. This is the live Ojea UI:
-For You / Following / Friends / LIVE, right-hand action rail, comments
-as a side panel, share sheet, search tabs, Explore chips.
+Playable Mexico feed for **Otealo**. This is the live UI at
+[otealo.com](https://otealo.com): Para ti, Explorar, Siguiendo, Subir, Buzón, Perfil.
 
-Not a rewrite of `frontend/` (that stays the ZyeuteV5 stack + Mexico pack).
+Not a rewrite of `frontend/` (that stays the old Zyeute/Ojea stack). Production
+ships this folder on Netlify, not `frontend/`.
 
 ## Stack
 - TanStack Start + Router

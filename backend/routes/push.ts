@@ -8,6 +8,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import webpush from "web-push";
 import { createClient } from "@supabase/supabase-js";
+import { requireSeedAccess } from "../middleware/seed-auth.js";
 
 const router = Router();
 
@@ -110,7 +111,7 @@ router.delete("/subscribe", requireAuth, async (req, res) => {
 
 // ─── POST /send ───────────────────────────────────────────────────────────────
 // Internal — called by notification triggers (new follower, fire, comment, etc.)
-router.post("/send", async (req, res) => {
+router.post("/send", requireSeedAccess, async (req, res) => {
   // Only allow calls from same server (no external auth token needed since it's internal)
   const { userId, title, body, url, icon } = req.body as {
     userId: string;
