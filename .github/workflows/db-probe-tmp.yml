@@ -1,0 +1,27 @@
+name: DB probe (temporary)
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe candidate endpoints
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
+          BASE='${{ secrets.DATABASE_URL }}'
+          PW="$(echo "$BASE" | sed -E 's#^postgresql://[^:]+:([^@]+)@.*#\1#')"
+          REF="vuanulvyqkfefmjcikfk"
+          try() { # user host port
+            err=$(PGPASSWORD="$PW" psql -h "$2" -p "$3" -U "$1" -d postgres -tAc "select 1" 2>&1)
+            if [ "$err" = "1" ]; then
+              echo "READY >>> $1@$2:$3"
+            else
+              echo "FAIL $1@$2:$3 :: $(echo "$err" | head -1 | cut -c1-120)"
+            fi
+          }
+          try "postgres.$REF" "aws-0-us-east-1.pooler.supabase.com" "6543"
+          try "postgres" "db.$REF.supabase.co" "5432"
+          for r in us-west-1 eu-west-1 eu-west-2 eu-central-1 ap-southeast-1 ap-southeast-2 ap-northeast-1 ap-northeast-2 sa-east-1 ca-central-1 us-east-2; do
+            try "postgres.$REF" "aws-0-$r.pooler.supabase.com" "5432"
+          done
+          echo "probe done"
