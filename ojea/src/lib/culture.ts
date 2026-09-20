@@ -173,20 +173,22 @@ export const CALENDAR_CLIPS: CultureClip[] = [
     ["#MexicoIn30s", "parati"], "Ciudad de México"),
 ];
 
-export function inferSeries(clip: { series?: SeriesId; tags: string[] }): SeriesId {
+export function inferCountry(clip?: { country?: ClipCountry } | null): ClipCountry {
+  if (!clip) return "MX";
+  if (clip.country) return clip.country;
+  return "MX";
+}
+
+export function inferSeries(clip?: { series?: SeriesId; tags?: string[] } | null): SeriesId {
+  if (!clip) return "MexicoIn30s";
   if (clip.series) return clip.series;
-  const tags = clip.tags.map((t) => t.toLowerCase().replace("#", ""));
+  const tags = (clip.tags ?? []).map((t) => t.toLowerCase().replace("#", ""));
   if (tags.some((t) => ["maya", "azteca", "mexica", "piramide", "olmeca", "teotihuacan"].includes(t)))
     return "HistorySnack";
   if (tags.some((t) => ["tacos", "elote", "comida", "cacao", "churros"].includes(t)))
     return "FoodLab";
   if (tags.some((t) => ["muertos", "fiesta", "mariachi", "independencia", "grito"].includes(t))) return "FestivalFiles";
   return "MexicoIn30s";
-}
-
-export function inferCountry(clip: { country?: ClipCountry }): ClipCountry {
-  if (clip.country) return clip.country;
-  return "MX";
 }
 
 export function matchesCulture(

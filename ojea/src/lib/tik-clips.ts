@@ -2050,7 +2050,6 @@ export const TIK_CLIPS: Clip[] = [
     series: "DailyLife",
     country: "MX",
   },
-,
   {
     id: "tk-r129",
     user: "mbmarcobeteta",
@@ -2243,7 +2242,6 @@ export const TIK_CLIPS: Clip[] = [
     series: "FoodLab",
     country: "MX",
   },
-,
   {
     id: "tk-r144",
     user: "ricardoalonsoes",

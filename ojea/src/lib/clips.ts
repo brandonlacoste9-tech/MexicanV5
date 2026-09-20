@@ -2792,7 +2792,9 @@ export function stampHouseCreator<
   return hit ? { ...clip, user: hit.user, displayName: hit.displayName } : clip;
 }
 
-export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS, ...TIK_CLIPS].map((c) => {
+export const SEED_CLIPS: Clip[] = [...RAW_CLIPS, ...EDITORIAL_CLIPS, ...CALENDAR_CLIPS, ...TIK_CLIPS]
+  .filter((c): c is Clip => Boolean(c?.id))
+  .map((c) => {
   const country = inferCountry(c);
   const stamped = stampHouseCreator({ ...c, country });
   return {
