@@ -17,7 +17,7 @@ jobs:
             if [ "$err" = "1" ]; then
               echo "READY >>> $1@$2:$3"
             else
-              echo "FAIL $1@$2:$3 :: $(echo "$err" | head -1 | cut -c1-120)"
+              echo "FAIL $1@$2:$3 :: $(echo "$err" | tr '\n' '|' | cut -c1-500)"
             fi
           }
           try "postgres.$REF" "aws-0-us-east-1.pooler.supabase.com" "6543"
