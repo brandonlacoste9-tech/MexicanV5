@@ -9,7 +9,7 @@ jobs:
   backup:
     name: Create & Archive Backup
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📥 Checkout Code
         uses: actions/checkout@v4
@@ -17,16 +17,22 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22' # matches "engines": node >= 22 in package.json
           cache: 'npm'
 
       - name: 📦 Install Dependencies
         run: npm ci
 
+      - name: 🐘 Install PostgreSQL Client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client
+          pg_dump --version
+
       - name: 🗄️ Run Backup Script
         env:
-          # Add this secret in GitHub Repo Settings -> Secrets
-          DATABASE_URL: ${{ secrets.DATABASE_URL }} 
+          # Must exist in GitHub repo Settings -> Secrets and variables -> Actions
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BACKUP_DIR: ./backups
         run: |
           mkdir -p ./backups
@@ -38,3 +44,4 @@ jobs:
           name: ojea-db-backup-${{ github.run_id }}
           path: ./backups/*.sql.gz
           retention-days: 7
+          if-no-files-found: error
