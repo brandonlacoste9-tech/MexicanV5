@@ -1,13 +1,13 @@
 /**
  * Database Backup Utility
- * 
+ *
  * Automated PostgreSQL backup script with compression and retention policy.
  * Can be run manually or scheduled via cron/Railway cron jobs.
- * 
+ *
  * Usage:
- *   - Manual: npm run backup
+ *   - Manual: npm run db:backup
  *   - Scheduled: Add to Railway cron or use GitHub Actions
- * 
+ *
  * Environment Variables Required:
  *   - DATABASE_URL: PostgreSQL connection string
  *   - BACKUP_RETENTION_DAYS: Number of days to keep backups (default: 7)
@@ -17,9 +17,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs/promises';
 import path from 'path';
-import { createWriteStream } from 'fs';
-import { pipeline } from 'stream/promises';
-import { createGzip } from 'zlib';
+import { pathToFileURL } from 'url';
 
 const execAsync = promisify(exec);
 
@@ -53,7 +51,7 @@ export async function createBackup(): Promise<BackupResult> {
     // Use pg_dump to create backup
     // Format: Custom compressed format for optimal storage
     const dumpCommand = `pg_dump "${DATABASE_URL}" --format=custom --compress=9 --file="${filepath}.tmp"`;
-    
+
     await execAsync(dumpCommand, {
       maxBuffer: 1024 * 1024 * 100, // 100MB buffer
     });
@@ -208,8 +206,15 @@ async function main() {
   console.log('\n✅ Backup complete!');
 }
 
-// Run if executed directly
-if (require.main === module) {
+// Run if executed directly.
+// NOTE: this repo uses ES modules ("type": "module" in package.json), so the
+// old CommonJS check `require.main === module` throws
+// `ReferenceError: require is not defined`. Use the ESM-safe equivalent.
+const isMainModule =
+  process.argv[1] != null &&
+  import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (isMainModule) {
   main().catch((error) => {
     console.error('❌ Fatal error:', error);
     process.exit(1);
