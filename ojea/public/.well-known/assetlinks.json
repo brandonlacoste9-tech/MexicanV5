@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.otealo.www.twa",
+      "sha256_cert_fingerprints": [
+        "9169CBC1F9BBECA7015393C237A6EE57068E863DF12D7B7C60DF27A11DA5E7FD"
+      ]
+    }
+  }
+]
